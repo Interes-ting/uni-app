@@ -1,0 +1,84 @@
+{
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "uni-app"
+			}
+		}
+		,{
+		    "path" : "pages/account/register",
+		    "style" : {}
+		}
+	    ,{
+            "path" : "pages/account/modify",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/account/forget",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/login/login",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/order/throwRecord",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/order/throw",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/order/grabedOrderInfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/order/grab",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/order/grabOrderInfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/wallet/wallet",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/wallet/walletRecordInfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/wallet/withdraw",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/bank/bankEdit",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/person/person",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/person/personInfo",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/feedback/feedback",
+            "style" : {}
+        }
+        ,{
+            "path" : "pages/setting/setting",
+            "style" : {}
+        }
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "uni-app",
+		"navigationBarBackgroundColor": "#F8F8F8",
+		"backgroundColor": "#F8F8F8"
+	}
+}
