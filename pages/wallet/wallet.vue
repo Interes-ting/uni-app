@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		收益
 	</view>
 </template>
 
