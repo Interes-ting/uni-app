@@ -35,12 +35,6 @@
             "style" : {}
         }
         ,{
-            "path" : "pages/order/grab",
-           "style": {
-           	"navigationBarTitleText": "扔单"
-           }
-        }
-        ,{
             "path" : "pages/order/grabOrderInfo",
             "style" : {}
         }
