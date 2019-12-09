@@ -1,5 +1,5 @@
 <template>
-	<view class="aaa">
+	<view class="backco">
 		<view class="person-head">
 			<cmd-avatar src="https://avatar.bbs.miui.com/images/noavatar_small.gif" size="lg" :make="{'background-color': '#fff'}"></cmd-avatar>
 			<view class="person-head-box">
@@ -59,7 +59,7 @@
 </script>
 
 <style>
-	.aaa {
+	.backco {
 		background: linear-gradient(to right, #4752E8, #4987EE);
 	}
 	

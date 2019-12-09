@@ -217,7 +217,7 @@
 	}
 
 	.cmd-cell-item-title {
-		line-height: 1.2;
+		line-height: 2;
 	}
 
 	.cmd-cell-item-brief {
