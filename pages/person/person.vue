@@ -1,7 +1,7 @@
 <template>
 	<view class="aaa">
 		<view class="person-head">
-			<cmd-avatar src="https://avatar.bbs.miui.com/images/noavatar_small.gif" @click="fnInfoWin" size="lg" :make="{'background-color': '#fff'}"></cmd-avatar>
+			<cmd-avatar src="https://avatar.bbs.miui.com/images/noavatar_small.gif" size="lg" :make="{'background-color': '#fff'}"></cmd-avatar>
 			<view class="person-head-box">
 				<view class="person-head-nickname">张三</view>
 				<view class="person-head-username">长沙运邦搬家</view>
