@@ -74,6 +74,10 @@
             "path" : "pages/setting/setting",
             "style" : {}
         }
+        ,{
+            "path" : "pages/order/throwOrderInfo",
+            "style" : {}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
