@@ -13,5 +13,10 @@
 </script>
 
 <style>
+	@import url("common/iconfont/iconfont.css");
+	
 	/*每个页面公共css */
+	.mm{
+		font-siz:20px
+	}
 </style>
