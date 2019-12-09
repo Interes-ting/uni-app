@@ -3,7 +3,7 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "轻松搬家平台"
 			}
 		}
 		,{
@@ -36,7 +36,9 @@
         }
         ,{
             "path" : "pages/order/grab",
-            "style" : {}
+           "style": {
+           	"navigationBarTitleText": "扔单"
+           }
         }
         ,{
             "path" : "pages/order/grabOrderInfo",
@@ -44,7 +46,9 @@
         }
         ,{
             "path" : "pages/wallet/wallet",
-            "style" : {}
+           "style": {
+           	"navigationBarTitleText": "收益"
+           }
         }
         ,{
             "path" : "pages/wallet/walletRecordInfo",
@@ -60,7 +64,9 @@
         }
         ,{
             "path" : "pages/person/person",
-            "style" : {}
+            "style": {
+            	"navigationBarTitleText": "我的"
+            }
         }
         ,{
             "path" : "pages/person/personInfo",
@@ -80,5 +86,34 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
+	},
+	"tabBar": {
+	    "color": "#bfbfbf",
+	    "selectedColor": "#4CD964",
+	    "borderStyle": "black",
+	    "backgroundColor": "#ffffff",
+			"height":"162px",
+	    "list": [{
+	        "pagePath": "pages/index/index",
+	        "iconPath": "static/grad.jpg",
+	        "selectedIconPath": "static/grad.jpg",
+	        "text": "首页"
+	    }, {
+	        "pagePath": "pages/order/grab",
+	        "iconPath": "static/grad.jpg",
+	        "selectedIconPath": "static/grad.jpg",
+	        "text": "扔单"
+	    }, 
+			{
+			    "pagePath": "pages/wallet/wallet",
+			    "iconPath": "static/wallet.jpg",
+			    "selectedIconPath": "static/wallet.jpg",
+			    "text": "收益"
+			},{
+	        "pagePath": "pages/person/person",
+	        "iconPath": "static/person.jpg",
+	        "selectedIconPath": "static/person.jpg",
+	        "text": "我的"
+	    }]
 	}
 }
