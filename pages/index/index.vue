@@ -128,13 +128,14 @@ export default {
 			carList: [],
 		};
 	},
-	created() {
+	mounted() {
 		// 发送网络请求
 		// this.getList();
+		console.log(this.carList)
 
 	},
-	mounted() {
-		this.getList();
+	onLoad() {
+		// this.getList();
 	},
 	methods: {
 		goThrow: function (){
@@ -143,17 +144,17 @@ export default {
 			     url: "../order/throw"
 			 });
 		},
-		getList:function(){
-			//网络请求
-			uni.request({
-			  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
-				method: 'POST',
-			  success: function (res) {
-				this.carList = res.data.data;
-				console.log(this.carList)
-			 }
-			});
-		},
+		// getList:function(){
+		// 	//网络请求
+		// 	uni.request({
+		// 	  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
+		// 		method: 'POST',
+		// 	  success: function (res) {
+		// 		this.carList = res.data.data;
+		// 		console.log(this.carList)
+		// 	 }
+		// 	});
+		// },
 		goWallet: function (){
 			//收益
 			uni.navigateTo({

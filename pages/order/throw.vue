@@ -1,11 +1,7 @@
 <!-- 扔单 -->
 <template>
-	<view>
-		 <view>
-		        <block v-for="(item,index) in carList" :key="index">
-		            <view>{{item}} - {{index}}</view>
-		        </block>
-		    </view>
+	<view class="throw-content">
+		<view class="mt-hascar"></view>
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
@@ -69,6 +65,13 @@
 	}
 </script>
 
-<style>
-
+<style lang="less" scoped>
+	page{
+		background-color:#f4f4f4;
+		color: #333333;
+	}
+	image{
+		width: 100%;
+		height: 100%;
+	}
 </style>
