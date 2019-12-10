@@ -17,15 +17,16 @@
 					<view class="mt-loginimge">2</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="Boolean" class="uni-input" placeholder="请输入账户密码" v-model="password" />
+					<input  password="false"  class="uni-input" placeholder="请输入账户密码" v-model="password" />
+					
 				</view>
 			</view>
 		</view>
 		<view class="mt-in mtin">
-			<view class="mt-registration">
+			<view class="mt-registration" @click="regdex">
 				新用户注册
 			</view>
-			<view class="mt-forget">
+			<view class="mt-forget" @click="forgetdex">
 				忘记密码?
 			</view>
 		</view>
@@ -58,6 +59,16 @@
 			}
 		},
 		methods: {
+			regdex:function(){
+				uni.navigateTo({
+					url:'../account/register'
+				})
+			},
+			forgetdex:function(){
+				uni.navigateTo({
+					url:'../account/modify'
+				})
+			},
 			login() {
 				let user = {
 					account: this.account,
@@ -89,7 +100,8 @@
 					that.$mtRequest.stop();
 				})
 			}
-		}
+		},
+		
 	}
 </script>
 

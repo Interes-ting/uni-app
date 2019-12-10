@@ -72,9 +72,11 @@
 							<input class="uni-input" @input="onKeyInput" placeholder="" />
 						</view>
 					</view>
-					<view class="mt-input-img mt-yz">
-						<view class="mt-loginimge">获取验证码</view>
-					</view>
+				<view class="mt-input-img mt-yz">
+					<!-- <view class="mt-loginimge"   @click="getAuthCode">获取验证码</view> -->
+					<view v-if="showtime===null" class="mt-loginimge" @click="send">获取验证码</view>
+					 <view v-else class="captcha-button">{{showtime}}</view>
+				</view>
 				</view>
 			</view>
 		</view>
@@ -82,12 +84,61 @@
 			<button class="mt-loginbutndl" type="primary">注册</button>
 		</view>
 		<view class="mt-loginbutn">
-			<button class="mt-loginbutndl" type="primary">返回</button>
+			<button class="mt-loginbutndl" type="primary" @click="goIndex">返回</button>
 		</view>
 	</view>
 </template>
 
 <script>
+	export default {
+		data() {
+			return {
+				phoneCode:'',
+			  // 计时器,注意需要进行销毁
+			  timeCounter: null,
+			  // null 则显示按钮 秒数则显示读秒
+			  showtime: null
+			}
+		},
+		methods: {
+			goIndex:function(){
+				uni.navigateTo({
+					url:'../login/login'
+				})
+			},
+		// 倒计时显示处理
+		 countDownText(s) {
+		  this.showtime = `${s}s后重新获取`
+		 },
+		 //倒计时 60秒 不需要很精准
+		 countDown(times) {
+		  const self = this;
+		  // 时间间隔 1秒
+		  const interval = 1000;
+		  let count = 0;
+		  self.timeCounter = setTimeout(countDownStart, interval);
+		  function countDownStart() {
+		  if (self.timeCounter == null) {
+		   return false;
+		  }
+		  count++
+		  self.countDownText(times - count + 1);
+		  if (count > times) {
+		   clearTimeout(self.timeCounter)
+		   self.showtime = null;
+		  } else {
+		   self.timeCounter = setTimeout(countDownStart, interval)
+		  }
+		  }
+		 },
+		 send() {
+		  this.countDown(60);
+		  
+		 }
+		 },
+		
+	}
+	
 </script>
 
 <style>
@@ -119,16 +170,17 @@
 	}
 
 	.mt-loginbutn {
-		width: 60%;
+		width: 70%;
 		height: 78rpx;
-		margin: 0 20%;
+		margin: 0 15%;
 		border: 20;
 		font-size: 15px;
 		font-weight: 400;
-		padding: 5% 0 0 0;
+		padding: 50rpx 0 70rpx 0;
 	}
 
 	.mt-loginbutndl {
+		
 		border-radius: 20px;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
@@ -200,13 +252,13 @@
 
 	/* 验证码外部框宽度 */
 	.mt-input-input.mt-yz {
-		width: 80%;
+		width: 75%;
 		float: left;
 	}
 
 	/* 验证码输入框 */
 	.mt-input-img.mt-yz {
-		width: 29%;
+		width: 40%;
 		float: left;
 		margin: 0;
 		font-size: 12px;
@@ -224,7 +276,7 @@
 	}
 
 	.mt-boder {
-		width: 69%;
+		width: 60%;
 		height: 78rpx;
 		float: left;
 		border-top-left-radius: 20px;

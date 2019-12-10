@@ -57,7 +57,7 @@
 			<button class="mt-loginbutndl" type="primary">确认</button>
 		</view>
 		<view class="mt-loginbutn">
-			<button class="mt-loginbutndl" type="primary">返回</button>
+			<button class="mt-loginbutndl" type="primary" @click="logindex">返回</button>
 		</view>
 	</view>
 </template>
@@ -74,6 +74,11 @@
 			}
 		},
 		methods: {
+			logindex:function(){
+				uni.navigateTo({
+					url:'../login/login'
+				})
+			},
 		// 倒计时显示处理
 		 countDownText(s) {
 		  this.showtime = `${s}s后重新获取`
@@ -101,6 +106,7 @@
 		 },
 		 send() {
 		  this.countDown(60);
+		  
 		 }
 		 },
 		
@@ -113,7 +119,7 @@
 		margin: 0 auto;
 		background-color: #fff;
 		border-radius: 13px;
-		padding: 0 0 8% 0;
+		padding: 0 0 15% 0;
 	}
 
 	uni-page-body {
@@ -134,15 +140,15 @@
 	.mt-in.mtin {
 		padding: 0 0 50rpx 0;
 	}
-
+/* 确认按钮宽度 */
 	.mt-loginbutn {
-		width: 60%;
+		width: 70%;
 		height: 78rpx;
-		margin: 0 20%;
+		margin: 0 15%;
 		border: 20;
 		font-size: 15px;
 		font-weight: 400;
-		padding: 5% 0 0 0;
+		padding: 60rpx 0 80rpx 0;
 	}
 
 	.mt-loginbutndl {
@@ -217,13 +223,13 @@
 
 	/* 验证码外部框宽度 */
 	.mt-input-input.mt-yz {
-		width: 80%;
+		width: 75%;
 		float: left;
 	}
 
 	/* 验证码输入框 */
 	.mt-input-img.mt-yz {
-		width: 29%;
+		width: 40%;
 		float: left;
 		margin: 0;
 		font-size: 12px;
@@ -241,7 +247,7 @@
 	}
 
 	.mt-boder {
-		width: 69%;
+		width: 60%;
 		height: 78rpx;
 		float: left;
 		border-top-left-radius: 20px;
