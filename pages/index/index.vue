@@ -14,76 +14,101 @@
 		</view>
 		<!-- 按钮组-->
 		<view class="mt-buttons-content">
-			<view class="mt-buttons-item current-active">
-				<view class="mt-image-content second-image">
-					<image class="mt-order-img" src="../../static/抢单.png"></image></view>
-				<text class="mt-order">抢单记录(1)</text>
+			<view class="mt-buttons-item" @tap="gradOrderInfo">
+				<image class="mt-order-img" src="../../static/抢单.png"></image>
+				<text>我的抢单</text>
 			</view>
 			<view class="mt-place-content"></view>
 			<view class="mt-buttons-item"  @tap="fn">
-				<view class="mt-image-content second-image">
-					<image class="mt-order-img" src="../../static/扔单.png"></image></view>
-				<text class="mt-order">扔单记录(0)</text>
+					<image class="mt-order-img imgsecond" src="../../static/扔单.png"></image>
+				<text >我的扔单</text>
 			</view>
 		</view>
 		<!-- 抢单信息 -->
-			<view class="mt-throw-content">
+			<view class="mt-throw-content" style="margin-bottom: 80rpx;">
 				<view class="mt-subject">
-					
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
-						<text style="font-size: 30rpx;font-weight: 700;">苏州市</text>
-						<image class="mt-detial" src="../../static/起点.png"></image>
+						<text class="text-spacing fontbold">苏州市</text>
 					</view>
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
-						<text style="font-size: 30rpx;font-weight: 700;">苏州市</text>
+						<text  class="text-spacing fontbold">苏州市</text>
 					</view>
 					<view class="mt-front">
-						<text class="mt-front-one">订单金额：40元</text>
-						<text class="mt-front-two">订单金额：20元</text>
+						<text class="mt-front-one text-spacing fontbold">订单金额：40元</text>
+						<text class="mt-front-two text-spacing fontbold">订单金额：20元</text>
 					</view>
 					<view class="mt-distance">
 						<text class="mt-distance-icon"></text>
-						<text class="mt-distance-text">距离：6公里</text>
+						<text class="mt-distance-text" text-spacing>距离：6公里</text>
 					</view>
 					<view class="mt-distance">
 						<text class="mt-distance-icon"></text>
-						<text class="mt-distance-text">出发时间：2019-05-20</text>
+						<text class="mt-distance-text text-spacing">出发时间：2019-1-28  08:36</text>
 					</view>
 					<view class="mt-distance">
 						<text class="mt-distance-icon"></text>
-						<text class="mt-distance-text">搬运物品：爱心一枚</text>
+						<text class="mt-distance-text text-spacing">搬运物品：螺纹钢1个规格31.29吨</text>
 					</view>
 					<view class="mt-label">
+						<text class="mt-sos">急</text>
 						<text class="mt-label-car">中面包车</text>
 						<text class="mt-label-car">多拍车</text>
 					</view>
 					<view class="mt-seedeil">
-						<text class="mt-seedeil-text">此鼎带你武都区武都区武都区我</text>
-						<button class="mt-seedeil-btn">查看</button>
+						<text class="mt-seedeil-text">此订单由长沙运邦搬家提供</text>
+						<button class="mt-seedeil-btn" @tap="searchInfo">查看</button>
 					</view>
 				</view>
 				<!-- er -->
 				<view class="mt-subject1">
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
-						<text style="font-size: 30rpx;font-weight: 700;">苏州市</text>
-						<image class="mt-detial" src="../../static/起点.png"></image>
+						<text class="grabed-textcolor">苏州市</text>
 					</view>
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
-						<text style="font-size: 30rpx;font-weight: 700;">苏州市</text>
+						<text class="grabed-textcolor">苏州市</text>
 					</view>
 					<view class="mt-distance">
 						<text class="mt-distance-icon"></text>
-						<text class="mt-distance-text">距离：6公里</text>
+						<text class="mt-distance-text grabed-textcolor">螺纹钢1个规格31.29吨</text>
 					</view>
 					<view class="mt-distance">
 						<text class="mt-distance-icon"></text>
-						<text class="mt-distance-text">出发时间：2019-05-20</text>
-						<button class="mt-seedeil-btn">查看</button>
+						<text class="mt-distance-text grabed-textcolor">螺纹钢1个规格31.29吨</text>
+						<button class="mt-seedeil-btn grabed-color">查看</button>
 					</view>
+				</view>
+			</view>
+			<!-- 底部导航栏 -->
+			<view class="cu-bar tabbar bg-white mt-tabbar">
+				<view class="action" >
+					<view class="cuIcon-cu-image">
+						<image src="../../static/person.jpg"></image>
+				</view>
+					<view class="text-blue">首页</view>
+				</view>
+				<view class="action" @click="goThrow">
+					<view class="cuIcon-cu-image">
+						<image src="../../static/person.jpg"></image>
+					</view>
+					<view class="text-gray">扔单</view>
+				</view>
+				<view class="action"  @click="goWallet">
+					<view class="cuIcon-cu-image">
+						<image src="../../static/person.jpg"></image>
+						<!-- <view class="cu-tag badge">99</view> -->
+					</view>
+					<view class="text-gray">收益</view>
+				</view>
+				<view class="action"  @click="goPerson">
+					<view class="cuIcon-cu-image">
+						<image src="../../static/person.jpg"></image>
+						<!-- <view class="cu-tag badge"></view> -->
+					</view>
+					<view class="text-gray">我的</view>
 				</view>
 			</view>
 		</view>
@@ -92,17 +117,57 @@
 
 <script>
 export default {
+	
 	data() {
 		return {
-			title: '首页'
 		};
 	},
-	onLoad() {},
+	onLoad() {
+		// 发送网络请求
+		const requestTask = uni.request({
+		  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
+			method: 'POST',
+		  success: function (res) {
+		  console.log(res.data.data);
+		  }
+		});
+	},
 	methods: {
+		goThrow: function (){
+			//扔单
+			 uni.navigateTo({
+			     url: "../order/throw"
+			 });
+		},
+		goWallet: function (){
+			//收益
+			uni.navigateTo({
+			    url: "../wallet/wallet"
+			});
+		},
+		goPerson: function (){
+			//个人中心
+			uni.navigateTo({
+			    url: "../person/person"
+			});
+		},
+		
 		fn: function (){
 			//跳转到扔单记录
 			uni.navigateTo({
 			    url: "../order/throwRecord"
+			});
+		},
+		searchInfo:function(){
+			//跳转到抢单详情
+			uni.navigateTo({
+			    url: "../order/grabOrderInfo"
+			});
+		},
+		gradOrderInfo:function(){
+			//跳转到抢单记录
+			uni.navigateTo({
+			    url: "../order/grabRecord"
 			});
 		}
 	}
@@ -110,130 +175,22 @@ export default {
 };
 </script>
 
-<style>
+<style lang="less" scoped>
 page {
 	background-color: #f4f4f4;
+	color: #333333;
 }
 image {
 	width: 100%;
 	height: 100%;
 }
-.mt-seedeil {
-	width: 100%;
-	height: 70rpx;
-	position: relative;
-}
-.mt-seedeil-text {
-	margin-left: 30rpx;
-	display: inline-block;
-	font-size: 24rpx;
-	
-}
-.mt-seedeil-btn {
-	width: 120rpx;
-	height: 50rpx;
-	display: inline-block;
-	text-align: center;
-	line-height: 50rpx;
-	border-radius: 25rpx;
-	background-color: skyblue;
-	color: #fff;
-	font-size: 30rpx;
-	margin-left: 60rpx;
-	position: absolute;
-	right: 100rpx;
-	/* top: 10rpx; */
-}
-.mt-label {
-	width: 100%;
-	
-	height: 50rpx;
-	color: orange;
-	font-size: 20rpx;
-}
-.mt-label-car{
-	display: inline-block;
-	/* background-color: orange; */
-	width: 130rpx;
-	 /* height: 30rpx; */
-	text-align: center;
-	border: 1rpx solid orange;
-	border-radius: 10rpx;
-	margin-right: 10rpx;
-	margin-left: 30rpx;
-}
-.mt-distance {
-	position: relative;
-	width: 100%;
-	height: 50rpx;
-	color: #ccc;
-	font-size: 24rpx;
-}
-.mt-distance-icon {
-	display: inline-block;
-	width: 20rpx;
-	height: 20rpx;
-	margin-left: 10rpx;
-	margin-right: 10rpx;
-	background-color: pink;
-	
-}
-.mt-front {
-	width: 100%;
-	height: 60rpx;
-	font-size: 20rpx;
-	font-weight: 700;
-}
-.mt-front-one {
-	padding-left: 20rpx;
-}
-.mt-front-two {
-	padding-left: 90rpx;
-}
-.mt-detial{
-	float: right;
-	margin: 10rpx 20rpx 0 0;
-	width: 50rpx;
-	height: 50rpx;
-	background-color: pink;
-}
+// .mt-tabbar{
+// 	position: fixed;
+// 	z-index: 999;
+// 	bottom: 0;
+// 	width: 100%;
+// }
 
-.mt-start-image {
-	width: 100%;
-	height: 60rpx;
-	
-}
-.mt-subject {
-	width: 100%;
-	background-color: #FFFFFF;
-	margin-bottom: 30rpx;
-}
-.mt-subject1 {
-	width: 100%;
-	background-color: #FFFFFF;
-	height: 250rpx;
-	/* margin-bottom: 10rpx; */
-}
-.mt-city {
-	width: 20rpx;
-	height: 20rpx;
-	margin: 0 10rpx;
-	
-}
-.mt-buttons-content {
-	position: relative;
-}
-.mt-order-img {
-	left:30rpx;
-	top:50%;
-	transform: translateY(-30%);
-}
-.mt-order {
-	position: absolute;
-	lefe:50%;
-	top:50%;
-	transform: translate(-50%,-50%);
-}
 .content {
 	display: flex;
 	flex-direction: column;
@@ -252,6 +209,7 @@ image {
 }
 .mt-buttons-content {
 	display: flex;
+	position: relative;
 	flex-direction: row;
 	justify-content: center;
 	width: 100%;
@@ -267,19 +225,20 @@ image {
 		justify-content: center;
 		text-align: center;
 }
-.mt-image-content{
-	width:54rpx ;
+
+.mt-order-img {
+	width:54rpx;
 	height: 68.66rpx;
+	position: relative;
+	right: 13.33rpx;
+	top: 20%;
 }
-.second-image {
+.imgsecond{
 	width: 62rpx;
-	
-}
-.mt-image-content image{
-	width: 100%;
-	height: 100%;
 }
 .mt-place-content {
+	position: absolute;
+	top: 26.66rpx;
 	width: 0.66rpx;
 	height: 54.66rpx;
 	background-color: #cccccc;
@@ -287,16 +246,137 @@ image {
 .mt-throw-content{
 	width: 100%;
 	box-sizing: border-box;
-	padding:10rpx;
+	padding:20rpx;
+}
+.mt-subject {
+	width: 100%;
+	background-color: #FFFFFF;
+	margin-bottom: 30rpx;
+	border-radius: 13.04rpx;
+	padding:13.04rpx ;
 }
 .mt-start-image {
 		width: 100%;
 		background-color: #fff;
-		
-	}
-.mt-start-edit{
-	width: 37.33rpx;
-	height: 41.33rpx;
-	color: #007AFF;
+		border-radius: 13.04rpx;
+		font-size: 31.31rpx;
+		color: #333333;
+		height: 53.33rpx;
+}
+.mt-city {
+	width: 18rpx;
+	height: 24rpx;
+	margin: 0 10rpx;
+}
+.grabed-textcolor {
+	color: #999999;
+}
+.grabed-color {
+	background-color: #CCCCCC;
+}
+.text-spacing{
+	letter-spacing: 7rpx;
+}
+.fontbold{
+	font-weight:700;
+}
+.mt-buttons-content {
+	position: relative;
+}
+
+.mt-subject1 {
+	width: 100%;
+	background-color: #FFFFFF;
+	margin-bottom: 30rpx;
+	border-radius: 13.04rpx;
+	padding:13.04rpx;
+}
+.mt-front {
+	width: 100%;
+	height: 60rpx;
+	line-height: 60rpx;
+	font-size: 25.52rpx;
+	font-weight: 400rpx;
+	line-height: 60rpx;
+	margin-left: 12rpx;
+}
+.mt-front-one {
+	padding-left: 20rpx;
+}
+.mt-front-two {
+	padding-left: 60rpx;
+}
+.mt-distance {
+	position: relative;
+	width: 100%;
+	height: 50rpx;
+	line-height: 50rpx;
+	color: #666666;
+	font-size: 25.52rpx;
+}
+.mt-distance-icon {
+	display: inline-block;
+	width: 16.66rpx;
+	height: 16.66rpx;
+	background-color: pink;
+	margin-right: 10rpx;
+	margin-left: 10rpx;
+}
+
+.mt-label {
+	width: 100%;
+	color: orange;
+	font-size: 20rpx;
+	vertical-align: middle;
+	padding-top: 10rpx;
+	padding-bottom: 20rpx;
+}
+.mt-sos{
+	display: inline-block;
+	background-color: red;
+	padding: 6.66rpx 13.33rpx;
+	 /* height: 30rpx; */
+	text-align: center;
+	border: 1rpx solid orange;
+	border-radius: 10rpx;
+	margin-left: 30rpx;
+	color: #FFFFFF;
+}
+
+.mt-label-car{
+	display: inline-block;
+	padding: 6.66rpx 13.33rpx;
+	text-align: center;
+	border: 1rpx solid #FF571D;
+	border-radius: 10rpx;
+	margin-left: 15rpx;
+}
+.mt-seedeil {
+	width: 100%;
+	height: 70rpx;
+	position: relative;
+}
+.mt-seedeil-text {
+	margin-left: 30rpx;
+	display: inline-block;
+	font-size: 25.52rpx
+} 
+.mt-seedeil-btn {
+	width: 156.66rpx;
+	height: 68.66rpx;
+	line-height: 68.66rpx;
+	display: inline-block;
+	text-align: center;
+	border-radius: 51.5px;
+	background:linear-gradient(to bottom, #1880FF,#509EFF);/*设置按钮为渐变颜色*/
+	color: #fff;
+	font-size: 30rpx;
+	margin-left: 60rpx;
+	position: absolute;
+	right: 100rpx;
+	bottom: 20rpx;
+}
+.grabed-color{
+	background-color: #CCCCCC!important;
 }
 </style>

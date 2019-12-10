@@ -1,6 +1,7 @@
 <template>
 	<view>
 		扔单记录
+		<button type="primary" @tap="fn">跳转到扔单详情</button>
 	</view>
 </template>
 
@@ -12,7 +13,11 @@
 			}
 		},
 		methods: {
-			
+			fn:function(){
+				uni.navigateTo({
+				    url: './throwOrderInfo'
+				});
+			}
 		}
 	}
 </script>
