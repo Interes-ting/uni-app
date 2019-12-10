@@ -4,20 +4,20 @@
 		<view class="mt-in padin">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view  class="mt-loginimge"  >1</view>
+					<view class="mt-loginimge">1</view>
 				</view>
 				<view class="mt-input-input">
-					<input class="uni-input" @input="onKeyInput" placeholder="输入用户手机号码" />
+					<input class="uni-input" placeholder="请输入账号" v-model="account" />
 				</view>
 			</view>
 		</view>
 		<view class="mt-in">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view  class="mt-loginimge"  >2</view>
+					<view class="mt-loginimge">2</view>
 				</view>
 				<view class="mt-input-input">
-					<input class="uni-input" @input="onKeyInput" placeholder="输入用户手机号码" />
+					<input class="uni-input" placeholder="请输入密码" v-model="password" />
 				</view>
 			</view>
 		</view>
@@ -30,7 +30,7 @@
 			</view>
 		</view>
 		<view class="mt-loginbutn">
-			 <button class="mt-loginbutndl" type="primary">登录</button>
+			<button class="mt-loginbutndl" type="primary" @click="login">登录</button>
 		</view>
 	</view>
 </template>
@@ -39,32 +39,81 @@
 	export default {
 		data() {
 			return {
-				
+				account: "",
+				password: "",
+				rules: {
+					account: [{
+						type: "require",
+						msg: "请输入账号"
+					}],
+					password: [{
+						type: "require",
+						msg: "请输入密码"
+					}, {
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
+					}]
+				}
 			}
 		},
 		methods: {
-			
+			login() {
+				let user = {
+					account: this.account,
+					password: this.password
+				}
+
+				//做校验
+				let validResult = this.$mtValidation.valid(user, this.rules);
+				if (!validResult) {
+					return;
+				}
+				//请求登录
+				let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/sys/loginapi/login"), user, function(data) {
+					if (data.state > 0) {
+						//登录成功
+						uni.showToast({
+							title: "登录成功"
+						})
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+
+					//结束请求
+					that.$mtRequest.stop();
+				})
+			}
 		}
 	}
 </script>
 
 <style>
-	uni-page-body{
+	uni-page-body {
 		height: 100%;
 	}
-	.mt-body{
+
+	.mt-body {
 		display: block;
 		height: 100%;
-			background-image: url('~@/static/sylog.png') ;
-			background-size: 100% 100%;
+		background-image: url('~@/static/sylog.png');
+		background-size: 100% 100%;
 	}
-	.mt-in.padin{
+
+	.mt-in.padin {
 		padding: 35% 0 0 0;
 	}
-	.mt-in.mtin{
+
+	.mt-in.mtin {
 		padding: 0 0 50px 0;
 	}
-	.mt-loginbutn{
+
+	.mt-loginbutn {
 		width: 80%;
 		height: 88rpx;
 		margin: 0 10%;
@@ -74,11 +123,14 @@
 		margin: 10%;
 		padding: 5% 0 0 0;
 	}
-	.mt-loginbutndl{
+
+	.mt-loginbutndl {
 		border-radius: 20px;
-		background:linear-gradient(to bottom, #6FAFFF,#1880FF);/*设置按钮为渐变颜色*/
+		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
+		/*设置按钮为渐变颜色*/
 	}
-	.mt-uers{
+
+	.mt-uers {
 		color: #FFFFFF;
 		font-size: 17px;
 		widows: 100%;
@@ -86,51 +138,59 @@
 		font-weight: 500;
 		padding: 3% 0 0 0;
 	}
-	.mt-registration,.mt-forget{
+
+	.mt-registration,
+	.mt-forget {
 		font-size: 12rpx;
 		color: #FFFFFF;
 		float: left;
 		width: 50%;
 	}
-	.mt-loginimge{
+
+	.mt-loginimge {
 		width: 100%;
 		height: 100%;
 	}
-	
-.mt-in{
-	text-align: center;
-	width: 100%;
-	margin-top: 20px;
-}
-.uni-input{
-	    display: inline-flex;
+
+	.mt-in {
+		text-align: center;
+		width: 100%;
+		margin-top: 20px;
+	}
+
+	.uni-input {
+		display: inline-flex;
 		width: 80%;
-}
-.mt-input{
-	height: 88rpx;
-	line-height: 80rpx;
-	width: 80%;
-	margin: 0 10%;
-	border-radius: 20px;
-	border: 1px solid #FFFFFF;
-}
-.mt-input-img{
-	height: 50rpx;
-	width: 50rpx;
-	margin-top: 2px;
-	margin-left: 15px;
-	margin-right: 10px;
-	float: left;
-	color: #FFFFFF;
-}
-.mt-input-input{
-	height: 88rpx;
-	line-height: 88rpx;
-	text-align: left;
-	width: 100%;
-	
-}
-.uni-input-placeholder{
-	color: #F1F1F1;
-}
+	}
+
+	.mt-input {
+		height: 88rpx;
+		line-height: 80rpx;
+		width: 80%;
+		margin: 0 10%;
+		border-radius: 20px;
+		border: 1px solid #FFFFFF;
+	}
+
+	.mt-input-img {
+		height: 50rpx;
+		width: 50rpx;
+		margin-top: 2px;
+		margin-left: 15px;
+		margin-right: 10px;
+		float: left;
+		color: #FFFFFF;
+	}
+
+	.mt-input-input {
+		height: 88rpx;
+		line-height: 88rpx;
+		text-align: left;
+		width: 100%;
+
+	}
+
+	.uni-input-placeholder {
+		color: #F1F1F1;
+	}
 </style>
