@@ -24,20 +24,34 @@
         }
         ,{
             "path" : "pages/order/throwRecord",
-            "style" : {}
+           "style": {
+           	"navigationBarTitleText": "扔单记录"
+           }
         }
         ,{
             "path" : "pages/order/throw",
-            "style" : {}
+          "style": {
+          	"navigationBarTitleText": "扔单"
+          }
         }
         ,{
             "path" : "pages/order/grabedOrderInfo",
-            "style" : {}
+           "style": {
+           	"navigationBarTitleText": "已抢订单详情"
+           }
         }
         ,{
             "path" : "pages/order/grabOrderInfo",
-            "style" : {}
-        }
+            "style": {
+            	"navigationBarTitleText": "抢单详情"
+            }
+        },
+				{
+				    "path" : "pages/order/grabRecord",
+				    "style": {
+				    	"navigationBarTitleText": "抢单记录"
+				    }
+				}
         ,{
             "path" : "pages/wallet/wallet",
            "style": {
@@ -76,7 +90,9 @@
         }
         ,{
             "path" : "pages/order/throwOrderInfo",
-            "style" : {}
+            "style" : {
+							"navigationBarTitleText":"扔单详情"
+						}
         }
     ],
 	"globalStyle": {
@@ -84,31 +100,6 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	},
-	"tabBar": {
-	    "color": "#bfbfbf",
-	    "selectedColor": "#4CD964",
-	    "list": [{
-	        "pagePath": "pages/index/index",
-	        "iconPath": "static/grad.jpg",
-	        "selectedIconPath": "static/grad.jpg",
-	        "text": "首页"
-	    }, {
-	        "pagePath": "pages/order/throw",
-	        "iconPath": "static/grad.jpg",
-	        "selectedIconPath": "static/grad.jpg",
-	        "text": "扔单"
-	    }, 
-			{
-			    "pagePath": "pages/wallet/wallet",
-			    "iconPath": "static/wallet.jpg",
-			    "selectedIconPath": "static/wallet.jpg",
-			    "text": "收益"
-			},{
-	        "pagePath": "pages/person/person",
-	        "iconPath": "static/person.jpg",
-	        "selectedIconPath": "static/person.jpg",
-	        "text": "我的"
-	    }]
 	}
+	
 }

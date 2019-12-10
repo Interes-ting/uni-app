@@ -1,6 +1,7 @@
+<!--已 抢单记录详细信息 -->
 <template>
 	<view>
-		
+		已 抢单记录详细信息
 	</view>
 </template>
 

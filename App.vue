@@ -14,9 +14,12 @@
 
 <style>
 	@import url("common/iconfont/iconfont.css");
+	@import "colorui/main.css";
+	@import "colorui/icon.css";
 	
 	/*每个页面公共css */
 	.mm{
 		font-siz:20px
 	}
+	
 </style>
