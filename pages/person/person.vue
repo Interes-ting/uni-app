@@ -1,7 +1,7 @@
 <template>
 	<view class="backco">
 		<view class="person-head">
-			<cmd-avatar src="https://avatar.bbs.miui.com/images/noavatar_small.gif" size="lg" :make="{'background-color': '#fff'}"></cmd-avatar>
+			<cmd-avatar src="../../static/头像.jpg" size="lg" :make="{'background-color': '#fff'}"></cmd-avatar>
 			<view class="person-head-box">
 				<view class="person-head-nickname">张三</view>
 				<view class="person-head-username">长沙运邦搬家</view>
@@ -21,10 +21,10 @@
 			<cmd-cell-item title="建议反馈" slot-left arrow>
 				<image src="../../static/建议反馈.png" class="imgs"></image>
 			</cmd-cell-item>
-			<cmd-cell-item title="系统设置" slot-left arrow>
+			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting">
 				<image src="../../static/设置.png" class="imgs"></image>
 			</cmd-cell-item>
-			<cmd-cell-item title="我的银行卡" slot-left arrow>
+			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit">
 				<image src="../../static/银行卡.png" class="imgs"></image>
 			</cmd-cell-item>
 		</view>
@@ -46,14 +46,21 @@
 			return {};
 		},
 		methods: {
-			/**
-			 * 打开用户信息页
-			 */
 			fnInfoWin() {
 				uni.navigateTo({
 					url: '/pages/person/personInfo'
 				})
-			}
+			},
+			Bankedit() {
+				uni.navigateTo({
+					url: '/pages/bank/bankEdit'
+				})
+			},
+			Setting() {
+				uni.navigateTo({
+					url: '/pages/setting/setting'
+				})
+			},
 		}
 	}
 </script>
