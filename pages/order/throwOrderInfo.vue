@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		抢单信息
 	</view>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
 	<view>
-		
+		扔单记录
 	</view>
 </template>
 
