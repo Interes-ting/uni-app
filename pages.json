@@ -5,96 +5,85 @@
 			"style": {
 				"navigationBarTitleText": "轻松搬家平台"
 			}
+		}, {
+			"path": "pages/account/register",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/account/modify",
+			"style": {}
+		}, {
+			"path": "pages/account/forget",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
+			"path": "pages/order/throwRecord",
+			"style": {
+				"navigationBarTitleText": "扔单记录"
+			}
+		}, {
+			"path": "pages/order/throw",
+			"style": {
+				"navigationBarTitleText": "扔单"
+			}
+		}, {
+			"path": "pages/order/grabedOrderInfo",
+			"style": {
+				"navigationBarTitleText": "已抢订单详情"
+			}
+		}, {
+			"path": "pages/order/grabOrderInfo",
+			"style": {
+				"navigationBarTitleText": "抢单详情"
+			}
+		},
+		{
+			"path": "pages/order/grabRecord",
+			"style": {
+				"navigationBarTitleText": "抢单记录"
+			}
+		}, {
+			"path": "pages/wallet/wallet",
+			"style": {
+				"navigationBarTitleText": "收益"
+			}
+		}, {
+			"path": "pages/wallet/walletRecordInfo",
+			"style": {}
+		}, {
+			"path": "pages/wallet/withdraw",
+			"style": {}
+		}, {
+			"path": "pages/bank/bankEdit",
+			"style": {}
+		}, {
+			"path": "pages/person/person",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		}, {
+			"path": "pages/person/personInfo",
+			"style": {}
+		}, {
+			"path": "pages/feedback/feedback",
+			"style": {}
+		}, {
+			"path": "pages/setting/setting",
+			"style": {}
+		}, {
+			"path": "pages/order/throwOrderInfo",
+			"style": {
+				"navigationBarTitleText": "扔单详情"
+			}
 		}
-		,{
-		    "path" : "pages/account/register",
-		    "style" : {}
-		}
-	    ,{
-            "path" : "pages/account/modify",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/account/forget",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/login/login",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/order/throwRecord",
-           "style": {
-           	"navigationBarTitleText": "扔单记录"
-           }
-        }
-        ,{
-            "path" : "pages/order/throw",
-          "style": {
-          	"navigationBarTitleText": "扔单"
-          }
-        }
-        ,{
-            "path" : "pages/order/grabedOrderInfo",
-           "style": {
-           	"navigationBarTitleText": "已抢订单详情"
-           }
-        }
-        ,{
-            "path" : "pages/order/grabOrderInfo",
-            "style": {
-            	"navigationBarTitleText": "抢单详情"
-            }
-        },
-				{
-				    "path" : "pages/order/grabRecord",
-				    "style": {
-				    	"navigationBarTitleText": "抢单记录"
-				    }
-				}
-        ,{
-            "path" : "pages/wallet/wallet",
-           "style": {
-           	"navigationBarTitleText": "收益"
-           }
-        }
-        ,{
-            "path" : "pages/wallet/walletRecordInfo",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/wallet/withdraw",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/bank/bankEdit",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/person/person",
-            "style": {
-            	"navigationBarTitleText": "我的"
-            }
-        }
-        ,{
-            "path" : "pages/person/personInfo",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/feedback/feedback",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/setting/setting",
-            "style" : {}
-        }
-        ,{
-            "path" : "pages/order/throwOrderInfo",
-            "style" : {
-							"navigationBarTitleText":"扔单详情"
-						}
-        }
-    ],
+	],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarTitleText": "uni-app",
