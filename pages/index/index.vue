@@ -26,7 +26,12 @@
 		</view>
 		<!-- 抢单信息 -->
 			<view class="mt-throw-content" style="margin-bottom: 80rpx;">
-				<view class="mt-subject">
+				
+				<view class="mt-subject" >
+					{{carList.length}}
+					 <block v-for="(item,index) in carList" :key="index">
+					            <view>{{item}} - {{index}}</view>
+					  </block>
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
 						<text class="text-spacing fontbold">苏州市</text>
@@ -62,7 +67,7 @@
 					</view>
 				</view>
 				<!-- er -->
-				<view class="mt-subject1">
+				<!-- <view class="mt-subject1">
 					<view class="mt-start-image">
 						<image class="mt-city" src="../../static/起点.png"></image>
 						<text class="grabed-textcolor">苏州市</text>
@@ -81,7 +86,7 @@
 						<button class="mt-seedeil-btn grabed-color">查看</button>
 					</view>
 				</view>
-			</view>
+			</view> -->
 			<!-- 底部导航栏 -->
 			<view class="cu-bar tabbar bg-white mt-tabbar">
 				<view class="action" >
@@ -120,17 +125,16 @@ export default {
 	
 	data() {
 		return {
+			carList: [],
 		};
 	},
-	onLoad() {
+	created() {
 		// 发送网络请求
-		const requestTask = uni.request({
-		  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
-			method: 'POST',
-		  success: function (res) {
-		  console.log(res.data.data);
-		  }
-		});
+		// this.getList();
+
+	},
+	mounted() {
+		this.getList();
 	},
 	methods: {
 		goThrow: function (){
@@ -138,6 +142,17 @@ export default {
 			 uni.navigateTo({
 			     url: "../order/throw"
 			 });
+		},
+		getList:function(){
+			//网络请求
+			uni.request({
+			  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
+				method: 'POST',
+			  success: function (res) {
+				this.carList = res.data.data;
+				console.log(this.carList)
+			 }
+			});
 		},
 		goWallet: function (){
 			//收益

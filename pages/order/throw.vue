@@ -1,6 +1,12 @@
 <!-- 扔单 -->
 <template>
 	<view>
+		 <view>
+		        <block v-for="(item,index) in carList" :key="index">
+		            <view>{{item}} - {{index}}</view>
+		        </block>
+		    </view>
+		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
 				<view class="cuIcon-cu-image">
@@ -36,12 +42,13 @@
 	export default {
 		data() {
 			return {
-				
+				carList:[1,2,3]
 			}
 		},
 		methods: {
 			goIndex: function (){
 				//扔单
+				
 				 uni.navigateTo({
 				     url: "../index/index"
 				 });
