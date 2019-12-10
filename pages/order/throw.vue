@@ -2,17 +2,17 @@
 <template>
 	<view>
 		<view class="cu-bar tabbar bg-white mt-tabbar">
-			<view class="action" >
+			<view class="action" @click="goIndex">
 				<view class="cuIcon-cu-image">
 					<image src="../../static/person.jpg"></image>
 				</view>
-				<view class="text-blue">首页</view>
+				<view class="text-gray">首页</view>
 			</view>
-			<view class="action" @click="goThrow">
+			<view class="action">
 				<view class="cuIcon-cu-image">
 					<image src="../../static/person.jpg"></image>
 				</view>
-				<view class="text-gray">扔单</view>
+				<view class="text-blue">扔单</view>
 			</view>
 			<view class="action"  @click="goWallet">
 				<view class="cuIcon-cu-image">
@@ -40,7 +40,24 @@
 			}
 		},
 		methods: {
-			
+			goIndex: function (){
+				//扔单
+				 uni.navigateTo({
+				     url: "../index/index"
+				 });
+			},
+			goWallet: function (){
+				//收益
+				uni.navigateTo({
+				    url: "../wallet/wallet"
+				});
+			},
+			goPerson: function (){
+				//个人中心
+				uni.navigateTo({
+				    url: "../person/person"
+				});
+			},
 		}
 	}
 </script>

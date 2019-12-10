@@ -14,14 +14,14 @@
 		</view>
 		<!-- 按钮组-->
 		<view class="mt-buttons-content">
-			<view class="mt-buttons-item current-active" @tap="gradOrderInfo">
+			<view class="mt-buttons-item" @tap="gradOrderInfo">
 				<image class="mt-order-img" src="../../static/抢单.png"></image>
-				<text>抢单记录(1)</text>
+				<text>我的抢单</text>
 			</view>
 			<view class="mt-place-content"></view>
 			<view class="mt-buttons-item"  @tap="fn">
 					<image class="mt-order-img imgsecond" src="../../static/扔单.png"></image>
-				<text >扔单记录(1)</text>
+				<text >我的扔单</text>
 			</view>
 		</view>
 		<!-- 抢单信息 -->
@@ -120,22 +120,17 @@ export default {
 	
 	data() {
 		return {
-			title: '首页'
 		};
 	},
 	onLoad() {
 		// 发送网络请求
-		// const requestTask = uni.request({
-		//   url: 'api/order_info/wait_grab_records', //仅为示例，并非真实接口地址。
-		//   data: {
-		//     name: 'name',
-		//     age: 18
-		//   },
-		// 	method: 'POST',
-		//   success: function (res) {
-		//   console.log(res.data);
-		//   }
-		// });
+		const requestTask = uni.request({
+		  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
+			method: 'POST',
+		  success: function (res) {
+		  console.log(res.data.data);
+		  }
+		});
 	},
 	methods: {
 		goThrow: function (){
@@ -380,5 +375,8 @@ image {
 	position: absolute;
 	right: 100rpx;
 	bottom: 20rpx;
+}
+.grabed-color{
+	background-color: #CCCCCC!important;
 }
 </style>
