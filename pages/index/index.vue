@@ -33,46 +33,44 @@
 		</view>
 		<!-- 抢单信息 -->
 		<view class="mt-throw-content" style="margin-bottom: 80rpx;">
-
-			<view class="mt-subject">
-				{{carList.length}}
 				<block v-for="(item,index) in carList" :key="index">
-					<view>{{item}} - {{index}}</view>
+					<view class="mt-subject">
+						<view class="mt-start-image">
+								<image class="mt-city" src="../../static/起点.png"></image>
+								<text class="text-spacing fontbold">{{item.fromAddress}}</text>
+							</view>
+							<view class="mt-start-image">
+								<image class="mt-city" src="../../static/起点.png"></image>
+								<text class="text-spacing fontbold">{{item.fromAddress}}</text>
+							</view>
+							<view class="mt-front">
+								<text class="mt-front-one text-spacing fontbold">订单金额：300元</text>
+								<text class="mt-front-two text-spacing fontbold">订单金额：60元</text>
+							</view>
+							<view class="mt-distance">
+								<text class="mt-distance-icon"></text>
+								<text class="mt-distance-text" text-spacing>距离：{{item.distance}}公里</text>
+							</view>
+							<view class="mt-distance">
+								<text class="mt-distance-icon"></text>
+								<text class="mt-distance-text text-spacing">出发时间：{{item.deliveryTime}}</text>
+							</view>
+							<view class="mt-distance">
+								<text class="mt-distance-icon"></text>
+								<text class="mt-distance-text text-spacing">搬运物品：{{item.goods}}</text>
+							</view>
+							<view class="mt-label">
+								<text class="mt-sos">急</text>
+								<text class="mt-label-car">{{item.carTypeName}}</text>
+								<text class="mt-label-car">{{item.carTypeName}}</text>
+							</view>
+							<view class="mt-seedeil">
+								<text class="mt-seedeil-text">{{item.robCompanyName}}</text>
+								<button class="mt-seedeil-btn" @tap="searchInfo">查看</button>
+							</view>
+						</view>
 				</block>
-				<view class="mt-start-image">
-					<image class="mt-city" src="../../static/起点.png"></image>
-					<text class="text-spacing fontbold">苏州市</text>
-				</view>
-				<view class="mt-start-image">
-					<image class="mt-city" src="../../static/起点.png"></image>
-					<text class="text-spacing fontbold">苏州市</text>
-				</view>
-				<view class="mt-front">
-					<text class="mt-front-one text-spacing fontbold">订单金额：40元</text>
-					<text class="mt-front-two text-spacing fontbold">订单金额：20元</text>
-				</view>
-				<view class="mt-distance">
-					<text class="mt-distance-icon"></text>
-					<text class="mt-distance-text" text-spacing>距离：6公里</text>
-				</view>
-				<view class="mt-distance">
-					<text class="mt-distance-icon"></text>
-					<text class="mt-distance-text text-spacing">出发时间：2019-1-28 08:36</text>
-				</view>
-				<view class="mt-distance">
-					<text class="mt-distance-icon"></text>
-					<text class="mt-distance-text text-spacing">搬运物品：螺纹钢1个规格31.29吨</text>
-				</view>
-				<view class="mt-label">
-					<text class="mt-sos">急</text>
-					<text class="mt-label-car">中面包车</text>
-					<text class="mt-label-car">多拍车</text>
-				</view>
-				<view class="mt-seedeil">
-					<text class="mt-seedeil-text">此订单由长沙运邦搬家提供</text>
-					<button class="mt-seedeil-btn" @tap="searchInfo">查看</button>
-				</view>
-			</view>
+				
 			<!-- er -->
 			<!-- <view class="mt-subject1">
 					<view class="mt-start-image">
@@ -128,7 +126,7 @@
 </template>
 
 <script>
-<<<<<<< HEAD
+
 export default {
 	
 	data() {
@@ -136,109 +134,60 @@ export default {
 			carList: [],
 		};
 	},
-	mounted() {
-		// 发送网络请求
-		// this.getList();
-		console.log(this.carList)
-
-	},
 	onLoad() {
-		// this.getList();
+		this.getList();
 	},
 	methods: {
-		goThrow: function (){
+		goThrow: function() {
 			//扔单
-			 uni.navigateTo({
-			     url: "../order/throw"
-			 });
+			uni.navigateTo({
+				url: "../order/throw"
+			});
 		},
-		// getList:function(){
-		// 	//网络请求
-		// 	uni.request({
-		// 	  url: 'http://192.168.0.109:8102/api/order_info/wait_grab_record',
-		// 		method: 'POST',
-		// 	  success: function (res) {
-		// 		this.carList = res.data.data;
-		// 		console.log(this.carList)
-		// 	 }
-		// 	});
-		// },
-		goWallet: function (){
+		getList: function() {
+			let that = this;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/order_info/wait_grab_record"), {}, function(res) {
+				that.carList = res.data;
+				console.log(that.carList);
+				//结束操作
+				that.$mtRequest.stop();
+			})
+		},
+		goWallet: function() {
 			//收益
 			uni.navigateTo({
-			    url: "../wallet/wallet"
+				url: "../wallet/wallet"
 			});
 		},
-		goPerson: function (){
+		goPerson: function() {
 			//个人中心
 			uni.navigateTo({
-			    url: "../person/person"
+				url: "../person/person"
 			});
-=======
-	export default {
-
-		data() {
-			return {
-				carList: [],
-			};
->>>>>>> fda3a0469ccea136acc67a8413af2461c1337aec
 		},
-		created() {
-			// 发送网络请求
-			// this.getList();
-
+	
+		fn: function() {
+			//跳转到扔单记录
+			uni.navigateTo({
+				url: "../order/throwRecord"
+			});
+		},
+		searchInfo: function() {
+			//跳转到抢单详情
+			uni.navigateTo({
+				url: "../order/grabOrderInfo"
+			});
+		},
+		gradOrderInfo: function() {
+			//跳转到抢单记录
+			uni.navigateTo({
+				url: "../order/grabRecord"
+			});
 		},
 		mounted() {
 			this.getList();
 		},
-		methods: {
-			goThrow: function() {
-				//扔单
-				uni.navigateTo({
-					url: "../order/throw"
-				});
-			},
-			getList: function() {
-
-				let that = this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/order_info/wait_grab_record"), {}, function(res) {
-					that.carList = res.data;
-
-					//结束操作
-					that.$mtRequest.stop();
-				})
-			},
-			goWallet: function() {
-				//收益
-				uni.navigateTo({
-					url: "../wallet/wallet"
-				});
-			},
-			goPerson: function() {
-				//个人中心
-				uni.navigateTo({
-					url: "../person/person"
-				});
-			},
-
-			fn: function() {
-				//跳转到扔单记录
-				uni.navigateTo({
-					url: "../order/throwRecord"
-				});
-			},
-			searchInfo: function() {
-				//跳转到抢单详情
-				uni.navigateTo({
-					url: "../order/grabOrderInfo"
-				});
-			},
-			gradOrderInfo: function() {
-				//跳转到抢单记录
-				uni.navigateTo({
-					url: "../order/grabRecord"
-				});
-			}
+		
 		}
 
 	};
@@ -255,12 +204,12 @@ export default {
 		height: 100%;
 	}
 
-	// .mt-tabbar{
-	// 	position: fixed;
-	// 	z-index: 999;
-	// 	bottom: 0;
-	// 	width: 100%;
-	// }
+	.mt-tabbar{
+		position: fixed;
+		z-index: 999;
+		bottom: 0;
+		width: 100%;
+	}
 
 	.content {
 		display: flex;
