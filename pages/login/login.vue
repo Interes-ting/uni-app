@@ -7,7 +7,7 @@
 					<view class="mt-loginimge">1</view>
 				</view>
 				<view class="mt-input-input">
-					<input class="uni-input" placeholder="请输入账号" v-model="account" />
+					<input class="uni-input" placeholder="请输入手机号码" v-model="account" />
 				</view>
 			</view>
 		</view>
@@ -17,7 +17,7 @@
 					<view class="mt-loginimge">2</view>
 				</view>
 				<view class="mt-input-input">
-					<input class="uni-input" placeholder="请输入密码" v-model="password" />
+					<input password="Boolean" class="uni-input" placeholder="请输入账户密码" v-model="password" />
 				</view>
 			</view>
 		</view>
