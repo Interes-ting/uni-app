@@ -47,9 +47,9 @@ export default {
 			this.listname= e.item.name;
 		},
 		fnClick() {
-			uni.switchTab({
-				url: '/pages/person/person'
-			});
+			uni.navigateBack({
+				url:'/pages/person/person'
+			})
 		}
 	}
 };
