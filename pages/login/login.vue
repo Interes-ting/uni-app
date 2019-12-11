@@ -17,15 +17,16 @@
 					<view class="mt-loginimge">2</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="Boolean" class="uni-input" placeholder="请输入账户密码" v-model="password" />
+					<input  password="false"  class="uni-input" placeholder="请输入账户密码" v-model="password" />
+					
 				</view>
 			</view>
 		</view>
 		<view class="mt-in mtin">
-			<view class="mt-registration">
+			<view class="mt-registration" @click="regdex">
 				新用户注册
 			</view>
-			<view class="mt-forget">
+			<view class="mt-forget" @click="forgetdex">
 				忘记密码?
 			</view>
 		</view>
@@ -43,13 +44,16 @@
 				password: "",
 				rules: {
 					account: [{
+						//必填
 						type: "require",
 						msg: "请输入账号"
 					}],
 					password: [{
+						//必填
 						type: "require",
 						msg: "请输入密码"
 					}, {
+						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请输入6~20个字符"
@@ -58,6 +62,16 @@
 			}
 		},
 		methods: {
+			regdex:function(){
+				uni.navigateTo({
+					url:'../account/register'
+				})
+			},
+			forgetdex:function(){
+				uni.navigateTo({
+					url:'../account/forget'
+				})
+			},
 			login() {
 				let user = {
 					account: this.account,
@@ -75,7 +89,14 @@
 					if (data.state > 0) {
 						//登录成功
 						uni.showToast({
-							title: "登录成功"
+							title: "登录成功",
+							success: function() {
+								setTimeout(function(){
+											uni.navigateTo({
+												url: '../index/index'
+											});
+									},2000)
+							}
 						})
 					} else {
 						//登录失败
@@ -89,7 +110,8 @@
 					that.$mtRequest.stop();
 				})
 			}
-		}
+		},
+		
 	}
 </script>
 
