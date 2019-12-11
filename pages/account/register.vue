@@ -8,7 +8,18 @@
 						<view class="mt-loginimge">1</view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="输入用户名" />
+						<input class="uni-input" v-model="phone" placeholder="输入用户手机号码" />
+					</view>
+				</view>
+			</view>
+
+			<view class="mt-in">
+				<view class="mt-input">
+					<view class="mt-input-img">
+						<view class="mt-loginimge">2</view>
+					</view>
+					<view class="mt-input-input">
+						<input class="uni-input" v-model="merchantName" placeholder="输入您的公司名称" />
 					</view>
 				</view>
 			</view>
@@ -18,7 +29,7 @@
 						<view class="mt-loginimge">2</view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="输入用户手机号码" />
+						<input password="false" class="uni-input" v-model="pwd" placeholder="输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -28,37 +39,18 @@
 						<view class="mt-loginimge">2</view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="输入您的公司名称" />
+						<input password="false" class="uni-input" v-model="confirmedcode" placeholder="请再次输入您的密码" />
 					</view>
 				</view>
 			</view>
+
 			<view class="mt-in">
 				<view class="mt-input">
 					<view class="mt-input-img">
 						<view class="mt-loginimge">2</view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="输入您的密码" />
-					</view>
-				</view>
-			</view>
-			<view class="mt-in">
-				<view class="mt-input">
-					<view class="mt-input-img">
-						<view class="mt-loginimge">2</view>
-					</view>
-					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="再次确认密码" />
-					</view>
-				</view>
-			</view>
-			<view class="mt-in">
-				<view class="mt-input">
-					<view class="mt-input-img">
-						<view class="mt-loginimge">2</view>
-					</view>
-					<view class="mt-input-input">
-						<input class="uni-input" @input="onKeyInput" placeholder="输入邀请码" />
+						<input class="uni-input" v-model="yqcode" placeholder="输入邀请码" />
 					</view>
 				</view>
 			</view>
@@ -69,19 +61,19 @@
 							<view class="mt-loginimge"></view>
 						</view>
 						<view class="mt-input-input mt-yz">
-							<input class="uni-input" @input="onKeyInput" placeholder="" />
+							<input class="uni-input" placeholder="" v-model="validCode" />
 						</view>
 					</view>
-				<view class="mt-input-img mt-yz">
-					<!-- <view class="mt-loginimge"   @click="getAuthCode">获取验证码</view> -->
-					<view v-if="showtime===null" class="mt-loginimge" @click="send">获取验证码</view>
-					 <view v-else class="captcha-button">{{showtime}}</view>
-				</view>
+					<view class="mt-input-img mt-yz">
+						<!-- <view class="mt-loginimge"   @click="getAuthCode">获取验证码</view> -->
+						<view v-if="showtime===null" class="mt-loginimge" @click="send">获取验证码</view>
+						<view v-else class="captcha-button">{{showtime}}</view>
+					</view>
 				</view>
 			</view>
 		</view>
 		<view class="mt-loginbutn">
-			<button class="mt-loginbutndl" type="primary">注册</button>
+			<button class="mt-loginbutndl" @click="registration" type="primary">注册</button>
 		</view>
 		<view class="mt-loginbutn">
 			<button class="mt-loginbutndl" type="primary" @click="goIndex">返回</button>
@@ -93,52 +85,192 @@
 	export default {
 		data() {
 			return {
-				phoneCode:'',
-			  // 计时器,注意需要进行销毁
-			  timeCounter: null,
-			  // null 则显示按钮 秒数则显示读秒
-			  showtime: null
+
+				//手机号
+				phone: "",
+				//公司名称
+				merchantName: "",
+				//密码
+				pwd: "",
+				//确认密码
+				confirmedcode: "",
+				//邀请码
+				yqcode: "",
+				phoneCode: '',
+				validCode: "",
+				// 计时器,注意需要进行销毁
+				timeCounter: null,
+				// null 则显示按钮 秒数则显示读秒
+				showtime: null,
+				rules: {
+					phone: [{
+							//必填
+							type: "require",
+							msg: "请输入手机号"
+						},
+						{
+							//正则
+							type: "regexp",
+							regexp: /[0-9A-Za-z]{6,20}/,
+							msg: "请输入6~20个字符"
+						}
+					],
+					merchantName: [{
+						//必填
+						type: "require",
+						msg: "请输入公司名称"
+					}],
+
+					pwd: [{
+						//必填
+						type: "require",
+						msg: "请输入密码"
+					}],
+					confirmedcode: [{
+						//必填
+						type: "require",
+						msg: "请再次输入密码"
+					}],
+					validCode: [{
+						//必填
+						type: "require",
+						msg: "请输入验证码"
+					}],
+
+				}
 			}
 		},
 		methods: {
-			goIndex:function(){
+			goIndex: function() {
 				uni.navigateTo({
-					url:'../login/login'
+					url: '../login/login'
 				})
 			},
-		// 倒计时显示处理
-		 countDownText(s) {
-		  this.showtime = `${s}s后重新获取`
-		 },
-		 //倒计时 60秒 不需要很精准
-		 countDown(times) {
-		  const self = this;
-		  // 时间间隔 1秒
-		  const interval = 1000;
-		  let count = 0;
-		  self.timeCounter = setTimeout(countDownStart, interval);
-		  function countDownStart() {
-		  if (self.timeCounter == null) {
-		   return false;
-		  }
-		  count++
-		  self.countDownText(times - count + 1);
-		  if (count > times) {
-		   clearTimeout(self.timeCounter)
-		   self.showtime = null;
-		  } else {
-		   self.timeCounter = setTimeout(countDownStart, interval)
-		  }
-		  }
-		 },
-		 send() {
-		  this.countDown(60);
-		  
-		 }
-		 },
-		
+			// 倒计时显示处理
+			countDownText(s) {
+				this.showtime = `${s}s后重新获取`
+			},
+			countDowntw(s) {
+				this.showtime = `获取验证码`
+			},
+			//倒计时 60秒 不需要很精准
+			countDown(times) {
+				const self = this;
+				// 时间间隔 1秒
+				const interval = 1000;
+				let count = 0;
+				self.timeCounter = setTimeout(countDownStart, interval);
+
+				function countDownStart() {
+					if (self.timeCounter == null) {
+						return false;
+					}
+					count++
+					self.countDownText(times - count + 1);
+					if (count > times) {
+						clearTimeout(self.timeCounter)
+						self.showtime = null;
+					} else {
+						self.timeCounter = setTimeout(countDownStart, interval)
+					}
+				}
+			},
+			send() {
+				var ze = /[0-9A-Za-z]{6,20}/;
+				let user = {
+					phone: this.phone,
+				}
+
+				if (this.phone == '') {
+					uni.showToast({
+						title: "请输入手机号!",
+						icon: "none"
+					});
+				} else if (!ze.test(this.phone)) {
+					uni.showToast({
+						title: "请输入6~20个字符!",
+						icon: "none"
+					});
+				} else {
+					this.countDown(60);
+					//发送验证码
+					let that = this;
+					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone=15198201377"), user,
+						function(data) {
+							
+							if (data.state > 0) {
+								//登录成功
+								uni.showToast({
+									title: "验证码已发送"
+								})
+							} else {
+								//登录失败
+								uni.showToast({
+									title: data.message,
+									icon: "none"
+								})
+								
+							}
+
+							//结束请求
+							that.$mtRequest.stop();
+						})
+				}
+
+
+			},
+			registration() {
+				let verificacode = {
+					phone: this.phone,
+					validCode: this.validCode,
+					merchantName: this.merchantName,
+					pwd: this.pwd,
+					yqcode: this.yqcode,
+					confirmedcode: this.yqcode,
+				}
+				//做校验
+				let validResulttwo = this.$mtValidation.valid(verificacode, this.rules);
+				if (!validResulttwo) {
+					return;
+				} else if (this.pwd != this.confirmedcode) {
+					uni.showToast({
+						title: "两次密码输入不一致!",
+						icon: "none"
+					});
+				} else {
+					//注册
+					let that = this;
+					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/register"), verificacode, function(data) {
+						if (data.state > 0) {
+							//注册成功
+							uni.showToast({
+								title: "注册成功",
+								success: function() {
+									setTimeout(function(){
+												uni.navigateTo({
+													url: '../login/login'
+												});
+										},2000)
+								}
+							})
+						} else {
+							//注册失败
+							uni.showToast({
+								title: data.message,
+								icon: "none"
+							})
+						}
+
+						//结束请求
+						that.$mtRequest.stop();
+					})
+				}
+
+
+			}
+		},
+
 	}
-	
 </script>
 
 <style>
@@ -180,7 +312,7 @@
 	}
 
 	.mt-loginbutndl {
-		
+
 		border-radius: 20px;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/

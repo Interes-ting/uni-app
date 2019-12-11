@@ -44,13 +44,16 @@
 				password: "",
 				rules: {
 					account: [{
+						//必填
 						type: "require",
 						msg: "请输入账号"
 					}],
 					password: [{
+						//必填
 						type: "require",
 						msg: "请输入密码"
 					}, {
+						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请输入6~20个字符"
@@ -66,7 +69,7 @@
 			},
 			forgetdex:function(){
 				uni.navigateTo({
-					url:'../account/modify'
+					url:'../account/forget'
 				})
 			},
 			login() {
@@ -86,7 +89,14 @@
 					if (data.state > 0) {
 						//登录成功
 						uni.showToast({
-							title: "登录成功"
+							title: "登录成功",
+							success: function() {
+								setTimeout(function(){
+											uni.navigateTo({
+												url: '../index/index'
+											});
+									},2000)
+							}
 						})
 					} else {
 						//登录失败
