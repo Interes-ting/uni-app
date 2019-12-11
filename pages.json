@@ -83,7 +83,11 @@
 				"navigationBarTitleText": "扔单详情"
 			}
 		}
-	],
+	    ,{
+            "path" : "pages/demo/demo",
+            "style" : {}
+        }
+    ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#F8F8F8",
