@@ -35,7 +35,7 @@
 				<view class="mt-placebox"></view>
 				<text>此订单由长沙运邦搬家提供</text>
 			</view>
-			<button class="mt-viewbutton" @tap="fn">详情</button>
+			<button class="mt-viewbutton" @tap="goThrowOrderInfo">详情</button>
 		</view>
 	</view>
 </template>
@@ -48,7 +48,7 @@
 			}
 		},
 		methods: {
-			fn:function(){
+			goThrowOrderInfo:function(){
 				uni.navigateTo({
 				    url: './throwOrderInfo'
 				});

@@ -107,7 +107,7 @@
 				</view>
 				<view class="basic-services-car cu-form-group" style="border-top:0">
 					<view class="title">是否有电梯</view>
-					<switch  @change="SwitchF" :class="switchF?'checked':''" :checked="switchF?true:false"></switch>
+					<!-- <switch  @change="SwitchF" :class="switchF?'checked':''" :checked="switchF?true:false"></switch> -->
 					<switch  @change="SwitchG" :class="switchG?'checked':''" :checked="switchG?true:false"></switch>
 				</view>
 				<view class="cu-form-group align-start" style="height: 260.87rpx;">
@@ -190,69 +190,69 @@
 		},
 		methods: {
 			// 打开时间日期选择器
-      openDatetimePicker() {
+      openDatetimePicker:function() {
          this.$refs.myPicker.show();
       },
       // 关闭时间日期选择器
-      closeDatetimePicker() {
+      closeDatetimePicker:function() {
          this.$refs.myPicker.hide();
       },
 			// 搬家时间
-      handleSubmit(e) {
+      handleSubmit:function(e) {
          console.log(e);
          this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
       },
 			// 车辆类型
-			PickerChange(e) {
+			PickerChange:function(e) {
 				this.index = e.detail.value
 				console.log(this.index)
 				console.log(this.pickerCar[this.index])
 				
 		},
 			// 车辆数量选择
-			PickerChangeNum(e) {
+			PickerChangeNum:function(e) {
 				this.index1 = e.detail.value
 				console.log(this.index1)
 				console.log(this.pickerNum[this.index1])
 			},
 			// 楼层选择
-			PickerChangeFloor(e) {
+			PickerChangeFloor:function(e) {
 				this.index2 = e.detail.value
 				console.log(this.index2)
 				console.log(this.pickerFloor[this.index2])
 			},
 			// 人数选择
-			PickerChangeHumen(e) {
+			PickerChangeHumen:function(e) {
 				this.index3 = e.detail.value
 				console.log(this.index3)
 				console.log(this.pickerHumen[this.index3])
 			},
 			// 车辆
-			SwitchA(e) {
+			SwitchA:function(e) {
 				this.switchA = e.detail.value
 			},
 			// 拆装服务
-			SwitchB(e) {
+			SwitchB:function(e) {
 				this.switchB = e.detail.value
 			},
 			
 			// 搬运服务D
-			SwitchD(e) {
+			SwitchD:function(e) {
 				this.switchD = e.detail.value
 			},
 			// 是否电梯
-			SwitchF(e) {
+			SwitchF:function(e) {
 				this.switchF = e.detail.value
 			},
-			SwitchG(e) {
+			SwitchG:function(e) {
 				this.switchG = e.detail.value
 			},
 			// 搬运物品
-			textareaAInput(e) {
+			textareaAInput:function(e) {
 				this.textareaAValue = e.detail.value
 			},
 			// 注意事项
-			textareaBInput(e) {
+			textareaBInput:function(e) {
 				this.textareaBValue = e.detail.value
 			},
 			goIndex: function (){
@@ -279,16 +279,6 @@
 </script>
 
 <style lang="less" scoped>
-	.mt-tabbar {
-		position: fixed;
-		z-index: 999;
-		bottom: 0;
-		width: 100%;
-	}
-	.mt-tabbar-item{
-		font-size: 46.66rpx;
-		margin-bottom:13.33rpx
-	}
 	.move-time{
 		position: absolute;
 		left:50rpx

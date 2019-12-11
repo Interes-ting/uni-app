@@ -14,12 +14,12 @@
 		</view>
 		<!-- 按钮组-->
 		<view class="mt-buttons-content">
-			<view class="mt-buttons-item" @tap="gradOrderInfo">
+			<view class="mt-buttons-item" @tap="goGradOrderInfo">
 				<image class="mt-order-img" src="../../static/抢单.png"></image>
 				<text>我的抢单</text>
 			</view>
 			<view class="mt-place-content"></view>
-			<view class="mt-buttons-item" @tap="fn">
+			<view class="mt-buttons-item" @tap="goThrowRecord">
 				<image class="mt-order-img imgsecond" src="../../static/扔单.png"></image>
 				<text>我的扔单</text>
 			</view>
@@ -39,7 +39,7 @@
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
 						<text>订单金额：{{item.price}}元</text>
-						<text style="margin-left: 46.66rpx;">扔单提成：{{item.fromAddress}}元</text>
+						<text style="margin-left: 46.66rpx;">扔单提成：{{item.incomeAmount}}元</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-juli text-grey "></view>
@@ -57,13 +57,13 @@
 						<view class="mt-placebox"></view>
 						<text class="mt-sos">急</text>
 						<text class="mt-remark">{{item.carTypeName}}</text>
-						<text class="mt-remark">{{item.remark}}</text>
+						<text class="mt-remark">{{item.serviceTypeName}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
 						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
 					</view>
-					<button class="mt-viewbutton" @tap="searchInfo">查看</button>
+					<button class="mt-viewbutton" @tap="goGrabOrderInfo(item)">查看</button>
 				</view>
 			</block>
 		</view>
@@ -81,7 +81,7 @@
 				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
 				<view class="text-gray">收益</view>
 			</view>
-			<view class="action">
+			<view class="action" @click="goPerson">
 				<view class="mtfa mt-person mt-tabbar-item"></view>
 				<view class="text-grey">我的</view>
 			</view>
@@ -93,62 +93,73 @@
 export default {
 	data() {
 		return {
-			carList: []
+			carList: [],
+			item:''
 		};
 	},
-	onLoad() {
+	onLoad() { // 页面加载时执行网络请求
 		this.getList();
 	},
 	methods: {
-		goThrow: function() {
-			//扔单
+		
+		goThrow: function() { //跳转扔单
 			uni.navigateTo({
 				url: '../order/throw'
 			});
 		},
-		getList: function() {
-			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res) {
-				that.carList = res.data;
-				console.log(that.carList);
-				//结束操作
-				that.$mtRequest.stop();
-			});
-		},
-		goWallet: function() {
-			//收益
+		
+		goWallet: function() { //跳转收益
 			uni.navigateTo({
 				url: '../wallet/wallet'
 			});
 		},
-		goPerson: function() {
-			//个人中心
+		
+		goPerson: function() { 	//跳转个人中心
 			uni.navigateTo({
 				url: '../person/person'
 			});
 		},
-
-		fn: function() {
-			//跳转到扔单记录
+		
+		goThrowRecord: function() { //跳转到扔单记录
 			uni.navigateTo({
 				url: '../order/throwRecord'
 			});
 		},
-		searchInfo: function() {
-			//跳转到抢单详情
-			uni.navigateTo({
-				url: '../order/grabOrderInfo'
-			});
+		
+		goGrabOrderInfo: function(item) { //跳转到抢单详情
+			
+			// uni.setStorage({
+			// 		key: 'storage_key',
+			// 		data: item,
+			// 		success: function () {
+			// 				console.log('success');
+			// 		}
+			// });
+			 let url = '../order/grabOrderInfo'  
+			 let param = item;
+			 console.log(param)
+			 this.$navTo.togo(url,param);
+			// uni.navigateTo({
+			// 	url: `../order/grabOrderInfo?info=${item}`
+			// });
 		},
-		gradOrderInfo: function() {
-			//跳转到抢单记录
+		
+		goGradOrderInfo: function() { //跳转到抢单记录
 			uni.navigateTo({
 				url: '../order/grabRecord'
 			});
 		},
-		mounted() {
-			this.getList();
-		}
+		
+		getList: function() { //发送网络请求
+			let that = this;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res) {
+				that.carList = res.data;
+				// console.log(that.carList);
+				//结束操作
+				that.$mtRequest.stop();
+			});
+		},
+		
 	}
 };
 </script>
@@ -159,16 +170,6 @@ image {
 	height: 100%;
 }
 
-.mt-tabbar {
-	position: fixed;
-	z-index: 999;
-	bottom: 0;
-	width: 100%;
-}
-.mt-tabbar-item{
-	font-size: 46.66rpx;
-	margin-bottom:13.33rpx
-}
 .content {
 	display: flex;
 	flex-direction: column;

@@ -1683,6 +1683,10 @@ button.cuIcon.lg {
 	width: 100%;
 }
 
+.mt-tabbar-item{
+	font-size: 46.66rpx;
+	margin-bottom:13.33rpx;
+}
 .cu-tabbar-height {
 	min-height: 100upx;
 	height: calc(100upx + env(safe-area-inset-bottom) / 2);

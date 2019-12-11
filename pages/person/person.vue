@@ -16,25 +16,22 @@
 			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting"><image src="../../static/设置.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit"><image src="../../static/银行卡.png" class="imgs"></image></cmd-cell-item>
 		</view>
+		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
-				<view class="cuIcon-cu-image"><image src="../../static/person.jpg"></image></view>
-				<view class="text-gray">首页</view>
+				<view class="mtfa mt-shouye mt-tabbar-item"></view>
+				<view class="text-grey">首页</view>
 			</view>
 			<view class="action" @click="goThrow">
-				<view class="cuIcon-cu-image"><image src="../../static/person.jpg"></image></view>
+				<view class="mtfa mt-daochu mt-tabbar-item"></view>
 				<view class="text-gray">扔单</view>
 			</view>
 			<view class="action" @click="goWallet">
-				<view class="cuIcon-cu-image">
-					<image src="../../static/person.jpg"></image>
-				</view>
+				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
 				<view class="text-gray">收益</view>
 			</view>
-			<view class="action">
-				<view class="cuIcon-cu-image">
-					<image src="../../static/person.jpg"></image>
-				</view>
+			<view class="action" @click="goPerson">
+				<view class="mtfa mt-person mt-tabbar-item  text-blue"></view>
 				<view class="text-blue">我的</view>
 			</view>
 		</view>
@@ -103,7 +100,6 @@ export default {
 .backco {
 	background: linear-gradient(to right, #4752e8, #4987ee);
 }
-
 .imgs {
 	height: 111.33rpx;
 	width: 111.33rpx;
