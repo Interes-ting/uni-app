@@ -1,7 +1,7 @@
 <template>
 	<view class="margin-top">
-		<view class="cu-form-group field"><textarea maxlength="-1" @input="textareaAInput" placeholder="ÇëÌá³öÄú±¦¹óµÄÒâ¼ûºÍ½¨Òé" v-model="account"></textarea></view>
-		<button class="btn-logout" @click="fnClick">È·ÈÏÌá½»</button>
+		<view class="cu-form-group field"><textarea maxlength="-1" @input="textareaAInput" placeholder="è¯·æå‡ºæ‚¨å®è´µçš„æ„è§å’Œå»ºè®®" v-model="account"></textarea></view>
+		<button class="btn-logout" @click="fnClick">ç¡®è®¤æäº¤</button>
 	</view>
 </template>
 
@@ -14,7 +14,7 @@ export default {
 				account: [
 					{
 						type: 'require',
-						msg: '²»ÄÜÌá½»¿ÕµÄ½¨Òé'
+						msg: 'ä¸èƒ½æäº¤ç©ºçš„å»ºè®®'
 					}
 				]
 			}
@@ -29,13 +29,13 @@ export default {
 				account: this.account
 			};
 
-			//×öĞ£Ñé
+			//åšæ ¡éªŒ
 			let validResult = this.$mtValidation.valid(user, this.rules);
 			if (!validResult) {
 				return;
 			}
 			uni.showToast({
-				title: 'Ìá½»³É¹¦',
+				title: 'æäº¤æˆåŠŸ',
 				duration: 1500,
 				icon: 'none'
 			});
