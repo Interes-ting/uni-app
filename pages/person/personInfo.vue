@@ -1,14 +1,13 @@
 <template>
 	<view>
-		<cmd-nav-bar back title="用户资料"></cmd-nav-bar>
 		<view class="topka">
+			<view class="sheet">
+				<view class="titlee">手机号码</view>
+				<input type="text" placeholder="请输入手机号码" placeholder-class="place" v-model="account" />
+			</view>
 			<view class="sheet">
 				<view class="titlee">公司名称</view>
 				<input type="text" placeholder="请输入公司名称" placeholder-class="place" />
-			</view>
-			<view class="sheet">
-				<view class="titlee">手机号码</view>
-				<input type="text" placeholder="请输入手机号码" placeholder-class="place" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司法人</view>
@@ -28,24 +27,51 @@
 </template>
 
 <script>
-import cmdNavBar from '@/components/cmd-person/cmd-nav-bar/cmd-nav-bar.vue';
-
 export default {
-	components: {
-		cmdNavBar
-	},
+	components: {},
 
 	data() {
-		return {};
+		return {
+			account: '',
+			rules: {
+				account: [
+					{
+						type: 'require',
+						msg: '请输入手机号码'
+					},
+					{
+						type: 'regexp',
+						regexp: /^1[34578]\d{9}$/,
+						msg: '请输入正确手机号'
+					}
+				]
+			}
+		};
 	},
 
 	mounted() {},
 
 	methods: {
 		fnClick() {
-			uni.navigateBack({
-				url:'/pages/person/person'
-			})
+			let user = {
+				account: this.account
+			};
+
+			//做校验
+			let validResult = this.$mtValidation.valid(user, this.rules);
+			if (!validResult) {
+				return;
+			}
+			uni.showToast({
+				title: '修改成功',
+				duration: 1500,
+				icon:"none",
+			});
+			setTimeout(function() {
+				uni.navigateBack({
+					url: '/pages/person/person'
+				});
+			}, 2000);
 		}
 	}
 };
@@ -53,10 +79,11 @@ export default {
 
 <style>
 .topka {
-	padding-top: 40rpx;
+	padding-top: 13.33rpx;
 }
 
 .sheet {
+	background-color: #fff;
 	margin: auto;
 	width: 98%;
 	height: 110rpx;
@@ -70,14 +97,14 @@ export default {
 	font-size: 29.33rpx;
 	font-weight: 900;
 	color: #333333;
-	line-height: 100rpx;
+	line-height: 104rpx;
 	padding: 0 30rpx;
 	width: 30%;
 }
 
 input {
 	width: 70%;
-	margin-top: 27rpx;
+	margin-top: 32rpx;
 	text-align: right;
 	margin-right: 40rpx;
 }
