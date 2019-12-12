@@ -63,13 +63,16 @@
 						<view class="mt-placebox"></view>
 						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
 					</view>
-					<button class="mt-viewbutton" @tap="goGrabOrderInfo(item)">查看</button>
+					<!-- 待抢 -->
+					<button class="mt-viewbutton"v-if="item.state === 1 " @tap="goGrabOrderInfo(item)">查看</button>
+					<!-- 已抢 -->
+					<button class="mt-Grabbedutton" style="background-color: #CCCCCC;" v-else-if="item.state === 3 ">已抢</button>
 				</view>
 			</block>
 		</view>
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
-			<view class="action" @click="goIndex">
+			<view class="action">
 				<view class="mtfa mt-shouye mt-tabbar-item text-blue"></view>
 				<view class="text-blue">首页</view>
 			</view>
@@ -94,11 +97,11 @@ export default {
 	data() {
 		return {
 			carList: [],
-			item:''
 		};
 	},
 	onLoad() { // 页面加载时执行网络请求
 		this.getList();
+		
 	},
 	methods: {
 		
@@ -127,21 +130,9 @@ export default {
 		},
 		
 		goGrabOrderInfo: function(item) { //跳转到抢单详情
-			
-			// uni.setStorage({
-			// 		key: 'storage_key',
-			// 		data: item,
-			// 		success: function () {
-			// 				console.log('success');
-			// 		}
-			// });
 			 let url = '../order/grabOrderInfo'  
 			 let param = item;
-			 console.log(param)
-			 this.$navTo.togo(url,param);
-			// uni.navigateTo({
-			// 	url: `../order/grabOrderInfo?info=${item}`
-			// });
+			 this.$navTo.togo(url,param);//跳转时携带参数
 		},
 		
 		goGradOrderInfo: function() { //跳转到抢单记录
@@ -151,12 +142,11 @@ export default {
 		},
 		
 		getList: function() { //发送网络请求
-			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res) {
-				that.carList = res.data;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, (res)=>{
+				this.carList = res.data;
 				// console.log(that.carList);
-				//结束操作
-				that.$mtRequest.stop();
+				//结束loading等待
+				this.$mtRequest.stop();
 			});
 		},
 		
@@ -286,6 +276,18 @@ image {
 		line-height: 68.66rpx;
 		background: linear-gradient(to bottom, #1880ff, #509eff);
 		/*设置按钮为渐变颜色*/
+		border-radius: 34.66rpx;
+		font-size:36.66rpx ;
+		color: #FFFFFF;
+	}
+	.mt-Grabbedutton{
+		position: absolute;
+		right: 26.66rpx;
+		bottom: 20rpx;
+		width: 156.66rpx;
+		height: 68.66rpx;
+		line-height: 68.66rpx;
+		background:#CCCCCC;
 		border-radius: 34.66rpx;
 		font-size:36.66rpx ;
 		color: #FFFFFF;

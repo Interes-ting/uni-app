@@ -7,85 +7,85 @@
 				<view class="mt-startcity">
 					<view class="mtfa mt-begin" style="color:#0B398F;">
 					</view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{this.OrderInfo.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-xiedian " style="color:#009A00;">
 					</view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{this.OrderInfo.toAddress}}</text>
 				</view>
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">客户名：{{this.OrderInfo.customerName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">扔单时间：{{this.OrderInfo.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">被抢时间：{{this.OrderInfo.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">出发时间：{{this.OrderInfo.deliveryTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">车辆类型：{{this.OrderInfo.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">派车类型：{{this.OrderInfo.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">注意事项：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">搬运人数：2人</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">搬运物品：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">注意事项：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">搬出地址：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">到达地址：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">楼层：6楼{{this.OrderInfo.floor}}</text>
 				</view>
 			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">订单金额：{{this.OrderInfo.price}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">订单服务费：60</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">平台服务费：6</text>
 					<text class="text-grey" 
 					style="float:right;margin-right:20rpx;">
-						实际所得：54
+						实际所得：{{this.OrderInfo.incomeAmount}}
 					</text>
 				</view>
 			</view>
@@ -96,7 +96,12 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			OrderInfo:null,
+		};
+	},
+	onLoad(option) {
+		this.OrderInfo = option;
 	},
 	methods: {}
 };

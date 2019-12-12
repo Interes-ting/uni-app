@@ -38,14 +38,16 @@
 					</view>
 				</view>
 				<view class="order-detail-one">
-					<view class="order-detail-one-img mtfa mt-fuwufei" style="color: #E8B82B;"></view>
+					<view class="order-detail-one-img mtfa mt-fuwufei" 
+					style="color: #E8B82B;font-size: 45rpx;position: absolute;left: -10rpx;"></view>
 					<view class="order-detail-one-text">
 						<text class="order-detail-one-text-one">扔单提成:</text>
 						<text class="order-detail-one-text-two">300</text>
 					</view>
 				</view>
 				<view class="order-detail-one">
-					<view class="order-detail-one-img mtfa mt-fuwufei" style="color: #E8B82B;"></view>
+					<view class="order-detail-one-img mtfa mt-fuwufei" 
+					style="color: #E8B82B;font-size: 45rpx;position: absolute;left: -10rpx;"></view>
 					<view class="order-detail-one-text">
 						<text class="order-detail-one-text-one">平台服务费:</text>
 						<text class="order-detail-one-text-two">6</text>
@@ -100,8 +102,8 @@
 				</view>
 			</view>
 			<view style="position: relative;width: 100%;height: 142.17rpx;">
-				<button class="mt-seedeil-btn">
-					<text class="text-price" style="margin-right: 20rpx;">{{this.carList.payAmount}}</text>
+				<button class="mt-seedeil-btn" @tap="payMoney">
+					<text class="text-price" style="margin-right: 30rpx;" >{{this.carList.payAmount}}</text>
 					抢单并支付
 				</button>
 			</view>
@@ -113,22 +115,32 @@
 export default {
 	data() {
 		return {
-			carList: null
+			carList: null,
+			orderId:null, //订单id
+			robMerchantInfoId:null //抢单商家Id
 		};
 	},
 	onLoad: function(option) {
-		this.carList = option;
-		// console.log('option',option)
-		//        var that = this
-		// uni.getStorage({
-		//     key: 'storage_key',
-		//     success: function (res) {
-		// 				that.carList = res.data
-		// 				console.log(that.carList);
-		//     }
-		// });
+		this.carList = option; //接收首页传递过来的参数
 	},
-	methods: {}
+	mounted:function(){
+		this.orderId =this.carList.id;
+		this.robMerchantInfoId = this.carList.robMerchantInfoId;
+		// console.log('订单id:'+this.orderId+',抢单商家id：'+this.robMerchantInfoId)
+	},
+	methods: {
+		payMoney:function(orderId){
+			// 发送网络请求
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), 
+			{'type':'1','orderId':this.orderId,'robMerchantInfoId':this.robMerchantInfoId},
+			(res)=>{
+				this.$mtRequest.stop();//结束loading等待
+			});
+			// 跳转到抢单记录
+			let param = {'oderid11':this.orderId}
+			this.$navTo.togo('./grabRecord',param);
+		}
+	}
 };
 </script>
 
@@ -271,4 +283,5 @@ export default {
 		padding-left: 10rpx;
 	}
 }
+
 </style>

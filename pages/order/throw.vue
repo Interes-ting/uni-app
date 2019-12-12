@@ -42,24 +42,54 @@
 					<input placeholder="请输入手机号" name="input"></input>
 				</view>
 				<view class="order-detail-two">
+					<!-- 搬出地址 -->
 					<view class="order-detail-two-view">
 						<view class="order-detail-two-view-pai" style="background-color: #22AC38;"></view>
-					
 						<view class="cu-form-group order-detail-two-view-where">
 							<input placeholder="您从哪里搬出" name="input"></input>
 						</view>
 					</view>
+					<!-- 电梯楼层 -->
 					<view class="order-detail-two-view">
-						<view class="order-detail-two-view-pai" style="background-color:#B71A00"></view>
+						<view class="order-detail-two-view-pai" style="background-color: #22AC38;"></view>
+						<view class="cu-form-group order-detail-two-view-where">
+								<view class="title">电梯 / 楼层选择</view>
+								<picker mode="multiSelector" 
+								@change="MultiChange" @columnchange="MultiColumnChange" 
+								:value="multiIndex" :range="multiArray">
+								<view class="picker">
+								{{ multiArray[0][multiIndex[0]] }}，{{ multiArray[1][multiIndex[1]] }}
+								</view>
+								</picker>
+						</view>
+					</view>Q
+					<!-- 搬入地址 -->
+					<view class="order-detail-two-view">
+						<view class="order-detail-two-view-pai" style="background-color: #22AC38;"></view>
 						<view class="cu-form-group order-detail-two-view-where">
 							<input placeholder="您搬到哪里去" name="input"></input>
+						</view>
+					</view>
+					<!-- 电梯楼层 -->
+					<view class="order-detail-two-view" >
+						<view class="order-detail-two-view-pai" style="background-color:#B71A00"></view>
+						<view class="cu-form-group order-detail-two-view-where" >
+							<view class="title">电梯 / 楼层选择</view>
+							<picker mode="multiSelector" 
+							 @change="MultiChange1" @columnchange="MultiColumnChange1"
+							:value="multiIndex1" :range="multiArray1">
+							<view class="picker">
+							{{ multiArray1[0][multiIndex1[0]] }}，
+							{{ multiArray1[1][multiIndex1[1]] }}
+							</view>
+							</picker>
 						</view>
 					</view>
 					<view class="order-bar"></view>
 				</view>
 				<view class="moving-distance cu-form-group" @click="openDatetimePicker">
-						<view class="cuIcon-circlefill content-icon"></view>
-						<view class="move-time">搬家时间</view>
+					<text class="mt-iconbox mtfa mt-rili mt-iconbox" style="position: relative;right: 13.33rpx;"></text>
+						<view class="move-time" style="left: 60rpx;">搬家时间</view>
 						<view class="checktime" >
 							{{time}}
 						</view>
@@ -73,21 +103,13 @@
 					距离  (公里)
 				</view>
 				<view class="moving-distance">
-						<text class="cuIcon-circlefill content-icon"></text>
+						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523;"></text>
 						<text class="moving-distance-text">订单金额</text>
 				</view>
 				<view class="moving-distance">
-					<text class="cuIcon-circlefill content-icon"style="float: left;"></text>
-					<text class="moving-distance-text" style="float: left;">扔单提成: 60</text>
+					<text class="mt-iconbox mtfa mt-fuwufei1"style="float: left;font-size: 45rpx;margin-left: -5rpx"></text>
+					<text class="moving-distance-text" style="float: left;margin-left: -7rpx">扔单提成: 60</text>
 					<text class="moving-distance-text" style="float: right; margin-right: 58.04rpx;">扔单提成: 60</text>
-				</view>
-				<view class="basic-services-car cu-form-group" style="border-top:0">
-					<view class="title">楼层</view>
-						<picker @change="PickerChangeFloor" :value="index2" :range="pickerFloor">
-							<view class="picker">
-								{{index2>-1?pickerFloor[index2]:'禁止换行，超出容器部分会以 ... 方式截断'}}
-							</view>
-						</picker>
 				</view>
 				<view class="basic-services-car cu-form-group" style="border-top:0">
 					<view class="title">需要搬运人数</view>
@@ -105,11 +127,6 @@
 					<view class="title">需要搬运服务</view>
 					<switch  @change="SwitchD" :class="switchD?'checked':''" :checked="switchD?true:false"></switch>
 				</view>
-				<view class="basic-services-car cu-form-group" style="border-top:0">
-					<view class="title">是否有电梯</view>
-					<!-- <switch  @change="SwitchF" :class="switchF?'checked':''" :checked="switchF?true:false"></switch> -->
-					<switch  @change="SwitchG" :class="switchG?'checked':''" :checked="switchG?true:false"></switch>
-				</view>
 				<view class="cu-form-group align-start" style="height: 260.87rpx;">
 					<view class="title">搬运物品</view>
 					<textarea maxlength="-1" @input="textareaAInput"></textarea>
@@ -120,7 +137,7 @@
 				</view>
 			</view>
 			<view style="position: relative;width: 100%;height: 387.39rpx;">
-				<button class="mt-seedeil-btn" >立即扔单</button>
+				<button class="mt-seedeil-btn" @tap="goThrow">立即扔单</button>
 			</view>
 	</view>
 		<!-- 底部导航栏 -->
@@ -161,13 +178,11 @@
 				time: '2019-12-10 12:01',
 				// 车辆选择参数
 				index: 0,
+				picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
 				pickerCar: ['小面包车', '汪汪汪', '哼唧哼唧'],
 				// 车辆数量选择参数
 				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6],
-				// 楼层选择参数
-				index2: 0,
-				pickerFloor: [1, 2, 3, 4, 5, 6],
 				// 人数选择参数
 				index3: 0,
 				pickerHumen: [1, 2, 3, 4, 5, 6],
@@ -179,14 +194,24 @@
 				switchC: true,
 				// 搬运服务
 				switchD: true,
-				// 是否电梯
-				switchF: true,
-				switchG: true,
 				// 搬运物品
 				textareaAValue: '',
 				// 注意事项
 				textareaBValue: '',
+				lc1: ['1', '2', '3', '4', '5', '6', '7', '8'],
+				lc2: ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'],
+				// 搬入地址电梯楼层
+				multiArray: [['无电梯', '有电梯'], []],
+				multiIndex: [0, 0],
+				// 搬出地址电梯楼层
+				multiArray1: [['无电梯', '有电梯'], []],
+				multiIndex1: [0, 0],
+
 			}
+		},
+		onLoad() {
+			this.multiArray[1] =this.lc1
+			this.multiArray1[1] =this.lc1
 		},
 		methods: {
 			// 打开时间日期选择器
@@ -202,35 +227,33 @@
          console.log(e);
          this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
       },
+			
 			// 车辆类型
 			PickerChange:function(e) {
 				this.index = e.detail.value
 				console.log(this.index)
 				console.log(this.pickerCar[this.index])
-				
-		},
+			},
+			
 			// 车辆数量选择
 			PickerChangeNum:function(e) {
 				this.index1 = e.detail.value
 				console.log(this.index1)
 				console.log(this.pickerNum[this.index1])
 			},
-			// 楼层选择
-			PickerChangeFloor:function(e) {
-				this.index2 = e.detail.value
-				console.log(this.index2)
-				console.log(this.pickerFloor[this.index2])
-			},
+			
 			// 人数选择
 			PickerChangeHumen:function(e) {
 				this.index3 = e.detail.value
 				console.log(this.index3)
 				console.log(this.pickerHumen[this.index3])
 			},
+			
 			// 车辆
 			SwitchA:function(e) {
 				this.switchA = e.detail.value
 			},
+			
 			// 拆装服务
 			SwitchB:function(e) {
 				this.switchB = e.detail.value
@@ -240,42 +263,87 @@
 			SwitchD:function(e) {
 				this.switchD = e.detail.value
 			},
-			// 是否电梯
-			SwitchF:function(e) {
-				this.switchF = e.detail.value
-			},
-			SwitchG:function(e) {
-				this.switchG = e.detail.value
-			},
+			
 			// 搬运物品
 			textareaAInput:function(e) {
 				this.textareaAValue = e.detail.value
 			},
+			
 			// 注意事项
 			textareaBInput:function(e) {
 				this.textareaBValue = e.detail.value
 			},
-			goIndex: function (){
-				//扔单
-				
+			
+			goIndex: function (){   //首页
 				 uni.navigateTo({
 				     url: "../index/index"
 				 });
 			},
-			goWallet: function (){
-				//收益
+			
+			goWallet: function (){   //收益
+				
 				uni.navigateTo({
 				    url: "../wallet/wallet"
 				});
 			},
-			goPerson: function (){
-				//个人中心
+			
+			goPerson: function (){	//个人中心
+	
 				uni.navigateTo({
 				    url: "../person/person"
 				});
 			},
+			
+			goThrow:function(){ //立即扔单
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, (res)=>{
+					this.$mtRequest.stop(); //结束loading等待
+				});
+			},
+			
+			// 搬出地址楼层选择
+			MultiChange(e) {
+				this.multiIndex = e.detail.value;
+			},
+			MultiColumnChange(e) {
+				let data={
+					multiIndex:this.multiIndex,
+					multiArray:this.multiArray
+				}
+			selectchange(data,this,e.detail)
+			//console.log(e.detail)
+			},
+			
+			// 搬入地址楼层选择
+			MultiChange1(e) {
+				this.multiIndex1 = e.detail.value;
+			},
+			
+			
+			MultiColumnChange1(e) {
+				let data={
+					multiIndex:this.multiIndex1,
+					multiArray:this.multiArray1
+				}
+			selectchange(data,this,e.detail)
+			//console.log(e.detail)
+			} 
+			
 		}
 	}
+	
+function selectchange(data,lcarry,selectItem){
+	data.multiIndex[selectItem.column] = selectItem.value;
+	if (selectItem.column == 0) {
+		switch (data.multiIndex[0]) {
+			case 0:
+				data.multiArray[1] = lcarry.lc1;
+				break;
+			case 1:
+				data.multiArray[1] = lcarry.lc2;
+				break;
+		}
+	}
+}
 </script>
 
 <style lang="less" scoped>
@@ -287,6 +355,11 @@
 		position: absolute;
 		right:50rpx
 	}
+	.mt-iconbox{
+		font-size: 33.33rpx;
+		color:#F06523;
+	}
+
 	.mt-seedeil-btn {
 		width:576.52rpx;
 		height:97.82rpx;
@@ -449,7 +522,7 @@
 			
 			.order-detail-two {
 				width: 100%;
-				height: 166rpx;
+				// height: 166rpx;
 				margin-top:0.65rpx;
 				font-size: 40px;
 				position: relative;
