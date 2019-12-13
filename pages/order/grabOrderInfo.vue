@@ -19,7 +19,7 @@
 				<view class="order-detail-one">
 					<view class="order-detail-one-img mtfa mt-duoren" style="color: #EA7035;"></view>
 					<view class="order-detail-one-text">
-						<text class="order-detail-one-text-one">搬运人数:</text>
+						<text class="order-detail-one-text-one">搬运人数: </text>
 						<text class="order-detail-one-text-two">2</text>
 					</view>
 				</view>

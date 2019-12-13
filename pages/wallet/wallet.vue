@@ -1,6 +1,7 @@
 <template>
 	<view>
 		我的收益
+
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
@@ -26,7 +27,10 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			// 是否需要车辆
+			switchA: true
+		};
 	},
 	methods: {
 		goIndex: function() {
@@ -46,9 +50,27 @@ export default {
 			uni.navigateTo({
 				url: '../person/person'
 			});
-		},
+		}
 	}
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped>
+page {
+	font-size: 26.66rpx;
+	color: #333333;
+}
+.bold {
+	font-weight: 700;
+	font-size: 29.78rpx;
+}
+.mt-card {
+	border-radius: 13.33rpx;
+	background-color: #ffffff;
+	margin: 13.33rpx;
+	box-shadow:0rpx 0rpx 25.33rpx 0rpx rgba(0, 0, 0, 0.08);
+}
+.cu-form-group{
+	
+}
+</style>
