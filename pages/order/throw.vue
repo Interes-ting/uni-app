@@ -141,7 +141,7 @@
 		},
 		data() {
 			return {
-				// 车id
+				// 保存车辆信息数组
 				pieckId:[],
 				//客户名
 				customName: '',
@@ -161,15 +161,15 @@
 				time: '2019-12-10 12:01',
 				// 车辆选择参数
 				index: 0,
-				// picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
 				pickerCar: [],
+				// 车辆id
+				carId:null,
 				// 车辆数量选择参数
 				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
 				// 人数选择参数
 				index3: 0,
 				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10人以上'],
-				carList: [1, 2, 3],
 				// 是否需要车辆
 				switchA: true,
 				needCar: null,
@@ -295,15 +295,18 @@
 			// 车辆类型
 			PickerChange: function(e) {
 				this.index = e.detail.value
-				console.log(this.pieckId)
-				console.log(this.pickerCar)
 				this.show = e.detail.value
+				this.pieckId.forEach((item,index)=>{
+					if(item.name  === this.pickerCar[this.index]){
+						this.carId = item.id;
+					}
+				})
 			},
 
 			// 车辆数量选择
 			PickerChangeNum: function(e) {
 				this.index1 = e.detail.value
-				console.log(this.index1)
+
 				console.log(this.pickerNum[this.index1])
 			},
 
@@ -409,33 +412,43 @@
 				}
 				// 发送网络请求
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
-						customerName: '',
-						phone: '',
-						fromAddress: '',
-						toAddress: '',
-						deliveryTime: '',
-						distance: '',
-						goods: '',
-						carTypeId: '',
-						carTypeName: '',
-						price: '',
-						payAmount: '',
+						customerName: this.customName, 
+						phone: this.customPhone,
+						fromAddress: this.startAddress,
+						toAddress: this.toAddress,
+						deliveryTime: this.time,
+						distance:  this.distance,
+						goods: this.textareaAValue,
+						carTypeId: this.carId,
+						carTypeName: this.pickerCar[this.index],
+						price: this.orderAmount,
+						payAmount: this.pay,
 						remark: this.textareaAValue,
-						throwMerchantInfo: this.$mtAccount.info().merchantInfoId
+						throwMerchantInfo: this.$mtAccount.info().merchantInfoId,
+						intoElevator:this.endfloor,
+						intoFloor:this.floor2,
+						outEleveator:this.startfloor,
+						outFloor:this.floor1,
+						vehicleRequired: this.needCar,
+						vehiceNumber:this.pickerNum[this.index1],
+						isItUrgent:this.sos,
+						isItchai:this.installation,
+						// thowPlatformFee: 平台服务费
 					},
 					(res) => {
-						this.$mtRequest.stop(); //结束loading等待
+						// this.$mtRequest.stop(); //结束loading等待
 					});
 			},
 
 			checkCarType:function() { //发送网络请求获取车辆类型
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'), {}, (res) => {
 					if(res.state >0){
-						for (let i = 0; i <= res.length; i++) {
-							this.pickerCar.push(res[i].name);
-						}
-						console.log(this.pickerCar);
+						this.pieckId = res.data;
+						this.pieckId.forEach(item=>{
+							this.pickerCar.push(item.name)
+						})
 						this.$mtRequest.stop();
+						// console.log(this.pieckId)
 					}
 					
 				});
