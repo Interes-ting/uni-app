@@ -1,7 +1,7 @@
 <template>
 	<view class="backco">
 		<view class="person-head">
-			<cmd-avatar src="../../static/头像.jpg" size="lg" :make="{ 'background-color': '#fff' }"></cmd-avatar>
+			<cmd-avatar src="../../static/portrait.jpg" size="lg" :make="{ 'background-color': '#fff' }"></cmd-avatar>
 			<view class="person-head-box">
 				<view class="person-head-nickname">{{companyLegalPerson}}</view>
 				<view class="person-head-username">{{merchantName}}</view>
@@ -9,12 +9,12 @@
 			</view>
 		</view>
 		<view class="person-list">
-			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="../../static/订单.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/货车.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/关于我们.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="../../static/建议反馈.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/设置.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="../../static/银行卡.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="../../static/order.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/trucks.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/about.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="../../static/feedback.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/set.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="../../static/bankcard.png" class="imgs"></image></cmd-cell-item>
 		</view>
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
@@ -168,6 +168,6 @@ export default {
 	border-top-right-radius: 70rpx;
 	border-top-left-radius: 70rpx;
 	padding-top: 6.66rpx;
-	margin-bottom: 80rpx;
+	margin-bottom: 100rpx;
 }
 </style>
