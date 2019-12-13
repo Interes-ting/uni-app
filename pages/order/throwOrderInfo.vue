@@ -7,78 +7,78 @@
 				<view class="mt-startcity">
 					<view class="mtfa mt-begin" style="color:#0B398F;">
 					</view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{this.oderList.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-xiedian " style="color:#009A00;">
 					</view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{this.oderList.toAddress}}</text>
 				</view>
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">客户名：{{this.oderList.customerName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">扔单时间：2019-11-29   09:23:12</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">被抢时间：2019-11-29   10:23:12</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">出发时间：{{this.oderList.deliveryTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">车辆类型：{{this.oderList.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">派车类型：{{this.oderList.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">注意事项：{{this.oderList.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">搬运人数：2人</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">搬运物品：{{this.oderList.goods}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">注意事项：轻拿轻放</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey"> 搬出地址：{{this.oderList.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">到达地址：{{this.oderList.toAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">楼层：{{this.oderList.floor}}</text>
 				</view>
 			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">订单金额：{{this.oderList.price}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">订单服务费：60</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -96,7 +96,12 @@
 <script>
 export default {
 	data() {
-		return {};
+		return {
+			oderList:null,
+		};
+	},
+	onLoad(option) {
+		this.oderList = option;
 	},
 	methods: {}
 };

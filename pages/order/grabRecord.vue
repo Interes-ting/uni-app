@@ -5,38 +5,38 @@
 			<view class="mt-card">
 				<view class="mt-startcity">
 					<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{item.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
-					<text class="space bold">苏州市</text>
+					<text class="space bold">{{item.toAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text>订单金额：300元</text>
-					<text style="margin-left: 46.66rpx;">扔单提成：60元</text>
+					<text>订单金额：{{item.price}}元</text>
+					<text style="margin-left: 46.66rpx;">扔单提成：{{item.price}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-juli text-grey "></view>
-					<text class="text-grey">距离：6公里</text>
+					<text class="text-grey">距离：{{item.distance}}公里</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-clocks text-grey "></view>
-					<text class="text-grey">出发时间：2019-1-28 08:36</text>
+					<text class="text-grey">出发时间：{{item.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-box text-grey "></view>
-					<text class="text-grey">搬运物品：螺纹钢1个规格31.29吨</text>
+					<text class="text-grey">搬运物品：{{item.goods}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：2019-1-29 08:36</text>
+					<text class="text-grey">扔单时间：{{item.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text>此订单由长沙运邦搬家提供</text>
+					<text>{{item.throwMerchantInfo}}</text>
 				</view>
-				<button class="mt-viewbutton" @tap="goGrabedOrderInfo">详情</button>
+				<button class="mt-viewbutton" @tap="goGrabedOrderInfo(item)">详情</button>
 			</view>
 		</block>
 	</view>
@@ -49,23 +49,25 @@ export default {
 			recordList: ''
 		};
 	},
-	onLoad() {
+	onLoad(option) {
 		// 页面加载时执行网络请求
 		this.getList();
 	},
 	methods: {
-		goGrabedOrderInfo: function() {
-			//跳转到抢单详情页
-			uni.navigateTo({
-				url: 'grabedOrderInfo?inFo='
-			});
+		goGrabedOrderInfo: function(item) {
+			//跳转到抢单详情页并传递参数
+			console.log(item)
+			let param = item;
+			this.$navTo.togo('./grabedOrderInfo',param);
 		},
+		
 		getList: function() {
 			//发送网络请求
 			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), { type: '1', robMerchantInfoId: '1' }, function(res) {
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
+			{ type: '1', robMerchantInfoId: '1' }, function(res) {
 				that.recordList = res.data;
-				console.log(that.recordList);
+				// console.log(that.recordList);
 				//结束操作
 				that.$mtRequest.stop();
 			});

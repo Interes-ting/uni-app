@@ -1,6 +1,6 @@
 <template>
 	<view>
-		收益
+		我的收益
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
@@ -24,35 +24,31 @@
 </template>
 
 <script>
-	export default {
-		data() {
-			return {
-				
-			}
+export default {
+	data() {
+		return {};
+	},
+	methods: {
+		goIndex: function() {
+			//首页
+			uni.navigateTo({
+				url: '../index/index'
+			});
 		},
-		methods: {
-			goIndex: function() {
-				//首页
-				uni.navigateTo({
-					url: '../index/index'
-				});
-			},
-			goThrow: function (){
-				//扔单
-				 uni.navigateTo({
-				     url: "../order/throw"
-				 });
-			},
-			goPerson: function() {
-				//个人中心
-				uni.navigateTo({
-					url: '../person/person'
-				});
-			},
-		}
+		goThrow: function() {
+			//扔单
+			uni.navigateTo({
+				url: '../order/throw'
+			});
+		},
+		goPerson: function() {
+			//个人中心
+			uni.navigateTo({
+				url: '../person/person'
+			});
+		},
 	}
+};
 </script>
 
-<style>
-
-</style>
+<style></style>
