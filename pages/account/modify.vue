@@ -193,13 +193,13 @@ uni-page-body {
 		height: 78rpx;
 		margin: 15% 15%;
 		border: 20;
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: 400;
 		padding: 60rpx 0 80rpx 0;
 	}
 	
 	.mt-loginbutndl {
-		border-radius: 20px;
+		border-radius: 40rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
 	}
