@@ -30,7 +30,7 @@
 				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
 				<view class="text-gray">收益</view>
 			</view>
-			<view class="action" @click="goPerson">
+			<view class="action">
 				<view class="mtfa mt-person mt-tabbar-item  text-blue"></view>
 				<view class="text-blue">我的</view>
 			</view>
