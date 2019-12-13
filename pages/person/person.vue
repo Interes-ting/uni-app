@@ -16,25 +16,6 @@
 			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/set.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="../../static/bankcard.png" class="imgs"></image></cmd-cell-item>
 		</view>
-		<!-- 底部导航栏 -->
-		<view class="cu-bar tabbar bg-white mt-tabbar">
-			<view class="action" @click="goIndex">
-				<view class="mtfa mt-shouye mt-tabbar-item"></view>
-				<view class="text-grey">首页</view>
-			</view>
-			<view class="action" @click="goThrow">
-				<view class="mtfa mt-daochu mt-tabbar-item"></view>
-				<view class="text-gray">扔单</view>
-			</view>
-			<view class="action" @click="goWallet">
-				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
-				<view class="text-gray">收益</view>
-			</view>
-			<view class="action">
-				<view class="mtfa mt-person mt-tabbar-item  text-blue"></view>
-				<view class="text-blue">我的</view>
-			</view>
-		</view>
 	</view>
 </template>
 
@@ -76,25 +57,7 @@ export default {
 				//结束请求
 				that.$mtRequest.stop();
 			});
-		},
-		goIndex: function() {
-			//首页
-			uni.navigateTo({
-				url: '../index/index'
-			});
-		},
-		goThrow: function (){
-			//扔单
-			 uni.navigateTo({
-			     url: "../order/throw"
-			 });
-		},
-		goWallet: function() {
-			//收益
-			uni.navigateTo({
-				url: '../wallet/wallet'
-			});
-		},
+		},		
 		fnInfoWin: function(information) { 
 			
 			 let url = '/pages/person/personInfo'  
