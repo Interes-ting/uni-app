@@ -2,15 +2,15 @@
 	<view>
 		<view class="topka">
 			<view class="sheet">
-				<view class="titlee">持卡人</view>
+				<view class="titlee"><text class="red">*</text>持卡人</view>
 				<input type="text" placeholder="请输入持卡人真实姓名" placeholder-class="place" v-model="personname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">银行卡号</view>
+				<view class="titlee"><text class="red">*</text>银行卡号</view>
 				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">开户行</view>
+				<view class="titlee"><text class="red">*</text>开户行</view>
 				<input type="text" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
@@ -35,8 +35,8 @@ export default {
 			listname: '',
 			personname: '',
 			cardname: '',
-			carList:'',
-			Id:'',
+			carList: '',
+			cardNo: '',
 			rules: {
 				personname: [
 					{
@@ -70,20 +70,21 @@ export default {
 		this.inpost();
 	},
 
-
 	methods: {
 		inpost: function() {
 			this.Id = this.carList.id;
 			this.$mtRequest.get(
 				this.$mtConfig.getPlatformUrl('/api/bank_card/get'),
 				{
-					use_id: this.carList.id,
+					use_id: this.carList.id
 				},
 				data => {
-					this.cardname = data.data.cardNo;
-					this.personname = data.data.name;
-					this.listname = data.data.bankName;
-
+					if (data.state > 0) {
+						this.cardname = data.data.cardNo;
+						this.personname = data.data.name;
+						this.listname = data.data.bankName;
+					} else {
+					}
 					this.$mtRequest.stop();
 				}
 			);
@@ -110,10 +111,10 @@ export default {
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('/api/bank_card/save'),
 				{
-					useId : this.carList.id,
-					cardNo : this.cardname,
-					name : this.personname,
-					bankName : this.listname,
+					useId: this.carList.id,
+					cardNo: this.cardname,
+					name: this.personname,
+					bankName: this.listname
 				},
 				data => {
 					if (data.state > 0) {
@@ -143,6 +144,10 @@ export default {
 </script>
 
 <style>
+.red {
+	font-size: 10rpx;
+	color: red;
+}
 .topka {
 	padding-top: 13.33rpx;
 }
