@@ -50,8 +50,42 @@
 
 			}
 		},
+		onLoad(){
+			earnings();
+		},
 		methods: {
-
+			earnings() {
+			
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"),{merchantId:'257192542313906176'},(data)=> {
+					if (data.state > 0) {
+						
+						this.amount = data.data.amount;
+						this.withdrawable = data.data.withdrawable;
+						this.waitverify = data.data.waitverify;
+						this.totalExpenditure = data.data.totalExpenditure;
+						
+						//withdrawable
+						//waitverify
+						
+				console.log(this.amount)
+						
+					//多数据循环：把后台返回数据赋值给变量list
+					// this.list =	res.data  
+					// 单数据   this.list =	res.data.参数名
+					} else {
+						console.log('d2')
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+				
+					//结束请求
+					this.$mtRequest.stop();
+				})
+			},
 		}
 	}
 </script>

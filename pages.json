@@ -16,6 +16,11 @@
 				}
 			}
 		}, {
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom"
+			}
+		}, {
 			"path": "pages/account/register",
 			"style": {
 				"navigationStyle": "custom"
@@ -25,11 +30,6 @@
 			"style": {}
 		}, {
 			"path": "pages/account/forget",
-			"style": {
-				"navigationStyle": "custom"
-			}
-		}, {
-			"path": "pages/login/login",
 			"style": {
 				"navigationStyle": "custom"
 			}
@@ -92,25 +92,51 @@
 			"style": {
 				"navigationBarTitleText": "扔单详情"
 			}
+		}, {
+			"path": "pages/demo/demo",
+			"style": {}
 		}
-	    ,{
-            "path" : "pages/demo/demo",
-            "style" : {}
-        }
-    ],
+	],
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#1E83FF",
+		"borderStyle": "white",
+		"backgroundColor": "#ffffff",
+		"iconWidth": "81px",
+		"fontSize": "11px",
+		"list": [{
+			"pagePath": "pages/index/index",
+			"iconPath": "static/tabbar/home.png",
+			"selectedIconPath": "static/tabbar/home-active.png",
+			"text": "首页"
+		}, {
+			"pagePath": "pages/order/throw",
+			"iconPath": "static/tabbar/throw.png",
+			"selectedIconPath": "static/tabbar/throw-active.png",
+			"text": "扔单"
+		}, {
+			"pagePath": "pages/wallet/wallet",
+			"iconPath": "static/tabbar/wallet.png",
+			"selectedIconPath": "static/tabbar/wallet-active.png",
+			"text": "钱包"
+		}, {
+			"pagePath": "pages/person/person",
+			"iconPath": "static/tabbar/person.png",
+			"selectedIconPath": "static/tabbar/person-active.png",
+			"text": "我的"
+		}]
+	},
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
 	},
-	"condition" : { //模式配置，仅开发期间生效
+	"condition": { //模式配置，仅开发期间生效
 		"current": 0, //当前激活的模式(list 的索引项)
-		"list": [
-			{
-				"name": "", //模式名称
-				"path": "", //启动页面，必选
-				"query": "" //启动参数，在页面的onLoad函数里面得到
-			}
-		]
+		"list": [{
+			"name": "test", //模式名称
+			"path": "pages/login/login", //启动页面，必选
+			"query": "" //启动参数，在页面的onLoad函数里面得到
+		}]
 	}
 }

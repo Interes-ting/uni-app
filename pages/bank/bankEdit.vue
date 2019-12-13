@@ -2,15 +2,15 @@
 	<view>
 		<view class="topka">
 			<view class="sheet">
-				<view class="titlee">持卡人</view>
+				<view class="titlee"><text class="red">*</text>持卡人</view>
 				<input type="text" placeholder="请输入持卡人真实姓名" placeholder-class="place" v-model="personname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">银行卡号</view>
+				<view class="titlee"><text class="red">*</text>银行卡号</view>
 				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">开户行</view>
+				<view class="titlee"><text class="red">*</text>开户行</view>
 				<input type="text" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
@@ -30,11 +30,13 @@ export default {
 
 	data() {
 		return {
-			listname: '',
 			list: airport.list,
 			bankname: false,
+			listname: '',
 			personname: '',
 			cardname: '',
+			carList: '',
+			cardNo: '',
 			rules: {
 				personname: [
 					{
@@ -62,7 +64,31 @@ export default {
 			}
 		};
 	},
+
+	onLoad: function(option) {
+		this.carList = option;
+		this.inpost();
+	},
+
 	methods: {
+		inpost: function() {
+			this.Id = this.carList.id;
+			this.$mtRequest.get(
+				this.$mtConfig.getPlatformUrl('/api/bank_card/get'),
+				{
+					use_id: this.carList.id
+				},
+				data => {
+					if (data.state > 0) {
+						this.cardname = data.data.cardNo;
+						this.personname = data.data.name;
+						this.listname = data.data.bankName;
+					} else {
+					}
+					this.$mtRequest.stop();
+				}
+			);
+		},
 		onindexed() {
 			this.bankname = true;
 		},
@@ -74,7 +100,7 @@ export default {
 			let user = {
 				personname: this.personname,
 				cardname: this.cardname,
-				listname: this.listname,
+				listname: this.listname
 			};
 
 			//做校验
@@ -82,22 +108,46 @@ export default {
 			if (!validResult) {
 				return;
 			}
-			uni.showToast({
-				title: '修改成功',
-				duration: 1500,
-				icon: 'none'
-			});
-			setTimeout(function() {
-				uni.navigateBack({
-					url: '/pages/person/person'
-				});
-			}, 2000);
+			this.$mtRequest.post(
+				this.$mtConfig.getPlatformUrl('/api/bank_card/save'),
+				{
+					useId: this.carList.id,
+					cardNo: this.cardname,
+					name: this.personname,
+					bankName: this.listname
+				},
+				data => {
+					if (data.state > 0) {
+						uni.showToast({
+							title: '保存成功',
+							success: function() {
+								setTimeout(function() {
+									uni.navigateTo({
+										url: '/pages/person/person'
+									});
+								}, 2000);
+							}
+						});
+					} else {
+						uni.showToast({
+							title: data.message,
+							icon: 'none'
+						});
+					}
+					//结束请求
+					this.$mtRequest.stop();
+				}
+			);
 		}
 	}
 };
 </script>
 
 <style>
+.red {
+	font-size: 10rpx;
+	color: red;
+}
 .topka {
 	padding-top: 13.33rpx;
 }
@@ -130,7 +180,7 @@ input {
 }
 
 .place {
-	font-size: 10rpx;
+	font-size: 24rpx;
 }
 
 .btn-logout {

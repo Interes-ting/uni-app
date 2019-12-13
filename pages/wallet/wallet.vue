@@ -1,9 +1,24 @@
+<<<<<<< .mine
 <template >
 	<view >
 		<view class="mt-heis"></view>
 		<view class="mt-view">
 			<view class="mt-totalamount">
 				总额 (元)
+
+
+
+=======
+<template>
+	<view>
+		我的收益
+
+		<!-- 底部导航栏 -->
+		<view class="cu-bar tabbar bg-white mt-tabbar">
+			<view class="action" @click="goIndex">
+				<view class="mtfa mt-shouye mt-tabbar-item"></view>
+				<view class="text-grey">首页</view>
+>>>>>>> .theirs
 			</view>
 			<view class="mt-amount amount">
 				<view class="mt-amoutone" >	
@@ -102,6 +117,7 @@
 </template>
 
 <script>
+<<<<<<< .mine
 	export default {
 		data() {
 			return {
@@ -114,6 +130,22 @@
 				totalExpenditure:null,
 			
 			}
+
+=======
+export default {
+	data() {
+		return {
+			// 是否需要车辆
+			switchA: true
+		};
+	},
+	methods: {
+		goIndex: function() {
+			//首页
+			uni.navigateTo({
+				url: '../index/index'
+			});
+>>>>>>> .theirs
 		},
 		onLoad(){
 			//初始钱包查询
@@ -121,6 +153,7 @@
 			 //初始账单列表查询
 			 this.earningstwo();
 		},
+<<<<<<< .mine
 		methods: {
 			//详情点击
 			Details(){
@@ -188,9 +221,79 @@
 			// this.list = res.data
 			
 		}
+=======
+		goPerson: function() {
+			//个人中心
+			uni.navigateTo({
+				url: '../person/person'
+			});
+		}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs
 	}
 </script>
 
+<<<<<<< .mine
 <style>
 	.mt-srcimg{
 		width: 60rpx;
@@ -348,3 +451,162 @@
 		font-size: 15rpx;
 	}
 </style>
+=======
+<style lang="scss" scoped>
+page {
+	font-size: 26.66rpx;
+	color: #333333;
+}
+.bold {
+	font-weight: 700;
+	font-size: 29.78rpx;
+}
+.mt-card {
+	border-radius: 13.33rpx;
+	background-color: #ffffff;
+	margin: 13.33rpx;
+	box-shadow:0rpx 0rpx 25.33rpx 0rpx rgba(0, 0, 0, 0.08);
+}
+.cu-form-group{
+	
+}
+</style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+>>>>>>> .theirs

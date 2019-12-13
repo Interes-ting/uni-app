@@ -16,7 +16,10 @@ body {
 	color: #333333;
 	font-family: Helvetica Neue, Helvetica, sans-serif;
 }
-
+	.required{
+		color: red;
+		font-size: 10rpx;
+	}
 view,
 scroll-view,
 swiper,
