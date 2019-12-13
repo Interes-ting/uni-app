@@ -4,6 +4,7 @@ import MtConifg from './common/miiteen/miiteen-config.js'
 import MtValidation from './common/miiteen/miiteen-validation.js'
 import MtRegExp from './common/miiteen/miiteen-regexp.js'
 import MtRequest from './common/miiteen/miiteen-request.js'
+import MtAccount from './common/miiteen/miiteen-account.js'
 import navTo from './common/miiteen/navTo.js'
 import mtAlert from '@/components/miiteen/popups/mt-alert.vue'
 
@@ -17,6 +18,7 @@ Vue.prototype.$mtConfig = MtConifg;
 Vue.prototype.$mtValidation = MtValidation;
 Vue.prototype.$mtRegexp = MtRegExp;
 Vue.prototype.$mtRequest = MtRequest;
+Vue.prototype.$mtAccount = MtAccount;
 Vue.prototype.$navTo = navTo
 
 App.mpType = 'app'
