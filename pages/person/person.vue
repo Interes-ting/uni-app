@@ -3,18 +3,18 @@
 		<view class="person-head">
 			<cmd-avatar src="../../static/头像.jpg" size="lg" :make="{ 'background-color': '#fff' }"></cmd-avatar>
 			<view class="person-head-box">
-				<view class="person-head-nickname">张三</view>
-				<view class="person-head-username">长沙运邦搬家</view>
-				<view class="person-head-username">18096253214</view>
+				<view class="person-head-nickname">{{companyLegalPerson}}</view>
+				<view class="person-head-username">{{merchantName}}</view>
+				<view class="person-head-username">{{phone}}</view>
 			</view>
 		</view>
 		<view class="person-list">
-			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin"><image src="../../static/订单.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="../../static/订单.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/货车.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/关于我们.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback"><image src="../../static/建议反馈.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting"><image src="../../static/设置.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit"><image src="../../static/银行卡.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="../../static/建议反馈.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/设置.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="../../static/银行卡.png" class="imgs"></image></cmd-cell-item>
 		</view>
 		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
@@ -50,9 +50,34 @@ export default {
 		cmdIcon
 	},
 	data() {
-		return {};
+		return {
+			phone:'',
+			merchantName:'',
+			companyLegalPerson:'',
+			information:'',
+		};
+	},
+	
+	onLoad() {
+		this.inpost();
 	},
 	methods: {
+		inpost: function() {
+			let that = this;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/merchant_info/selectUser'), 
+			{ 
+			merchantId: '243750678432841728',
+			}, 
+			function(data) {
+				that.phone = data.data.phone;
+				that.merchantName = data.data.merchantName;
+				that.companyLegalPerson = data.data.companyLegalPerson;
+				that.information = data.data;
+				console.log(that.information)
+				//结束请求
+				that.$mtRequest.stop();
+			});
+		},
 		goIndex: function() {
 			//首页
 			uni.navigateTo({
@@ -71,27 +96,34 @@ export default {
 				url: '../wallet/wallet'
 			});
 		},
-
-		fnInfoWin: function() {
-			uni.navigateTo({
-				url: '/pages/person/personInfo'
-			});
+		fnInfoWin: function(information) { 
+			
+			 let url = '/pages/person/personInfo'  
+			 let person = information;
+			 console.log(person)
+			 this.$navTo.togo(url,person);
 		},
-		Bankedit: function(){
-			uni.navigateTo({
-				url: '/pages/bank/bankEdit'
-			});
+		Bankedit: function(information) {
+			
+			 let url = '/pages/bank/bankEdit'  
+			 let person = information;
+			 console.log(person)
+			 this.$navTo.togo(url,person);
 		},
-		Setting: function(){
-			uni.navigateTo({
-				url: '/pages/setting/setting'
-			});
+		Setting: function(information) {
+			
+			 let url = '/pages/setting/setting'  
+			 let person = information;
+			 console.log(person)
+			 this.$navTo.togo(url,person);
 		},
-		Feedback:function(){
-			uni.navigateTo({
-				url:'/pages/feedback/feedback'
-			})
-		}
+		Feedback: function(information) {
+			
+			 let url = '/pages/feedback/feedback'  
+			 let person = information;
+			 console.log(person)
+			 this.$navTo.togo(url,person);
+		},
 	}
 };
 </script>
