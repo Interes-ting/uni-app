@@ -66,7 +66,7 @@ export default {
 			let that = this;
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/merchant_info/selectUser'), 
 			{ 
-			merchantId: '243750678432841728',
+			merchantId:this.$mtAccount.info().merchantInfoId,
 			}, 
 			function(data) {
 				that.phone = data.data.phone;
