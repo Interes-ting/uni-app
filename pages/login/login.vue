@@ -101,7 +101,7 @@
 				//请求登录
 				this.$mtAccount.login(user, function() {
 					setTimeout(function() {
-						uni.navigateTo({
+						uni.switchTab({
 							url: '../index/index'
 						});
 					}, 2000)
