@@ -12,29 +12,26 @@
 			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin"><image src="../../static/订单.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/货车.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/关于我们.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="建议反馈" slot-left arrow><image src="../../static/建议反馈.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback"><image src="../../static/建议反馈.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting"><image src="../../static/设置.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit"><image src="../../static/银行卡.png" class="imgs"></image></cmd-cell-item>
 		</view>
+		<!-- 底部导航栏 -->
 		<view class="cu-bar tabbar bg-white mt-tabbar">
 			<view class="action" @click="goIndex">
-				<view class="cuIcon-cu-image"><image src="../../static/person.jpg"></image></view>
-				<view class="text-gray">首页</view>
+				<view class="mtfa mt-shouye mt-tabbar-item"></view>
+				<view class="text-grey">首页</view>
 			</view>
 			<view class="action" @click="goThrow">
-				<view class="cuIcon-cu-image"><image src="../../static/person.jpg"></image></view>
+				<view class="mtfa mt-daochu mt-tabbar-item"></view>
 				<view class="text-gray">扔单</view>
 			</view>
 			<view class="action" @click="goWallet">
-				<view class="cuIcon-cu-image">
-					<image src="../../static/person.jpg"></image>
-				</view>
+				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
 				<view class="text-gray">收益</view>
 			</view>
-			<view class="action">
-				<view class="cuIcon-cu-image">
-					<image src="../../static/person.jpg"></image>
-				</view>
+			<view class="action" @click="goPerson">
+				<view class="mtfa mt-person mt-tabbar-item  text-blue"></view>
 				<view class="text-blue">我的</view>
 			</view>
 		</view>
@@ -75,20 +72,25 @@ export default {
 			});
 		},
 
-		fnInfoWin() {
+		fnInfoWin: function() {
 			uni.navigateTo({
 				url: '/pages/person/personInfo'
 			});
 		},
-		Bankedit() {
+		Bankedit: function(){
 			uni.navigateTo({
 				url: '/pages/bank/bankEdit'
 			});
 		},
-		Setting() {
+		Setting: function(){
 			uni.navigateTo({
 				url: '/pages/setting/setting'
 			});
+		},
+		Feedback:function(){
+			uni.navigateTo({
+				url:'/pages/feedback/feedback'
+			})
 		}
 	}
 };
@@ -98,7 +100,6 @@ export default {
 .backco {
 	background: linear-gradient(to right, #4752e8, #4987ee);
 }
-
 .imgs {
 	height: 111.33rpx;
 	width: 111.33rpx;
@@ -123,7 +124,7 @@ export default {
 	font-size: 32rpx;
 	font-weight: 500;
 	color: #fff;
-	margin: 30rpx auto 3rpx;
+	margin: 20rpx auto 0rpx;
 }
 
 .person-head-username {
@@ -131,15 +132,15 @@ export default {
 	font-weight: 500;
 	color: #fff;
 	margin: 3rpx auto;
-	padding-top: 2px;
+	padding-top: 2rpx;
 }
 
 .person-list {
 	background-color: #fff;
 	line-height: 0;
-	border-top-right-radius: 30px;
-	border-top-left-radius: 30px;
-	padding-top: 10px;
+	border-top-right-radius: 70rpx;
+	border-top-left-radius: 70rpx;
+	padding-top: 6.66rpx;
 	margin-bottom: 80rpx;
 }
 </style>
