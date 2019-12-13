@@ -83,7 +83,6 @@ export default {
 						this.cardname = data.data.cardNo;
 						this.personname = data.data.name;
 						this.listname = data.data.bankName;
-						console.log(data.data.cardNo);
 					} else {
 					}
 					this.$mtRequest.stop();

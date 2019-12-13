@@ -73,7 +73,6 @@ export default {
 				that.merchantName = data.data.merchantName;
 				that.companyLegalPerson = data.data.companyLegalPerson;
 				that.information = data.data;
-				console.log(that.information)
 				//结束请求
 				that.$mtRequest.stop();
 			});
@@ -100,28 +99,24 @@ export default {
 			
 			 let url = '/pages/person/personInfo'  
 			 let person = information;
-			 console.log(person)
 			 this.$navTo.togo(url,person);
 		},
 		Bankedit: function(information) {
 			
 			 let url = '/pages/bank/bankEdit'  
 			 let person = information;
-			 console.log(person)
 			 this.$navTo.togo(url,person);
 		},
 		Setting: function(information) {
 			
 			 let url = '/pages/setting/setting'  
 			 let person = information;
-			 console.log(person)
 			 this.$navTo.togo(url,person);
 		},
 		Feedback: function(information) {
 			
 			 let url = '/pages/feedback/feedback'  
 			 let person = information;
-			 console.log(person)
 			 this.$navTo.togo(url,person);
 		},
 	}

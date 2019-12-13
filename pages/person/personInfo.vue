@@ -47,8 +47,8 @@ export default {
 
 	onLoad: function(option) {
 		this.carList = option;
-
 	},
+	
 	mounted() {
 		this.Id = this.carList.id;
 		this.account = this.carList.phone;
@@ -57,6 +57,7 @@ export default {
 		this.cardId = this.carList.businessLicense;
 		this.addresss = this.carList.companyAddress;
 	},
+	
 	methods: {
 		fnClick() {
 			this.$mtRequest.post(
