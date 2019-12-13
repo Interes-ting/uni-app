@@ -20,6 +20,11 @@ export default {
 			}
 		};
 	},
+	
+	onLoad: function(option) {
+		this.carList = option;
+	},
+	
 	methods: {
 		textareaAInput(e) {
 			this.textareaAValue = e.detail.value;
@@ -34,16 +39,36 @@ export default {
 			if (!validResult) {
 				return;
 			}
-			uni.showToast({
-				title: '提交成功',
-				duration: 1500,
-				icon: 'none'
+			
+			let that = this;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/feed_back/add'),
+			{
+			feedContent:this.account,
+			merchantInfoId :this.carList.id,
+			},
+			function(data) {
+				if (data.state > 0) {
+					uni.showToast({
+						title: '提交成功',
+						success: function() {
+							setTimeout(function() {
+								uni.navigateTo({
+									url: '/pages/person/person'
+								});
+							}, 2000);
+						}
+					});
+				} else {
+					uni.showToast({
+						title: data.message,
+						icon: 'none'
+					});
+				}
+			
+				//结束请求
+				that.$mtRequest.stop();
 			});
-			setTimeout(function() {
-				uni.navigateBack({
-					url: '/pages/person/person'
-				});
-			}, 2000);
+			console.log(user);
 		}
 	}
 };
