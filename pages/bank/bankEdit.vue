@@ -30,11 +30,13 @@ export default {
 
 	data() {
 		return {
-			listname: '',
 			list: airport.list,
 			bankname: false,
+			listname: '',
 			personname: '',
 			cardname: '',
+			carList:'',
+			Id:'',
 			rules: {
 				personname: [
 					{
@@ -62,7 +64,30 @@ export default {
 			}
 		};
 	},
+
+	onLoad: function(option) {
+		this.carList = option;
+		this.inpost();
+	},
+
+
 	methods: {
+		inpost: function() {
+			this.Id = this.carList.id;
+			this.$mtRequest.get(
+				this.$mtConfig.getPlatformUrl('/api/bank_card/get'),
+				{
+					use_id: this.carList.id,
+				},
+				data => {
+					this.cardname = data.data.cardNo;
+					this.personname = data.data.name;
+					this.listname = data.data.bankName;
+
+					this.$mtRequest.stop();
+				}
+			);
+		},
 		onindexed() {
 			this.bankname = true;
 		},
@@ -74,7 +99,7 @@ export default {
 			let user = {
 				personname: this.personname,
 				cardname: this.cardname,
-				listname: this.listname,
+				listname: this.listname
 			};
 
 			//做校验
@@ -82,16 +107,36 @@ export default {
 			if (!validResult) {
 				return;
 			}
-			uni.showToast({
-				title: '修改成功',
-				duration: 1500,
-				icon: 'none'
-			});
-			setTimeout(function() {
-				uni.navigateBack({
-					url: '/pages/person/person'
-				});
-			}, 2000);
+			this.$mtRequest.post(
+				this.$mtConfig.getPlatformUrl('/api/bank_card/save'),
+				{
+					useId : this.carList.id,
+					cardNo : this.cardname,
+					name : this.personname,
+					bankName : this.listname,
+				},
+				data => {
+					if (data.state > 0) {
+						uni.showToast({
+							title: '保存成功',
+							success: function() {
+								setTimeout(function() {
+									uni.navigateTo({
+										url: '/pages/person/person'
+									});
+								}, 2000);
+							}
+						});
+					} else {
+						uni.showToast({
+							title: data.message,
+							icon: 'none'
+						});
+					}
+					//结束请求
+					this.$mtRequest.stop();
+				}
+			);
 		}
 	}
 };
@@ -130,7 +175,7 @@ input {
 }
 
 .place {
-	font-size: 10rpx;
+	font-size: 24rpx;
 }
 
 .btn-logout {
