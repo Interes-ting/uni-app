@@ -8,26 +8,26 @@
 						<switch @change="SwitchA" 
 						:class="switchA?'checked':''" 
 						:checked="switchA?true:false"
-						@tap="ToggleDelay">
+						>
 						</switch>
 				</view>
 				<!-- 基础服务 -->
 				<view class="basic-services" v-if="switchA">
 					<view class="basic-services-title">基础服务</view>
 					<view class="basic-services-type cu-form-group"> 
-						<view class="title">车辆类型</view>
+						<view class="title"><text class="required">*</text>车辆类型</view>
 							<picker @change="PickerChange" 
 							:value="index" :range="pickerCar">
 								<view class="picker">
-									{{index>-1?pickerCar[index]:'禁止换行，超出容器部分会以 ... 方式截断'}}
+									{{index> 0?pickerCar[index]:'请选择'}}
 								</view>
 							</picker>
 					</view>
 					<view class="basic-services-car cu-form-group" style="border-top:0">
-						<view class="title">派车数量</view>
+						<view class="title"><text class="required">*</text>派车数量</view>
 							<picker @change="PickerChangeNum" :value="index1" :range="pickerNum">
 								<view class="picker">
-									{{index1>-1?pickerNum[index1]:'禁止换行，超出容器部分会以 ... 方式截断'}}
+									{{index1>0?pickerNum[index1]:'请选择'}}
 								</view>
 							</picker>
 					</view>
@@ -36,57 +36,59 @@
 				<view class="moving-information">
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
-						<view class="title">客户名</view>
+						<view class="title"><text class="required">*</text>客户名</view>
 						<input placeholder="用户名(默认)" name="input" 
-						v-model="customName" @blur="customNameValid"></input>
+						v-model="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
-						<view class="title1">手机</view>
+						<view class="title1"><text class="required">*</text>手机</view>
 						<input placeholder="请输入手机号" name="input" 
-						v-model="customPhone"></input>
+						v-model="customPhone" @blur="customNameValid('customPhone')"></input>
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
 						<view class="mt-move-circle">
 						</view>
 						<view class="solid"></view>
-						<view class="cu-form-group">
-							<input placeholder="您从哪里搬出" name="input" v-model="startAddress"></input>
+						<view class="cu-form-group"><text class="required">*</text>
+							<input placeholder="您从哪里搬出" name="input" v-model="startAddress" 
+							@blur="customNameValid('startAddress')"></input>
 						</view>
 						<view class="cu-form-group">
+							
 							<view class="title">是否有电梯</view>
 							<picker mode="multiSelector" 
 							@change="MultiChange" @columnchange="MultiColumnChange" 
 							:value="multiIndex" :range="multiArray">
-							<view class="picker">
-							{{ multiArray[0][multiIndex[0]] }}，
-							{{ multiArray[1][multiIndex[1]] }}楼
-							</view>
+							<view class="picker" v-if="startfloor == null">	请选择</view>
+							<view class="picker" v-else>{{startfloor}},{{floor1}}楼</view>
 							</picker>
 						</view>
 							
-						<view class="cu-form-group">
-							<input placeholder="您搬到哪里去" name="input"  v-model="endAddress"></input>
+						<view class="cu-form-group"><text class="required">*</text>
+							<input placeholder="您搬到哪里去" name="input"  v-model="endAddress"
+							@blur="customNameValid('endAddress')"
+							></input>
 						</view>
 						<view class="mt-move-circle newcolor"></view>
 						<view class="cu-form-group">
+							
 							<view class="title">是否有电梯</view>
-							<picker mode="multiSelector" 
-							 @change="MultiChange1" @columnchange="MultiColumnChange1"
-							:value="multiIndex1" :range="multiArray1">
-							<view class="picker">
-							请选择{{ multiArray1[0][multiIndex1[0]] }}，
-							{{ multiArray1[1][multiIndex1[1]] }}楼
+								<picker mode="multiSelector" 
+								@change="MultiChange1" @columnchange="MultiColumnChange" 
+								:value="multiIndex" :range="multiArray">
+								<view class="picker" v-if="endfloor == null">	请选择</view>
+								<view class="picker" v-else>{{endfloor}},{{floor2}}楼</view>
+								</picker>
 							</view>
-							</picker>
-						</view>
 					</view>
 					
 					<!-- 搬入搬出 end-->
 					<view class="moving-distance cu-form-group" @click="openDatetimePicker">
 						<text class="mt-iconbox mtfa mt-rili mt-iconbox" 
 						style="position: relative;right: 13.33rpx;"></text>
-							<view class="move-time" style=";">搬家时间</view>
+						
+							<view class="move-time" style=";"><text class="required">*</text>搬家时间</view>
 							<view class="checktime" >
 								{{time}}
 							</view>
@@ -97,19 +99,24 @@
 					</simple-datetime-picker>
 					<!-- 时间日期选择器end -->
 					<view class="cu-form-group ">
-						<view class="title" style="padding: 5rpx;">距离（公里）</view>
-						<input placeholder="请输入距离" name="input"  v-model="distance"></input>
+						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
+						<input placeholder="请输入距离" name="input"  v-model="distance" 
+						@blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
-						<view class="title" style="margin-left:10rpx;padding: 0rpx;">订单金额：</view>
-						<input placeholder="请输入订单金额" name="input"  v-model="orderAmount"></input>
+						<view class="title" style="margin-left:10rpx;padding: 0rpx;"><text class="required">*</text>订单金额：</view>
+						<input placeholder="请输入订单金额" name="input"  v-model="orderAmount"
+						@blur="customNameValid('orderAmount')"
+						></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-fuwufei1" 
 						style="float: left;font-size: 45rpx;margin-left: -5rpx"></text>
-						<view class="title" style="margin-left:5rpx;padding: 0rpx;">扔单提成:</view>
-						<input placeholder="请输入提成金额" name="input" v-model="pay"
+						<view class="title" style="margin-left:5rpx;padding: 0rpx;">
+							<text class="required">*</text>扔单提成:</view>
+						<input placeholder="请输入提成金额" name="input" v-model="pay" 	
+						@blur="customNameValid('pay')"
 						style="position: relative;left:20rpx;"></input>
 						<view class="title"style="position: relative;left: 50rpx;">平台服务费：6</view>
 					</view>
@@ -195,10 +202,10 @@
 				// 车辆选择参数
 				index: 0,
 				// picker: ['喵喵喵', '汪汪汪', '哼唧哼唧'],
-				pickerCar: ['小面包车', '汪汪汪', '哼唧哼唧'],
+				pickerCar: [],
 				// 车辆数量选择参数
 				index1: 0,
-				pickerNum: [1, 2, 3, 4, 5, 6,7,8,9,10,'10人以上'],
+				pickerNum: [1, 2, 3, 4, 5, 6,7,8,9,10,'10辆以上'],
 				// 人数选择参数
 				index3: 0,
 				pickerHumen: [1, 2, 3, 4, 5, 6,7,8,9,10,'10人以上'],
@@ -217,12 +224,16 @@
 				// 注意事项
 				textareaBValue: '',
 				// 电梯楼层参数
-				lc1: [0,1, 2, 3, 4, 5, 6,7,8,9,10],
-				lc2: [0,1, 2, 3, 4, 5, 6,7,8,9,10,,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
-				// 搬入地址电梯楼层
+				lc1: [1, 2, 3, 4, 5, 6,7,8,9,10],
+				lc2: [1, 2, 3, 4, 5, 6,7,8,9,10,,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+				// 出发地址电梯楼层
+				startfloor:null,
+				floor1:null,
 				multiArray: [['无电梯', '有电梯'], []],
 				multiIndex: [0, 0],
-				// 搬出地址电梯楼层
+				// 到达地址电梯楼层
+				endfloor:null,
+				floor2:null,
 				multiArray1: [['无电梯', '有电梯'], []],
 				multiIndex1: [0, 0],
 				//校验规则
@@ -260,16 +271,10 @@
 			// 页面一加载给电梯楼层赋值
 			this.multiArray[1] =this.lc1
 			this.multiArray1[1] =this.lc1
+			this.checkCarType();
 		},
 		methods: {
-			ToggleDelay:function() {
-				
-			},
-				
-				
-				
-				
-				
+			
 			// 打开时间日期选择器
       openDatetimePicker:function() {
          this.$refs.myPicker.show();
@@ -365,38 +370,37 @@
 			},
 			
 			
-			// 搬出地址楼层选择
+			// 出发地址楼层选择
 			MultiChange(e) {
-				console.log(e.detail.value)
-				// 无电梯索引是1
-				// 无电梯索引是1
-	// 下面写了this.multiIndex  我是不是直接拿这个就可以了	en 你顶一个一个变量做一下处理就行了
-			// 比如
-			// let arrList = []
-			// if(e.detail.value[0] === 0) {
-			// 	arrList[0] = '无电梯'
-			// 	arrList[1] = e.detail.value[1]
-			// }else {
-			// 	arrList[0] = '有电梯'
-			// 	arrList[1] = e.detail.value[1]
-			// }
-				this.multiIndex = e.detail.value;
-				
+				if(e.detail.value[0] === 0) {
+					this.startfloor = '无电梯'
+					this.floor1 = e.detail.value[1]
+				}else {
+					this.loginfloor = '有电梯'
+					this.floor1 = e.detail.value[1]
+				}
+					this.multiIndex = e.detail.value;
 			},
 			MultiColumnChange(e) {
-				// console.log(e)
 				let data={
 					multiIndex:this.multiIndex,
 					multiArray:this.multiArray
 				}
 			selectchange(data,this,e.detail)
-			// console.log(data)
-			// 无电梯索引是1
 			},
 			
-			// 搬入地址楼层选择
+			// 到达地址楼层选择
 			MultiChange1(e) {
-				this.multiIndex1 = e.detail.value;
+				if(e.detail.value[0] === 0) {
+					this.endfloor = '无电梯'
+					this.floor2 = e.detail.value[1]
+				}else {
+					this.endfloor = '有电梯'
+					this.floor2 = e.detail.value[1]
+				}
+					this.multiIndex1 = e.detail.value;
+					// console.log(this.logoutfloor),
+					console.log(this.endfloor,this.floor2)
 			},
 			MultiColumnChange1(e) {
 				let data={
@@ -404,7 +408,6 @@
 					multiArray:this.multiArray1
 				}
 			selectchange(data,this,e.detail)
-			//console.log(e.detail)
 			},
 			
 			goThrow:function(){ //立即扔单
@@ -423,7 +426,22 @@
 					return;
 				}
 				// 发送网络请求
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), 
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'),
+				{
+					customerName:'',
+					phone:'',
+					fromAddress:'',
+					toAddress:'',
+					deliveryTime:'',
+					distance:'',
+					goods:'',
+					carTypeId:'',
+					carTypeName:'',
+					price:'',
+					payAmount:'',
+					remark:this.textareaAValue,
+					throwMerchantInfo:this.$mtAccount.info().merchantInfoId
+				},
 				(res)=>{
 					this.$mtRequest.stop(); //结束loading等待
 				});
@@ -431,19 +449,23 @@
 			
 			checkCarType:function(){  //发送网络请求获取车辆类型
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'),
-				(res)=>{
-					console.log(res.data)
-					this.$mtRequest.stop(); //结束loading等待
+				{}, (res)=>{
+					// console.log(res);
+					for(let i=0;i<=res.length;i++){
+						// console.log(res[i]);
+						this.pickerCar.push(res[i].name);
+					}
+					this.$mtRequest.stop();
 				});
+			},
+			
+			
+			customNameValid(key){
+				this.$mtValidation.validItem(this[key],this.rules[key])
 			}
 			
 		}
 	}
-
-
-function customNameValid(){
-
-}
 
 function selectchange(data,lcarry,selectItem){
 	data.multiIndex[selectItem.column] = selectItem.value;
@@ -461,18 +483,6 @@ function selectchange(data,lcarry,selectItem){
 </script>
 
 <style lang="less" scoped>
-	  .transition-box {
-	    margin-bottom: 10px;
-	    width: 300px;
-	    height: 100px;
-	    border-radius: 4px;
-	    background-color: #42B983;
-	    text-align: center;
-	    color: #fff;
-	    padding: 40px 20px;
-	    box-sizing: border-box;
-	    margin-left: 520px;
-	  }
 
 	.mt-moveaddress{
 		margin-left: 30rpx!important;
@@ -619,7 +629,6 @@ function selectchange(data,lcarry,selectItem){
 				color:rgba(51,51,51,1);
 				line-height:86.73rpx;
 				border-bottom:0.65rpx solid #eee;
-				
 			}
 			.moving-distance {
 				width:100%;

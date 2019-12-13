@@ -63,7 +63,8 @@
 						<view class="mt-placebox"></view>
 						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
 					</view>
-					<button class="mt-viewbutton" @tap="goGrabOrderInfo(item)">查看</button>
+					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
+						<button class="mt-viewbutton" v-else="item.state == 0">已抢</button>
 				</view>
 			</block>
 		</view>
