@@ -2,18 +2,15 @@
 	<view>
 		<view class="topka">
 			<view class="sheet">
-				<view class="titlee">
-					持卡人
-					<span class="red">*</span>
-				</view>
+				<view class="titlee"><text class="red">*</text>持卡人</view>
 				<input type="text" placeholder="请输入持卡人真实姓名" placeholder-class="place" v-model="personname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">银行卡号<span class="red">*</span></view>
+				<view class="titlee"><text class="red">*</text>银行卡号</view>
 				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" />
 			</view>
 			<view class="sheet">
-				<view class="titlee">开户行<span class="red">*</span></view>
+				<view class="titlee"><text class="red">*</text>开户行</view>
 				<input type="text" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
@@ -149,6 +146,7 @@ export default {
 
 <style>
 .red {
+	font-size: 10rpx;
 	color: red;
 }
 .topka {
