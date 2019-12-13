@@ -4,20 +4,34 @@
  * {type:"regexp",regexp:"正则",msg:""} 正则校验
  */
 function valid(data, rules) {
-	for (let key in rules) {;
-		for (let i = 0; i < rules[key].length; i++) {
-			let errmsg = validError(data[key], rules[key][i]);
-			if (errmsg != null) {
-				uni.showToast({
-					title: errmsg,
-					icon: "none"
-				})
-				return false;
-			}
+	for (let key in rules) {
+		let errmsg = validItem(data[key], rules[key]);
+		if (errmsg != null) {
+			return false;
 		}
 	}
 
 	return true;
+}
+
+/**
+ * 校验数据项
+ * @param {Object} data 数据
+ * @param {Object} rules 校验规则
+ */
+function validItem(data, rules) {
+	for (let i = 0; i < rules.length; i++) {
+		let errmsg = validError(data, rules[i]);
+		if (errmsg != null) {
+			uni.showToast({
+				title: errmsg,
+				icon: "none"
+			})
+			return errmsg;
+		}
+	}
+
+	return null;
 }
 
 /**
@@ -66,5 +80,6 @@ function regExpValid(data, regexp, msg) {
 
 
 module.exports = {
-	valid: valid
+	valid: valid,
+	validItem: validItem
 }
