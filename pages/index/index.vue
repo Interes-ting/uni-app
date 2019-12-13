@@ -128,21 +128,10 @@ export default {
 		},
 		
 		goGrabOrderInfo: function(item) { //跳转到抢单详情
-			
-			// uni.setStorage({
-			// 		key: 'storage_key',
-			// 		data: item,
-			// 		success: function () {
-			// 				console.log('success');
-			// 		}
-			// });
 			 let url = '../order/grabOrderInfo'  
 			 let param = item;
 			 console.log(param)
 			 this.$navTo.togo(url,param);
-			// uni.navigateTo({
-			// 	url: `../order/grabOrderInfo?info=${item}`
-			// });
 		},
 		
 		goGradOrderInfo: function() { //跳转到抢单记录

@@ -183,6 +183,8 @@
    },
 		data() {
 			return {
+				// 车id
+				pieckId:[],
 				//客户名
 				customName:'',
 				//用户手机号
@@ -294,8 +296,8 @@
 			// 车辆类型
 			PickerChange:function(e) {
 				this.index = e.detail.value
-				console.log(this.index)
-				console.log(this.pickerCar[this.index])
+				console.log(this.pieckId)
+				console.log(this.pickerCar)
 				this.show = e.detail.value
 			},
 			
@@ -450,11 +452,13 @@
 			checkCarType:function(){  //发送网络请求获取车辆类型
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'),
 				{}, (res)=>{
-					// console.log(res);
-					for(let i=0;i<=res.length;i++){
-						// console.log(res[i]);
-						this.pickerCar.push(res[i].name);
+					var cartype = res
+					for(let i=0;i<=cartype.length;i++){
+						// console.log(cartype[i]);
+						this.pickerCar.push(cartype[i].name);
+						this.pieckId.push(cartype[i].id)
 					}
+						console.log(this.pickerCar);
 					this.$mtRequest.stop();
 				});
 			},
