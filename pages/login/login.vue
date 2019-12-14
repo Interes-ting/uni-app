@@ -33,6 +33,23 @@
 		<view class="mt-loginbutn">
 			<button class="mt-loginbutndl" type="primary" @click="login">登录</button>
 		</view>
+
+		<!-- #ifdef APP-PLUS -->
+		<view :class="this.privacy? 'cu-modal':'cu-modal show'">
+			<view class="cu-dialog">
+				<view class="cu-bar bg-white justify-end">
+					<view class="content">用户隐私说明</view>
+				</view>
+				<view class="padding-xl bg-white">
+					感谢您下载并使用轻松搬家平台APP
+				</view>
+				<view class="cu-bar bg-white">
+					<view class="action margin-0 flex-sub solid-left" @tap="">不同意</view>
+					<view class="action margin-0 flex-sub  text-green  solid-left " @tap="this.privacy=true">同意</view>
+				</view>
+			</view>
+		</view>
+		<!-- #endif -->
 	</view>
 </template>
 
@@ -58,7 +75,10 @@
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请输入6~20个字符"
 					}]
-				}
+				},
+				// #ifdef APP-PLUS
+				privacy: false,
+				// #endif
 			}
 		},
 		onReady: function() {
@@ -144,6 +164,19 @@
 					}
 				})
 				// #endif
+			},
+			// #ifdef APP-PLUS
+			privacyValid() {
+				if (!uni.getStorageSync("privacy")) {
+
+				}
+			}
+			// #endif
+			showModal(e) {
+				this.modalName = e.currentTarget.dataset.target;
+			},
+			hideModal(e) {
+				this.modalName = null;
 			}
 		}
 	}
