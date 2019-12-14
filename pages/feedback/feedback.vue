@@ -1,6 +1,6 @@
 <template>
 	<view class="margin-top">
-		<view class="cu-form-group field"><textarea maxlength="-1" @input="textareaAInput" placeholder="请提出您宝贵的意见和建议" v-model="account"></textarea></view>
+		<view class="cu-form-group"><textarea class="field" maxlength="-1" @input="textareaAInput" placeholder="请提出您宝贵的意见和建议" v-model="account"></textarea></view>
 		<button class="btn-logout" @click="fnClick">确认提交</button>
 	</view>
 </template>
@@ -20,11 +20,11 @@ export default {
 			}
 		};
 	},
-	
+
 	onLoad: function(option) {
 		this.carList = option;
 	},
-	
+
 	methods: {
 		textareaAInput(e) {
 			this.textareaAValue = e.detail.value;
@@ -39,35 +39,37 @@ export default {
 			if (!validResult) {
 				return;
 			}
-			
+
 			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/feed_back/add'),
-			{
-			feedContent:this.account,
-			merchantInfoId :this.carList.id,
-			},
-			function(data) {
-				if (data.state > 0) {
-					uni.showToast({
-						title: '提交成功',
-						success: function() {
-							setTimeout(function() {
-								uni.navigateTo({
-									url: '/pages/person/person'
-								});
-							}, 2000);
-						}
-					});
-				} else {
-					uni.showToast({
-						title: data.message,
-						icon: 'none'
-					});
+			this.$mtRequest.post(
+				this.$mtConfig.getPlatformUrl('/api/feed_back/add'),
+				{
+					feedContent: this.account,
+					merchantInfoId: this.carList.id
+				},
+				function(data) {
+					if (data.state > 0) {
+						uni.showToast({
+							title: '提交成功',
+							success: function() {
+								setTimeout(function() {
+									uni.switchTab({
+										url: '/pages/person/person'
+									});
+								}, 2000);
+							}
+						});
+					} else {
+						uni.showToast({
+							title: data.message,
+							icon: 'none'
+						});
+					}
+
+					//结束请求
+					that.$mtRequest.stop();
 				}
-			
-				//结束请求
-				that.$mtRequest.stop();
-			});
+			);
 			console.log(user);
 		}
 	}
@@ -75,21 +77,18 @@ export default {
 </script>
 
 <style>
-.margin-top {
-	margin-top: 40rpx;
-}
 .field {
-	border: 0.66rpx solid #f0f0f0;
-	height: 363.33rpx;
-	border-radius: 20rpx;
+	height: 360rpx !important;
+	min-height: 360rpx !important;
 }
-uni-page-body {
+.margin-top {
+	margin-top: 40rpx !important;
 	width: 94%;
 	margin: auto;
 }
-.cu-form-group uni-textarea {
-	height: 100%;
-	padding: 24rpx 0;
+.cu-form-group{
+	border: 0.66rpx solid #f0f0f0;
+	border-radius: 20rpx;
 }
 .btn-logout {
 	margin-top: 100rpx;

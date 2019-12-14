@@ -75,7 +75,7 @@ export default {
 							title: '保存成功',
 							success: function() {
 								setTimeout(function() {
-									uni.navigateTo({
+									uni.switchTab({
 										url: '/pages/person/person'
 									});
 								}, 2000);
@@ -124,7 +124,7 @@ export default {
 
 input {
 	width: 70%;
-	margin-top: 32rpx;
+	margin-top: 24rpx;
 	text-align: right;
 	margin-right: 40rpx;
 }
