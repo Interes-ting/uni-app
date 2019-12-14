@@ -37,7 +37,7 @@
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" name="input" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
+						<input placeholder="请输入手机号" type="number" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -85,19 +85,22 @@
 					<!-- 时间日期选择器end -->
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;"><text class="required">*</text>订单金额：</view>
-						<input placeholder="请输入订单金额" name="input" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
+						<input placeholder="请输入订单金额" type="number" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
 					</view>
-					<view class="cu-form-group ">
-						<text class="mt-iconbox mtfa mt-fuwufei1" style="float: left;font-size: 45rpx;margin-left: -5rpx"></text>
-						<view class="title" style="margin-left:5rpx;padding: 0rpx;">
+					<view class="cu-form-group">
+						<view class="title mt-title">
+							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-						<input placeholder="请输入提成金额" name="input" v-model="pay" @blur="customNameValid('pay')" style="position: relative;left:20rpx;"></input>
-						<view class="title" style="position: relative;left: 50rpx;">平台服务费：{{fuwufei}}</view>
+							<input placeholder="请输入提成金额" maxlength="8" type="number"
+							v-model="pay" @blur="customNameValid('pay')"  @input="getBymeney(pay)"></input>
+						<view style="overflow: hidden;">
+							平台手续费：{{fuwufei}}
+						</view>
 					</view>
 					<view class="basic-services-car cu-form-group" style="border-top:0">
 						<view class="title">需要搬运人数</view>
@@ -279,7 +282,10 @@
 			this.getMoney();
 		},
 		methods: {
-
+			getBymeney(val) {
+				console.log(this.scale)
+			this.fuwufei = val * this.scale
+			},
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
 				this.$refs.myPicker.show();
@@ -317,13 +323,21 @@
 			// 人数选择
 			PickerChangeHumen: function(e) {
 				this.index3 = e.detail.value
-				console.log(this.index3)
+
 				console.log(this.pickerHumen[this.index3])
 			},
 
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
+					this.switchA = e.detail.value
+					console.log(this.switchA)
+					if (this.switchA) {
+						this.needCar = 1 //true
+					} else {
+						this.needCar = 0 //false
+					}
+				},
 			},
 
 			// 是否急单
@@ -331,9 +345,9 @@
 				this.switchB = e.detail.value
 				console.log(this.switchB)
 				if (this.switchB) {
-					this.needCar = 1 //true
+					this.sos = 1 //true
 				} else {
-					this.needCar = 0 //false
+					this.sos = 0 //false
 				}
 			},
 
@@ -415,6 +429,7 @@
 					return;
 				}
 				// 发送网络请求
+				console.log(this.needCar)
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
 						customerName: this.customName, 
 						phone: this.customPhone,
@@ -437,12 +452,13 @@
 						vehiceNumber:this.pickerNum[this.index1],
 						isItUrgent:this.sos,
 						isItchai:this.installation,
-						// thowPlatformFee: 平台服务费  扔单扣取服务费(扔单平台服务费)
-						
-
+						thowPlatformFee:this.fuwufei ,
+						handlingNumber:this.pickerHumen[this.index3],
+						handlingService :0
 					},
 					(res) => {
 						// this.$mtRequest.stop(); //结束loading等待
+						console.log(res)
 					});
 			},
 
@@ -465,8 +481,6 @@
 					this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/throwCommionRatio'), 					{}, (res) => {
 						if(res.state==1){
 							this.scale =res.data;
-							this.fuwufei =this.pay *this.scale;
-							console.log(this.fuwufei)
 						}
 						
 					})
@@ -474,11 +488,12 @@
 			
 			
 			customNameValid(key) { //自定义校验
+			// this.fuwufei  = 
 				this.$mtValidation.validItem(this[key], this.rules[key])
 			}
 
-		}
-	}
+		
+	};
 
 	function selectchange(data, lcarry, selectItem) {
 		data.multiIndex[selectItem.column] = selectItem.value;
@@ -496,6 +511,12 @@
 </script>
 
 <style lang="less" scoped>
+	.mt-title{
+		padding-right: 25rpx!important;
+	}
+	.mt-fuwufei1{
+		padding-right: 13.33rpx;
+	}
 	.mt-moveaddress {
 		margin-left: 30rpx !important;
 		position: relative !important;

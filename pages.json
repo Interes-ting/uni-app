@@ -36,7 +36,7 @@
 		}, {
 			"path": "pages/order/throwRecord",
 			"style": {
-				"navigationBarTitleText": "扔单记录"
+				"navigationBarTitleText": "我扔的单"
 			}
 		}, {
 			"path": "pages/order/throw",
@@ -46,7 +46,7 @@
 		}, {
 			"path": "pages/order/grabedOrderInfo",
 			"style": {
-				"navigationBarTitleText": "已抢订单详情"
+				"navigationBarTitleText": "我抢的单"
 			}
 		}, {
 			"path": "pages/order/grabOrderInfo",

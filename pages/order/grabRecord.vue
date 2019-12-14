@@ -34,7 +34,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text>{{item.throwMerchantInfo}}</text>
+					<text>此订单由{{item.throwCompanyName}}提供</text>
 				</view>
 				<button class="mt-viewbutton" @tap="goGrabedOrderInfo(item)">详情</button>
 			</view>
@@ -56,7 +56,6 @@ export default {
 	methods: {
 		goGrabedOrderInfo: function(item) {
 			//跳转到抢单详情页并传递参数
-			console.log(item)
 			let param = item;
 			this.$navTo.togo('./grabedOrderInfo',param);
 		},
