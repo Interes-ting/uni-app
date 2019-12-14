@@ -131,6 +131,5 @@ export default {
 	border-top-right-radius: 70rpx;
 	border-top-left-radius: 70rpx;
 	padding-top: 6.66rpx;
-	margin-bottom: 100rpx;
 }
 </style>
