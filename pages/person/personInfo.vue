@@ -75,7 +75,7 @@ export default {
 							title: '保存成功',
 							success: function() {
 								setTimeout(function() {
-									uni.navigateTo({
+									uni.switchTab({
 										url: '/pages/person/person'
 									});
 								}, 2000);

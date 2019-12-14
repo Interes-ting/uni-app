@@ -53,7 +53,7 @@ export default {
 							title: '提交成功',
 							success: function() {
 								setTimeout(function() {
-									uni.navigateTo({
+									uni.switchTab({
 										url: '/pages/person/person'
 									});
 								}, 2000);
