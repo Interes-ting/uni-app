@@ -97,7 +97,7 @@
 						<view class="title" style="margin-left:5rpx;padding: 0rpx;">
 							<text class="required">*</text>扔单提成:</view>
 						<input placeholder="请输入提成金额" name="input" v-model="pay" @blur="customNameValid('pay')" style="position: relative;left:20rpx;"></input>
-						<view class="title" style="position: relative;left: 50rpx;">平台服务费：6</view>
+						<view class="title" style="position: relative;left: 50rpx;">平台服务费：{{fuwufei}}</view>
 					</view>
 					<view class="basic-services-car cu-form-group" style="border-top:0">
 						<view class="title">需要搬运人数</view>
@@ -157,6 +157,9 @@
 				orderAmount: '',
 				// 扔单提成
 				pay: '',
+				//平台服务费
+				scale:null,
+				fuwufei:null,
 				// 搬家时间
 				time: '2019-12-10 12:01',
 				// 车辆选择参数
@@ -273,6 +276,7 @@
 			this.multiArray[1] = this.lc1
 			this.multiArray1[1] = this.lc1
 			this.checkCarType();
+			this.getMoney();
 		},
 		methods: {
 
@@ -433,7 +437,9 @@
 						vehiceNumber:this.pickerNum[this.index1],
 						isItUrgent:this.sos,
 						isItchai:this.installation,
-						// thowPlatformFee: 平台服务费
+						// thowPlatformFee: 平台服务费  扔单扣取服务费(扔单平台服务费)
+						
+
 					},
 					(res) => {
 						// this.$mtRequest.stop(); //结束loading等待
@@ -441,7 +447,8 @@
 			},
 
 			checkCarType:function() { //发送网络请求获取车辆类型
-				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'), {}, (res) => {
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'),
+				{}, (res) => {
 					if(res.state >0){
 						this.pieckId = res.data;
 						this.pieckId.forEach(item=>{
@@ -453,9 +460,20 @@
 					
 				});
 			},
-
-
-			customNameValid(key) {
+			
+			getMoney:function(){ //获取扔单平台服务费
+					this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/throwCommionRatio'), 					{}, (res) => {
+						if(res.state==1){
+							this.scale =res.data;
+							this.fuwufei =this.pay *this.scale;
+							console.log(this.fuwufei)
+						}
+						
+					})
+			},
+			
+			
+			customNameValid(key) { //自定义校验
 				this.$mtValidation.validItem(this[key], this.rules[key])
 			}
 

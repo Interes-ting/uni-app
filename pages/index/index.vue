@@ -30,41 +30,41 @@
 				<view class="mt-card">
 					<view class="mt-startcity">
 						<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-						<text class="space bold">{{item.fromAddress}}</text>
+						<text class="space bold">{{ item.fromAddress }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
-						<text class="space bold">{{item.toAddress}}</text>
+						<text class="space bold">{{ item.toAddress }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text>订单金额：{{item.price}}元</text>
-						<text style="margin-left: 46.66rpx;">扔单提成：{{item.incomeAmount}}元</text>
+						<text>订单金额：{{ item.price }}元</text>
+						<text style="margin-left: 46.66rpx;">扔单提成：{{ item.incomeAmount }}元</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-juli text-grey "></view>
-						<text class="text-grey">距离：{{item.distance}}公里</text>
+						<text class="text-grey">距离：{{ item.distance }}公里</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-clocks text-grey "></view>
-						<text class="text-grey">出发时间：{{item.deliveryTime}}</text>
+						<text class="text-grey">出发时间：{{ item.deliveryTime }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-box text-grey "></view>
-						<text class="text-grey">搬运物品：{{item.goods}}</text>
+						<text class="text-grey">搬运物品：{{ item.goods }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
 						<text class="mt-sos">急</text>
-						<text class="mt-remark">{{item.carTypeName}}</text>
-						<text class="mt-remark">{{item.serviceTypeName}}</text>
+						<text class="mt-remark">{{ item.carTypeName }}</text>
+						<text class="mt-remark">{{ item.serviceTypeName }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
+						<text>此订单由长沙运邦搬家提供{{ item.throwMerchantInfoo }}</text>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
-						<button class="mt-elsebutton" v-else="item.state == 0">已抢</button>
+					<button class="mt-elsebutton" v-else="item.state == 0">已抢</button>
 				</view>
 			</block>
 		</view>
@@ -76,26 +76,30 @@ export default {
 	data() {
 		return {
 			carList: [],
-			item:''
+			itemid:''
 		};
 	},
 	onLoad() { // 页面加载时执行网络请求
 		this.getList();
 	},
 	methods: {
-		getList: function() { //发送网络请求
-			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res)
-			{
-				if(res.state >0){
-					that.carList = res.data;
-					//结束操作
-					that.$mtRequest.stop();
+		getList:function(){ //发送网络请求获取数据
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'), 					{}, (res) => {
+				if(res.state==1){
+					this.carList =res.data;
+					this.$mtRequest.stop();//结束loading等待
 				}
 			});
 		},
 		
+		goGrabOrderInfo:function(item){ //查看待抢详情
+			this.itemid = item.id
+			uni.navigateTo({
+				url:'../order/grabOrderInfo?id='+this.itemid
+			})
+		},
 	}
+
 };
 </script>
 
@@ -172,47 +176,47 @@ image {
 	padding: 20rpx;
 }
 
-.mt-card{
+.mt-card {
 	position: relative;
 	margin-bottom: 33.33rpx;
 	padding: 13.33rpx;
-	background-color: #FFFFFF;
-	box-shadow:0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
-	border-radius:13.33rpx;
-	.mt-startcity{
+	background-color: #ffffff;
+	box-shadow: 0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
+	border-radius: 13.33rpx;
+	.mt-startcity {
 		display: block;
-		height:50rpx;
+		height: 50rpx;
 		line-height: 50rpx;
 		width: 100%;
 		font-size: 25.52rpx;
-		.mtfa{
+		.mtfa {
 			display: inline-block;
 			font-size: 26.66rpx;
 			margin-right: 10rpx;
 		}
-		.mt-placebox{
+		.mt-placebox {
 			display: inline-block;
 			width: 36.66rpx;
 		}
-		.mt-sos{
+		.mt-sos {
 			margin-right: 10rpx;
 			padding: 3.33rpx 10rpx;
 			font-size: 20rpx;
 			background-color: red;
-			color:#FFFFFF ;
+			color: #ffffff;
 			border: 1px solid red;
 			border-radius: 25%;
 		}
-		.mt-remark{
+		.mt-remark {
 			margin-right: 10rpx;
 			padding: 3.33rpx 10rpx;
 			font-size: 20rpx;
-			color:#FF571D ;
-			border: 1px solid #FF571D;
+			color: #ff571d;
+			border: 1px solid #ff571d;
 			border-radius: 10.66rpx;
 		}
 	}
-	.mt-viewbutton{
+	.mt-viewbutton {
 		position: absolute;
 		right: 26.66rpx;
 		bottom: 20rpx;
@@ -222,22 +226,21 @@ image {
 		background: linear-gradient(to bottom, #1880ff, #509eff);
 		/*设置按钮为渐变颜色*/
 		border-radius: 34.66rpx;
-		font-size:36.66rpx ;
-		color: #FFFFFF;
+		font-size: 36.66rpx;
+		color: #ffffff;
 	}
-	.mt-elsebutton{
+	.mt-elsebutton {
 		position: absolute;
 		right: 26.66rpx;
 		bottom: 20rpx;
 		width: 156.66rpx;
 		height: 68.66rpx;
 		line-height: 68.66rpx;
-		background:#CCCCCC;
+		background: #cccccc;
 		/*设置按钮为渐变颜色*/
 		border-radius: 34.66rpx;
-		font-size:36.66rpx ;
-		color: #FFFFFF;
+		font-size: 36.66rpx;
+		color: #ffffff;
 	}
 }
-
 </style>
