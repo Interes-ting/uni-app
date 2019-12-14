@@ -124,7 +124,7 @@ export default {
 
 input {
 	width: 70%;
-	margin-top: 32rpx;
+	margin-top: 24rpx;
 	text-align: right;
 	margin-right: 40rpx;
 }
