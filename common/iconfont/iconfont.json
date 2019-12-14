@@ -111,13 +111,6 @@
       "unicode_decimal": 58902
     },
     {
-      "icon_id": "12254668",
-      "name": "监控",
-      "font_class": "jiankong",
-      "unicode": "e617",
-      "unicode_decimal": 58903
-    },
-    {
       "icon_id": "12254669",
       "name": "钱",
       "font_class": "qian",
@@ -126,7 +119,7 @@
     },
     {
       "icon_id": "12254670",
-      "name": "起 (1)",
+      "name": "起点",
       "font_class": "begin",
       "unicode": "e619",
       "unicode_decimal": 58905
@@ -235,6 +228,20 @@
       "font_class": "suo",
       "unicode": "e628",
       "unicode_decimal": 58920
+    },
+    {
+      "icon_id": "12322666",
+      "name": "监控",
+      "font_class": "icon-monitor",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "12322690",
+      "name": "注意",
+      "font_class": "warn",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
     }
   ]
 }

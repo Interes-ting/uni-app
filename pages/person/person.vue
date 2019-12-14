@@ -9,11 +9,11 @@
 		</view>
 		<view class="person-list">
 			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="../../static/order.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/trucks.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/about.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="../../static/feedback.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/set.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="../../static/bankcard.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="车辆信息" slot-left arrow><image src="../../static/trucks.png" class="imgs"></image></cmd-cell-item>	
+			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="../../static/feedback.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="关于我们" slot-left arrow><image src="../../static/about.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="../../static/set.png" class="imgs"></image></cmd-cell-item>
 		</view>
 	</view>
 </template>
@@ -89,12 +89,15 @@ export default {
 </script>
 
 <style>
+page{
+	background-color: #FFFFFF !important;
+}
 .backco {
 	background: linear-gradient(to right, #4752e8, #4987ee);
 }
 .imgs {
-	height: 111.33rpx;
-	width: 111.33rpx;
+	height: 89.33rpx;
+	width: 89.33rpx;
 }
 
 .person-head {
@@ -120,16 +123,12 @@ export default {
 	margin: 10rpx auto 0rpx;
 }
 
-.person-head-username {
-	font-size: 28rpx;
-	font-weight: 500;
-	color: #fff;
-	margin: 3rpx auto;
-	padding-top: 2rpx;
+.cmd-cell-item-left{
+	margin: 20rpx 32rpx !important;
 }
 
 .person-list {
-	background-color: #fff;
+	background-color: #FFFFFF;
 	line-height: 0;
 	border-top-right-radius: 70rpx;
 	border-top-left-radius: 70rpx;
