@@ -66,7 +66,7 @@
 					</view>
 					<view class="mt-input-img mt-yz">
 						<!-- <view class="mt-loginimge"   @click="getAuthCode">获取验证码</view> -->
-						<view v-if="showtime===null" class="mt-loginimge" @click="send">获取验证码</view>
+						<view v-if="showtime===null" maxlength="6" class="mt-loginimge" @click="send">获取验证码</view>
 						<view v-else class="captcha-button">{{showtime}}</view>
 					</view>
 				</view>
@@ -278,7 +278,7 @@
 		width: 90%;
 		margin: 0 auto;
 		background-color: #fff;
-		border-radius: 13px;
+		border-radius: 26rpx;
 		padding: 0 0 8% 0;
 	}
 
@@ -306,21 +306,21 @@
 		height: 78rpx;
 		margin: 0 15%;
 		border: 20;
-		font-size: 15px;
+		font-size: 30rpx;
 		font-weight: 400;
 		padding: 50rpx 0 70rpx 0;
 	}
 
 	.mt-loginbutndl {
 
-		border-radius: 20px;
+		border-radius: 40rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
 	}
 
 	.mt-uers {
 		color: #FFFFFF;
-		font-size: 17px;
+		font-size: 34rpx;
 		widows: 100%;
 		text-align: center;
 		font-weight: 500;
@@ -356,8 +356,8 @@
 		line-height: 78rpx;
 		width: 80%;
 		margin: 0 10%;
-		border-radius: 20px;
-		border: 1px solid #CCCCCC;
+		border-radius: 40rpx;
+		border: 1rpx solid #CCCCCC;
 	}
 
 	.mt-input-img {
@@ -393,12 +393,12 @@
 		width: 40%;
 		float: left;
 		margin: 0;
-		font-size: 12px;
+		font-size: 24rpx;
 		height: 78rpx;
 		line-height: 78rpx;
 		background-color: #5ba4ff;
-		border-top-right-radius: 20px;
-		border-bottom-right-radius: 20px;
+		border-top-right-radius: 40rpx;
+		border-bottom-right-radius: 40rpx;
 		color: #FFFFFF;
 		border: 1px solid #5ba4ff;
 	}
@@ -411,8 +411,8 @@
 		width: 60%;
 		height: 78rpx;
 		float: left;
-		border-top-left-radius: 20px;
-		border: 1px solid #CCCCCC;
-		border-bottom-left-radius: 20px;
+		border-top-left-radius: 40rpx;
+		border: 1rpx solid #CCCCCC;
+		border-bottom-left-radius: 40rpx;
 	}
 </style>

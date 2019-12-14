@@ -15,12 +15,12 @@
 		<!-- 按钮组-->
 		<view class="mt-buttons-content">
 			<view class="mt-buttons-item" @tap="goGradOrderInfo">
-				<image class="mt-order-img" src="../../static/抢单.png"></image>
+				<image class="mt-order-img" src="../../static/throw.png"></image>
 				<text>我的抢单</text>
 			</view>
 			<view class="mt-place-content"></view>
 			<view class="mt-buttons-item" @tap="goThrowRecord">
-				<image class="mt-order-img imgsecond" src="../../static/扔单.png"></image>
+				<image class="mt-order-img imgsecond" src="../../static/grab.png"></image>
 				<text>我的扔单</text>
 			</view>
 		</view>
@@ -63,28 +63,10 @@
 						<view class="mt-placebox"></view>
 						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
 					</view>
-					<button class="mt-viewbutton" @tap="goGrabOrderInfo(item)">查看</button>
+					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
+						<button class="mt-elsebutton" v-else="item.state == 0">已抢</button>
 				</view>
 			</block>
-		</view>
-		<!-- 底部导航栏 -->
-		<view class="cu-bar tabbar bg-white mt-tabbar">
-			<view class="action" @click="goIndex">
-				<view class="mtfa mt-shouye mt-tabbar-item text-blue"></view>
-				<view class="text-blue">首页</view>
-			</view>
-			<view class="action" @click="goThrow">
-				<view class="mtfa mt-daochu mt-tabbar-item"></view>
-				<view class="text-gray">扔单</view>
-			</view>
-			<view class="action" @click="goWallet">
-				<view class="mtfa mt-qianbao mt-tabbar-item"></view>
-				<view class="text-gray">收益</view>
-			</view>
-			<view class="action" @click="goPerson">
-				<view class="mtfa mt-person mt-tabbar-item"></view>
-				<view class="text-grey">我的</view>
-			</view>
 		</view>
 	</view>
 </template>
@@ -101,62 +83,15 @@ export default {
 		this.getList();
 	},
 	methods: {
-		
-		goThrow: function() { //跳转扔单
-			uni.navigateTo({
-				url: '../order/throw'
-			});
-		},
-		
-		goWallet: function() { //跳转收益
-			uni.navigateTo({
-				url: '../wallet/wallet'
-			});
-		},
-		
-		goPerson: function() { 	//跳转个人中心
-			uni.navigateTo({
-				url: '../person/person'
-			});
-		},
-		
-		goThrowRecord: function() { //跳转到扔单记录
-			uni.navigateTo({
-				url: '../order/throwRecord'
-			});
-		},
-		
-		goGrabOrderInfo: function(item) { //跳转到抢单详情
-			
-			// uni.setStorage({
-			// 		key: 'storage_key',
-			// 		data: item,
-			// 		success: function () {
-			// 				console.log('success');
-			// 		}
-			// });
-			 let url = '../order/grabOrderInfo'  
-			 let param = item;
-			 console.log(param)
-			 this.$navTo.togo(url,param);
-			// uni.navigateTo({
-			// 	url: `../order/grabOrderInfo?info=${item}`
-			// });
-		},
-		
-		goGradOrderInfo: function() { //跳转到抢单记录
-			uni.navigateTo({
-				url: '../order/grabRecord'
-			});
-		},
-		
 		getList: function() { //发送网络请求
 			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res) {
-				that.carList = res.data;
-				// console.log(that.carList);
-				//结束操作
-				that.$mtRequest.stop();
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res)
+			{
+				if(res.state >0){
+					that.carList = res.data;
+					//结束操作
+					that.$mtRequest.stop();
+				}
 			});
 		},
 		
@@ -285,6 +220,19 @@ image {
 		height: 68.66rpx;
 		line-height: 68.66rpx;
 		background: linear-gradient(to bottom, #1880ff, #509eff);
+		/*设置按钮为渐变颜色*/
+		border-radius: 34.66rpx;
+		font-size:36.66rpx ;
+		color: #FFFFFF;
+	}
+	.mt-elsebutton{
+		position: absolute;
+		right: 26.66rpx;
+		bottom: 20rpx;
+		width: 156.66rpx;
+		height: 68.66rpx;
+		line-height: 68.66rpx;
+		background:#CCCCCC;
 		/*设置按钮为渐变颜色*/
 		border-radius: 34.66rpx;
 		font-size:36.66rpx ;

@@ -101,7 +101,7 @@
 				//请求登录
 				this.$mtAccount.login(user, function() {
 					setTimeout(function() {
-						uni.navigateTo({
+						uni.switchTab({
 							url: '../index/index'
 						});
 					}, 2000)
@@ -174,21 +174,21 @@
 		height: 88rpx;
 		margin: 0 10%;
 		border: 20;
-		font-size: 15px;
+		font-size: 15rpx;
 		font-weight: 400;
 		margin: 10%;
 		padding: 5% 0 0 0;
 	}
 
 	.mt-loginbutndl {
-		border-radius: 20px;
+		border-radius: 40rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
 	}
 
 	.mt-uers {
 		color: #FFFFFF;
-		font-size: 17px;
+		font-size: 17rpx;
 		widows: 100%;
 		text-align: center;
 		font-weight: 500;
