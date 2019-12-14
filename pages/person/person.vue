@@ -3,9 +3,8 @@
 		<view class="person-head">
 			<cmd-avatar src="../../static/portrait.jpg" size="lg" :make="{ 'background-color': '#fff' }"></cmd-avatar>
 			<view class="person-head-box">
-				<view class="person-head-nickname">{{companyLegalPerson}}</view>
-				<view class="person-head-username">{{merchantName}}</view>
-				<view class="person-head-username">{{phone}}</view>
+				<view class="person-head-nickname">{{merchantName}}</view>
+				<view class="person-head-nickname">{{phone}}</view>
 			</view>
 		</view>
 		<view class="person-list">
@@ -40,6 +39,9 @@ export default {
 	},
 	
 	onLoad() {
+		this.inpost();
+	},
+	onShow(){
 		this.inpost();
 	},
 	methods: {
@@ -104,6 +106,7 @@ export default {
 }
 
 .person-head-box {
+	padding-top: 20rpx;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -111,10 +114,10 @@ export default {
 }
 
 .person-head-nickname {
-	font-size: 32rpx;
+	font-size: 36rpx;
 	font-weight: 500;
 	color: #fff;
-	margin: 20rpx auto 0rpx;
+	margin: 10rpx auto 0rpx;
 }
 
 .person-head-username {
@@ -131,6 +134,5 @@ export default {
 	border-top-right-radius: 70rpx;
 	border-top-left-radius: 70rpx;
 	padding-top: 6.66rpx;
-	margin-bottom: 100rpx;
 }
 </style>

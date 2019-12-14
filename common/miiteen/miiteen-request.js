@@ -37,16 +37,38 @@ const request = {
 			return;
 		}
 		if (!success) {
-			success = function(data) {
+			success = function(res) {
 				request.stop();
 			}
 		}
 		if (!fail) {
-			fail = function(data) {
-				uni.showToast({
-					title: "网络繁忙,请稍后再试",
-					icon: "none"
-				})
+			fail = function(res) {
+				if (process.env.NODE_ENV === 'development') {
+					let msg = "POST请求:" + url;
+					msg += "\n参数:" + JSON.stringify(data);
+					msg += "\n返回:" + JSON.stringify(res);
+					console.log(msg);
+				}
+				uni.getNetworkType({
+					success: function(res) {
+						if (res.networkType == "none") {
+							uni.showToast({
+								title: "请查看网络连接是否打开",
+								icon: "none"
+							})
+						} else if (res.networkType == "wifi") {
+							uni.showToast({
+								title: "请查看wifi是否已联网",
+								icon: "none"
+							})
+						} else {
+							uni.showToast({
+								title: "网络繁忙,请稍后再试",
+								icon: "none"
+							})
+						}
+					}
+				});
 				request.stop();
 			}
 		}
@@ -56,8 +78,14 @@ const request = {
 			url: url,
 			data: data,
 			dataType: "json",
-			success: function(data) {
-				success(data.data);
+			success: function(res) {
+				if (process.env.NODE_ENV === 'development') {
+					let msg = "请求:" + url;
+					msg += "\n参数:" + JSON.stringify(data);
+					msg += "\n返回:" + JSON.stringify(res);
+					console.log(msg);
+				}
+				success(res.data);
 			},
 			fail: fail
 		})
@@ -79,11 +107,33 @@ const request = {
 			}
 		}
 		if (!fail) {
-			fail = function(data) {
-				uni.showToast({
-					title: "网络繁忙,请稍后再试",
-					icon: "none"
-				})
+			fail = function(res) {
+				if (process.env.NODE_ENV === 'development') {
+					let msg = "POST请求:" + url;
+					msg += "\n参数:" + JSON.stringify(data);
+					msg += "\n返回:" + JSON.stringify(res);
+					console.log(msg);
+				}
+				uni.getNetworkType({
+					success: function(res) {
+						if (res.networkType == "none") {
+							uni.showToast({
+								title: "请查看网络连接是否打开",
+								icon: "none"
+							})
+						} else if (res.networkType == "wifi") {
+							uni.showToast({
+								title: "请查看wifi是否已联网",
+								icon: "none"
+							})
+						} else {
+							uni.showToast({
+								title: "网络繁忙,请稍后再试",
+								icon: "none"
+							})
+						}
+					}
+				});
 				request.stop();
 			}
 		}
@@ -96,8 +146,15 @@ const request = {
 				'content-type': 'application/json'
 			},
 			dataType: "json",
-			success: function(data) {
-				success(data.data);
+			success: function(res, statusCode) {
+				if (process.env.NODE_ENV === 'development') {
+					let msg = "请求:" + url;
+					msg += "\n参数:" + JSON.stringify(data);
+					msg += "\n返回:" + JSON.stringify(res);
+					console.log(msg);
+				}
+				console.log(statusCode);
+				success(res.data);
 			},
 			fail: fail
 		})

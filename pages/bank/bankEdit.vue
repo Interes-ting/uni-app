@@ -11,10 +11,10 @@
 			</view>
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>开户行</view>
-				<input type="text" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
+				<input type="text" placeholder="请选择开户行" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
-			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" v-show="bankname" />
+			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" :class="{reveal:unpack}"/>
 		</view>
 	</view>
 </template>
@@ -31,7 +31,7 @@ export default {
 	data() {
 		return {
 			list: airport.list,
-			bankname: false,
+			unpack: true,
 			listname: '',
 			personname: '',
 			cardname: '',
@@ -90,10 +90,10 @@ export default {
 			);
 		},
 		onindexed() {
-			this.bankname = true;
+			this.unpack = false;
 		},
 		bindClick(e) {
-			this.bankname = false;
+			this.unpack = true;
 			this.listname = e.item.name;
 		},
 		fnClick: function() {
@@ -122,7 +122,7 @@ export default {
 							title: '保存成功',
 							success: function() {
 								setTimeout(function() {
-									uni.navigateTo({
+									uni.switchTab({
 										url: '/pages/person/person'
 									});
 								}, 2000);
@@ -144,8 +144,13 @@ export default {
 </script>
 
 <style>
+.reveal {
+	display: none;
+	z-index: 1;
+	position:absolute;
+}
 .red {
-	font-size: 10rpx;
+	font-size:20rpx;
 	color: red;
 }
 .topka {
@@ -173,10 +178,12 @@ export default {
 }
 
 input {
-	width: 70%;
-	margin-top: 32rpx;
+	width: 95%;
+	margin-top: 24rpx;
 	text-align: right;
 	margin-right: 40rpx;
+	z-index: 0;
+	position:absolute;
 }
 
 .place {
