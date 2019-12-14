@@ -111,7 +111,7 @@
 				</view>
 			</view>
 			
-			<button class="mt-seedeil-btn">
+			<button class="mt-seedeil-btn" @tap="goGrabRecord">
 				<text class="text-price" style="margin-right: 30rpx;" >66</text>抢单并支付
 			</button>
 			           
@@ -139,7 +139,7 @@ export default {
 			{},(res)=>{
 				if(res.state ==1){
 					this.carList = res.data;
-					console.log(this.carList);
+				
 					this.$mtRequest.stop();//结束loading等待
 				}
 
@@ -152,7 +152,11 @@ export default {
 			(res)=>{
 				this.$mtRequest.stop();//结束loading等待
 			});
+			
 			// 跳转到抢单记录
+			uni.navigateTo({
+				url:'grabRecord'
+			})
 		}
 	}
 };

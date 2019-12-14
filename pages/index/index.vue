@@ -87,11 +87,12 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'), 					{}, (res) => {
 				if(res.state==1){
 					this.carList =res.data;
+					this.$mtRequest.stop();//结束loading等待
 				}
 			});
 		},
 		
-		goGrabOrderInfo:function(item){
+		goGrabOrderInfo:function(item){ //查看待抢详情
 			this.itemid = item.id
 			uni.navigateTo({
 				url:'../order/grabOrderInfo?id='+this.itemid
