@@ -64,7 +64,7 @@
 						<text>此订单由长沙运邦搬家提供{{item.throwMerchantInfoo}}</text>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
-						<button class="mt-viewbutton" v-else="item.state == 0">已抢</button>
+						<button class="mt-elsebutton" v-else="item.state == 0">已抢</button>
 				</view>
 			</block>
 		</view>
@@ -83,33 +83,15 @@ export default {
 		this.getList();
 	},
 	methods: {
-			
-		goThrowRecord: function() { //跳转到扔单记录
-			uni.navigateTo({
-				url: '../order/throwRecord'
-			});
-		},
-		
-		goGrabOrderInfo: function(item) { //跳转到抢单详情
-			 let url = '../order/grabOrderInfo'  
-			 let param = item;
-			 console.log(param)
-			 this.$navTo.togo(url,param);
-		},
-		
-		goGradOrderInfo: function() { //跳转到抢单记录
-			uni.navigateTo({
-				url: '../order/grabRecord'
-			});
-		},
-		
 		getList: function() { //发送网络请求
 			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res) {
-				that.carList = res.data;
-				// console.log(that.carList);
-				//结束操作
-				that.$mtRequest.stop();
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'), {}, function(res)
+			{
+				if(res.state >0){
+					that.carList = res.data;
+					//结束操作
+					that.$mtRequest.stop();
+				}
 			});
 		},
 		
@@ -238,6 +220,19 @@ image {
 		height: 68.66rpx;
 		line-height: 68.66rpx;
 		background: linear-gradient(to bottom, #1880ff, #509eff);
+		/*设置按钮为渐变颜色*/
+		border-radius: 34.66rpx;
+		font-size:36.66rpx ;
+		color: #FFFFFF;
+	}
+	.mt-elsebutton{
+		position: absolute;
+		right: 26.66rpx;
+		bottom: 20rpx;
+		width: 156.66rpx;
+		height: 68.66rpx;
+		line-height: 68.66rpx;
+		background:#CCCCCC;
 		/*设置按钮为渐变颜色*/
 		border-radius: 34.66rpx;
 		font-size:36.66rpx ;
