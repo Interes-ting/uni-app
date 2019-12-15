@@ -19,15 +19,35 @@
 			<view class="mt-oderinfo">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
+					<text class="text-grey">车辆类型：{{this.OrderInfo.carTypeName}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">派车数量：{{this.OrderInfo.vehiceNumber}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
 					<text class="text-grey">客户名：{{this.OrderInfo.customerName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：{{this.OrderInfo.robTime}}</text>
+					<text class="text-grey">手机号：{{this.OrderInfo.phone}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{this.OrderInfo.robTime}}</text>
+					<text class="text-grey">搬出地址：{{this.OrderInfo.fromAddress}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">搬出电梯楼层：{{this.OrderInfo.outEleveator}}，{{this.OrderInfo.outFloor}}楼</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">到达地址：{{this.OrderInfo.toAddress}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">搬入电梯楼层：{{this.OrderInfo.outEleveator}}，{{this.OrderInfo.outFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -35,39 +55,27 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">车辆类型：{{this.OrderInfo.carTypeName}}</text>
+					<text class="text-grey">扔单时间：{{this.OrderInfo.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">派车类型：{{this.OrderInfo.carTypeName}}</text>
+					<text class="text-grey">被抢时间：{{this.OrderInfo.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：轻拿轻放</text>
+					<text class="text-grey">搬运人数：{{this.OrderInfo.handlingNumber}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运人数：2人</text>
+					<text class="text-grey">拆装服务：{{this.OrderInfo.isItChai}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运物品：轻拿轻放</text>
+					<text class="text-grey">搬运物品：{{this.OrderInfo.goods}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：轻拿轻放</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">搬出地址：轻拿轻放</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">到达地址：轻拿轻放</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">楼层：6楼{{this.OrderInfo.floor}}</text>
+					<text class="text-grey">注意事项：{{this.OrderInfo.remark}}</text>
 				</view>
 			</view>
 			<!-- 收益 -->
@@ -78,14 +86,14 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单服务费：60</text>
+					<text class="text-grey">订单服务费：{{this.OrderInfo.rowCommissionRatio}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：6</text>
+					<text class="text-grey">平台服务费：{{this.OrderInfo.rowPlatformFee}}</text>
 					<text class="text-grey" 
 					style="float:right;margin-right:20rpx;">
-						实际所得：{{this.OrderInfo.incomeAmount}}
+						实际支付：{{this.needPay}}
 					</text>
 				</view>
 			</view>
@@ -98,10 +106,12 @@ export default {
 	data() {
 		return {
 			OrderInfo:null,
+			needPay:null,
 		};
 	},
 	onLoad(option) {
 		this.OrderInfo = option;
+		this.needPay = this.OrderInfo.rowCommissionRatio + this.OrderInfo.rowPlatformFee
 	},
 	methods: {}
 };

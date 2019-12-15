@@ -87,8 +87,9 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'), 					{}, (res) => {
 				if(res.state==1){
 					this.carList =res.data;
-					this.$mtRequest.stop();//结束loading等待
+					
 				}
+				this.$mtRequest.stop();//结束loading等待
 			});
 		},
 		
@@ -98,6 +99,18 @@ export default {
 				url:'../order/grabOrderInfo?id='+this.itemid
 			})
 		},
+		goGradOrderInfo:function(){ //跳转抢单记录
+			uni.navigateTo({
+				url:'../order/grabRecord'
+			})
+		},
+		
+		goThrowRecord:function(){  //跳转扔单记录
+			uni.navigateTo({
+				url:'../order/throwRecord'
+			})
+		},
+		
 	}
 
 };

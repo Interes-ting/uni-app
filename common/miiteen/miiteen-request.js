@@ -79,12 +79,6 @@ const request = {
 			data: data,
 			dataType: "json",
 			success: function(res) {
-				if (process.env.NODE_ENV === 'development') {
-					let msg = "请求:" + url;
-					msg += "\n参数:" + JSON.stringify(data);
-					msg += "\n返回:" + JSON.stringify(res);
-					console.log(msg);
-				}
 				success(res.data);
 			},
 			fail: fail
@@ -147,13 +141,6 @@ const request = {
 			},
 			dataType: "json",
 			success: function(res, statusCode) {
-				if (process.env.NODE_ENV === 'development') {
-					let msg = "请求:" + url;
-					msg += "\n参数:" + JSON.stringify(data);
-					msg += "\n返回:" + JSON.stringify(res);
-					console.log(msg);
-				}
-				console.log(statusCode);
 				success(res.data);
 			},
 			fail: fail
