@@ -1,10 +1,11 @@
 <template>
 	<view class="mt-body">
+		<view class="mt-zwf"></view>
 		<view class="mt-uers">用户登录</view>
 		<view class="mt-in padin">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view class="mt-loginimge">1</view>
+					<view class="mt-loginimge mt-xiedian"></view>
 				</view>
 				<view class="mt-input-input">
 					<input class="uni-input" placeholder="请输入手机号码" v-model="account" />
@@ -14,7 +15,7 @@
 		<view class="mt-in">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view class="mt-loginimge">2</view>
+					<view class="mt-loginimge mt-xiedian" ></view>
 				</view>
 				<view class="mt-input-input">
 					<input password="false" class="uni-input" placeholder="请输入账户密码" v-model="password" />
@@ -150,6 +151,19 @@
 </script>
 
 <style>
+	.mt-zwf{
+		height: 60rpx;
+		width: 100%;
+	}
+	.mt-uers {
+		color: #FFFFFF;
+		font-size: 50rpx;
+		widows: 100%;
+		text-align: center;
+		font-weight: 500;
+		padding-top: var(--status-bar-height);
+		
+	}
 	page {
 		height: 100%;
 	}
@@ -174,30 +188,23 @@
 		height: 88rpx;
 		margin: 0 10%;
 		border: 20;
-		font-size: 15rpx;
+		
 		font-weight: 400;
 		margin: 10%;
 		padding: 5% 0 0 0;
 	}
 
 	.mt-loginbutndl {
-		border-radius: 40rpx;
+		border-radius: 60rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
 	}
 
-	.mt-uers {
-		color: #FFFFFF;
-		font-size: 17rpx;
-		widows: 100%;
-		text-align: center;
-		font-weight: 500;
-		padding-top: var(--status-bar-height);
-	}
+	
 
 	.mt-registration,
 	.mt-forget {
-		font-size: 12rpx;
+		font-size: 30rpx;
 		color: #FFFFFF;
 		float: left;
 		width: 50%;
@@ -211,7 +218,7 @@
 	.mt-in {
 		text-align: center;
 		width: 100%;
-		margin-top: 20px;
+		margin-top: 40rpx;
 	}
 
 	.uni-input {
@@ -225,15 +232,15 @@
 		width: 80%;
 		margin: 0 10%;
 		border-radius: 20px;
-		border: 1px solid #FFFFFF;
+		border: 1rpx solid #FFFFFF;
 	}
 
 	.mt-input-img {
 		height: 50rpx;
 		width: 50rpx;
-		margin-top: 2px;
-		margin-left: 15px;
-		margin-right: 10px;
+		margin-top: 2rpx;
+		margin-left: 30rpx;
+		margin-right: 20rpx;
 		float: left;
 		color: #FFFFFF;
 	}

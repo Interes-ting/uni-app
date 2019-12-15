@@ -1,18 +1,7 @@
 <template>
 	<view class="mt-body">
-		<view class="mt-size">
-			修改密码
-		</view>
-		<view class="mt-in">
-			<view class="mt-input">
-				<view class="mt-input-img">
-					<view class="mt-loginimge">账号:</view>
-				</view>
-				<view class="mt-input-input">
-					<input  class="uni-input" v-model="account" placeholder="输入用户手机号码" />
-				</view>
-			</view>
-		</view>
+		
+		
 		<view class="mt-in">
 			<view class="mt-input">
 				<view class="mt-input-img">
@@ -140,7 +129,7 @@
 	.uni-input {
 		display: inline-flex;
 		width: 70%;
-		font-size: 12rpx;
+		font-size: 30rpx;
 	}
 	.mt-input-input {
 		height: 78rpx;

@@ -50,6 +50,9 @@
 				<input password="false" class="uni-input"  />
 			</view>
 		</view>
+		<view class="" style="height:clac(100% - 200rpx);">
+			
+		
 		<!-- 第三步实用block模板渲染页面 -->
 		<block v-for="(item,index) in list" :key="index">
 			<view class="mt-viewnr">
@@ -57,11 +60,10 @@
 					<view class="mt-img">
 						<image class="mt-srcimg" src="../../static/qiandaizi.png" >
 					</view>
-
 				</view>
 				<view class="mt-earnings">
 					<!-- 第四步使用双括号{{item.xxxxx}} -->
-					<view class="mt-earningson on" v-if="item.inType === '0'  ">
+					<view class="mt-earningson on" v-if="item.inType === '0'">
 						来自{{item.inMerchantInfoName}}的付款
 					</view>
 					<view class="mt-earningson on" v-if="item.inType === '1'  ">
@@ -85,6 +87,8 @@
 						不通过
 					</view>
 				</view>
+				
+			
 				<view class="mt-twearnings" >
 					<view class="mt-earningstw">
 
@@ -98,6 +102,7 @@
 				</view>
 			</view>
 		</block>
+		</view>
 	</view>
 </template>
 
@@ -136,18 +141,12 @@
 						this.amount = data.data.amount;
 						this.withdrawable = data.data.withdrawable;
 						this.waitverify = data.data.waitverify;
-						this.totalExpenditure = data.data.totalExpenditure;
-						
-						//withdrawable
-						//waitverify
-						
-				console.log(this.amount)
-						
+						this.totalExpenditure = data.data.totalExpenditure;			
+					
 					//多数据循环：把后台返回数据赋值给变量list
 					// this.list =	res.data  
 					// 单数据   this.list =	res.data.参数名
 					} else {
-						console.log('d2')
 						//登录失败
 						uni.showToast({
 							title: data.message,
@@ -159,10 +158,11 @@
 					this.$mtRequest.stop();
 				})
 			},
+			//收益列表请求
 			earningstwo() {
-			
+		
 				// let that=this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"),{merchantId:'257192542313906176'},(data)=> {
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"),{merchantId:'251820865249869822'},(data)=> {
 					if (data.state > 0) {
 						console.log(data.data)
 						 this.list = data.data  
@@ -329,10 +329,10 @@
 	.mt-cashout.one,
 	.mt-cashout.two,
 	.mt-cashout.three {
+		font-size: 30rpx;
 		width: 32%;
 		float: left;
 		text-align: center;
-
 	}
 
 	.mt-cashout.one,
