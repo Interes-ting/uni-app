@@ -10,7 +10,7 @@
 					{{this.amount}}
 				</view>
 				
-				<view class="mt-cashoutone">
+				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
 			</view>
@@ -127,11 +127,17 @@
 			 this.earningstwo();
 		},
 		methods: {
-			//详情点击
-			Details(){
-				
+			tixian: function() {
+				uni.navigateTo({
+					url: '../wallet/withdraw'
+				})
 			},
-			
+			//详情点击
+			details: function() {
+				uni.navigateTo({
+					url: '../wallet/walletRecordInfo'
+				})
+			},
 			earnings() {
 
 				// let that=this;

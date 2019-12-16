@@ -5,7 +5,8 @@
 		<view class="mt-in padin">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view class="mt-loginimge mt-xiedian"></view>
+					<view class="mt-loginimge  mtfa mt-avatar"></view>
+					
 				</view>
 				<view class="mt-input-input">
 					<input class="uni-input" placeholder="请输入手机号码" v-model="account" />
@@ -15,7 +16,7 @@
 		<view class="mt-in">
 			<view class="mt-input">
 				<view class="mt-input-img">
-					<view class="mt-loginimge mt-xiedian" ></view>
+					<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 				</view>
 				<view class="mt-input-input">
 					<input password="false" class="uni-input" placeholder="请输入账户密码" v-model="password" />
@@ -195,10 +196,11 @@
 </script>
 
 <style>
-	.mt-zwf{
+	.mt-zwf {
 		height: 60rpx;
 		width: 100%;
 	}
+
 	.mt-uers {
 		color: #FFFFFF;
 		font-size: 50rpx;
@@ -206,8 +208,9 @@
 		text-align: center;
 		font-weight: 500;
 		padding-top: var(--status-bar-height);
-		
+
 	}
+
 	page {
 		height: 100%;
 	}
@@ -232,7 +235,7 @@
 		height: 88rpx;
 		margin: 0 10%;
 		border: 20;
-		
+
 		font-weight: 400;
 		margin: 10%;
 		padding: 5% 0 0 0;
@@ -244,7 +247,7 @@
 		/*设置按钮为渐变颜色*/
 	}
 
-	
+
 
 	.mt-registration,
 	.mt-forget {
@@ -263,11 +266,13 @@
 		text-align: center;
 		width: 100%;
 		margin-top: 40rpx;
+		color: #FFFFFF;
 	}
 
 	.uni-input {
 		display: inline-flex;
 		width: 80%;
+		font-size: 35rpx;
 	}
 
 	.mt-input {
