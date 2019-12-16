@@ -1,12 +1,15 @@
 
 <template>
 	<view class="mt-body">
+		<view class="mt-zwf">
+			
+		</view>
 		<view class="mt-uers">忘记密码</view>
 		<view class="mt-back">
 			<view class="mt-in padin">
 				<view class="mt-input">
 					<view class="mt-input-img">
-						<view class="mt-loginimge">1</view>
+						<view class="mt-loginimge mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
 						<input class="uni-input" v-model="account" placeholder="输入您的手机号码" />
@@ -18,7 +21,7 @@
 			<view class="mt-in">
 				<view class="mt-input">
 					<view class="mt-input-img">
-						<view class="mt-loginimge">2</view>
+						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
 						<input password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
@@ -28,7 +31,7 @@
 			<view class="mt-in">
 				<view class="mt-input">
 					<view class="mt-input-img">
-						<view class="mt-loginimge">2</view>
+						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
 						<input password="false" class="uni-input" v-model="confirmpwd" placeholder="再次确认密码" />
@@ -43,7 +46,7 @@
 							<view class="mt-loginimge"></view>
 						</view>
 						<view class="mt-input-input mt-yz">
-							<input class="uni-input" v-model="code" maxlength="6" placeholder="" />
+							<input class="uni-input" v-model="code" maxlength="6" placeholder=" " />
 						</view>
 					</view>
 					<view class="mt-input-img mt-yz">
@@ -231,6 +234,10 @@
 </script>
 
 <style>
+	.mt-zwf{
+		height: 60rpx;
+		width: 100%;
+	}
 	.mt-back {
 		width: 90%;
 		margin: 0 auto;
@@ -242,7 +249,9 @@
 	uni-page-body {
 		height: 100%;
 	}
-
+page {
+		height: 100%;
+	}
 	.mt-body {
 		display: block;
 		height: 100%;
@@ -277,11 +286,12 @@
 
 	.mt-uers {
 		color: #FFFFFF;
-		font-size: 34rpx;
+		font-size: 50rpx;
 		widows: 100%;
 		text-align: center;
 		font-weight: 500;
-		padding: 3% 0 20% 0;
+		margin: 6% 0 13% 0;
+		height: 50rpx;
 	}
 
 	.mt-registration,
@@ -320,7 +330,6 @@
 	.mt-input-img {
 		height: 50rpx;
 		width: 50rpx;
-		margin-top: 2rpx;
 		margin-left: 15rpx;
 		margin-right: 10rpx;
 		float: left;
