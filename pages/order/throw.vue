@@ -33,11 +33,11 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="用户名(默认)" name="input" v-model="customName" @blur="customNameValid('customName')"></input>
+						<input placeholder="用户名(默认)"  v-model="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" type="number" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
+						<input placeholder="请输入手机号" type="number" name="input" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -85,18 +85,18 @@
 					<!-- 时间日期选择器end -->
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;"><text class="required">*</text>订单金额：</view>
-						<input placeholder="请输入订单金额" type="number" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
+						<input placeholder="请输入订单金额" type="number" name="input" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-							<input placeholder="请输入提成金额" maxlength="8" type="number"
+							<input placeholder="请输入提成金额" maxlength="8" type="number" name="input"
 							v-model="pay" @blur="customNameValid('pay')"  @input="getBymeney(pay)"></input>
 						<view style="overflow: hidden;">
 							平台手续费：{{fuwufei}}

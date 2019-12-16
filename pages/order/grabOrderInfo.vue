@@ -140,6 +140,7 @@ export default {
 			{},(res)=>{
 				if(res.state ==1){
 					this.carList = res.data;
+					console.log(this.carList);
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});
