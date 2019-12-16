@@ -15,7 +15,7 @@
 						<view class="title"><text class="required">*</text>车辆类型</view>
 						<picker @change="PickerChange" :value="index" :range="pickerCar">
 							<view class="picker">
-								{{index> 0?pickerCar[index]:'请选择'}}
+								{{index> -1?pickerCar[index]:'请选择'}}
 							</view>
 						</picker>
 					</view>
@@ -23,7 +23,7 @@
 						<view class="title"><text class="required">*</text>派车数量</view>
 						<picker @change="PickerChangeNum" :value="index1" :range="pickerNum">
 							<view class="picker">
-								{{index1>0?pickerNum[index1]:'请选择'}}
+								{{index1>-1?pickerNum[index1]:'请选择'}}
 							</view>
 						</picker>
 					</view>
@@ -75,9 +75,7 @@
 						<text class="mt-iconbox mtfa mt-rili mt-iconbox" style="position: relative;right: 13.33rpx;"></text>
 
 						<view class="move-time" style=";"><text class="required">*</text>搬家时间</view>
-						<view class="checktime">
-							{{time}}
-						</view>
+						<view class="checktime" >{{time}}</view>
 					</view>
 					<!-- 时间日期选择器start-->
 					<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2000" :end-year="2030" color="#488ee9">
@@ -97,7 +95,7 @@
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
 							<input placeholder="请输入提成金额" maxlength="8" type="number" name="input"
-							v-model="pay" @blur="customNameValid('pay')"  @input="getBymeney(pay)"></input>
+							v-model="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
 						<view style="overflow: hidden;">
 							平台手续费：{{fuwufei}}
 						</view>
@@ -160,31 +158,32 @@
 				orderAmount: '',
 				// 扔单提成
 				pay: '',
-				//平台服务费
-				scale:null,
+				// //平台服务费
+				// scale:null,
 				fuwufei:null,
 				// 搬家时间
-				time: '2019-12-10 12:01',
+				timer:'',
+				time:'',
 				// 车辆选择参数
-				index: 0,
+				index: -1,
 				pickerCar: [],
 				// 车辆id
 				carId:null,
 				// 车辆数量选择参数
-				index1: 0,
+				index1: -1,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
 				// 人数选择参数
 				index3: 0,
 				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10人以上'],
 				// 是否需要车辆
 				switchA: true,
-				needCar: null,
+				needCar: 1,
 				// 是否急单
-				sos: null,
+				sos: 1,
 				switchB: true,
 				// 是否需要拆装服务
-				switchC: true,
-				installation: null,
+				switchC: false,
+				installation: 0,
 				// 搬运物品
 				textareaAValue: '',
 				// 注意事项
@@ -279,15 +278,24 @@
 			this.multiArray[1] = this.lc1
 			this.multiArray1[1] = this.lc1
 			this.checkCarType();
-			this.getMoney();
+			// this.getMoney();
 		},
 		methods: {
-			getBymeney(val) {
-				console.log(this.scale)
-			this.fuwufei = val * this.scale
+			getBymeney(e) {
+				this.pay = e.detail.value;
+				console.log(this.pay)
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`),
+				{payAmount: this.pay},(res)=>{
+					if(res.state == 1){
+						this.fuwufei = res.data;
+					}
+					this.$mtRequest.stop();//结束loading等待
+				});
 			},
+			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
+				console.log('this.pay',this.pay)
 				this.$refs.myPicker.show();
 			},
 
@@ -298,12 +306,15 @@
 
 			// 搬家时间
 			handleSubmit: function(e) {
-				console.log(e);
+				
 				this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 			},
 
 			// 车辆类型
 			PickerChange: function(e) {
+				if(e.detail.value<= 0) {
+					e.detail.value =  0
+				}
 				this.index = e.detail.value
 				this.show = e.detail.value
 				this.pieckId.forEach((item,index)=>{
@@ -315,35 +326,36 @@
 
 			// 车辆数量选择
 			PickerChangeNum: function(e) {
+				if(e.detail.value<= 0) {
+					e.detail.value =  0
+				}
 				this.index1 = e.detail.value
-
-				console.log(this.pickerNum[this.index1])
 			},
 
 			// 人数选择
 			PickerChangeHumen: function(e) {
 				this.index3 = e.detail.value
-
-				console.log(this.pickerHumen[this.index3])
 			},
 
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
 					this.switchA = e.detail.value
-					console.log(this.switchA)
 					if (this.switchA) {
 						this.needCar = 1 //true
 					} else {
 						this.needCar = 0 //false
+						// 不需要车辆就将车辆类型和派车数量置空
+						// this.pickerCar = [''];
+						// this.pickerNum = 0;
+						// this.carTypeId = '';
 					}
-				},
 			},
+			
 
 			// 是否急单
 			SwitchB: function(e) {
 				this.switchB = e.detail.value
-				console.log(this.switchB)
 				if (this.switchB) {
 					this.sos = 1 //true
 				} else {
@@ -374,17 +386,17 @@
 
 
 			// 出发地址楼层选择
-			MultiChange(e) {
+			MultiChange: function(e) {
 				if (e.detail.value[0] === 0) {
 					this.startfloor = '无电梯'
-					this.floor1 = e.detail.value[1]
+					this.floor1 = e.detail.value[1] +1
 				} else {
-					this.loginfloor = '有电梯'
-					this.floor1 = e.detail.value[1]
+					this.startfloor = '有电梯'
+					this.floor1 = e.detail.value[1]+1
 				}
 				this.multiIndex = e.detail.value;
 			},
-			MultiColumnChange(e) {
+			MultiColumnChange: function(e) {
 				let data = {
 					multiIndex: this.multiIndex,
 					multiArray: this.multiArray
@@ -393,19 +405,17 @@
 			},
 
 			// 到达地址楼层选择
-			MultiChange1(e) {
+			MultiChange1: function(e) {
 				if (e.detail.value[0] === 0) {
 					this.endfloor = '无电梯'
-					this.floor2 = e.detail.value[1]
+					this.floor2 = e.detail.value[1] +1
 				} else {
 					this.endfloor = '有电梯'
-					this.floor2 = e.detail.value[1]
+					this.floor2 = e.detail.value[1]+1
 				}
 				this.multiIndex1 = e.detail.value;
-				// console.log(this.logoutfloor),
-				console.log(this.endfloor, this.floor2)
 			},
-			MultiColumnChange1(e) {
+			MultiColumnChange1: function(e) {
 				let data = {
 					multiIndex: this.multiIndex1,
 					multiArray: this.multiArray1
@@ -413,13 +423,14 @@
 				selectchange(data, this, e.detail)
 			},
 
-			goThrow: function() { //立即扔单
+			goThrow: function() {
+				//立即扔单
 				let grabInfo = {
 					customName: this.customName,
 					customPhone: this.customPhone,
 					startAddress: this.startAddress,
 					endAddress: this.endAddress,
-					distance: this.distance,
+					distance: this.distance, 
 					orderAmount: this.orderAmount,
 					pay: this.pay,
 				}
@@ -429,12 +440,11 @@
 					return;
 				}
 				// 发送网络请求
-				console.log(this.needCar)
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
 						customerName: this.customName, 
 						phone: this.customPhone,
 						fromAddress: this.startAddress,
-						toAddress: this.toAddress,
+						toAddress:this.endAddress,
 						deliveryTime: this.time,
 						distance:  this.distance,
 						goods: this.textareaAValue,
@@ -443,7 +453,7 @@
 						price: this.orderAmount,
 						payAmount: this.pay,
 						remark: this.textareaAValue,
-						throwMerchantInfo: this.$mtAccount.info().merchantInfoId,
+						throwMerchantInfoId: this.$mtAccount.info().merchantInfoId,
 						intoElevator:this.endfloor,
 						intoFloor:this.floor2,
 						outEleveator:this.startfloor,
@@ -457,8 +467,17 @@
 						handlingService :0
 					},
 					(res) => {
-						// this.$mtRequest.stop(); //结束loading等待
-						console.log(res)
+						//扔单成功跳转到扔单记录页面
+						if(res.state == 1){
+							uni.showToast({
+							  title: "扔单成功",
+							  success: function() {setTimeout(function(){
+									uni.navigateTo({ url: 'throwRecord'});
+							  },2000)}
+							})
+						}
+						this.$mtRequest.stop(); //结束loading等待
+						
 					});
 			},
 
@@ -471,28 +490,17 @@
 							this.pickerCar.push(item.name)
 						})
 						this.$mtRequest.stop();
-						// console.log(this.pieckId)
 					}
 					
 				});
 			},
 			
-			getMoney:function(){ //获取扔单平台服务费
-					this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/throwCommionRatio'), 					{}, (res) => {
-						if(res.state==1){
-							this.scale =res.data;
-						}
-						
-					})
-			},
-			
-			
-			customNameValid(key) { //自定义校验
+			customNameValid: function(key) { //自定义校验
 			// this.fuwufei  = 
 				this.$mtValidation.validItem(this[key], this.rules[key])
 			}
 
-		
+		},
 	};
 
 	function selectchange(data, lcarry, selectItem) {
