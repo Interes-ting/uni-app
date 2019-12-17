@@ -29,7 +29,7 @@
 		background-size: 100% 100%;
 	}
 	
-	.uni-input-placeholder {
+	.white-input-placeholder {
 		color: #F1F1F1;
 	}
 </style>
