@@ -56,8 +56,15 @@
 			}
 		}, {
 			"path": "pages/wallet/walletRecordInfo",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "收益详情"
+			}
 		}, {
+			"path": "pages/wallet/walletRecordInfotwo",
+			"style": {
+				"navigationBarTitleText": "支出详情"
+			}
+		},{
 			"path": "pages/wallet/withdraw",
 			"style": {}
 		}, {

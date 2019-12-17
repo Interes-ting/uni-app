@@ -1,45 +1,33 @@
-<template >
-	<view >
+<template>
+	<view>
 		<view class="mt-heis"></view>
 		<view class="mt-view">
 			<view class="mt-totalamount">
 				总额 (元)
 			</view>
 			<view class="mt-amount amount">
-				<view class="mt-amoutone" >	
-					{{this.amount}}
+				<view class="mt-amoutone">
+					{{amount}}
 				</view>
-				
+
 				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
 			</view>
 			<view class="mt-amount text">
 				<view class="mt-cashout one">
-					<view class="">
-						可提现
+					<view class="mt-catext">
+						可提现 :{{withdrawable}}
 					</view>
-					<view class="">
-						{{this.withdrawable}}
-					</view>
+
 				</view>
 
 				<view class="mt-cashout two">
-					<view class="">
-						核实中
-					</view>
-					<view class="">
-						{{this.waitverify}}
+					<view class="mt-catext">
+						核实中 :	 {{waitverify}}
 					</view>
 				</view>
-				<view class="mt-cashout three">
-					<view class="">
-						支出
-					</view>
-					<view class="">
-						{{this.totalExpenditure}}
-					</view>
-				</view>
+
 			</view>
 		</view>
 		<view class="mt-viewmx">
@@ -47,61 +35,91 @@
 				账单
 			</view>
 			<view class="mt-time">
-				<input password="false" class="uni-input"  />
+				<input password="false" class="uni-input" />
 			</view>
 		</view>
 		<view class="" style="height:clac(100% - 200rpx);">
-			
-		
-		<!-- 第三步实用block模板渲染页面 -->
-		<block v-for="(item,index) in list" :key="index">
-			<view class="mt-viewnr">
-				<view class="mt-earnings om" >
-					<view class="mt-img">
-						<image class="mt-srcimg" src="../../static/qiandaizi.png" >
-					</view>
-				</view>
-				<view class="mt-earnings">
-					<!-- 第四步使用双括号{{item.xxxxx}} -->
-					<view class="mt-earningson on" v-if="item.inType === '0'">
-						来自{{item.inMerchantInfoName}}的付款
-					</view>
-					<view class="mt-earningson on" v-if="item.inType === '1'  ">
-						平台补贴
-					</view>
-					<view class="mt-earningson three">
-						{{item.createTime}}
-					</view>
-					<view  v-if="item.inState === 1 ">
-						<view class="mt-earningson two" style="color: #1EB500; border: 1rpx solid #1EB500;" v-if="item.withdrawState === 0  ">
-							可提现
-						</view>
-						<view class="mt-earningson two"  v-if="item.withdrawState === 1  ">
-							已提现
+			<!-- 第三步实用block模板渲染页面 -->
+			<block v-for="(item,index) in list" :key="index">
+				<view class="mt-viewnr">
+					<view class="mt-earnings om " v-if="item.incomeExpenditure === 1">
+						<view class="mt-img">
+							<image class="mt-qianbaoimg" src="../../static/qianbao.png" mode=""></image>
 						</view>
 					</view>
-					<view class="mt-earningson two"  style="color: #EE0000; border: 1rpx solid #EE0000;"   v-if="item.inState === 0">
-						待审核
+					<view class="mt-earnings om mo" v-if="item.incomeExpenditure === 2">
+						<view class="mt-img om">
+							<image class="mt-qianbaoimg" src="../../static/qianbao.png" mode=""></image>
+						</view>
 					</view>
-					<view class="mt-earningson two" v-if="item.inState === 2">
-						不通过
-					</view>
-				</view>
-				
-			
-				<view class="mt-twearnings" >
-					<view class="mt-earningstw">
+					<view v-if="item.incomeExpenditure === 1">
+						<view class="mt-earnings" v-if="item.inState === 0">
+							<!-- 第四步使用双括号{{item.xxxxx}} -->
+							<view class="mt-earningson on">
+								来自{{item.inMerchantInfoName}}的付款
+							</view>
 
+							<view class="mt-earningson three">
+								{{item.createTime}}
+							</view>
+							<view class="mt-earningson two" style="color: #999999; border: 1rpx solid #999999;">
+								待审核
+							</view>
+						</view>
+						<view class="mt-earnings one" v-if="item.inState === 1">
+							<!-- 第四步使用双括号{{item.xxxxx}} -->
+							<view class="mt-earningson on ">
+								来自{{item.inMerchantInfoName}}的付款
+							</view>
+							<view class="mt-earningson three">
+								{{item.createTime}}
+							</view>
+						</view>
+						<!-- inState = 0 待核实   1已核实 -->
+						<view class="mt-twearnings one " v-if="item.inState === 0">
+							<view class="mt-earningstw one gsot">
+							</view>
+							<view class="mt-earningstwo on">
+								+{{item.amount}}
+							</view>
+							<view class="mt-earningstwo two" @click="details(item)">
+								详情 >
+							</view>
+						</view>
+						<view class="mt-twearnings one " v-if="item.inState === 1">
+							<view class="mt-earningstw one gson">
+							</view>
+							<view class="mt-earningstwo on">
+								+{{item.amount}}
+							</view>
+							<view class="mt-earningstwo two buia" @click="details(item)">
+								详情 >
+							</view>
+						</view>
 					</view>
-					<view class="mt-earningstwo on">
-						+240.00
-					</view>
-					<view class="mt-earningstwo two" @click="details">
-						详情 >
+					<view v-if="item.incomeExpenditure === 2">
+						<view class="mt-earnings one">
+							<!-- 第四步使用双括号{{item.xxxxx}} -->
+							<view class="mt-earningson on">
+								提现
+							</view>
+							<view class="mt-earningson three">
+								{{item.createTime}}
+							</view>
+						</view>
+						<view class="mt-twearnings one">
+							<view class="mt-earningstw one goss">
+							</view>
+							<view class="mt-earningstwo on black">
+								-{{item.amount}}
+							</view>
+							<view class="mt-earningstwo two buia" @click="details(item)">
+								详情 >
+							</view>
+						</view>
 					</view>
 				</view>
-			</view>
-		</block>
+			</block>
 		</view>
 	</view>
 </template>
@@ -112,20 +130,23 @@
 			return {
 				// 第一步定义空数据接收空变量接收后台返回数据
 				// list: null,
-				list:'[]',
-				amount:null,
-				withdrawable:null,
-				waitverify:null,
-				totalExpenditure:null,
-			
+				list: '',
+				amount: '',
+				withdrawable: null,
+				waitverify: null,
+				totalExpenditure: null,
+				incomeExpenditure:null,
+
 			}
 		},
-		onLoad(){
+		onLoad() {
 			//初始钱包查询
-			 this.earnings();
-			 //初始账单列表查询
-			 this.earningstwo();
+			this.earnings();
+			//初始账单列表查询
+			this.earningstwo();
+	
 		},
+		
 		methods: {
 			tixian: function() {
 				uni.navigateTo({
@@ -133,25 +154,31 @@
 				})
 			},
 			//详情点击
-			details: function() {
-				uni.navigateTo({
-					url: '../wallet/walletRecordInfo'
-				})
+			details: function(item) {
+			 this.incomeExpenditure = item.incomeExpenditure
+			 if(this.incomeExpenditure === 1){
+				 uni.navigateTo({
+				 	url: '../wallet/walletRecordInfo?incomeExpenditure='+this.incomeExpenditure
+				 })
+			 }else if(this.incomeExpenditure === 2){
+				 uni.navigateTo({
+				 	url: '../wallet/walletRecordInfotwo?incomeExpenditure='+this.incomeExpenditure
+				 })
+			 }
+				
 			},
 			earnings() {
-
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"),{merchantId:'257192542313906176'},(data)=> {
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
+					merchantId: merchantInfoId
+				}, (data) => {
 					if (data.state > 0) {
-						
 						this.amount = data.data.amount;
 						this.withdrawable = data.data.withdrawable;
 						this.waitverify = data.data.waitverify;
-						this.totalExpenditure = data.data.totalExpenditure;			
-					
-					//多数据循环：把后台返回数据赋值给变量list
-					// this.list =	res.data  
-					// 单数据   this.list =	res.data.参数名
+						this.totalExpenditure = data.data.totalExpenditure;
+						this.incomeExpenditure = data.data.incomeExpenditure;
 					} else {
 						//登录失败
 						uni.showToast({
@@ -159,24 +186,19 @@
 							icon: "none"
 						})
 					}
-				
+
 					//结束请求
 					this.$mtRequest.stop();
 				})
 			},
 			//收益列表请求
 			earningstwo() {
-		
 				// let that=this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"),{merchantId:'251820865249869822'},(data)=> {
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"), {
+					merchantId: '251820865249869822'
+				}, (data) => {
 					if (data.state > 0) {
-						console.log(data.data)
-						 this.list = data.data  
-						
-						
-					//多数据循环：把后台返回数据赋值给变量list
-					// this.list =	res.data  
-					// 单数据   this.list =	res.data.参数名
+						this.list = data.data
 					} else {
 						console.log('d2')
 						//登录失败
@@ -185,80 +207,153 @@
 							icon: "none"
 						})
 					}
-				
+
 					//结束请求
 					this.$mtRequest.stop();
 				})
 			},
-			
+
 			// this.list = res.data
-			
+
 		}
 	}
 </script>
 
 <style>
-	.mt-srcimg{
-		width: 60rpx;
-		height: 60rpx;
+
+	.mt-catext{
+		width: 100%;
+		float: left;
+		height: 55rpx;
+		line-height: 55rpx;
 	}
-	.mt-earnings.om{
+	.mt-qianbaoimg {
+		width: 100%;
+		height: 70rpx;
+	}
+
+	.mt-img {
+		height: 150rpx;
+	}
+
+	.mt-earnings.om {
 		width: 15%;
 		float: left;
-		height: 150rpx;
+		height: 180rpx;
 		padding: 20rpx;
-		line-height: 150rpx;
+		line-height: 195rpx;
 	}
-	.mt-earningson.three{
-		color: #999999;
-		padding: 10rpx 0 0 0;
+
+	.mt-earnings.om.mo {
+		line-height: 195rpx;
 	}
-	.mt-earningson.on{
-		color: #333333;
-		font-size: 35rpx;
+
+	.mt-earningstw.one.gsot {
+		margin: 55rpx 0 0 0;
 	}
-	.mt-earningson.two{
-		border: 1rpx solid #999999;
-		width: 120rpx;
-		margin: 10rpx 0 0 0;
-		height: 40rpx;
-		text-align: center;
-		border-radius: 10rpx;
-		color: #999999;
+
+	.mt-earningstw.one.gson {
+		margin: 50rpx 0 0 0;
 	}
-	.mt-earningstw{
-		padding: 65rpx 0 0 0;
-	}
-	.mt-earningstwo.on{
-		font-size: 40rpx;
-	}
-	.mt-earningstwo.two{
-		color: #1E83FF;
-	}
-	.mt-earningstwo{
-		font-size: 25rpx;
-		color: #E7BB48;
-		text-align: center;
-	}
-	.mt-twearnings{
-		width: 30%;
-		float: left;
-		height: 150rpx;
-	}
-	.mt-heis{
-		height: 20rpx;
-	}
-	.mt-earnings {
-		width: 55%;
-		float: left;
-		height: 150rpx;
-		padding: 12rpx 0rpx;
+
+	.mt-earningstw.one.goss {
+		margin: 50rpx 0 0 0;
 	}
 
 	.mt-earningson {
 		font-size: 25rpx;
 		font-weight: 400;
 		padding: 0 0 0rpx 0;
+	}
+
+	.mt-earnings {
+		width: 55%;
+		float: left;
+		height: 150rpx;
+
+	}
+
+	.mt-earnings.one {
+		padding: 40rpx 0rpx;
+	}
+
+	.mt-srcimg {
+		width: 60rpx;
+		height: 60rpx;
+	}
+
+
+
+	.mt-earningson.three {
+		color: #999999;
+		padding: 10rpx 0 0 0;
+		font-size: 31rpx;
+
+	}
+
+	.mt-earningson.on {
+		color: #333333;
+		font-size: 33rpx;
+		margin: 15rpx 0 0 0;
+	}
+
+	.mt-earningson.two {
+		margin: 15rpx 0 0 0;
+	}
+
+	.mt-earningstwo.two {
+		margin: 10rpx 0 0 0;
+	}
+
+	.mt-earningstwo.two.buia {
+		margin: 0rpx 0 0 0;
+	}
+
+	.mt-earningson.two {
+		border: 1rpx solid #999999;
+		width: 120rpx;
+
+		height: 40rpx;
+		line-height: 40rpx;
+		text-align: center;
+		border-radius: 10rpx;
+		color: #999999;
+	}
+
+
+
+	.mt-earningstwo.on {
+		font-size: 40rpx;
+
+	}
+
+	.mt-earningstwo.tixian {
+		color: #000000;
+	}
+
+	.mt-earningstwo.two {
+		color: #1E83FF;
+
+	}
+
+	.mt-earningstwo.on.black {
+		color: #000000;
+	}
+
+	.mt-earningstwo {
+		font-size: 25rpx;
+		color: #E7BB48;
+		text-align: center;
+	}
+
+	.mt-twearnings {
+		width: 30%;
+		float: left;
+		height: 150rpx;
+	}
+
+	.mt-heis {
+		height: 20rpx;
 	}
 
 	.uni-input {
@@ -276,14 +371,15 @@
 		float: left;
 	}
 
+	/* 查询列表框 */
 	.mt-view {
 		width: 90%;
-		height: 270rpx;
+		height: 260rpx;
 		background-color: #1880FF;
 		margin: 0% 5%;
 		border-radius: 15rpx;
 		color: #FFFFFF;
-		
+
 	}
 
 	.mt-viewmx {
@@ -303,8 +399,8 @@
 		font-weight: 800;
 		border-radius: 15rpx;
 		border: 1rpx solid #F1F1F3;
-		height: 170rpx;
-		box-shadow:0px 0px 18px 0px rgba(0, 0, 0, 0.21);
+		height: 180rpx;
+		box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.21);
 	}
 
 	.mt-totalamount {
@@ -336,15 +432,12 @@
 	.mt-cashout.two,
 	.mt-cashout.three {
 		font-size: 30rpx;
-		width: 32%;
+		width: 50%;
 		float: left;
 		text-align: center;
 	}
-
-	.mt-cashout.one,
-	.mt-cashout.two {
-		margin: 0 10rpx 0 0%;
-		border-right: 1rpx solid #FFFFFF;
+	.mt-catext{
+		text-align: left;
 	}
 
 	.mt-amount.text {

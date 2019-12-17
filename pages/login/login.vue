@@ -25,11 +25,16 @@
 			</view>
 		</view>
 		<view class="mt-in mtin">
-			<view class="mt-registration" @click="regdex">
-				新用户注册
+			<view class="mt-registration" >
+				<view @click="regdex" class="mt-kd">
+					新用户注册
+				</view>
 			</view>
-			<view class="mt-forget" @click="forgetdex">
-				忘记密码?
+			<view class="mt-forget" >
+				<view @click="forgetdex" class="mt-kd">
+					忘记密码?
+				</view>
+				
 			</view>
 		</view>
 		<view class="mt-loginbutn">
@@ -285,7 +290,7 @@
 	}
 
 	.mt-input-img {
-		height: 50rpx;
+		height: 88rpx;
 		width: 50rpx;
 		margin-top: 2rpx;
 		margin-left: 30rpx;
