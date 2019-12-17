@@ -1,7 +1,7 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="gradOrderInfo-content">
-		<view class="mt-card">
+		<view class="mt-card"  v-if="this.OrderInfo">
 			<!-- 城市 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
@@ -67,7 +67,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">拆装服务：{{this.OrderInfo.isItChai}}</text>
+					<text class="text-grey" >拆装服务：{{this.OrderInfo.isItchai ==0?'不需要':'需要'}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -86,11 +86,12 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单服务费：{{this.OrderInfo.rowCommissionRatio}}</text>
+					<text class="text-grey">平台手续费：{{this.OrderInfo.payAmount}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{this.OrderInfo.rowPlatformFee}}</text>
+					<text class="text-grey">平台服务费：{{this.OrderInfo.rowPlatformFee}}
+					</text>
 					<text class="text-grey" 
 					style="float:right;margin-right:20rpx;">
 						实际支付：{{this.needPay}}
@@ -105,15 +106,33 @@
 export default {
 	data() {
 		return {
-			OrderInfo:null,
-			needPay:null,
+			OrderInfo:null, //订单列表
+			needPay:null, //实际支付
+			id:'' //订单id
 		};
 	},
 	onLoad(option) {
-		this.OrderInfo = option;
-		this.needPay = this.OrderInfo.rowCommissionRatio + this.OrderInfo.rowPlatformFee
+		console.log(option)
+		this.id = option.id;
+		this.getOrderInfo();
 	},
-	methods: {}
+	methods: {
+		getOrderInfo:function(){
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
+				if(res.state==1){
+					this.OrderInfo =res.data;
+					this.needPay = Number(this.OrderInfo.payAmount) + Number(this.OrderInfo.rowPlatformFee)
+				}else {
+					uni.showToast({
+					title: data.message,
+					icon: 'none'
+					});
+				}
+				this.$mtRequest.stop();//结束loading等待
+			});
+		}
+		
+	}
 };
 </script>
 
