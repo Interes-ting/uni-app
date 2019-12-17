@@ -15,7 +15,7 @@
 						<view class="title"><text class="required">*</text>车辆类型</view>
 						<picker @change="PickerChange" :value="index" :range="pickerCar">
 							<view class="picker">
-								{{index>-1?pickerCar[index]:'请选择'}}
+								{{pickerCar[index]}}
 							</view>
 						</picker>
 					</view>
@@ -23,7 +23,7 @@
 						<view class="title"><text class="required">*</text>派车数量</view>
 						<picker @change="PickerChangeNum" :value="index1" :range="pickerNum">
 							<view class="picker">
-								 {{index1>-1?pickerNum[index1]:'请选择'}}
+								 {{pickerNum[index1]}}
 							</view>
 						</picker>
 					</view>
@@ -33,7 +33,7 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="用户名(默认)" maxlength="10" v-model="customName" @blur="customNameValid('customName')"></input>
+						<input placeholder="用户名" maxlength="10" v-model="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
@@ -75,7 +75,7 @@
 						<text class="mt-iconbox mtfa mt-rili mt-iconbox" style="position: relative;right: 13.33rpx;"></text>
 
 						<view class="move-time" style=";"><text class="required">*</text>搬家时间</view>
-						<view class="checktime" >{{time}}</view>
+						<view class="checktime" >{{time}}<text class="cuIcon-right"></text></view>
 					</view>
 					<!-- 时间日期选择器start-->
 					<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2060" color="#488ee9">
@@ -83,7 +83,7 @@
 					<!-- 时间日期选择器end -->
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" maxlength="8" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
@@ -100,14 +100,16 @@
 							平台手续费：{{fuwufei == null ? '' :fuwufei}}
 						</view>
 					</view>
-					<view class="basic-services-car cu-form-group" style="border-top:0">
-						<view class="title">需要搬运人数</view>
-						<picker @change="PickerChangeHumen" :value="index3" :range="pickerHumen">
-							<view class="picker">
-								{{index3>-1?pickerHumen[index3]:'禁止换行，超出容器部分会以 ... 方式截断'}}
-							</view>
-						</picker>
+					<!-- picker样式 -->
+					<view class="flexbox">
+						<view class="flex-left">需要搬运人数</view>
+						<view class="flex-right">
+							<picker @change="PickerChangeHumen" :value="index3" :range="pickerHumen">
+								<view>{{index3>-1?pickerHumen[index3]:'请选择'}}</view>
+							</picker>
+						</view>
 					</view>
+					<!-- picker样式结束 -->
 					<view class="basic-services-car cu-form-group" style="border-top:0">
 						<view class="title">是否急单</view>
 						<switch @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"></switch>
@@ -164,12 +166,12 @@
 				// 搬家时间
 				time:'',
 				// 车辆选择参数
-				index: -1,
+				index: 0,
 				pickerCar: [],
 				// 车辆id
 				carId:null,
 				// 车辆数量选择参数
-				index1: -1,
+				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 人数选择参数
 				index3: 0,
@@ -237,7 +239,12 @@
 					// 距离
 					distance: [{
 							type: "require",
-							msg: "请输入距离"
+						},
+						{
+							type: "double",
+							name:'距离',
+							place:2,  //允许输入小数点个数
+							max:9999
 						},
 						{
 							type: "regexp",
@@ -276,7 +283,71 @@
 			this.checkCarType();
 		},
 		onShow() {
-			
+			this.checkCarType();
+			this.pieckId= [],
+			//客户名
+			this.customName= '',
+			//用户手机号
+			this.customPhone= '',
+			// 出发地址
+			this.startAddress=  '',
+			//到达地址
+			this.endAddress= '',
+			// 距离
+			this.distance= '',
+			// 订单金额
+			this.orderAmount= '',
+			// 扔单提成
+			this.pay= '',
+			// //平台服务费
+			// scale:null,
+			this.fuwufei= null,
+			// 搬家时间
+			this.startyear= new Date(),
+			this.time= '',
+			// 车辆选择参数
+			this.index= 0,
+			this.pickerCar= [],
+			// 车辆id
+			this.carId= null,
+			// 车辆数量选择参数
+			this.index1=  0,
+			this.pickerNum= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+			// 人数选择参数
+			this.index3=  0,
+			this.pickerHumen= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+			// 是否需要车辆
+			this.switchA= true,
+			this.needCar= 1,
+			// 是否急单
+			this.sos= 1,
+			this.switchB= true,
+			// 是否需要拆装服务
+			this.switchC= false,
+			this.installation= 0,
+			// 搬运物品
+			this.textareaAValue= '',
+			// 注意事项
+			this.textareaBValue= '',
+			// 电梯楼层参数
+			this.lc1= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+			this.lc2= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,30],
+			// 出发地址电梯楼层
+			this.startfloor=  null,
+			this.floor1=  null,
+			this.multiArray= [
+				['无电梯', '有电梯'],
+				[]
+			],
+			this.multiIndex= [0, 0],
+			// 到达地址电梯楼层
+			this.endfloor= null,
+			this.floor2=  null,
+			this.multiArray1=  [
+				['无电梯', '有电梯'],
+				[]
+			],
+			this.multiIndex1= [0, 0]
 		},
 		created() {
 			this.startyear = new Date().getFullYear()  //年
@@ -297,6 +368,7 @@
 					this.$mtRequest.stop();//结束loading等待
 				});
 			},
+			
 			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
@@ -477,7 +549,7 @@
 						carTypeName: this.pickerCar[this.index],
 						price: this.orderAmount,
 						payAmount: this.pay,
-						remark: this.textareaAValue,
+						remark: this.textareaBValue,
 						throwMerchantInfoId: this.$mtAccount.info().merchantInfoId,
 						intoElevator:this.endfloor,
 						intoFloor:this.floor2,
@@ -529,10 +601,10 @@
 							this.carId= null,
 							// 车辆数量选择参数
 							this.index1=  -1,
-							this.pickerNum= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
+							this.pickerNum= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 							// 人数选择参数
 							this.index3=  0,
-							this.pickerHumen= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10人以上'],
+							this.pickerHumen= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 							// 是否需要车辆
 							this.switchA= true,
 							this.needCar= 1,
@@ -614,6 +686,18 @@
 </script>
 
 <style lang="less" scoped>
+	.flexbox{
+	  display:flex;/*设为伸缩容器*/  
+	  flex-flow:column;/*伸缩项目单行排列*/ 
+		.flex-left{
+			display: inline-block;
+			width: 200rpx;
+		}
+		.flex-right{
+			display: inline-block;
+			flex: 1; /*这里设置为占比1，填充满剩余空间*/  
+		}
+	}
 	.mt-title{
 		padding-right: 25rpx!important;
 	}
