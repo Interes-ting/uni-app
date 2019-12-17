@@ -1,5 +1,5 @@
 <template>
-	<view class="mt-body">
+	<view class="mt-body account-body">
 		<view class="mt-uers">用户登录</view>
 		<view class="mt-form">
 			<view class="mt-form-row">
@@ -203,6 +203,7 @@
 	}
 
 	.mt-body {
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;

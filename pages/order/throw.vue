@@ -15,7 +15,7 @@
 						<view class="title"><text class="required">*</text>车辆类型</view>
 						<picker @change="PickerChange" :value="index" :range="pickerCar">
 							<view class="picker">
-								{{index> -1?pickerCar[index]:'请选择'}}
+								{{index>-1?pickerCar[index]:'请选择'}}
 							</view>
 						</picker>
 					</view>
@@ -165,12 +165,12 @@
 				timer:'',
 				time:'',
 				// 车辆选择参数
-				index: -1,
+				index: 0,
 				pickerCar: [],
 				// 车辆id
 				carId:null,
 				// 车辆数量选择参数
-				index1: -1,
+				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
 				// 人数选择参数
 				index3: 0,
@@ -278,12 +278,18 @@
 			this.multiArray[1] = this.lc1
 			this.multiArray1[1] = this.lc1
 			this.checkCarType();
-			// this.getMoney();
+		},
+		created() {
+			this.time = new Date().getFullYear() + //年
+			"-" +(new Date().getMonth()+1<10 ? "0"+(new Date().getMonth()+1) : new Date().getMonth()+1) + //月
+			"-" +(new Date().getDate()<10 ? "0"+new Date().getDate() : new Date().getDate()) +  //日
+			" " +(new Date().getHours()<10 ? "0"+new Date().getHours() : new Date().getHours()) + //时
+			":" +(new Date().getMinutes()<10 ? new Date().getMinutes()+30 : new Date().getMinutes()+30) //分
 		},
 		methods: {
 			getBymeney(e) {
 				this.pay = e.detail.value;
-				console.log(this.pay)
+			
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`),
 				{payAmount: this.pay},(res)=>{
 					if(res.state == 1){
@@ -295,7 +301,6 @@
 			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
-				console.log('this.pay',this.pay)
 				this.$refs.myPicker.show();
 			},
 
@@ -306,7 +311,6 @@
 
 			// 搬家时间
 			handleSubmit: function(e) {
-				
 				this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 			},
 
@@ -340,15 +344,11 @@
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
-					this.switchA = e.detail.value
 					if (this.switchA) {
 						this.needCar = 1 //true
+				
 					} else {
 						this.needCar = 0 //false
-						// 不需要车辆就将车辆类型和派车数量置空
-						// this.pickerCar = [''];
-						// this.pickerNum = 0;
-						// this.carTypeId = '';
 					}
 			},
 			
@@ -475,6 +475,11 @@
 									uni.navigateTo({ url: 'throwRecord'});
 							  },2000)}
 							})
+						}else {
+							uni.showToast({
+							title: data.message,
+							icon: 'none'
+							});
 						}
 						this.$mtRequest.stop(); //结束loading等待
 						
@@ -482,7 +487,7 @@
 			},
 
 			checkCarType:function() { //发送网络请求获取车辆类型
-				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/getcartype'),
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/getcartype'),
 				{}, (res) => {
 					if(res.state >0){
 						this.pieckId = res.data;

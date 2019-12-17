@@ -39,7 +39,7 @@
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
 						<text>订单金额：{{ item.price }}元</text>
-						<text style="margin-left: 46.66rpx;">扔单提成：{{ item.incomeAmount }}元</text>
+						<text style="margin-left: 46.66rpx;">扔单提成：{{ item.payAmount }}元</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-juli text-grey "></view>
@@ -60,7 +60,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text>此订单由长沙运邦搬家提供{{ item.throwMerchantInfoo }}</text>
+						<text>此订单由{{ item.throwCompanyName }}提供</text>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
 					<button class="mt-elsebutton" v-else="item.state == 0">已抢</button>
@@ -83,10 +83,15 @@ export default {
 	},
 	methods: {
 		getList:function(){ //发送网络请求获取数据
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'),{}, (res) => {
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'),{}, (res) => {
 				if(res.state==1){
 					this.carList =res.data;
 					
+				}else {
+					uni.showToast({
+					title: data.message,
+					icon: 'none'
+					});
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});
