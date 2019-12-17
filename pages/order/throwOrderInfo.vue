@@ -86,13 +86,12 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单服务费：{{this.oderList.rowCommissionRatio}}</text>
+					<text class="text-grey">订单服务费：{{this.oderList.payAmount}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{this.oderList.rowPlatformFee}}</text>
-					<text class="text-grey" 
-					style="float:right;margin-right:20rpx;">
+					<text class="text-grey">平台服务费：{{this.oderList.thowPlatformFee}}</text>
+					<text class="text-grey"  style="float:right;margin-right:20rpx;">
 						实际所得：{{this.shouru}}
 					</text>
 				</view>
@@ -110,9 +109,10 @@ export default {
 		};
 	},
 	onLoad(option) {
-		console.log(option);
-		this.oderList = option;
-		this.shouru = this.oderList.payAmount + this.oderList.thowPlatformFee
+		console.log(option)
+		// this.oderList = option;
+		// console.log(this.oderList);
+		// this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee);
 	},
 	methods: {}
 };

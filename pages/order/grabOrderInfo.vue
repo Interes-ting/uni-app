@@ -178,6 +178,11 @@ export default {
 										uni.navigateTo({ url: 'grabRecord'});
 								  },2000)}
 								})
+							}else {
+								uni.showToast({
+								title: data.message,
+								icon: 'none',
+								});
 							}
 							this.$mtRequest.stop();
 						})

@@ -1,4 +1,4 @@
-<!-- 我的扔单 -->
+
 <template>
 	<view class="gradRecord-content">
 		<block v-for="(item, index) in recordList" :key="index">
@@ -53,14 +53,15 @@ export default {
 	onLoad(option) {
 		// 页面加载时执行网络请求
 		this.getList();
-		
-		console.log(this.robMerchantInfoId)
 	},
 	methods: {
 		goGrabedOrderInfo: function(item) {
-			//跳转到抢单详情页并传递参数
+			// //跳转到抢单详情页并传递参数
 			let param = item;
-			this.$navTo.togo('./grabedOrderInfo',param);
+			param = param.id
+			uni.navigateTo({
+				url:'grabedOrderInfo?id='+ param
+			})
 		},
 		
 		getList: function() {
@@ -69,8 +70,9 @@ export default {
 			//发送网络请求
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
 			{ type: '1', robMerchantInfoId:this.robMerchantInfoId }, (res)=> {
-				console.log(res.data)
-				this.recordList = res.data;
+				if(res.state==1){
+					this.recordList = res.data;
+				}
 				//结束操作
 				this.$mtRequest.stop();
 			});
