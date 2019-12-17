@@ -47,7 +47,7 @@
 		{
 			"path": "pages/order/grabRecord",
 			"style": {
-				"navigationBarTitleText": "抢单记录"
+				"navigationBarTitleText": "我的扔单"
 			}
 		}, {
 			"path": "pages/wallet/wallet",

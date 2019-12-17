@@ -2,7 +2,6 @@
 <template>
 	<view class="gradRecord-content">
 					<view class="mt-card">
-
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-truck" style="color:#CB8861;"></text>
@@ -29,7 +28,7 @@
 								<view class="mt-circle" ></view>
 								<text>搬出地址：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.toAddress}}</text></view>
+							<view class="mt-frbox"><text>{{this.carList.fromAddress}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
@@ -43,7 +42,7 @@
 								<view class="mt-circle bgc"></view>
 								<text>搬入地址：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.carTypeName}}</text></view>
+							<view class="mt-frbox"><text>{{this.carList.toAddress}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
@@ -89,7 +88,7 @@
 								left:-8rpx;top: 10rpx;"></text>
 								<text>平台服务费：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.thowPlatformFee}}</text></view>
+							<view class="mt-frbox"><text>{{this.carList.rowPlatformFee}}</text></view>
 						</view>
 						
 						<view class="mt-content-box">
@@ -108,15 +107,18 @@
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
-								<text class="mtfa mt-warn" style="color: #CB8861;"></text>
+								<text class="mtfa mt-warn" style="color: red;"></text>
 								<text>注意事项：</text>
 							</view>
 							<view class="mt-frbox"><text>{{this.carList.remark}}</text></view>
 						</view>
 					</view>
-			<button class="mt-seedeil-btn" @tap="payMoney()" >
-				<text class="text-price" style="margin-right: 30rpx;">{{this.carList.price}}</text>抢单并支付
-			</button>
+					
+			<view style="text-align: center;">
+				<button class="mt-seedeil-btn" @tap="payMoney()">
+					<text class="text-price" style="margin-right: 30rpx;">{{this.weixinpay}}</text>抢单并支付
+				</button>
+			</view>
 			           
 	</view>
 </template>
@@ -125,34 +127,65 @@
 export default {
 	data() {
 		return {
-			carList: null,
+			carList: '',
 			orderId:null,
-			robMerchantInfoId:null
+			robMerchantInfoId:this.$mtAccount.info().merchantInfoId,
+			pay:'' ,
+			weixinpay:'' //抢单支付金额
 		};
 	},
 	onLoad: function(option) {
 		this.orderId = option.id;
 		this.getInfo();
+		
 	},
 	methods: {
-		getInfo:function(){
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/orderInfoFindById?id='+this.orderId),
+		getInfo:function(){ //获取订单信息
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.orderId),
 			{},(res)=>{
 				if(res.state ==1){
 					this.carList = res.data;
+					this.weixinpay = this.carList.payAmount + this.carList.rowPlatformFee;
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});
 		},
+		
 		payMoney:function(){ // 抢单并支付
-		this.robMerchantInfoId = this.carList.robMerchantInfoId;
-		console.log(this.robMerchantInfoId);
-		console.log(this.carList);
-			// this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grab2'),
-			// {'type':'1','orderId':this.orderId,'robMerchantInfoId':	robMerchantInfoId},
-			// (res)=>{
-			// 	this.$mtRequest.stop();//结束loading等待
-			// });
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grab2'),
+			{
+				type:'1',
+				orderId:this.orderId,
+				robMerchantInfoId:this.robMerchantInfoId,
+				paymentAmount:this.weixinpay,
+				},
+				(res)=>{
+				// 抢单成功后跳转支付
+					if(res.state = 1){
+						this.pay =res.data;
+						this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grab_payed_notice_cs'),
+						{
+							orderInfoId:this.pay.orderInfoId,
+							robMerchantInfoId:this.pay.robMerchantInfoId,
+							orderGrabId:this.pay.orderGrabId,
+							payPayOrderId:this.pay.payPayOrderId,
+							prepayid:this.pay.prepayid,
+						},(res)=>{
+							if(res.state ==1){
+								uni.showToast({
+								  title: "抢单成功",
+								  success: function() {setTimeout(function(){
+										uni.navigateTo({ url: 'grabRecord'});
+								  },2000)}
+								})
+							}
+							this.$mtRequest.stop();
+						})
+						
+					};
+					
+			});
+			this.$mtRequest.stop();//结束loading等待
 			
 			/* // 跳转到抢单记录
 			uni.navigateTo({
@@ -166,18 +199,20 @@ export default {
 
 <style lang="scss" scoped>
 page {
-	padding: 13.33rpx;
 	font-size: 26.66rpx;
 	color: #333333;
 	text-align: center;
 }
-
+.gradRecord-content{
+	padding: 20rpx;
+}
 .mt-card {
 	padding: 0rpx 20rpx;
 	background-color: #ffffff;
 	box-shadow: 0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
 	border-radius: 13.33rpx;
 	margin:13.33rpx 0rpx;
+	margin-bottom: 40rpx;
 	.mt-content-box{
 		display: flex;
 		justify-content: space-between;
@@ -189,7 +224,6 @@ page {
 				background-color: red;
 				text-align: center;
 			}
-		
 		.mt-circle{
 			display: inline-block;
 			position: relative;
@@ -212,14 +246,13 @@ page {
 .mt-seedeil-btn {
     width: 416.74rpx;
     height: 71.08rpx;
-    display: inline-block;
     text-align: center;
-		margin-top:30rpx;
     line-height: 71.08rpx;
     border-radius: 35.54rpx;
     background: linear-gradient(#1880ff, #6fafff);
     color: #fff;
     font-size: 31.3rpx;
+		margin-bottom: 20rpx;
 	}
 </style>
 

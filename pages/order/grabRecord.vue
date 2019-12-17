@@ -46,12 +46,15 @@
 export default {
 	data() {
 		return {
-			recordList: ''
+			recordList: '',
+			robMerchantInfoId:null
 		};
 	},
 	onLoad(option) {
 		// 页面加载时执行网络请求
 		this.getList();
+		
+		console.log(this.robMerchantInfoId)
 	},
 	methods: {
 		goGrabedOrderInfo: function(item) {
@@ -61,14 +64,15 @@ export default {
 		},
 		
 		getList: function() {
+			
+			this.robMerchantInfoId = this.$mtAccount.info().merchantInfoId,
 			//发送网络请求
-			let that = this;
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
-			{ type: '1', robMerchantInfoId: '1' }, function(res) {
-				that.recordList = res.data;
-				// console.log(that.recordList);
+			{ type: '1', robMerchantInfoId:this.robMerchantInfoId }, (res)=> {
+				console.log(res.data)
+				this.recordList = res.data;
 				//结束操作
-				that.$mtRequest.stop();
+				this.$mtRequest.stop();
 			});
 		}
 	}
