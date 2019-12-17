@@ -193,9 +193,10 @@
 			},
 			//收益列表请求
 			earningstwo() {
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"), {
-					merchantId: '251820865249869822'
+					merchantId: merchantInfoId
 				}, (data) => {
 					if (data.state > 0) {
 						this.list = data.data

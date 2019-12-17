@@ -163,7 +163,7 @@ export default {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			console.log(merchantInfoId)
 			// let that=this;
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:'251820865249869822'}, (data) => {
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:merchantInfoId}, (data) => {
 				if (data.state > 0) {
 					this.list = data.data
 				console.log(data.data)
@@ -183,7 +183,7 @@ export default {
 		earningstwo() {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			// let that=this;
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceOut"), {id:'257821141698084864'}, (data) => {
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceOut"), {id:merchantInfoId}, (data) => {
 				console.log(data.data)
 				if (data.state > 0) {
 					this.list = data.data
