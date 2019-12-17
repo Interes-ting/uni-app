@@ -22,20 +22,7 @@
 					</view>
 				</view>
 			</view>
-<<<<<<< HEAD
-		</view>
-		<view class="mt-in mtin">
-			<view class="mt-registration" >
-				<view @click="regdex" class="mt-kd">
-					新用户注册
-				</view>
-			</view>
-			<view class="mt-forget" >
-				<view @click="forgetdex" class="mt-kd">
-					忘记密码?
-				</view>
-				
-=======
+
 			<view class="mt-form-row" :style="{'margin-top':'34rpx'}">
 				<view class="flex justify-between" :style="{'width': '466.66rpx'}">
 					<view class="mt-registration" @click="regdex">
@@ -48,7 +35,7 @@
 			</view>
 			<view class="mt-form-row" :style="{'margin-top':'143.33rpx'}">
 				<button class="mt-loginbutn" type="primary" @click="login">登录</button>
->>>>>>> 1df0c2071c88948096c4f777aa87e796341b1524
+
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS -->
@@ -275,19 +262,10 @@
 		height: 100%;
 	}
 
-<<<<<<< HEAD
-	.mt-input-img {
-		height: 88rpx;
-		width: 50rpx;
-		margin-top: 2rpx;
-		margin-left: 30rpx;
-		margin-right: 20rpx;
-		float: left;
-=======
+
 	.mt-registration,
 	.mt-forget {
 		font-size: 30rpx;
->>>>>>> 1df0c2071c88948096c4f777aa87e796341b1524
 		color: #FFFFFF;
 	}
 
