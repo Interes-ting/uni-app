@@ -24,7 +24,7 @@
 
 				<view class="mt-cashout two">
 					<view class="mt-catext">
-						核实中 :	 {{waitverify}}
+						核实中 : {{waitverify}}
 					</view>
 				</view>
 
@@ -35,8 +35,19 @@
 				账单
 			</view>
 			<view class="mt-time">
-				<input password="false" class="uni-input" />
+				<!-- 时间日期选择器start-->
+				<view class="uni-list-cell-db">
+					<picker @change="bindPickerChange" :value="selectdate" :range="[yeas,months]" mode="multiSelector">
+						<text>{{yeas[selectdate[0]] + '-' + months[selectdate[1]]}}</text>
+						<view class="mt-spam">
+						<text><icon type="waiting" class="waiting" size="17" /></icon></text>
+						</view>
+					</picker>
+					
+				</view>
+				<!-- 时间日期选择器end -->
 			</view>
+
 		</view>
 		<view class="" style="height:clac(100% - 200rpx);">
 			<!-- 第三步实用block模板渲染页面 -->
@@ -126,6 +137,7 @@
 
 <script>
 	export default {
+
 		data() {
 			return {
 				// 第一步定义空数据接收空变量接收后台返回数据
@@ -135,8 +147,11 @@
 				withdrawable: null,
 				waitverify: null,
 				totalExpenditure: null,
-				incomeExpenditure:null,
-
+				incomeExpenditure: null,
+				array: [],
+				selectdate: [0, new Date().getMonth()],
+				yeas: getyears(),
+				months: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 			}
 		},
 		onLoad() {
@@ -144,10 +159,15 @@
 			this.earnings();
 			//初始账单列表查询
 			this.earningstwo();
-	
 		},
-		
+
 		methods: {
+			bindPickerChange: function(e) {
+				let value = e.detail.value;
+				this.selectdate = value;
+				console.log(this.yeas[this.selectdate[0]] + '-' + this.months[this.selectdate[1]])
+				this.earningstwo();
+			},
 			tixian: function() {
 				uni.navigateTo({
 					url: '../wallet/withdraw'
@@ -155,17 +175,20 @@
 			},
 			//详情点击
 			details: function(item) {
-			 this.incomeExpenditure = item.incomeExpenditure
-			 if(this.incomeExpenditure === 1){
-				 uni.navigateTo({
-				 	url: '../wallet/walletRecordInfo?incomeExpenditure='+this.incomeExpenditure
-				 })
-			 }else if(this.incomeExpenditure === 2){
-				 uni.navigateTo({
-				 	url: '../wallet/walletRecordInfotwo?incomeExpenditure='+this.incomeExpenditure
-				 })
-			 }
-				
+				this.incomeExpenditure = item.incomeExpenditure
+				this.ddd = item.id
+				console.log(this.ddd)
+				console.log(this.incomeExpenditure)
+				if (this.incomeExpenditure === 1) {
+					uni.navigateTo({
+						url: '../wallet/walletRecordInfo?ddd=' + this.ddd
+					})
+				} else if (this.incomeExpenditure === 2) {
+					uni.navigateTo({
+						url: '../wallet/walletRecordInfotwo?ddd=' + this.ddd
+					})
+				}
+
 			},
 			earnings() {
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
@@ -179,6 +202,8 @@
 						this.waitverify = data.data.waitverify;
 						this.totalExpenditure = data.data.totalExpenditure;
 						this.incomeExpenditure = data.data.incomeExpenditure;
+						this.id = data.data.id;
+						console.log(data.data)
 					} else {
 						//登录失败
 						uni.showToast({
@@ -194,10 +219,16 @@
 			//收益列表请求
 			earningstwo() {
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				this.starsa = this.yeas[this.selectdate[0]] + '-' + this.months[this.selectdate[1]]
 				// let that=this;
+				if(this.starsa === null){
+					this.starsa = '';
+				}
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"), {
-					merchantId: merchantInfoId
+					merchantId: merchantInfoId,
+					starsa: this.starsa,	
 				}, (data) => {
+					console.log(data.data)
 					if (data.state > 0) {
 						this.list = data.data
 					} else {
@@ -218,16 +249,39 @@
 
 		}
 	}
+
+	//从2019年开始到当前年
+	function getyears() {
+		var years = []
+		var date = new Date();
+		for (let i = 2019; i <= date.getFullYear(); i++) {
+			years.push(i)
+		}
+		return years;
+	}
 </script>
 
 <style>
-
-	.mt-catext{
+uni-text {
+    width: 80%;
+    float: left;
+}
+uni-icon {
+    display: block;
+}
+	.mt-spam {
+	    width: 20%;
+	    float: left;
+		height: 66rpx;
+		line-height: 66rpx;
+	}
+	.mt-catext {
 		width: 100%;
 		float: left;
 		height: 55rpx;
 		line-height: 55rpx;
 	}
+
 	.mt-qianbaoimg {
 		width: 100%;
 		height: 70rpx;
@@ -250,7 +304,7 @@
 	}
 
 	.mt-earningstw.one.gsot {
-		margin: 55rpx 0 0 0;
+		margin: 60rpx 0 0 0;
 	}
 
 	.mt-earningstw.one.gson {
@@ -357,19 +411,36 @@
 		height: 20rpx;
 	}
 
+	.uni-input.two {
+		line-height: 66rpx;
+		height: 66rpx;
+		border: 1rpx solid #8F8F94;
+		border-radius: 10rpx;
+		box-shadow: 0px 0px 18px 0px rgba(0, 0, 0, 0.21);
+		font-size: 25rpx;
+	}
+
 	.uni-input {
 		font-size: 13rpx;
+
 	}
 
 	.mt-bill {
-		width: 20%;
+		width: 60%;
 		float: left;
+		height: 66rpx;
+		line-height: 66rpx;
 	}
-
+	.uni-list-cell-db{
+		height: 66rpx;
+		line-height: 66rpx;
+	}
 	.mt-time {
-		width: 80%;
-		text-align: right;
+		width: 40%;
+		text-align: center;
 		float: left;
+		height: 66rpx;
+		line-height: 66rpx;
 	}
 
 	/* 查询列表框 */
@@ -437,7 +508,8 @@
 		float: left;
 		text-align: center;
 	}
-	.mt-catext{
+
+	.mt-catext {
 		text-align: left;
 	}
 
