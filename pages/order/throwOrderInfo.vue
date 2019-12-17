@@ -43,7 +43,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬入电梯楼层：{{oderList.outEleveator}}，{{oderList.outFloor}}楼</text>
+					<text class="text-grey">搬入电梯楼层：{{oderList.intoElevator}}，{{oderList.inFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -55,7 +55,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{oderList.robTime}}</text>
+					<text class="text-grey">被抢时间：{{oderList.robTime ==null?'未抢': derList.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>

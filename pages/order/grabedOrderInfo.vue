@@ -45,7 +45,7 @@
 	
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬入电梯楼层：{{OrderInfo.outEleveator}}，{{OrderInfo.outFloor}}楼</text>
+					<text class="text-grey">搬入电梯楼层：{{OrderInfo.intoElevator}}，{{OrderInfo.intoFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>

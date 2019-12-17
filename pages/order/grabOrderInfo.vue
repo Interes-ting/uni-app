@@ -96,7 +96,7 @@
 								<view class="mt-placebox" style="margin-right:13.33rpx;"></view>
 								<text>拆装服务：</text>
 							</view>
-							<view class="mt-frbox"><text>{{carList.isItchai}}</text></view>
+							<view class="mt-frbox"><text>{{carList.isItchai ==1?'需要':'不需要'}}</text></view>
 						</view>
 						<view class="mt-content-box" >
 							<view class="mt-flbox">
@@ -148,7 +148,7 @@ export default {
 			{},(res)=>{
 				if(res.state ==1){
 					this.carList = res.data;
-					this.weixinpay = this.carList.payAmount + this.carList.rowPlatformFee;
+					this.weixinpay = Number(this.carList.payAmount)+ Number(this.carList.rowPlatformFee);
 						
 				}
 				this.$mtRequest.stop();//结束loading等待
