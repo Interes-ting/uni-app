@@ -55,9 +55,8 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="mt-sos">急</text>
+						<text class="mt-sos" v-if="item.isItUrgent == 1" >{{ item.isItUrgent == 1?'急':''}}</text>
 						<text class="mt-remark">{{ item.carTypeName }}</text>
-						<text class="mt-remark">{{ item.serviceTypeName }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -84,7 +83,7 @@ export default {
 	},
 	methods: {
 		getList:function(){ //发送网络请求获取数据
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'), 					{}, (res) => {
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/order_info/wait_grab_record'),{}, (res) => {
 				if(res.state==1){
 					this.carList =res.data;
 					

@@ -46,22 +46,37 @@
 export default {
 	data() {
 		return {
-			Info: null
+			Info: null,
+			throwMerchantInfoId:''
 		};
 	},
 	onLoad() {
 		this.getThrowRecord();
+		this.throwMerchantInfoId =  this.$mtAccount
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		.info().merchantInfoId;
+	},
+	created() {
+		this.getThrowRecord();
 	},
 	methods: {
-		
 		goThrowOrderInfo: function(item) { //跳转到扔单详情
 			let param = item;
 			this.$navTo.togo('./throwOrderInfo',param);
 		},
 		
 		getThrowRecord: function() { //发送网络请求
+		console.log(this.throwMerchantInfoId)
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
-			{ type: '0', throwMerchantInfoId: '243750678432841728' }, res => {
+			{ type: '0', throwMerchantInfoId: this.throwMerchantInfoId}, res => {
 				this.Info = res.data;
 				//结束操作
 				this.$mtRequest.stop();
@@ -94,7 +109,7 @@ export default {
 	background-color: #ffffff;
 	box-shadow: 0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
 	border-radius: 13.33rpx;
-	margin-bottom:13.33rpx;
+	margin-bottom:20rpx;
 	.mt-startcity {
 		display: block;
 		height: 50rpx;

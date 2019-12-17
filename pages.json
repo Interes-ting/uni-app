@@ -47,7 +47,7 @@
 		{
 			"path": "pages/order/grabRecord",
 			"style": {
-				"navigationBarTitleText": "抢单记录"
+				"navigationBarTitleText": "我的扔单"
 			}
 		}, {
 			"path": "pages/wallet/wallet",
@@ -56,8 +56,15 @@
 			}
 		}, {
 			"path": "pages/wallet/walletRecordInfo",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "收益详情"
+			}
 		}, {
+			"path": "pages/wallet/walletRecordInfotwo",
+			"style": {
+				"navigationBarTitleText": "支出详情"
+			}
+		},{
 			"path": "pages/wallet/withdraw",
 			"style": {}
 		}, {

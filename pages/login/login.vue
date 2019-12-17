@@ -22,6 +22,7 @@
 					</view>
 				</view>
 			</view>
+
 			<view class="mt-form-row" :style="{'margin-top':'34rpx'}">
 				<view class="flex justify-between" :style="{'width': '466.66rpx'}">
 					<view class="mt-registration" @click="regdex">
@@ -34,6 +35,7 @@
 			</view>
 			<view class="mt-form-row" :style="{'margin-top':'143.33rpx'}">
 				<button class="mt-loginbutn" type="primary" @click="login">登录</button>
+
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS -->
@@ -259,6 +261,7 @@
 		color: #F1F1F1;
 		height: 100%;
 	}
+
 
 	.mt-registration,
 	.mt-forget {
