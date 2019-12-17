@@ -33,7 +33,7 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="用户名(默认)" maxlength="15" v-model="customName" @blur="customNameValid('customName')"></input>
+						<input placeholder="用户名(默认)" maxlength="10" v-model="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
@@ -118,11 +118,11 @@
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;">
 						<view class="title">搬运物品</view>
-						<textarea maxlength="25" @input="textareaAInput"></textarea>
+						<textarea maxlength="20" @input="textareaAInput"></textarea>
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;border-radius:13.04rpx;">
 						<view class="title">注意事项</view>
-						<textarea maxlength="25" @input="textareaBInput"></textarea>
+						<textarea maxlength="20" @input="textareaBInput"></textarea>
 					</view>
 				</view>
 			</form>
@@ -170,10 +170,10 @@
 				carId:null,
 				// 车辆数量选择参数
 				index1: -1,
-				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
+				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 人数选择参数
 				index3: 0,
-				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10人以上'],
+				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 是否需要车辆
 				switchA: true,
 				needCar: 1,

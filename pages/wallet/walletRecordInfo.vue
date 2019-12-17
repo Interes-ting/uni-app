@@ -1,138 +1,106 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="">
-		<view class="oderList-content" v-if="this.co.incomeExpenditure=== '1'">
-			<view class="mt-card">
+		<view class="oderList-content" >
+			<view class="mt-card" v-if="list!=null">
 				<!-- 城市 -->
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mtfa mt-begin" style="color:#0B398F;">
 						</view>
-						<text class="space bold">{{this.list.fromAddress}}</text>
+						<text class="space bold">{{list.fromAddress}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-xiedian " style="color:#009A00;">
 						</view>
-						<text class="space bold">{{this.list.toAddress}}</text>
+						<text class="space bold">{{list.toAddress}}</text>
 					</view>
 				</view>
 				<!-- 订单详情 -->
 				<view class="mt-oderinfo">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">车辆类型：{{this.list.carTypeName}}</text>
+						<text class="text-grey">车辆类型：{{list.carTypeName}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">派车数量：{{this.list.vehiceNumber}}</text>
+						<text class="text-grey">派车数量：{{list.vehiceNumber}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">客户名：{{this.list.customerName}}</text>
+						<text class="text-grey">客户名：{{list.customerName}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">手机号：{{this.list.phone}}</text>
+						<text class="text-grey">手机号：{{list.phone}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬出地址：{{this.list.fromAddress}}</text>
+						<text class="text-grey">搬出地址：{{list.fromAddress}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬出电梯楼层：{{this.list.outEleveator}}，{{this.list.outFloor}}楼</text>
+						<text class="text-grey">搬出电梯楼层：{{list.outEleveator}}，{{list.outFloor}}楼</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">到达地址：{{this.list.toAddress}}</text>
+						<text class="text-grey">到达地址：{{list.toAddress}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬入电梯楼层：{{this.list.outEleveator}}，{{this.list.outFloor}}楼</text>
+						<text class="text-grey">搬入电梯楼层：{{list.outEleveator}}，{{list.outFloor}}楼</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">出发时间：{{this.list.deliveryTime}}</text>
+						<text class="text-grey">出发时间：{{list.deliveryTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">扔单时间：{{this.list.createTime}}</text>
+						<text class="text-grey">扔单时间：{{list.createTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">被抢时间：{{this.list.robTime}}</text>
+						<text class="text-grey">被抢时间：{{list.robTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬运人数：{{this.list.handlingNumber}}</text>
+						<text class="text-grey">搬运人数：{{list.handlingNumber}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">拆装服务：{{this.list.isItChai}}</text>
+						<text class="text-grey">拆装服务：{{list.isItChai}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬运物品：{{this.list.goods}}</text>
+						<text class="text-grey">搬运物品：{{list.goods}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">注意事项：{{this.list.remark}}</text>
+						<text class="text-grey">注意事项：{{list.remark}}</text>
 					</view>
 				</view>
 				<!-- 收益 -->
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单金额：{{this.list.price}}</text>
+						<text class="text-grey">订单金额：{{list.price}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单服务费：{{this.list.rowCommissionRatio}}</text>
+						<text class="text-grey">订单服务费：{{list.rowCommissionRatio}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">平台服务费：{{this.list.rowPlatformFee}}</text>
+						<text class="text-grey">平台服务费：{{list.rowPlatformFee}}</text>
 						<text class="text-grey" 
 						style="float:right;margin-right:20rpx;">
-							实际所得：{{this.list.shouru}}
+							实际所得：{{list.shouru}}
 						</text>
 					</view>
 				</view>
 			</view>
 		</view>
-		<view class="oderList-content heis" v-if="this.co.incomeExpenditure=== '2'">
-			<view class="mt-cardtwo">
-				<!-- 订单详情 -->
-				<view class="mt-oderinfo">
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现金额：{{this.list.amount}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">申请时间：{{this.list.applyTime}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现卡号：{{this.list.cardNo}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现开户行：{{this.list.cardBank}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现人姓名：{{this.list.name}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">联系电话：{{this.list.phone}}</text>
-					</view>
 		
-				</view>
-				
-			</view>
-		</view>
 	</view>
 	
 	
@@ -146,24 +114,19 @@ export default {
 			list:'',
 		};
 	},
-	onLoad(incomeExpenditure) {
+	onLoad(ddd) {
 		//初始查询
+		this.co = ddd;
+		this.earnings();
 		
-		this.co = incomeExpenditure;
-		//console.log(this.incomeExpenditure)
-		if(this.co.incomeExpenditure ==="1"){
-			this.earnings();
-		}else if(this.co.incomeExpenditure === "2"){
-			this.earningstwo();
-		}
 	},
 	methods: {
 		// 收益
 		earnings() {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-			console.log(merchantInfoId)
+			
 			// let that=this;
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:merchantInfoId}, (data) => {
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:this.co.ddd}, (data) => {
 				if (data.state > 0) {
 					this.list = data.data
 				console.log(data.data)
@@ -179,26 +142,7 @@ export default {
 				this.$mtRequest.stop();
 			})
 		},
-			//支出
-		earningstwo() {
-			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-			// let that=this;
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceOut"), {id:merchantInfoId}, (data) => {
-				console.log(data.data)
-				if (data.state > 0) {
-					this.list = data.data
-				} else {
-					//登录失败
-					uni.showToast({
-						title: data.message,
-						icon: "none"
-					})
-				}
-		
-				//结束请求
-				this.$mtRequest.stop();
-			})
-		},
+	
 	}
 };
 </script>

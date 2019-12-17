@@ -1,33 +1,34 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="">
-		<view class="oderList-content heis" v-if="this.co.incomeExpenditure=== '2'">
-			<view class="mt-cardtwo">
+		<view class="oderList-content heis">
+			
+			<view class="mt-cardtwo" v-if="list!=null">
 				<!-- 订单详情 -->
 				<view class="mt-oderinfo">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">提现金额：{{this.list.amount}}</text>
+						<text class="text-grey">提现金额：{{list.amount}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">申请时间：{{this.list.applyTime}}</text>
+						<text class="text-grey">申请时间：{{list.applyTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">提现卡号：{{this.list.cardNo}}</text>
+						<text class="text-grey">提现卡号：{{list.cardNo}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">提现开户行：{{this.list.cardBank}}</text>
+						<text class="text-grey">提现开户行：{{list.cardBank}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">提现人姓名：{{this.list.name}}</text>
+						<text class="text-grey">提现人姓名：{{list.name}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">联系电话：{{this.list.phone}}</text>
+						<text class="text-grey">联系电话：{{list.phone}}</text>
 					</view>
 				</view>
 				
@@ -46,16 +47,13 @@ export default {
 			list:'',
 		};
 	},
-	onLoad(incomeExpenditure) {
+	onLoad(ddd) {
 		//初始查询
 		
-		this.co = incomeExpenditure;
-		//console.log(this.incomeExpenditure)
-		if(this.co.incomeExpenditure ==="1"){
-			this.earnings();
-		}else if(this.co.incomeExpenditure === "2"){
-			this.earningstwo();
-		}
+		this.co = ddd;
+		console.log(this.co)
+		this.earnings();
+		
 	},
 	methods: {
 		// 收益
@@ -63,7 +61,7 @@ export default {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			console.log(merchantInfoId)
 			// let that=this;
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:merchantInfoId}, (data) => {
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceOut"),{id:this.co.ddd}, (data) => {
 				if (data.state > 0) {
 					this.list = data.data
 				console.log(data.data)

@@ -35,7 +35,6 @@
 			</view>
 			<view class="mt-form-row" :style="{'margin-top':'143.33rpx'}">
 				<button class="mt-loginbutn" type="primary" @click="login">登录</button>
-
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS -->

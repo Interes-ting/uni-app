@@ -95,7 +95,7 @@
 					confirmpwd: [{
 						//必填
 						type: "require",
-						msg: "请再次输入密码"
+						msg: "请再次输入密码1"
 					}],
 					code: [{
 						//必填
@@ -318,31 +318,6 @@ page {
 		width: 80%;
 	}
 
-	.mt-input {
-		height: 78rpx;
-		line-height: 78rpx;
-		width: 80%;
-		margin: 0 10%;
-		border-radius: 40rpx;
-		border: 1px solid #CCCCCC;
-	}
-
-	.mt-input-img {
-		height: 50rpx;
-		width: 50rpx;
-		margin-left: 15rpx;
-		margin-right: 10rpx;
-		float: left;
-		color: #CCCCCC;
-	}
-
-	.mt-input-input {
-		height: 78rpx;
-		line-height: 78rpx;
-		text-align: left;
-		width: 100%;
-
-	}
 
 	.uni-input-placeholder {
 		color: #CCCCCC;
@@ -350,7 +325,7 @@ page {
 
 	/* 验证码外部框宽度 */
 	.mt-input-input.mt-yz {
-		width: 75%;
+		
 		float: left;
 	}
 
@@ -380,5 +355,30 @@ page {
 		border-top-left-radius: 40rpx;
 		border: 1px solid #CCCCCC;
 		border-bottom-left-radius: 40rpx;
+		display: flex;
 	}
+	.mt-input-img {
+		height: 50rpx;
+		width: 50rpx;
+		margin-left: 35rpx;
+		margin-right: 15rpx;
+		color: #CCCCCC;
+	}
+	.mt-input-input {
+		height: 78rpx;
+		line-height: 78rpx;
+		text-align: left;
+		width: 100%;
+	
+	}
+	.mt-input {
+		height: 78rpx;
+		line-height: 78rpx;
+		width: 80%;
+		margin: 0 10%;
+		border-radius: 40rpx;
+		border: 1rpx solid #CCCCCC;
+		display: flex;
+	}
+	
 </style>
