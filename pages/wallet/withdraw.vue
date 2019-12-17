@@ -34,7 +34,7 @@
 			</view>
 		</view>
 		<view class="mt-loginbutn">
-			<button class="mt-loginbutndl" type="primary" @click="login">提现到银行卡</button>
+			<button class="mt-loginbutndl" type="primary" @click="earningstthree">提现到银行卡</button>
 		</view>
 
 	</view>
@@ -47,11 +47,14 @@
 				bankName:'',
 				cardNo:'',
 				amount:'0',
+				name:'',
+				merchantCode:''
 			}
 		},
 		onLoad() {
 			this.earnings() ;
-			this.earningstwo() ;
+			this.earningstwo();
+			this.earningsmo();
 		},
 		methods: {
 			earnings() {
@@ -60,11 +63,13 @@
 					// let that=this;
 					this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/bank_card/get"), {use_id: merchantInfoId
 					}, (data) => {	
+						
 						if (data.state > 0) {
 						this.bankName =	data.data.bankName
 						this.cardNo =	data.data.cardNo
+						this.name =	data.data.name
 						} else {
-							console.log('d2')
+							
 							//登录失败
 							uni.showToast({
 								title: data.message,
@@ -82,6 +87,52 @@
 				// let that=this;
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
 					merchantId: merchantInfoId
+				}, (data) => {
+				
+					if (data.state > 0) {
+						this.amount = data.data.amount;
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+			
+					//结束请求
+					this.$mtRequest.stop();
+				})
+				
+			},
+			earningsmo() {
+			let merchantInfoId = this.$mtAccount.info().merchantInfoId
+			
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
+					merchantId: merchantInfoId
+				}, (data) => {
+					
+					if (data.state > 0) {
+						this.merchantCode = data.data.merchantCode;
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+			
+					//结束请求
+					this.$mtRequest.stop();
+				})
+				
+			},
+			earningstthree() {
+			let merchantInfoId = this.$mtAccount.info().merchantInfoId
+			
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
+					merchantId: merchantInfoId,amount:this.amount,cardNo:this.cardNo,cardBank:this.bankName,name:this.name,phone:this.merchantCode
 				}, (data) => {
 					console.log(data.data)
 					if (data.state > 0) {

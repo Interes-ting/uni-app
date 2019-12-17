@@ -14,7 +14,7 @@
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text>订单金额：{{item.price}}元</text>
-					<text style="margin-left: 46.66rpx;">扔单提成：{{item.price}}元</text>
+					<text style="margin-left: 46.66rpx;">扔单提成：{{item.payAmount}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-juli text-grey "></view>
@@ -30,7 +30,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：</text>
+					<text class="text-grey">扔单时间：{{item.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>

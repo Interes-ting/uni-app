@@ -33,11 +33,11 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="用户名(默认)"  v-model="customName" @blur="customNameValid('customName')"></input>
+						<input placeholder="用户名(默认)" maxlength="10" v-model="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" type="number" name="input" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
+						<input placeholder="请输入手机号" maxlength="11" type="number" name="input" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -45,7 +45,7 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"></input>
+							<input placeholder="您从哪里搬出" maxlength="30" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"></input>
 						</view>
 						<view class="cu-form-group">
 
@@ -57,7 +57,7 @@
 						</view>
 
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您搬到哪里去" name="input" v-model="endAddress" @blur="customNameValid('endAddress')"></input>
+							<input placeholder="您搬到哪里去" maxlength="30" name="input" v-model="endAddress" @blur="customNameValid('endAddress')"></input>
 						</view>
 						<view class="mt-move-circle newcolor"></view>
 						<view class="cu-form-group">
@@ -78,23 +78,23 @@
 						<view class="checktime" >{{time}}</view>
 					</view>
 					<!-- 时间日期选择器start-->
-					<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="startyear" :end-year="2060" color="#488ee9">
+					<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2060" color="#488ee9">
 					</simple-datetime-picker>
 					<!-- 时间日期选择器end -->
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" maxlength="8" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;"><text class="required">*</text>订单金额：</view>
-						<input placeholder="请输入订单金额" type="number" name="input" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
+						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-							<input placeholder="请输入提成金额" maxlength="8" type="number" name="input"
+							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
 							v-model="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
 						<view style="overflow: hidden;">
 							平台手续费：{{fuwufei == null ? '' :fuwufei}}
@@ -118,11 +118,11 @@
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;">
 						<view class="title">搬运物品</view>
-						<textarea maxlength="-1" @input="textareaAInput"></textarea>
+						<textarea maxlength="20" @input="textareaAInput"></textarea>
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;border-radius:13.04rpx;">
 						<view class="title">注意事项</view>
-						<textarea maxlength="-1" @input="textareaBInput"></textarea>
+						<textarea maxlength="20" @input="textareaBInput"></textarea>
 					</view>
 				</view>
 			</form>
@@ -162,7 +162,6 @@
 				// scale:null,
 				fuwufei:null,
 				// 搬家时间
-				startyear:new Date(),
 				time:'',
 				// 车辆选择参数
 				index: -1,
@@ -171,10 +170,10 @@
 				carId:null,
 				// 车辆数量选择参数
 				index1: -1,
-				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10辆以上'],
+				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 人数选择参数
 				index3: 0,
-				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, '10人以上'],
+				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 是否需要车辆
 				switchA: true,
 				needCar: 1,
