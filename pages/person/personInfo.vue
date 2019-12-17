@@ -41,20 +41,28 @@ export default {
 			companyLegalPerson: '',
 			businessLicense: '',
 			companyAddress: '',
-		};
+			rules: {
+				merchantName: [
+					{
+						type: 'require',
+						msg: '请输入公司名称',
+					}
+				],
+			}
+		}
 	},
 
 	onLoad() {
 		this.inpost();
 	},
-	
+
 	methods: {
 		inpost: function() {
 			let that = this;
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/merchant_info/selectUser'), 
-			{ 
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/merchant_info/selectUser'),
+			{
 			merchantId:this.$mtAccount.info().merchantInfoId,
-			}, 
+			},
 			function(data) {
 				that.merchantCode = data.data.merchantCode;
 				that.merchantName = data.data.merchantName;
@@ -66,6 +74,15 @@ export default {
 			});
 		},
 		fnClick: function() {
+			let user = {
+				merchantName: this.merchantName,
+			};
+			
+			//做校验
+			let validResult = this.$mtValidation.valid(user, this.rules);
+			if (!validResult) {
+				return;
+			}
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('api/merchant_info/updatUser'),
 				{
@@ -76,7 +93,7 @@ export default {
 					companyLegalPerson: this.companyLegalPerson,
 				},
 				data => {
-					
+
 					if (data.state > 0) {
 						uni.showToast({
 							title: '保存成功',
@@ -94,7 +111,7 @@ export default {
 							icon: 'none'
 						});
 					}
-					
+
 					//结束请求
 					this.$mtRequest.stop();
 				}
