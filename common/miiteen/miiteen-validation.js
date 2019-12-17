@@ -3,7 +3,7 @@ import MtRegExp from './miiteen-regexp.js'
 /**
  * 校验类型:
  * {type:"require",msg:""} 必填校验
- * {type:"double",name:"",place:小数位(默认2),min:最小值,max:最大值} 小数校验
+ * {type:"double",name:"",place:小数位(默认2),min:最小值,max:最大值} 数字校验
  * {type:"regexp",regexp:"正则",msg:""} 正则校验
  */
 function valid(data, rules) {
@@ -76,7 +76,7 @@ function doubleValid(data, rule) {
 		rule.place = 2;
 	}
 	if (!MtRegExp.db(rule.place).test(data)) {
-		return rule.name + ":请输小数点不超过" + rule.place + "位的小数";
+		return rule.name + ":请输小数点不超过" + rule.place + "位的数字";
 	}
 	if (rule.min) {
 		if (data < rule.min) {
