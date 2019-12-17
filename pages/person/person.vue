@@ -10,7 +10,7 @@
 		<view class="person-list">
 			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="/static/order.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="/static/bankcard.png" class="imgs"></image></cmd-cell-item>
-			<cmd-cell-item title="车辆信息" slot-left arrow><image src="/static/trucks.png" class="imgs"></image></cmd-cell-item>	
+			<cmd-cell-item title="车辆信息" slot-left arrow @click="Service(information)"><image src="/static/trucks.png" class="imgs"></image></cmd-cell-item>	
 			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="/static/feedback.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="关于我们" slot-left arrow><image src="/static/about.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="/static/set.png" class="imgs"></image></cmd-cell-item>
@@ -59,28 +59,29 @@ export default {
 				//结束请求
 				that.$mtRequest.stop();
 			});
-		},		
+		},
 		fnInfoWin: function(information) { 
-			
 			 let url = '/pages/person/personInfo'  
 			 let person = information;
 			 this.$navTo.togo(url,person);
 		},
 		Bankedit: function(information) {
-			
 			 let url = '/pages/bank/bankEdit'  
 			 let person = information;
 			 this.$navTo.togo(url,person);
 		},
 		Setting: function(information) {
-			
 			 let url = '/pages/setting/setting'  
 			 let person = information;
 			 this.$navTo.togo(url,person);
 		},
 		Feedback: function(information) {
-			
 			 let url = '/pages/feedback/feedback'  
+			 let person = information;
+			 this.$navTo.togo(url,person);
+		},
+		Service: function(information) {
+			 let url = '/pages/service/service'  
 			 let person = information;
 			 this.$navTo.togo(url,person);
 		},

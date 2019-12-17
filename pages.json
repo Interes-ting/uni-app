@@ -95,7 +95,11 @@
 			"path": "pages/demo/demo",
 			"style": {}
 		}
-	],
+	    ,{
+            "path" : "pages/service/service",
+            "style" : {}
+        }
+    ],
 	"tabBar": {
 		"color": "#666666",
 		"selectedColor": "#1E83FF",

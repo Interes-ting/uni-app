@@ -35,7 +35,6 @@ export default {
 			listname: '',
 			personname: '',
 			cardname: '',
-			carList: '',
 			cardNo: '',
 			rules: {
 				personname: [
@@ -65,18 +64,16 @@ export default {
 		};
 	},
 
-	onLoad: function(option) {
-		this.carList = option;
+	onLoad() {
 		this.inpost();
 	},
 
 	methods: {
 		inpost: function() {
-			this.Id = this.carList.id;
 			this.$mtRequest.get(
 				this.$mtConfig.getPlatformUrl('/api/bank_card/get'),
 				{
-					use_id: this.carList.id
+					use_id: this.$mtAccount.info().merchantInfoId,
 				},
 				data => {
 					if (data.state > 0) {
@@ -111,7 +108,7 @@ export default {
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('/api/bank_card/save'),
 				{
-					useId: this.carList.id,
+					useId: this.$mtAccount.info().merchantInfoId,
 					cardNo: this.cardname,
 					name: this.personname,
 					bankName: this.listname

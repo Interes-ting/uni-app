@@ -3,23 +3,23 @@
 		<view class="topka">
 			<view class="sheet">
 				<view class="titlee">手机号码</view>
-				<input type="text" placeholder="请输入手机号码" placeholder-class="place" v-model="account" disabled="ture" />
+				<input type="text" placeholder="请输入手机号码" placeholder-class="place" v-model="merchantCode" disabled="ture" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司名称</view>
-				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchant" />
+				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司法人</view>
-				<input type="text" placeholder="请输入公司法人" placeholder-class="place" v-model="companyperson" />
+				<input type="text" placeholder="请输入公司法人" placeholder-class="place" v-model="companyLegalPerson" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">营业执照</view>
-				<input type="text" placeholder="请输入营业执照" placeholder-class="place" v-model="cardId" />
+				<input type="text" placeholder="请输入营业执照" placeholder-class="place" v-model="businessLicense" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司地址</view>
-				<input type="text" placeholder="请输入公司地址" placeholder-class="place" v-model="addresss" />
+				<input type="text" placeholder="请输入公司地址" placeholder-class="place" v-model="companyAddress" />
 			</view>
 			<view><mt-alert ref="mtalert" content="保存成功" @change="change"></mt-alert></view>
 			<button class="btn-logout" @click="fnClick">保存</button>
@@ -36,38 +36,44 @@ export default {
 
 	data() {
 		return {
-			carList: '',
-			account: '',
-			merchant: '',
-			companyperson: '',
-			cardId: '',
-			addresss: ''
+			merchantCode: '',
+			merchantName: '',
+			companyLegalPerson: '',
+			businessLicense: '',
+			companyAddress: '',
 		};
 	},
 
-	onLoad: function(option) {
-		this.carList = option;
-	},
-	
-	mounted() {
-		this.Id = this.carList.id;
-		this.account = this.carList.phone;
-		this.merchant = this.carList.merchantName;
-		this.companyperson = this.carList.companyLegalPerson;
-		this.cardId = this.carList.businessLicense;
-		this.addresss = this.carList.companyAddress;
+	onLoad() {
+		this.inpost();
 	},
 	
 	methods: {
-		fnClick() {
+		inpost: function() {
+			let that = this;
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('/api/merchant_info/selectUser'), 
+			{ 
+			merchantId:this.$mtAccount.info().merchantInfoId,
+			}, 
+			function(data) {
+				that.merchantCode = data.data.merchantCode;
+				that.merchantName = data.data.merchantName;
+				that.companyLegalPerson = data.data.companyLegalPerson;
+				that.businessLicense = data.data.businessLicense;
+				that.companyAddress = data.data.companyAddress;
+				//结束请求
+				that.$mtRequest.stop();
+			});
+		},
+		fnClick: function() {
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('api/merchant_info/updatUser'),
 				{
-					merchantId: this.Id,
-					merchantName: this.merchant,
-					businessLicense: this.cardId,
-					companyAddress: this.addresss,
-					companyLegalPerson: this.companyperson,
+					merchantId: this.$mtAccount.info().merchantInfoId,
+					merchantName: this.merchantName,
+					businessLicense: this.businessLicense,
+					companyAddress: this.companyAddress,
+					companyLegalPerson: this.companyLegalPerson,
 				},
 				data => {
 					
