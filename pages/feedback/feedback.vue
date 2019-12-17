@@ -21,12 +21,8 @@ export default {
 		};
 	},
 
-	onLoad: function(option) {
-		this.carList = option;
-	},
-
 	methods: {
-		textareaAInput(e) {
+		textareaAInput: function(e) {
 			this.textareaAValue = e.detail.value;
 		},
 		fnClick: function() {
@@ -44,10 +40,11 @@ export default {
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('/api/feed_back/add'),
 				{
-					feedContent: this.account,
-					merchantInfoId: this.carList.id
+					merchantInfoId: this.$mtAccount.info().merchantInfoId,
+					feedContent: that.account,
 				},
 				function(data) {
+					console.log(that.account)
 					if (data.state > 0) {
 						uni.showToast({
 							title: '提交成功',
@@ -65,12 +62,10 @@ export default {
 							icon: 'none'
 						});
 					}
-
 					//结束请求
 					that.$mtRequest.stop();
 				}
 			);
-			console.log(user);
 		}
 	}
 };

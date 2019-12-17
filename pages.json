@@ -1,14 +1,15 @@
 {
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
 		{
-			"path": "pages/index/index",
-			"style": {
-				"navigationBarTitleText": "轻松搬家平台"
-			}
-		}, {
 			"path": "pages/login/login",
 			"style": {
 				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationBarTitleText": "轻松搬家平台"
 			}
 		}, {
 			"path": "pages/account/register",
@@ -17,7 +18,9 @@
 			}
 		}, {
 			"path": "pages/account/modify",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "修改密码"
+			}
 		}, {
 			"path": "pages/account/forget",
 			"style": {
@@ -41,59 +44,69 @@
 		}, {
 			"path": "pages/order/grabOrderInfo",
 			"style": {
-				"navigationBarTitleText": "抢单详情"
+				"navigationBarTitleText": "抢单"
 			}
 		},
 		{
 			"path": "pages/order/grabRecord",
 			"style": {
-				"navigationBarTitleText": "我的扔单"
+				"navigationBarTitleText": "我抢的单"
 			}
 		}, {
 			"path": "pages/wallet/wallet",
 			"style": {
-				"navigationBarTitleText": "收益"
+				"navigationBarTitleText": "钱包"
 			}
 		}, {
 			"path": "pages/wallet/walletRecordInfo",
 			"style": {
-				"navigationBarTitleText": "收益详情"
+				"navigationBarTitleText": "钱包明细"
 			}
 		}, {
 			"path": "pages/wallet/walletRecordInfotwo",
 			"style": {
-				"navigationBarTitleText": "支出详情"
+				"navigationBarTitleText": "钱包明细"
 			}
-		},{
+		}, {
 			"path": "pages/wallet/withdraw",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "提现"
+			}
 		}, {
 			"path": "pages/bank/bankEdit",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "银行卡"
+			}
 		}, {
 			"path": "pages/person/person",
 			"style": {
-				"navigationBarTitleText": "我的"
+				"navigationBarTitleText": "个人中心"
 			}
 		}, {
 			"path": "pages/person/personInfo",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "用户资料"
+			}
 		}, {
 			"path": "pages/feedback/feedback",
-			"style": {}
+			"style": {
+				"navigationBarTitleText": "建议反馈"
+			}
 		}, {
 			"path": "pages/setting/setting",
 			"style": {
-				"navigationBarTitleText": "设置"
+				"navigationBarTitleText": "系统设置"
 			}
 		}, {
 			"path": "pages/order/throwOrderInfo",
 			"style": {
-				"navigationBarTitleText": "扔单详情"
+				"navigationBarTitleText": "我扔的单"
 			}
 		}, {
-			"path": "pages/demo/demo",
-			"style": {}
+			"path": "pages/service/service",
+			"style": {
+				"navigationBarTitleText": "联系客服"
+			}
 		}
 	],
 	"tabBar": {
