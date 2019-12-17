@@ -36,11 +36,6 @@ const request = {
 		if (!request.start()) {
 			return;
 		}
-		if (!success) {
-			success = function(res) {
-				request.stop();
-			}
-		}
 		if (!fail) {
 			fail = function(res) {
 				if (process.env.NODE_ENV === 'development') {
@@ -49,27 +44,7 @@ const request = {
 					msg += "\n返回:" + JSON.stringify(res);
 					console.log(msg);
 				}
-				uni.getNetworkType({
-					success: function(res) {
-						if (res.networkType == "none") {
-							uni.showToast({
-								title: "请查看网络连接是否打开",
-								icon: "none"
-							})
-						} else if (res.networkType == "wifi") {
-							uni.showToast({
-								title: "请查看wifi是否已联网",
-								icon: "none"
-							})
-						} else {
-							uni.showToast({
-								title: "网络繁忙,请稍后再试",
-								icon: "none"
-							})
-						}
-					}
-				});
-				request.stop();
+				failCallback();
 			}
 		}
 
@@ -79,10 +54,10 @@ const request = {
 			data: data,
 			dataType: "json",
 			success: function(res) {
-				success(res.data);
+				successCallback(res, success);
 			},
 			fail: fail
-		})
+		});
 	},
 	/**
 	 * Post请求
@@ -95,11 +70,6 @@ const request = {
 		if (!request.start()) {
 			return;
 		}
-		if (!success) {
-			success = function(data) {
-				request.stop();
-			}
-		}
 		if (!fail) {
 			fail = function(res) {
 				if (process.env.NODE_ENV === 'development') {
@@ -108,27 +78,7 @@ const request = {
 					msg += "\n返回:" + JSON.stringify(res);
 					console.log(msg);
 				}
-				uni.getNetworkType({
-					success: function(res) {
-						if (res.networkType == "none") {
-							uni.showToast({
-								title: "请查看网络连接是否打开",
-								icon: "none"
-							})
-						} else if (res.networkType == "wifi") {
-							uni.showToast({
-								title: "请查看wifi是否已联网",
-								icon: "none"
-							})
-						} else {
-							uni.showToast({
-								title: "网络繁忙,请稍后再试",
-								icon: "none"
-							})
-						}
-					}
-				});
-				request.stop();
+				failCallback();
 			}
 		}
 
@@ -140,12 +90,100 @@ const request = {
 				'content-type': 'application/json'
 			},
 			dataType: "json",
-			success: function(res, statusCode) {
-				success(res.data);
+			success: function(res) {
+				successCallback(res, success);
 			},
 			fail: fail
 		})
 	}
+}
+
+//请求成功回调函数
+function successCallback(res, success) {
+	if (res.statusCode == 200) {
+		if (success && typeof(success) == "function") {
+			success(res.data);
+		} else {
+			defaultSuccess();
+			request.stop();
+		}
+	} else {
+		if (process.env.NODE_ENV === 'development') {
+			console.log(JSON.stringify(res));
+		}
+		switch (res.statusCode) {
+			case 400:
+				error400(res);
+				break;
+			case 404:
+				error404();
+				break;
+			case 500:
+				error500();
+				break;
+		}
+		request.stop();
+	}
+}
+
+//请求失败回调函数
+function failCallback() {
+	uni.getNetworkType({
+		success: function(res) {
+			if (res.networkType == "none") {
+				uni.showToast({
+					title: "请查看网络连接是否打开",
+					icon: "none"
+				})
+			} else if (res.networkType == "wifi") {
+				uni.showToast({
+					title: "请查看wifi是否已联网",
+					icon: "none"
+				})
+			} else {
+				uni.showToast({
+					title: "网络繁忙,请稍后再试",
+					icon: "none"
+				})
+			}
+		}
+	});
+	request.stop();
+}
+
+//默认请求成功处理
+function defaultSuccess() {
+	uni.showToast({
+		title: "操作成功",
+		icon: "none"
+	})
+}
+
+//400错误处理
+function error400(res) {
+	let errmsg = decodeURI(res.header.paramerror);
+	uni.showModal({
+		title: '',
+		content: errmsg,
+		showCancel: false
+	});
+}
+
+
+//404错误处理
+function error404() {
+	uni.showToast({
+		title: "请求的资源未找到,请稍后重试",
+		icon: "none"
+	})
+}
+
+//500错误处理
+function error500() {
+	uni.showToast({
+		title: "请求服务器失败",
+		icon: "none"
+	})
 }
 
 module.exports = request

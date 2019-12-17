@@ -14,7 +14,7 @@
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text>订单金额：{{item.price}}元</text>
-					<text style="margin-left: 46.66rpx;">扔单提成：{{item.price}}元</text>
+					<text style="margin-left: 46.66rpx;">扔单提成：{{item.payAmount}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-juli text-grey "></view>
@@ -30,7 +30,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：</text>
+					<text class="text-grey">扔单时间：{{item.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -52,29 +52,22 @@ export default {
 	},
 	onLoad() {
 		this.getThrowRecord();
-		this.throwMerchantInfoId =  this.$mtAccount
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		.info().merchantInfoId;
+		this.throwMerchantInfoId =  this.$mtAccount.info().merchantInfoId;
 	},
-	created() {
+	onShow() {
 		this.getThrowRecord();
 	},
 	methods: {
 		goThrowOrderInfo: function(item) { //跳转到扔单详情
 			let param = item;
-			this.$navTo.togo('./throwOrderInfo',param);
+			param = param.id
+			uni.navigateTo({
+				url:'throwOrderInfo?id='+param
+			})
 		},
 		
 		getThrowRecord: function() { //发送网络请求
-		console.log(this.throwMerchantInfoId)
+	
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
 			{ type: '0', throwMerchantInfoId: this.throwMerchantInfoId}, res => {
 				this.Info = res.data;

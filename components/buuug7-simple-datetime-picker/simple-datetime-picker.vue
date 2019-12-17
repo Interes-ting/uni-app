@@ -22,7 +22,7 @@
             >
          </view>
          <view class="picker-body">
-            <picker-view :value="value" @change="_onChange">
+<!--            <picker-view :value="value" @change="_onChange">
                <picker-view-column>
                   <view class="column-item" v-for="item in years">
                      {{ item }}年
@@ -48,7 +48,7 @@
                      {{ item | formatNum }}分
                   </view>
                </picker-view-column>
-            </picker-view>
+            </picker-view> -->
          </view>
       </view>
    </view>
@@ -96,6 +96,7 @@ export default {
    },
 
    mounted() {
+		  console.log(123123)
       this.init();
    },
 
@@ -122,6 +123,7 @@ export default {
       },
 
       initYears() {
+				console.log(1231)
          let years = [];
          for (let i = this.startYear; i <= this.endYear; i++) {
             years.push(i);

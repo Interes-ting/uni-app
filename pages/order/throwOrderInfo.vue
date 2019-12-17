@@ -1,99 +1,90 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="oderList-content">
-		<view class="mt-card">
+		<view class="mt-card" v-if="oderList != null">
 			<!-- 城市 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mtfa mt-begin" style="color:#0B398F;">
 					</view>
-					<text class="space bold">{{this.oderList.fromAddress}}</text>
+					<text class="space bold">{{oderList.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-xiedian " style="color:#009A00;">
 					</view>
-					<text class="space bold">{{this.oderList.toAddress}}</text>
+					<text class="space bold">{{oderList.toAddress}}</text>
 				</view>
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">车辆类型：{{this.oderList.carTypeName}}</text>
+					<text class="text-grey">车辆类型：{{oderList.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">派车数量：{{this.oderList.vehiceNumber}}</text>
+					<text class="text-grey">派车数量：{{oderList.vehiceNumber}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">客户名：{{this.oderList.customerName}}</text>
+					<text class="text-grey">订单金额：{{oderList.price}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">手机号：{{this.oderList.phone}}</text>
+					<text class="text-grey">客户名：{{oderList.customerName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬出地址：{{this.oderList.fromAddress}}</text>
+					<text class="text-grey">手机号：{{oderList.phone}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬出电梯楼层：{{this.oderList.outEleveator}}，{{this.oderList.outFloor}}楼</text>
+					<text class="text-grey">搬出电梯楼层：{{oderList.outEleveator}}，{{oderList.outFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">到达地址：{{this.oderList.toAddress}}</text>
+					<text class="text-grey">搬入电梯楼层：{{oderList.outEleveator}}，{{oderList.outFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬入电梯楼层：{{this.oderList.outEleveator}}，{{this.oderList.outFloor}}楼</text>
+					<text class="text-grey">出发时间：{{oderList.deliveryTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">出发时间：{{this.oderList.deliveryTime}}</text>
+					<text class="text-grey">扔单时间：{{oderList.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：{{this.oderList.createTime}}</text>
+					<text class="text-grey">被抢时间：{{oderList.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{this.oderList.robTime}}</text>
+					<text class="text-grey">搬运人数：{{oderList.handlingNumber}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运人数：{{this.oderList.handlingNumber}}</text>
+					<text class="text-grey">拆装服务：{{oderList.isItChai ==1?'需要':'不需要'}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">拆装服务：{{this.oderList.isItChai}}</text>
+					<text class="text-grey">搬运物品：{{oderList.goods}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运物品：{{this.oderList.goods}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：{{this.oderList.remark}}</text>
+					<text class="text-grey">注意事项：{{oderList.remark}}</text>
 				</view>
 			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单金额：{{this.oderList.price}}</text>
+					<text class="text-grey">订单服务费：{{oderList.payAmount}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单服务费：{{this.oderList.rowCommissionRatio}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{this.oderList.rowPlatformFee}}</text>
-					<text class="text-grey" 
-					style="float:right;margin-right:20rpx;">
-						实际所得：{{this.shouru}}
+					<text class="text-grey">平台服务费：{{oderList.thowPlatformFee}}</text>
+					<text class="text-grey"  style="float:right;margin-right:20rpx;">
+						实际所得：{{shouru}}
 					</text>
 				</view>
 			</view>
@@ -107,14 +98,24 @@ export default {
 		return {
 			oderList:null,
 			shouru:null,
+			id:''  //列表id
 		};
 	},
 	onLoad(option) {
-		console.log(option);
-		this.oderList = option;
-		this.shouru = this.oderList.payAmount + this.oderList.thowPlatformFee
+		this.id = option.id
+		this.getOrderInfo();
 	},
-	methods: {}
+	methods: {
+		getOrderInfo:function(){
+			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
+				if(res.state==1){
+					this.oderList =res.data;
+					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.rowPlatformFee)
+				}
+				this.$mtRequest.stop();//结束loading等待
+			});
+		}
+	}
 };
 </script>
 
