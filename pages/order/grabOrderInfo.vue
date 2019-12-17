@@ -1,20 +1,20 @@
 <!-- 抢单详情 -->
 <template>
 	<view class="gradRecord-content">
-					<view class="mt-card">
+					<view class="mt-card" v-if="carList != null">
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-truck" style="color:#CB8861;"></text>
 								<text>车辆类型：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.carTypeName}}</text></view>
+							<view class="mt-frbox"><text>{{carList.carTypeName}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-weixiu" style="color:#599CEE"></text>
 								<text>派车数量：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.handlingNumber}}</text></view>
+							<view class="mt-frbox"><text>{{carList.handlingNumber}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
@@ -28,49 +28,49 @@
 								<view class="mt-circle" ></view>
 								<text>搬出地址：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.fromAddress}}</text></view>
+							<view class="mt-frbox"><text>{{carList.fromAddress}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<view class="mt-placebox"></view>
 								<text></text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.intoElevator}}，{{this.carList.intoFloor}}</text></view>
+							<view class="mt-frbox"><text>{{carList.intoElevator}}，{{carList.intoFloor}}</text></view>
 						</view>
 						<view class="mt-content-box" style="border-bottom: 0rpx;">
 							<view class="mt-flbox">
 								<view class="mt-circle bgc"></view>
 								<text>搬入地址：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.toAddress}}</text></view>
+							<view class="mt-frbox"><text>{{carList.toAddress}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<view class="mt-placebox"></view>
 								<text></text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.outEleveator}}，{{this.carList.outFloor}}</text></view>
+							<view class="mt-frbox"><text>{{carList.outEleveator}}，{{carList.outFloor}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-clocks" style="color:#59ED6D;"></text>
 								<text>搬家时间：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.deliveryTime}}</text></view>
+							<view class="mt-frbox"><text>{{carList.deliveryTime}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-juli" style="color:#31A6A9;"></text>
 								<text>距离(公里)：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.distance}}</text></view>
+							<view class="mt-frbox"><text>{{carList.distance}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-jine" style="color:#E9E32B"></text>
 								<text>订单金额：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.price}}</text></view>
+							<view class="mt-frbox"><text>{{carList.price}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
@@ -79,7 +79,7 @@
 								left:-8rpx;top: 10rpx;"></text>
 								<text>扔单提成：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.payAmount}}</text></view>
+							<view class="mt-frbox"><text>{{carList.payAmount}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
@@ -88,7 +88,7 @@
 								left:-8rpx;top: 10rpx;"></text>
 								<text>平台服务费：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.rowPlatformFee}}</text></view>
+							<view class="mt-frbox"><text>{{carList.rowPlatformFee}}</text></view>
 						</view>
 						
 						<view class="mt-content-box">
@@ -96,27 +96,27 @@
 								<view class="mt-placebox" style="margin-right:13.33rpx;"></view>
 								<text>拆装服务：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.isItchai}}</text></view>
+							<view class="mt-frbox"><text>{{carList.isItchai}}</text></view>
 						</view>
-						<view class="mt-content-box">
+						<view class="mt-content-box" >
 							<view class="mt-flbox">
 								<text class="mtfa mt-box" style="color: #CB8861;"></text>
 								<text>搬运物品：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.goods}}</text></view>
+							<view class="mt-frbox"><text>{{carList.goods}}</text></view>
 						</view>
 						<view class="mt-content-box">
 							<view class="mt-flbox">
 								<text class="mtfa mt-warn" style="color: red;"></text>
 								<text>注意事项：</text>
 							</view>
-							<view class="mt-frbox"><text>{{this.carList.remark}}</text></view>
+							<view class="mt-frbox"><text>{{carList.remark}}</text></view>
 						</view>
 					</view>
 					
 			<view style="text-align: center;">
 				<button class="mt-seedeil-btn" @tap="payMoney()">
-					<text class="text-price" style="margin-right: 30rpx;">{{this.weixinpay}}</text>抢单并支付
+					<text class="text-price" style="margin-right: 30rpx;">{{weixinpay}}</text>抢单并支付
 				</button>
 			</view>
 			           
@@ -130,22 +130,26 @@ export default {
 			carList: '',
 			orderId:null,
 			robMerchantInfoId:this.$mtAccount.info().merchantInfoId,
-			pay:'' ,
+			pay:null ,
 			weixinpay:'' //抢单支付金额
 		};
 	},
 	onLoad: function(option) {
+		
+
 		this.orderId = option.id;
 		this.getInfo();
 		
 	},
 	methods: {
 		getInfo:function(){ //获取订单信息
+
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.orderId),
 			{},(res)=>{
 				if(res.state ==1){
 					this.carList = res.data;
 					this.weixinpay = this.carList.payAmount + this.carList.rowPlatformFee;
+						
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});
@@ -171,6 +175,7 @@ export default {
 							payPayOrderId:this.pay.payPayOrderId,
 							prepayid:this.pay.prepayid,
 						},(res)=>{
+							
 							if(res.state ==1){
 								uni.showToast({
 								  title: "抢单成功",
@@ -178,11 +183,6 @@ export default {
 										uni.navigateTo({ url: 'grabRecord'});
 								  },2000)}
 								})
-							}else {
-								uni.showToast({
-								title: data.message,
-								icon: 'none',
-								});
 							}
 							this.$mtRequest.stop();
 						})

@@ -54,16 +54,20 @@ export default {
 		this.getThrowRecord();
 		this.throwMerchantInfoId =  this.$mtAccount.info().merchantInfoId;
 	},
+	onShow() {
+		this.getThrowRecord();
+	},
 	methods: {
 		goThrowOrderInfo: function(item) { //跳转到扔单详情
 			let param = item;
-			console.log(param.id)
+			param = param.id
 			uni.navigateTo({
 				url:'throwOrderInfo?id='+param
 			})
 		},
 		
 		getThrowRecord: function() { //发送网络请求
+	
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
 			{ type: '0', throwMerchantInfoId: this.throwMerchantInfoId}, res => {
 				this.Info = res.data;

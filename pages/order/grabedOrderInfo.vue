@@ -1,100 +1,94 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="gradOrderInfo-content">
-		<view class="mt-card"  v-if="this.OrderInfo">
+		<!-- {{JSON.stringify(OrderInfo)}} -->
+		<view class="mt-card" v-if="OrderInfo != null" >
 			<!-- 城市 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mtfa mt-begin" style="color:#0B398F;">
 					</view>
-					<text class="space bold">{{this.OrderInfo.fromAddress}}</text>
+					<text class="space bold">{{OrderInfo.fromAddress}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-xiedian " style="color:#009A00;">
 					</view>
-					<text class="space bold">{{this.OrderInfo.toAddress}}</text>
+					<text class="space bold">{{OrderInfo.toAddress}}</text>
 				</view>
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">车辆类型：{{this.OrderInfo.carTypeName}}</text>
+					<text class="text-grey">车辆类型：{{OrderInfo.carTypeName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">派车数量：{{this.OrderInfo.vehiceNumber}}</text>
+					<text class="text-grey">派车数量：{{OrderInfo.vehiceNumber}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">客户名：{{this.OrderInfo.customerName}}</text>
+					<text class="text-grey">订单金额：{{OrderInfo.price}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">手机号：{{this.OrderInfo.phone}}</text>
+					<text class="text-grey">客户名：{{OrderInfo.customerName}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬出地址：{{this.OrderInfo.fromAddress}}</text>
+					<text class="text-grey">手机号：{{OrderInfo.phone}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬出电梯楼层：{{this.OrderInfo.outEleveator}}，{{this.OrderInfo.outFloor}}楼</text>
+					<text class="text-grey">搬出电梯楼层：{{OrderInfo.outEleveator}}，{{OrderInfo.outFloor}}楼</text>
+				</view>
+	
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">搬入电梯楼层：{{OrderInfo.outEleveator}}，{{OrderInfo.outFloor}}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">到达地址：{{this.OrderInfo.toAddress}}</text>
+					<text class="text-grey">出发时间：{{OrderInfo.deliveryTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬入电梯楼层：{{this.OrderInfo.outEleveator}}，{{this.OrderInfo.outFloor}}楼</text>
+					<text class="text-grey">扔单时间：{{OrderInfo.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">出发时间：{{this.OrderInfo.deliveryTime}}</text>
+					<text class="text-grey">被抢时间：{{OrderInfo.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：{{this.OrderInfo.createTime}}</text>
+					<text class="text-grey">搬运人数：{{OrderInfo.handlingNumber}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{this.OrderInfo.robTime}}</text>
+					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'否':'是'}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运人数：{{this.OrderInfo.handlingNumber}}</text>
+					<text class="text-grey">搬运物品：{{OrderInfo.goods}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey" >拆装服务：{{this.OrderInfo.isItchai ==0?'不需要':'需要'}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运物品：{{this.OrderInfo.goods}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：{{this.OrderInfo.remark}}</text>
+					<text class="text-grey">注意事项：{{OrderInfo.remark}}</text>
 				</view>
 			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单金额：{{this.OrderInfo.price}}</text>
+					<text class="text-grey">订单提成：{{OrderInfo.payAmount}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台手续费：{{this.OrderInfo.payAmount}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{this.OrderInfo.rowPlatformFee}}
+					<text class="text-grey">平台服务费：{{OrderInfo.rowPlatformFee}}
 					</text>
 					<text class="text-grey" 
 					style="float:right;margin-right:20rpx;">
-						实际支付：{{this.needPay}}
+						实际支付：{{needPay}}
 					</text>
 				</view>
 			</view>
@@ -112,21 +106,18 @@ export default {
 		};
 	},
 	onLoad(option) {
-		console.log(option)
+
 		this.id = option.id;
 		this.getOrderInfo();
 	},
 	methods: {
 		getOrderInfo:function(){
+
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.OrderInfo =res.data;
 					this.needPay = Number(this.OrderInfo.payAmount) + Number(this.OrderInfo.rowPlatformFee)
-				}else {
-					uni.showToast({
-					title: data.message,
-					icon: 'none'
-					});
+
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});

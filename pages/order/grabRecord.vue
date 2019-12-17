@@ -54,6 +54,9 @@ export default {
 		// 页面加载时执行网络请求
 		this.getList();
 	},
+	onShow() {
+		this.getList();
+	},
 	methods: {
 		goGrabedOrderInfo: function(item) {
 			// //跳转到抢单详情页并传递参数
@@ -62,10 +65,10 @@ export default {
 			uni.navigateTo({
 				url:'grabedOrderInfo?id='+ param
 			})
+			
 		},
 		
 		getList: function() {
-			
 			this.robMerchantInfoId = this.$mtAccount.info().merchantInfoId,
 			//发送网络请求
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
