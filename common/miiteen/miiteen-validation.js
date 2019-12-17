@@ -1,6 +1,9 @@
+import MtRegExp from './miiteen-regexp.js'
+
 /**
  * 校验类型:
  * {type:"require",msg:""} 必填校验
+ * {type:"double",name:"",place:小数位(默认2),min:最小值,max:最大值} 小数校验
  * {type:"regexp",regexp:"正则",msg:""} 正则校验
  */
 function valid(data, rules) {
@@ -43,6 +46,8 @@ function validError(data, rule) {
 	switch (rule.type) {
 		case "require":
 			return requireValid(data, rule.msg);
+		case "double":
+			return doubleValid(data, rule);
 		case "regexp":
 			return regExpValid(data, rule.regexp, rule.msg);
 	}
@@ -58,6 +63,31 @@ function requireValid(data, msg) {
 		return msg;
 	}
 
+	return null;
+}
+
+/**
+ * 小数校验
+ * @param {Object} data 数据
+ * @param {Object} rule 校验
+ */
+function doubleValid(data, rule) {
+	if (!rule.place) {
+		rule.place = 2;
+	}
+	if (!MtRegExp.db(rule.place).test(data)) {
+		return rule.name + ":请输小数点不超过" + rule.place + "位的小数";
+	}
+	if (rule.min) {
+		if (data < rule.min) {
+			return rule.name + ":请输入大于或等于" + rule.min + "的数字";
+		}
+	}
+	if (rule.max) {
+		if (data > rule.max) {
+			return rule.name + ":请输入小于或等于" + rule.max + "的数字";
+		}
+	}
 	return null;
 }
 
