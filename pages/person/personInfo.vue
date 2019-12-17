@@ -70,6 +70,7 @@ export default {
 					companyLegalPerson: this.companyperson,
 				},
 				data => {
+					
 					if (data.state > 0) {
 						uni.showToast({
 							title: '保存成功',
@@ -87,7 +88,7 @@ export default {
 							icon: 'none'
 						});
 					}
-
+					
 					//结束请求
 					this.$mtRequest.stop();
 				}
