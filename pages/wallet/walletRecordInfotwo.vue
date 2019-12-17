@@ -1,105 +1,6 @@
 <!-- 我的扔单详情 -->
 <template>
 	<view class="">
-		<view class="oderList-content" v-if="this.co.incomeExpenditure=== '1'">
-			<view class="mt-card">
-				<!-- 城市 -->
-				<view class="mt-city">
-					<view class="mt-startcity">
-						<view class="mtfa mt-begin" style="color:#0B398F;">
-						</view>
-						<text class="space bold">{{this.list.fromAddress}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mtfa mt-xiedian " style="color:#009A00;">
-						</view>
-						<text class="space bold">{{this.list.toAddress}}</text>
-					</view>
-				</view>
-				<!-- 订单详情 -->
-				<view class="mt-oderinfo">
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">车辆类型：{{this.list.carTypeName}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">派车数量：{{this.list.vehiceNumber}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">客户名：{{this.list.customerName}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">手机号：{{this.list.phone}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">搬出地址：{{this.list.fromAddress}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">搬出电梯楼层：{{this.list.outEleveator}}，{{this.list.outFloor}}楼</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">到达地址：{{this.list.toAddress}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">搬入电梯楼层：{{this.list.outEleveator}}，{{this.list.outFloor}}楼</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">出发时间：{{this.list.deliveryTime}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">扔单时间：{{this.list.createTime}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">被抢时间：{{this.list.robTime}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">搬运人数：{{this.list.handlingNumber}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">拆装服务：{{this.list.isItChai}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">搬运物品：{{this.list.goods}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">注意事项：{{this.list.remark}}</text>
-					</view>
-				</view>
-				<!-- 收益 -->
-				<view class="mt-city">
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">订单金额：{{this.list.price}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">订单服务费：{{this.list.rowCommissionRatio}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">平台服务费：{{this.list.rowPlatformFee}}</text>
-						<text class="text-grey" 
-						style="float:right;margin-right:20rpx;">
-							实际所得：{{this.list.shouru}}
-						</text>
-					</view>
-				</view>
-			</view>
-		</view>
 		<view class="oderList-content heis" v-if="this.co.incomeExpenditure=== '2'">
 			<view class="mt-cardtwo">
 				<!-- 订单详情 -->
@@ -128,7 +29,6 @@
 						<view class="mt-placebox"></view>
 						<text class="text-grey">联系电话：{{this.list.phone}}</text>
 					</view>
-		
 				</view>
 				
 			</view>
@@ -221,7 +121,9 @@ export default {
 	color: #999999;
 	font-size: 25.52rpx;
 }
-
+page{
+	background-color: #FFFFFF;
+}
 .mt-card {
 	position: relative;
 	padding: 13.33rpx;
@@ -247,6 +149,9 @@ export default {
 			width: 36.66rpx;
 		}
 	}
+	page: {
+		background-color: #FFFFFF;
+	};
 	.mt-viewbutton {
 		position: absolute;
 		right: 26.66rpx;

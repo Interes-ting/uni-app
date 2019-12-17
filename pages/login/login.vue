@@ -1,5 +1,5 @@
 <template>
-	<view class="mt-body">
+	<view class="mt-body account-body">
 		<view class="mt-uers">用户登录</view>
 		<view class="mt-form">
 			<view class="mt-form-row">
@@ -8,7 +8,7 @@
 						<view class="mt-loginimge  mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" placeholder-class="uni-input-placeholder" placeholder="请输入手机号码" v-model="account" />
+						<input class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码" v-model="account" />
 					</view>
 				</view>
 			</view>
@@ -18,10 +18,11 @@
 						<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" placeholder-class="uni-input-placeholder" placeholder="请输入账户密码" v-model="password" />
+						<input password="false" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码" v-model="password" />
 					</view>
 				</view>
 			</view>
+
 			<view class="mt-form-row" :style="{'margin-top':'34rpx'}">
 				<view class="flex justify-between" :style="{'width': '466.66rpx'}">
 					<view class="mt-registration" @click="regdex">
@@ -34,6 +35,7 @@
 			</view>
 			<view class="mt-form-row" :style="{'margin-top':'143.33rpx'}">
 				<button class="mt-loginbutn" type="primary" @click="login">登录</button>
+
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS -->
@@ -201,6 +203,7 @@
 	}
 
 	.mt-body {
+		height: 100%;
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -259,6 +262,7 @@
 		color: #F1F1F1;
 		height: 100%;
 	}
+
 
 	.mt-registration,
 	.mt-forget {

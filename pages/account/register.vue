@@ -198,7 +198,7 @@
 					this.countDown(60);
 					//发送验证码
 					let that = this;
-					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone=13164688453"), user,
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone="), user,
 						function(data) {
 							
 							if (data.state > 0) {
