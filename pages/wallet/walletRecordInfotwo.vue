@@ -14,7 +14,7 @@
 						<view class="mt-placebox"></view>
 						<text class="text-grey">申请时间：{{list.applyTime}}</text>
 					</view>
-					<view class="mt-startcity">
+					<view class="mt-startcity" >
 						<view class="mt-placebox"></view>
 						<text class="text-grey">提现卡号：{{list.cardNo}}</text>
 					</view>

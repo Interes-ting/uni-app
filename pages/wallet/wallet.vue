@@ -6,10 +6,12 @@
 				总额 (元)
 			</view>
 			<view class="mt-amount amount">
-				<view class="mt-amoutone">
+				<view class="mt-amoutone" v-if="this.amount != null">
 					{{amount}}
 				</view>
-
+				<view class="mt-amoutone" v-if="this.amount === null">
+					0
+				</view>
 				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
@@ -52,7 +54,7 @@
 		<view class="" style="height:clac(100% - 200rpx);">
 			<!-- 第三步实用block模板渲染页面 -->
 			<block v-for="(item,index) in list" :key="index">
-				<view class="mt-viewnr">
+				<view class="mt-viewnr" v-if="list.length > 0">
 					<view class="mt-earnings om " v-if="item.incomeExpenditure === 1">
 						<view class="mt-img">
 							<image class="mt-qianbaoimg" src="../../static/qianbao.png" mode=""></image>
@@ -130,7 +132,11 @@
 						</view>
 					</view>
 				</view>
+				
 			</block>
+			<view class="mt-viewnr char" v-if="list.length < 1">
+				暂无数据
+				</view>
 		</view>
 	</view>
 </template>
@@ -142,7 +148,7 @@
 			return {
 				// 第一步定义空数据接收空变量接收后台返回数据
 				// list: null,
-				list: '',
+				list:[],
 				amount: '',
 				withdrawable: null,
 				waitverify: null,
@@ -302,7 +308,12 @@ uni-icon {
 	.mt-earnings.om.mo {
 		line-height: 195rpx;
 	}
-
+	.mt-viewnr.char{
+		width: 90%;
+		height: 180rpx;
+		line-height: 180rpx;
+		text-align: center;
+	}
 	.mt-earningstw.one.gsot {
 		margin: 60rpx 0 0 0;
 	}

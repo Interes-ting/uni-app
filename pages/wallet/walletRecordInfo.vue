@@ -66,9 +66,13 @@
 						<view class="mt-placebox"></view>
 						<text class="text-grey">搬运人数：{{list.handlingNumber}}</text>
 					</view>
-					<view class="mt-startcity">
+					<view class="mt-startcity" v-if="list.isItchai === 0">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">拆装服务：{{list.isItChai}}</text>
+						<text class="text-grey">拆装服务：无</text>
+					</view>
+					<view class="mt-startcity" v-if="list.isItchai === 1">
+						<view class="mt-placebox"></view>
+						<text class="text-grey">拆装服务：有</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
