@@ -14,7 +14,7 @@
 				<input type="text" placeholder="请选择开户行" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
-			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" :class="{reveal:unpack}" />
+			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" v-if="unpack==false" />
 		</view>
 	</view>
 </template>
@@ -40,18 +40,22 @@
 					personname: [{
 						type: 'require',
 						msg: '请输入持卡人姓名'
-					}],
-					cardname: [{
-							type: 'require',
-							msg: '请输入银行卡号'
-						},
-						{
-							type: 'regexp',
-							regexp: /^([1-9]{1})(\d{14}|\d{18})$/,
-							msg: '请输入正确银行卡号'
-						}
-					],
-					listname: [{
+
+					}
+				],
+				cardname: [
+					{
+						type: 'require',
+						msg: '请输入银行卡号'
+					},
+					{
+						type: 'regexp',
+						regexp: /^([1-9]{1})(\d{14}|\d{15}|\d{16}|\d{17}|\d{18})$/,
+						msg: '请输入正确银行卡号'
+					}
+				],
+				listname: [
+					{
 						type: 'require',
 						msg: '请选择开户行'
 					}]

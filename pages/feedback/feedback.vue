@@ -1,6 +1,6 @@
 <template>
 	<view class="margin-top">
-		<view class="cu-form-group"><textarea class="field" maxlength="-1" @input="textareaAInput" placeholder="请提出您宝贵的意见和建议" v-model="account"></textarea></view>
+		<view class="cu-form-group"><textarea class="field" maxlength="-1" @input="textareaAInput" placeholder="请提出您宝贵的意见和建议!" v-model="account"></textarea></view>
 		<button class="btn-logout" @click="fnClick">确认提交</button>
 	</view>
 </template>
@@ -34,6 +34,9 @@ export default {
 			let validResult = this.$mtValidation.valid(user, this.rules);
 			if (!validResult) {
 				return;
+			}
+			if (this.$mtRequest.isRepeat()) {
+			     return;
 			}
 
 			let that = this;

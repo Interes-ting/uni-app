@@ -119,10 +119,10 @@ page{
 }
 
 .person-head-nickname {
-	font-size: 36rpx;
+	font-size: 30rpx;
 	font-weight: 500;
 	color: #fff;
-	margin: 10rpx auto 0rpx;
+	margin: auto;
 }
 
 .cmd-cell-item-left{
