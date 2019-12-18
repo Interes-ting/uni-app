@@ -192,7 +192,7 @@ function error404() {
 	})
 }
 
-//500错误处理
+// 500错误处理
 function error500() {
 	uni.showToast({
 		title: "请求服务器失败",

@@ -83,6 +83,9 @@ export default {
 			if (!validResult) {
 				return;
 			}
+			if (this.$mtRequest.isRepeat()) {
+			     return;
+			}
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('api/merchant_info/updatUser'),
 				{

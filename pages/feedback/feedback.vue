@@ -35,6 +35,9 @@ export default {
 			if (!validResult) {
 				return;
 			}
+			if (this.$mtRequest.isRepeat()) {
+			     return;
+			}
 
 			let that = this;
 			this.$mtRequest.post(
