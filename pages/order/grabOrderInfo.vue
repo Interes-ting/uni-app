@@ -25,7 +25,7 @@
 					<text class="mtfa mt-person" style="color: #DD524D;"></text>
 					<text>搬运人数：</text>
 				</view>
-				<view class="mt-frbox"><text>2人</text></view>
+				<view class="mt-frbox"><text>{{carList.handlingNumber}}</text></view>
 			</view>
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
 				<view class="mt-flbox" style="width: 270rpx;">
@@ -42,7 +42,7 @@
 					<text></text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.intoElevator }}，{{ carList.intoFloor }}</text>
+					<text>{{ carList.outEleveator }}，{{ carList.outFloor }}</text>
 				</view>
 			</view>
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
@@ -51,7 +51,7 @@
 					<text>搬入地址：</text>
 				</view>
 				<view class="mt-frbox" style="text-align: left;word-break: break-all;">
-					<text>{{ carList.toAddress }}</text>
+					<text>{{carList.toAddress }}</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -60,7 +60,7 @@
 					<text></text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.outEleveator }}，{{ carList.outFloor }}</text>
+					<text>{{ carList.intoElevator}}, {{carList.intoFloor }}</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -112,13 +112,14 @@
 					<text>{{ carList.payAmount }}</text>
 				</view>
 			</view>
-			<view class="mt-content-box" v-if="carList.isItchai == 1">
+			<view class="mt-content-box">
 				<view class="mt-flbox">
 					<text class="mtfa mt-weixiu" style="color:blue;"></text>
 					<text>拆卸服务：</text>
 				</view>
-				<view class="mt-frbox"><text>需要</text></view>
+				<view class="mt-frbox"><text>{{carList.isItchai ==1?'需要':'不需要'}}</text></view>
 			</view>
+		
 			<!-- 搬运物品 -->
 			<view class="mt-content-box">
 				<view style="width:270rpx;">
@@ -164,11 +165,16 @@ export default {
 	},
 	methods: {
 		getInfo: function() {
+			//防重复
+			   if (this.$mtRequest.isRepeat()) {
+			    return;
+			   }
 			//获取订单信息
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id=' + this.orderId), {}, res => {
 				if (res.state == 1) {
 					this.carList = res.data;
 					this.weixinpay = Number(this.carList.payAmount) + Number(this.carList.rowPlatformFee);
+					console.log(this.carList )
 				}
 				this.$mtRequest.stop(); //结束loading等待
 			});
@@ -176,7 +182,7 @@ export default {
 
 		payMoney: function() {
 			// 抢单并支付
-
+			console.log()
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('api/order_info/grab2'),
 				{

@@ -65,8 +65,6 @@ export default {
 		};
 	},
 	onLoad(option) {
-		// 页面加载时执行网络请求
-		this.getList();
 	},
 	onShow() {
 		this.getList();
