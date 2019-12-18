@@ -120,14 +120,14 @@
 				<view class="mt-frbox"><text>需要</text></view>
 			</view>
 			<!-- 搬运物品 -->
-			<view class="mt-content-box" v-if="carList.isItchai">
-				<view style="width:250rpx;">
+			<view class="mt-content-box">
+				<view style="width:270rpx;">
 					<text class="mtfa mt-box" style="color:orange;"></text>
 					<text style="">搬运物品：</text>
 				</view>
 				<view style="width:100%;word-break:break-all;text-align: left;">{{ carList.goods }}</view>
 			</view>
-			<view style="display: flex;padding: 20rpx 0rpx;" v-if="carList.isItchai">
+			<view style="display: flex;padding: 20rpx 0rpx;">
 				<view style="width:250rpx;">
 					<text class="mtfa mt-warn" style="color:red;padding-right: 10rpx;"></text>
 					<text style="">注意事项：</text>
