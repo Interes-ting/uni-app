@@ -7,19 +7,19 @@
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司名称</view>
-				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" />
+				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" maxlength="50"/>
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司法人</view>
-				<input type="text" placeholder="请输入公司法人" placeholder-class="place" v-model="companyLegalPerson" />
+				<input type="text" placeholder="请输入公司法人" placeholder-class="place" v-model="companyLegalPerson" maxlength="20"/>
 			</view>
 			<view class="sheet">
-				<view class="titlee">营业执照</view>
-				<input type="text" placeholder="请输入营业执照" placeholder-class="place" v-model="businessLicense" />
+				<view class="titlee">统一社会信用代码</view>
+				<input type="text" placeholder="请输入统一社会信用代码" placeholder-class="place" v-model="businessLicense" maxlength="18"/>
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司地址</view>
-				<input type="text" placeholder="请输入公司地址" placeholder-class="place" v-model="companyAddress" />
+				<input type="text" placeholder="请输入公司地址" placeholder-class="place" v-model="companyAddress" maxlength="50"/>
 			</view>
 			<view><mt-alert ref="mtalert" content="保存成功" @change="change"></mt-alert></view>
 			<button class="btn-logout" @click="fnClick">保存</button>
@@ -142,8 +142,8 @@ export default {
 	font-weight: 900;
 	color: #333333;
 	line-height: 104rpx;
-	padding: 0 30rpx;
-	width: 30%;
+	padding: 0 0 0 30rpx;
+	width: 40%;
 }
 
 input {
