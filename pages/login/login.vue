@@ -18,7 +18,8 @@
 						<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码" v-model="password" />
+						<input password="false" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
+						 v-model="password" />
 					</view>
 				</view>
 			</view>
@@ -34,7 +35,7 @@
 				</view>
 			</view>
 			<view class="mt-form-row" :style="{'margin-top':'143.33rpx'}">
-				<button class="mt-loginbutn" type="primary" @click="login">登录</button>
+				<button class="mt-loginbutn" type="primary" @click="loginbtn">登录</button>
 			</view>
 		</view>
 		<!-- #ifdef APP-PLUS -->
@@ -101,7 +102,7 @@
 			if (accountInfo) {
 				this.account = accountInfo.account;
 				this.password = accountInfo.password;
-				this.login();
+				this.loginbtn();
 			}
 		},
 		methods: {
@@ -115,16 +116,20 @@
 					url: '../account/forget'
 				})
 			},
-			login() {
+			loginbtn: function() {
 				// #ifdef APP-PLUS
-				if (this.versionCheck()) {
-					return;
-				}
-				if (!this.privacyValid()) {
-					return;
-				}
+				this.versionCheck(() => {
+					if (!this.privacyValid()) {
+						return;
+					}
+					this.login();
+				})
 				//#endif
-
+				// #ifndef APP-PLUS
+				this.login();
+				// #endif
+			},
+			login: function() {
 				let user = {
 					account: this.account,
 					password: this.password
@@ -150,7 +155,7 @@
 			 * 版本校验
 			 * 有新的版本返回true，否则返回false
 			 */
-			versionCheck() {
+			versionCheck(callback) {
 
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/application/app_person_version"), {}, (data) => {
 					//结束请求
@@ -173,10 +178,8 @@
 									}
 								}
 							});
-
-							return true;
 						} else {
-							return false;
+							callback();
 						}
 					}
 				})
