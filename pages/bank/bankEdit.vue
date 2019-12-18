@@ -14,7 +14,7 @@
 				<input type="text" placeholder="请选择开户行" placeholder-class="place" disabled="ture" @click="onindexed" v-model="listname" />
 			</view>
 			<button class="btn-logout" @click="fnClick">保存</button>
-			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" :class="{reveal:unpack}" />
+			<uni-indexed-list :options="list" :showSelect="false" @click="bindClick" v-if="unpack==false" />
 		</view>
 	</view>
 </template>
