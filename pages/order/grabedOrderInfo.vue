@@ -57,6 +57,10 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
+					<text class="text-grey">是否急单：{{OrderInfo.isItUrgent ==1?'是':'否'}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
 					<text class="text-grey">被抢时间：{{OrderInfo.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
