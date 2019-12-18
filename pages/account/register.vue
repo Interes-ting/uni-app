@@ -359,7 +359,6 @@
 	}
 
 	.uni-input {
-		display: inline-flex;
 		width: 80%;
 		height: 78rpx;
 		line-height: 78rpx;
@@ -376,7 +375,7 @@
 	/* 验证码输入框 */
 	.mt-input-img.mt-yz {
 		width: 40%;
-		float: left;
+		display: flex;
 		margin: 0;
 		font-size: 24rpx;
 		height: 78rpx;

@@ -50,7 +50,14 @@
                 "idfa" : false
             },
             /* SDK配置 */
-            "sdkConfigs" : {},
+            "sdkConfigs" : {
+                "payment" : {
+                    "weixin" : {
+                        "appid" : "wxab312c47bfa1b79f",
+                        "UniversalLinks" : "https://wedding.hihizhu.com/"
+                    }
+                }
+            },
             "splashscreen" : {
                 "android" : {
                     "hdpi" : "E:\\产品文档\\车辆管理系统\\mh-doc\\App发布文件\\轻松搬家\\1-480x762.png",

@@ -108,12 +108,12 @@
 		methods: {
 			regdex: function() {
 				uni.navigateTo({
-					url: '../account/register'
+					url: '../account/register?id=1'
 				})
 			},
 			forgetdex: function() {
 				uni.navigateTo({
-					url: '../account/forget'
+					url: '../account/forget?id=1'
 				})
 			},
 			loginbtn: function() {
@@ -287,4 +287,5 @@
 		border-radius: 60rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 	}
+	
 </style>
