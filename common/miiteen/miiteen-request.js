@@ -1,29 +1,47 @@
 //是否正在操作
 let isOperate = false;
+//是否打开了加载界面
+let isLoading = false;
 
 /**
  * Http请求
  */
 const request = {
-	//开始请求
-	start: function() {
+	//是否重复提交
+	isRepeat() {
 		if (isOperate) {
 			uni.showToast({
 				title: "正在操作,请稍后再试...",
 				icon: "none"
 			})
-			return false;
-		} else {
-			uni.showLoading({
-				title: "加载中"
-			})
 			return true;
+		} else {
+			return false;
 		}
+	},
+	//开始请求
+	start: function() {
+		//延迟打开加载界面,视觉上增加体验
+		setTimeout(function() {
+			//如果还在操作中,则打开加载界面
+			if (isOperate) {
+				uni.showLoading({
+					title: "加载中"
+				})
+				isLoading = true;
+			}
+		}, 1000)
+
+		isOperate = true;
 	},
 	//停止请求
 	stop: function() {
 		isOperate = false;
-		uni.hideLoading();
+		//如果已经打开了加载界面,则关闭加载界面
+		if (isLoading) {
+			uni.hideLoading();
+			isLoading = false;
+		}
 	},
 	/**
 	 * Get请求
@@ -33,9 +51,7 @@ const request = {
 	 * @param {Object} fail
 	 */
 	get: function(url, data, success, fail) {
-		if (!request.start()) {
-			return;
-		}
+		request.start();
 		if (!fail) {
 			fail = function(res) {
 				if (process.env.NODE_ENV === 'development') {
@@ -67,9 +83,7 @@ const request = {
 	 * @param {Object} fail
 	 */
 	post: function(url, data, success, fail) {
-		if (!request.start()) {
-			return;
-		}
+		request.start();
 		if (!fail) {
 			fail = function(res) {
 				if (process.env.NODE_ENV === 'development') {
