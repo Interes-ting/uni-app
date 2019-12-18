@@ -6,10 +6,10 @@
 				总额 (元)
 			</view>
 			<view class="mt-amount amount">
-				<view class="mt-amoutone" v-if="this.amount != null">
+				<view class="mt-amoutone" v-if="this.amount !='' ">
 					{{amount}}
 				</view>
-				<view class="mt-amoutone" v-if="this.amount === null">
+				<view class="mt-amoutone" v-if="this.amount === ''">
 					0
 				</view>
 				<view class="mt-cashoutone" @click="tixian">
@@ -361,6 +361,9 @@ uni-icon {
 		color: #333333;
 		font-size: 33rpx;
 		margin: 15rpx 0 0 0;
+		white-space: nowrap;
+		  text-overflow: ellipsis;
+		  overflow:hidden;
 	}
 
 	.mt-earningson.two {
