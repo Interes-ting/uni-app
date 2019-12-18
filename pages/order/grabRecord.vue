@@ -13,6 +13,10 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
+					<text class="text-grey">急单：{{item.isItUrgent ==1?'是':'否'}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
 					<text>订单金额：{{item.price}}元</text>
 					<text style="margin-left: 46.66rpx;">扔单提成：{{item.price}}元</text>
 				</view>
@@ -24,9 +28,19 @@
 					<view class="mtfa mt-clocks text-grey "></view>
 					<text class="text-grey">出发时间：{{item.fromAddress}}</text>
 				</view>
-				<view class="mt-startcity">
+				<!-- <view class="mt-startcity">
 					<view class="mtfa mt-box text-grey "></view>
 					<text class="text-grey">搬运物品：{{item.goods}}</text>
+				</view> -->
+				<view class="mt-startcity" style="display: flex;">
+					<view class="mtfa mt-box text-grey "></view>
+					<view class="text-remark text-grey">搬运物品：</view>
+					<view class="text-remark-text text-grey">{{item.goods}}</view>
+				</view>
+				<view class="mt-startcity" style="display: flex;">
+					<view class="mtfa mt-box text-grey "></view>
+					<view class="text-remark text-grey">注意事项：</view>
+					<view class="text-remark-text text-grey">{{item.remark}}</view>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -83,10 +97,20 @@ export default {
 	}
 };
 </script>
-		<!-- 第一个问题
-		 你这个页面数据获取的接口需要什么参数？
-		 -->
 <style lang="scss" scoped>
+	.text-remark-text{
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		display: inline-block;
+		width: 100%;
+		height: 100;
+	}
+	.text-remark{
+		display: inline-block;
+		width: 120rpx;
+	}
 .gradRecord-content {
 	padding: 13.33rpx;
 
