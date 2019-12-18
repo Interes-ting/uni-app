@@ -147,14 +147,14 @@ export default {
 }
 
 input {
-	width: 70%;
-	margin-top: 24rpx;
+	width: 65%;
+	margin-top: 26rpx;
 	text-align: right;
 	margin-right: 40rpx;
 }
 
 .place {
-	font-size: 24rpx;
+	font-size: 26rpx;
 	text-align: right;
 }
 
