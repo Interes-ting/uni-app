@@ -1,6 +1,6 @@
 <template>
 	<view class="backimage">
-		<image src="/static/backservice.png"></image>
+		<image src="https://emhplatformservice.miiteen.com/static/backservice.png"></image>
 		<button class="btn-logout mtfa mt-dianhua" @click="phone">拨打客服电话</button>
 	</view>
 </template>

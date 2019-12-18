@@ -7,7 +7,13 @@ import mtConfig from './miiteen-config';
  * @param {Object} successcallback 登录成功回调函数
  */
 function login(user, successcallback) {
+	if (mtRequest.isRepeat()) {
+		return;
+	}
 	mtRequest.post(mtConfig.getPersonUrl("api/sys/loginapi/login"), user, function(data) {
+		//结束请求
+		mtRequest.stop();
+
 		if (data.state > 0) {
 			//登录成功
 			uni.showToast({
@@ -27,9 +33,6 @@ function login(user, successcallback) {
 				icon: "none"
 			})
 		}
-
-		//结束请求
-		mtRequest.stop();
 	})
 }
 

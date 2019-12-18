@@ -42,35 +42,40 @@
 	export default {
 		data() {
 			return {
-				account: "",
+				
 				pwd: "",
 				newpwd: "",
 				confirmpwd: "",
 				rules: {
-					account: [{
+					pwd: [{
 						//必填
 						type: "require",
-						msg: "请输入账号"
+						msg: "请输入旧密码"
 					}, {
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请输入6~20个字符"
 					}],
-					pwd: [{
-						//必填
-						type: "require",
-						msg: "请输入旧密码"
-					}],
 					newpwd: [{
 						//必填
 						type: "require",
 						msg: "请输入新密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 					confirmpwd: [{
 						//必填
 						type: "require",
 						msg: "请再次输入新密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 				}
 			}
@@ -78,7 +83,6 @@
 		methods: {
 			registration(){
 				let user = {
-					account: this.account,
 					pwd: this.pwd,
 					newpwd: this.newpwd,
 					confirmpwd: this.confirmpwd,				
