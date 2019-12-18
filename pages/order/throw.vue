@@ -319,15 +319,6 @@
 			this.checkCarType();
 		},
 		onShow() {
-
-			// 搬运物品
-			textareaAInput:function(e){
-				e.detail.value ='';
-			},
-			// 注意事项
-			textareaBInput:function(e){
-				e.detail.value ='';
-			},
 			this.pieckId= [],
 			//客户名
 			this.customName= '',
@@ -667,6 +658,9 @@
 </script>
 
 <style lang="less" scoped>
+	.uni-mask{
+		z-index: 9999999!important;
+	}
 	.flexbox{
 	  display:flex;/*设为伸缩容器*/  
 	  flex-flow:row;/*伸缩项目单行排列*/ 

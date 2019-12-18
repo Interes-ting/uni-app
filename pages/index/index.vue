@@ -66,7 +66,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text>此订单由{{ item.throwCompanyName }}提供</text>
+						<text>此订单由{{ item.throwCompanyName}}提供</text>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
 					<button class="mt-elsebutton" v-else>已抢</button>
