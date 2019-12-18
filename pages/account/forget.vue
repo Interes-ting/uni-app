@@ -16,7 +16,6 @@
 				</view>
 			</view>
 
-
 			<view class="mt-in">
 				<view class="mt-input">
 					<view class="mt-input-img">
@@ -233,6 +232,12 @@
 </script>
 
 <style>
+	.mt-inputcdy{
+		width: 80%;
+		margin: 0 auto;
+		border: 0.66rpx solid #007AFF;
+		border-radius:40rpx;
+	}
 	.mt-zwf {
 		height: 60rpx;
 		width: 100%;
@@ -314,7 +319,6 @@
 	}
 
 	.uni-input {
-		display: inline-flex;
 		width: 80%;
 		height: 78rpx;
 		line-height: 78rpx;
@@ -326,15 +330,15 @@
 	}
 
 	/* 验证码外部框宽度 */
-	.mt-input-input.mt-yz {
+/* 	.mt-input-input.mt-yz {
 
 		float: left;
-	}
+	} */
 
 	/* 验证码输入框 */
 	.mt-input-img.mt-yz {
 		width: 40%;
-		float: left;
+		display: flex;
 		margin: 0;
 		font-size: 24rpx;
 		height: 78rpx;
