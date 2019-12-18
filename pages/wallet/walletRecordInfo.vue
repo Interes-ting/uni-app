@@ -87,18 +87,15 @@
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单金额：{{list.price}}</text>
+						<text class="text-grey">订单提成：{{list.payAmount}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单服务费：{{list.rowCommissionRatio}}</text>
-					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">平台服务费：{{list.rowPlatformFee}}</text>
+						<text class="text-grey">平台服务费：{{list.rowPlatformFee}}
+						</text>
 						<text class="text-grey" 
 						style="float:right;margin-right:20rpx;">
-							实际所得：{{list.shouru}}
+							实际所得：{{needPay}}
 						</text>
 					</view>
 				</view>
@@ -116,6 +113,7 @@ export default {
 		return {
 			oderList:null,
 			list:'',
+			needPay:'',
 		};
 	},
 	onLoad(ddd) {
@@ -131,8 +129,10 @@ export default {
 			
 			// let that=this;
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/balancein/selecBalanceInId"),{id:this.co.ddd}, (data) => {
+			
 				if (data.state > 0) {
 					this.list = data.data
+					this.needPay = Number(this.list.payAmount) - Number(this.list.rowPlatformFee)
 				console.log(data.data)
 				} else {
 					//登录失败
