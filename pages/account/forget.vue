@@ -79,23 +79,32 @@
 							//必填
 							type: "require",
 							msg: "请输入手机号"
-						},
-						{
-							//正则
-							type: "regexp",
-							regexp: /[0-9A-Za-z]{6,20}/,
-							msg: "请输入6~20个字符"
-						}
+						}, {
+						//正则
+						type: "regexp",
+						regexp: /^1[023456789]\d{9}$/,
+						msg: "请输入11位正确手机号码"
+					}
 					],
 					newpwd: [{
 						//必填
 						type: "require",
 						msg: "请输入密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 					confirmpwd: [{
 						//必填
 						type: "require",
-						msg: "请再次输入密码1"
+						msg: "请再次输入密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 					code: [{
 						//必填
@@ -142,9 +151,9 @@
 				}
 			},
 			send() {
-				var ze = /[0-9A-Za-z]{6,20}/;
+				var ze = /^1[023456789]\d{9}$/;
 				let user = {
-					account: this.account,
+					phone: this.account,
 				}
 
 				if (this.account == '') {
@@ -154,14 +163,14 @@
 					});
 				} else if (!ze.test(this.account)) {
 					uni.showToast({
-						title: "请输入6~20个字符!",
+						title: "请输入11位手机号码!",
 						icon: "none"
 					});
 				} else {
 					this.countDown(60);
 					//发送验证码
 					let that = this;
-					this.$mtRequest.post(this.$mtConfig.getPersonUrl("/api/emh/account/ret_validcode?phone=15198201377"), user,
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user,
 						function(data) {
 							if (data.state > 0) {
 								//密码重置

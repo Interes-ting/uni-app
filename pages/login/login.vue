@@ -67,7 +67,14 @@
 					account: [{
 						//必填
 						type: "require",
+						
+						
 						msg: "请输入账号"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /^1[023456789]\d{9}$/,
+						msg: "请输入11位正确手机号码"
 					}],
 					password: [{
 						//必填
