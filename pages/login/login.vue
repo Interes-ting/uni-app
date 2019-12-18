@@ -67,8 +67,6 @@
 					account: [{
 						//必填
 						type: "require",
-						
-						
 						msg: "请输入账号"
 					}, {
 						//正则

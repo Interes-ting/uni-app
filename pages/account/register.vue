@@ -361,9 +361,9 @@
 	.uni-input {
 		display: inline-flex;
 		width: 80%;
+		height: 78rpx;
+		line-height: 78rpx;
 	}
-
-
 	.uni-input-placeholder {
 		color: #CCCCCC;
 	}
