@@ -46,6 +46,7 @@
 				pwd: "",
 				newpwd: "",
 				confirmpwd: "",
+				merchantCode:'',
 				rules: {
 					pwd: [{
 						//必填
@@ -80,31 +81,65 @@
 				}
 			}
 		},
+		onLoad(){
+			this.registrationtwo();
+		},
 		methods: {
+			registrationtwo(){
+					let merchantInfoId = this.$mtAccount.info().merchantInfoId
+					// let that=this;
+					this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
+						merchantId: merchantInfoId
+					}, (data) => {
+						if (data.state > 0) {
+							console.log(data.data)
+							this.merchantCode = data.data.merchantCode;
+							console.log(this.merchantCode)
+						} else {
+							//登录失败
+							uni.showToast({
+								title: data.message,
+								icon: "none"
+							})
+						}
+				
+						//结束请求
+						this.$mtRequest.stop();
+					})
+			
+				
+			},
+			
 			registration(){
 				let user = {
 					pwd: this.pwd,
 					newpwd: this.newpwd,
-					confirmpwd: this.confirmpwd,				
+					confirmpwd: this.confirmpwd,
+					account: this.merchantCode,
 				}
 				//做校验
 				let validResult = this.$mtValidation.valid(user, this.rules);
 				if (!validResult) {
 					return;
 				}
+				
 				//修改密码
 				let that=this;
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 				this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/modify"), user, function(data) {
 					if (data.state > 0) {
 						//修改密码
 						uni.showToast({
 							title: "密码修改成功",
 							success: function() {
-								setTimeout(function(){
-											uni.navigateTo({
-												url: '../index/index'
-											});
-									},2000)
+								setTimeout(function() {
+									uni.switchTab({
+										url: '../index/index'
+									});
+								}, 2000)
 							}
 						})
 					} else {

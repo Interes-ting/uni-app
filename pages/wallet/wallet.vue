@@ -6,10 +6,10 @@
 				总额 (元)
 			</view>
 			<view class="mt-amount amount">
-				<view class="mt-amoutone" v-if="this.amount !='' ">
+				<view class="mt-amoutone" v-if="amount !=null ">
 					{{amount}}
 				</view>
-				<view class="mt-amoutone" v-if="this.amount === ''">
+				<view class="mt-amoutone" v-if="amount ===null">
 					0
 				</view>
 				<view class="mt-cashoutone" @click="tixian">
@@ -149,7 +149,7 @@
 				// 第一步定义空数据接收空变量接收后台返回数据
 				// list: null,
 				list:[],
-				amount: '',
+				amount:'0',
 				withdrawable: null,
 				waitverify: null,
 				totalExpenditure: null,
