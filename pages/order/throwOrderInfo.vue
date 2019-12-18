@@ -4,16 +4,14 @@
 		<view class="mt-card" v-if="oderList != null">
 			<!-- 城市 -->
 			<view class="mt-city">
-				<view class="mt-startcity">
-					<view class="mtfa mt-begin" style="color:#0B398F;">
-					</view>
-					<text class="space bold">{{oderList.fromAddress}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mtfa mt-xiedian " style="color:#009A00;">
-					</view>
-					<text class="space bold">{{oderList.toAddress}}</text>
-				</view>
+		<view class="mt-startcity" style="display: flex;">
+			<view class="mtfa mt-begin" style="color:#0B398F;"></view>
+			<view class="space bold" style="word-break: break-all;">{{oderList.fromAddress}}</view>
+		</view>
+		<view class="mt-startcity" style="display: flex;margin-top:10rpx;">
+			<view class="mtfa mt-xiedian" style="color:#009A00;"></view>
+			<view class="space bold" style="word-break: break-all;">{{oderList.toAddress}}</view>
+		</view>
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
@@ -59,25 +57,33 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{oderList.robTime ==null?'未抢': derList.robTime}}</text>
+					<text class="text-grey">被抢时间：{{oderList.robTime ==null?'未抢': oderList.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">搬运人数：{{oderList.handlingNumber}}</text>
 				</view>
-				<view class="mt-startcity">
+				<view class="mt-startcity" v-if="oderList.isItChai ==1">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">拆装服务：{{oderList.isItChai ==1?'需要':'不需要'}}</text>
+					<text class="text-grey">拆装服务：需要</text>
 				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运物品：{{oderList.goods}}</text>
+				<!-- 搬运物品 -->
+					<view class="mt-startcity" style="display: flex;" v-if="oderList.goods">
+						<view style="width: 550rpx;text-align:left;">
+							<view class="mt-placebox"></view>
+							<text class="text-grey">搬运物品：</text>
+						</view>
+						<view  class="text-grey" style="word-break: break-all;">{{oderList.goods}}</view>
+					</view>
+					<!-- 注意事项 -->
+					<view class="mt-startcity" style="display: flex;" v-if="oderList.remark">
+						<view style="width: 550rpx;text-align:left ;">
+							<view class="mt-placebox"></view>
+							<text class="text-grey">注意事项：</text>
+						</view>
+						<view  class="text-grey" style="word-break: break-all;">{{oderList.remark}}</view>
+					</view>
 				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：{{oderList.remark}}</text>
-				</view>
-			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
 				<view class="mt-startcity">
@@ -124,8 +130,22 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.text-remark-text{
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		display: inline-block;
+		width: 100%;
+		height: 100;
+	}
+	.text-remark{
+		display: inline-block;
+		width: 120rpx;
+	}
+	
 .oderList-content {
-	padding: 13.33rpx;
+	padding: 20rpx;
 
 	color: #333333;
 }
@@ -151,7 +171,6 @@ export default {
 	}
 	.mt-startcity {
 		display: block;
-		height: 50rpx;
 		line-height: 50rpx;
 		width: 100%;
 		font-size: 25.52rpx;

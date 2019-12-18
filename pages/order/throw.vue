@@ -17,7 +17,7 @@
 						<view class="flex-right">
 							<picker @change="PickerChange" :value="index" :range="pickerCar">
 								<view class="picker-text"> {{pickerCar[index]}}
-								<text class="cuIcon-right righticon"></text></view>
+								<text class="cuIc on-right righticon"></text></view>
 							</picker>
 						</view>
 					</view>
@@ -50,7 +50,7 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" maxlength="30" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"></input>
+							<input placeholder="您从哪里搬出" maxlength="50" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"></input>
 						</view>
 						<!-- 搬入是否有电梯 -->
 						<view class="flexbox">
@@ -71,7 +71,7 @@
 						</view>
 					</view>
 					<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您搬到哪里去" maxlength="30"
+							<input placeholder="您搬到哪里去" maxlength="50"
 							 name="input" v-model="endAddress" @blur="customNameValid('endAddress')"></input>
 					</view>
 					<view class="mt-move-circle newcolor"></view>
@@ -319,7 +319,15 @@
 			this.checkCarType();
 		},
 		onShow() {
-			this.checkCarType();
+
+			// 搬运物品
+			textareaAInput:function(e){
+				e.detail.value ='';
+			},
+			// 注意事项
+			textareaBInput:function(e){
+				e.detail.value ='';
+			},
 			this.pieckId= [],
 			//客户名
 			this.customName= '',
@@ -336,14 +344,13 @@
 			// 扔单提成
 			this.pay= '',
 			// //平台服务费
-			// scale:null,
 			this.fuwufei= null,
 			// 搬家时间
 			this.startyear= new Date(),
 			this.time= '',
 			// 车辆选择参数
 			this.index= 0,
-			this.pickerCar= [],
+			// this.pickerCar= [],
 			// 车辆id
 			this.carId= null,
 			// 车辆数量选择参数
@@ -384,8 +391,9 @@
 				[]
 			],
 			this.multiIndex1= [0, 0]
-			this.multiArray[1] = this.lc1
-			this.multiArray1[1] = this.lc1
+			this.multiArray[1] = this.lc1,
+			this.multiArray1[1] = this.lc1,
+			this.checkCarType();
 		},
 		created() {
 			this.startyear = new Date().getFullYear()  //年

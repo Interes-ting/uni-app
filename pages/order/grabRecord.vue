@@ -3,13 +3,13 @@
 	<view class="gradRecord-content">
 		<block v-for="(item, index) in recordList" :key="index">
 			<view class="mt-card">
-				<view class="mt-startcity">
+				<view class="mt-startcity" style="display: flex;">
 					<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-					<text class="space bold">{{item.fromAddress}}</text>
+					<view class="space bold" style="word-break: break-all;">{{item.fromAddress}}</view>
 				</view>
-				<view class="mt-startcity">
-					<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
-					<text class="space bold">{{item.toAddress}}</text>
+				<view class="mt-startcity" style="display: flex;margin-top: 10rpx;">
+					<view class="mtfa mt-xiedian" style="color:#009A00;"></view>
+					<view class="space bold" style="word-break: break-all;">{{item.toAddress}}</view>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -26,18 +26,18 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-clocks text-grey "></view>
-					<text class="text-grey">出发时间：{{item.fromAddress}}</text>
+					<text class="text-grey">出发时间：{{item.deliveryTime}}</text>
 				</view>
 				<!-- <view class="mt-startcity">
 					<view class="mtfa mt-box text-grey "></view>
 					<text class="text-grey">搬运物品：{{item.goods}}</text>
 				</view> -->
-				<view class="mt-startcity" style="display: flex;">
+				<view class="mt-startcity" style="display: flex;" v-if="item.goods">
 					<view class="mtfa mt-box text-grey "></view>
 					<view class="text-remark text-grey">搬运物品：</view>
 					<view class="text-remark-text text-grey">{{item.goods}}</view>
 				</view>
-				<view class="mt-startcity" style="display: flex;">
+				<view class="mt-startcity" style="display: flex;"  v-if="item.remark">
 					<view class="mtfa mt-box text-grey "></view>
 					<view class="text-remark text-grey">注意事项：</view>
 					<view class="text-remark-text text-grey">{{item.remark}}</view>
@@ -112,7 +112,7 @@ export default {
 		width: 120rpx;
 	}
 .gradRecord-content {
-	padding: 13.33rpx;
+	padding: 20rpx;
 
 	color: #333333;
 }
@@ -136,7 +136,7 @@ export default {
 	margin-bottom:13.33rpx;
 	.mt-startcity {
 		display: block;
-		height: 50rpx;
+		// height: 50rpx;
 		line-height: 50rpx;
 		width: 100%;
 		font-size: 25.52rpx;

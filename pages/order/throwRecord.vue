@@ -3,14 +3,14 @@
 	<view class="thorwRecord-content">
 		<block v-for="(item, index) in Info" :key="index">
 			<view class="mt-card">
-				<view class="mt-startcity">
-					<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-					<text class="space bold">{{item.fromAddress}}</text>
-				</view>
-				<view class="mt-startcity">
-					<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
-					<text class="space bold">{{item.toAddress}}</text>
-				</view>
+			<view class="mt-startcity" style="display: flex;">
+				<view class="mtfa mt-begin" style="color:#0B398F;"></view>
+				<view class="space bold" style="word-break: break-all;">{{item.fromAddress}}</view>
+			</view>
+			<view class="mt-startcity" style="display: flex;margin-top:10rpx;">
+				<view class="mtfa mt-xiedian" style="color:#009A00;"></view>
+				<view class="space bold" style="word-break: break-all;">{{item.toAddress}}</view>
+			</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text>订单金额：{{item.price}}元</text>
@@ -101,7 +101,7 @@ export default {
 		width: 120rpx;
 	}
 .thorwRecord-content {
-	padding: 13.33rpx;
+	padding: 20rpx;
 	color: #333333;
 }
 .space {
@@ -124,7 +124,6 @@ export default {
 	margin-bottom:20rpx;
 	.mt-startcity {
 		display: block;
-		height: 50rpx;
 		line-height: 50rpx;
 		width: 100%;
 		font-size: 25.52rpx;

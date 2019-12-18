@@ -5,15 +5,13 @@
 		<view class="mt-card" v-if="OrderInfo != null" >
 			<!-- 城市 -->
 			<view class="mt-city">
-				<view class="mt-startcity">
-					<view class="mtfa mt-begin" style="color:#0B398F;">
-					</view>
-					<text class="space bold">{{OrderInfo.fromAddress}}</text>
+				<view class="mt-startcity" style="display: flex;">
+					<view class="mtfa mt-begin" style="color:#0B398F;"></view>
+					<view class="space bold" style="word-break: break-all;">{{OrderInfo.fromAddress}}</view>
 				</view>
-				<view class="mt-startcity">
-					<view class="mtfa mt-xiedian " style="color:#009A00;">
-					</view>
-					<text class="space bold">{{OrderInfo.toAddress}}</text>
+				<view class="mt-startcity" style="display: flex;margin-top: 10rpx;">
+					<view class="mtfa mt-xiedian" style="color:#009A00;"></view>
+					<view class="space bold" style="word-break: break-all;">{{OrderInfo.toAddress}}</view>
 				</view>
 			</view>
 			<!-- 订单详情 -->
@@ -71,13 +69,21 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'否':'是'}}</text>
 				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">搬运物品：{{OrderInfo.goods}}</text>
+			<!-- 搬运物品 -->
+				<view class="mt-startcity" style="display: flex;" v-if="OrderInfo.goods">
+					<view style="width: 550rpx;text-align:left;">
+						<view class="mt-placebox"></view>
+						<text class="text-grey">搬运物品：</text>
+					</view>
+					<view  class="text-grey" style="word-break: break-all;">{{OrderInfo.goods}}</view>
 				</view>
-				<view class="mt-startcity">
-					<view class="mt-placebox"></view>
-					<text class="text-grey">注意事项：{{OrderInfo.remark}}</text>
+				<!-- 注意事项 -->
+				<view class="mt-startcity" style="display: flex;" v-if="OrderInfo.remark">
+					<view style="width: 550rpx;text-align:left ;">
+						<view class="mt-placebox"></view>
+						<text class="text-grey">注意事项：</text>
+					</view>
+					<view  class="text-grey" style="text-align:left; word-break: break-all;">{{OrderInfo.remark}}</view>
 				</view>
 			</view>
 			<!-- 收益 -->
@@ -115,6 +121,9 @@ export default {
 		this.getOrderInfo();
 	},
 	methods: {
+		textareaBInput(e) {
+			this.textareaBValue = e.detail.value
+		},
 		getOrderInfo:function(){
 
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
@@ -133,7 +142,7 @@ export default {
 
 <style lang="scss" scoped>
 .gradOrderInfo-content {
-	padding: 13.33rpx;
+	padding: 20rpx;
 
 	color: #333333;
 }
@@ -159,7 +168,6 @@ export default {
 	}
 	.mt-startcity {
 		display: block;
-		height: 50rpx;
 		line-height: 50rpx;
 		width: 100%;
 		font-size: 25.52rpx;

@@ -30,7 +30,7 @@
 				<view class="mt-card">
 					<view class="mt-startcity">
 						<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-						<text class="space bold">{{ item.fromAddress }}</text>
+						<text class="space bold text-hidden">{{ item.fromAddress }}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
@@ -49,9 +49,15 @@
 						<view class="mtfa mt-clocks text-grey "></view>
 						<text class="text-grey">出发时间：{{ item.deliveryTime }}</text>
 					</view>
-					<view class="mt-startcity">
+					<!-- <view class="mt-startcity">
 						<view class="mtfa mt-box text-grey "></view>
-						<text class="text-grey">搬运物品：{{ item.goods }}</text>
+						<text class="text-grey ">搬运物品：</text>
+						<text>{{ item.goods }}</text>
+					</view> -->
+					<view class="mt-startcity" style="display: flex;">
+						<view class="mtfa mt-box text-grey "></view>
+						<view class="text-remark text-grey">搬运物品：</view>
+						<view class="text-remark-text text-grey">{{item.goods}}</view>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -124,11 +130,28 @@ export default {
 </script>
 
 <style lang="less" scoped>
+	.text-hidden{
+		white-space: nowrap;
+		text-overflow: ellipsis;
+	}
+	.text-remark-text{
+		flex: 1;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		display: inline-block;
+		width: 100%;
+		height: 100;
+	}
+	.text-remark{
+		display: inline-block;
+		width: 120rpx;
+	}
+	
 image {
 	width: 100%;
 	height: 100%;
 }
-
 .content {
 	display: flex;
 	flex-direction: column;
