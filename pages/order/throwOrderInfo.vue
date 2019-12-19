@@ -25,7 +25,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单金额：{{oderList.price}}</text>
+					<text class="text-grey">订单金额：{{oderList.price}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -89,13 +89,13 @@
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单服务费：{{oderList.payAmount}}</text>
+					<text class="text-grey">扔单提成：{{oderList.payAmount}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{oderList.thowPlatformFee === null ? '无': oderList.thowPlatformFee}}</text>
+					<text class="text-grey">平台服务费：{{oderList.thowPlatformFee === null ? '无': oderList.thowPlatformFee}}元</text>
 					<text class="text-grey"  style="float:right;margin-right:20rpx;">
-						实际所得：{{shouru}}
+						实际所得：{{shouru}}元
 					</text>
 				</view>
 			</view>

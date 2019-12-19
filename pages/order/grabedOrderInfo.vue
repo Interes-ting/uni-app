@@ -26,7 +26,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单金额：{{OrderInfo.price}}</text>
+					<text class="text-grey">订单金额：{{OrderInfo.price}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -90,15 +90,15 @@
 			<view class="mt-city">
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">订单提成：{{OrderInfo.payAmount}}</text>
+					<text class="text-grey">扔单提成：{{OrderInfo.payAmount}}元</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">平台服务费：{{OrderInfo.rowPlatformFee}}
+					<text class="text-grey">平台服务费：{{OrderInfo.rowPlatformFee}}元
 					</text>
 					<text class="text-grey" 
 					style="float:right;margin-right:20rpx;">
-						实际支付：{{needPay}}
+						实际支付：{{needPay}}元
 					</text>
 				</view>
 			</view>

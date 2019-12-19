@@ -121,7 +121,8 @@
 
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" @input="DeleteNumber"
+						name="input" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
@@ -133,7 +134,7 @@
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
 							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
-							v-model="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
+							v-model="pay" @input="getBymeney(),returnFloat()" @blur="customNameValid('pay')" ></input>
 						<view style="overflow: hidden;">
 							平台服务费：{{fuwufei == null ? '' :fuwufei}}
 						</view>
@@ -317,11 +318,9 @@
 			}
 		},
 		onLoad() {
-			// 页面一加载给电梯楼层赋值
-			this.checkCarType();
 		},
 		onShow() {
-			console.log('======')
+			
 			this.pieckId= [],
 			//客户名
 			this.customName= '',
@@ -409,6 +408,14 @@
 				});
 			},
 			
+			// 距离保留小数点后两位
+			DeleteNumber:function(e){
+				var reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
+				var juli = reg.exec(e.detail.value);
+				console.log(juli);
+				this.distance = juli[0];
+				console.log(juli[0]);
+			},
 			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
@@ -453,7 +460,7 @@
 					e.detail.value = 0
 				}
 				this.index3 = e.detail.value
-				console.log(this.index3)
+				
 			},
 
 			// 车辆
@@ -501,7 +508,6 @@
 
 			// 注意事项
 			textareaBInput: function(e) {
-				console.log(this.textareaBValue)
 				// this.textareaBValue = e.detail.value
 				
 			},
@@ -564,8 +570,14 @@
 						})
 						return false;
 					}
-				}
-				
+				};
+				if(this.time ==null || this.time ==''){
+					uni.showToast({
+					  title: '请选择出发时间',
+					  icon: "none"
+					})
+					return false;
+				};
 
 				//立即扔单
 				let grabInfo = {
@@ -634,10 +646,6 @@
 			},
 
 			checkCarType:function() { //发送网络请求获取车辆类型
-				//防重复
-			   if (this.$mtRequest.isRepeat()) {
-			    return;
-			   }
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/getcartype'),
 				{}, (res) => {
 					if(res.state >0){
@@ -661,7 +669,8 @@
 
 		},
 	};
-
+	
+	//车辆选择方法
 	function selectchange(data, lcarry, selectItem) {
 		data.multiIndex[selectItem.column] = selectItem.value;
 		if (selectItem.column == 0) {
@@ -674,13 +683,32 @@
 					break;
 			}
 		}
-	}
+	};
+	
+	//金额保留两位小数不足2位自动补零
+function returnFloat(e){
+	console.log(e);
+	// var value=Math.round(parseFloat(e.detail.value)*100)/100;
+	// var xsd=value.toString().split(".");
+	// if(xsd.length==1){
+	// 	value=value.toString()+".00";
+	// 	return value;
+	// }
+	// if(xsd.length>1){
+	// 	if(xsd[1].length<2){
+	// 		value=value.toString()+"0";
+	// 	};
+	// 	return value;
+	// }
+	// console.log(value);
+}
+
 </script>
 
 <style lang="less" scoped>
-	.uni-mask{
-		z-index: 9999999!important;
-	}
+	// .uni-mask{
+	// 	z-index: 9999999!important;
+	// }
 	.flexbox{
 	  display:flex;/*设为伸缩容器*/  
 	  flex-flow:row;/*伸缩项目单行排列*/ 
