@@ -17,7 +17,7 @@
 					<text>派车数量：</text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.handlingNumber }}</text>
+					<text>{{ carList.vehiceNumber }}</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -191,6 +191,7 @@
 				// #ifdef MP-WEIXIN
 				this.appletPay();
 				// #endif
+
 			},
 			//抢单支付接口
 			grab(data) {

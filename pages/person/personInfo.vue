@@ -54,6 +54,7 @@ export default {
 				businessLicense: [
 					{
 						type: 'regexp',
+						regexp:/^\w+$/,
 						msg: '统一社会信用代码只能输入数字和字母'
 					}
 				]

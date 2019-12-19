@@ -1,4 +1,3 @@
-<!-- 扔单编辑-->
 <template>
 	<view class="throw">
 		<view class="throw-content">
@@ -38,12 +37,14 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="客户名" maxlength="10" v-model="customName" 
-						@blur="customNameValid('customName')"></input>
+						<input placeholder="客户名" maxlength="10" v-model.trim="customName" 
+						@blur="customNameValid('customName')" @input="phoneChange(customName)"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" maxlength="11" type="number" name="input" v-model="customPhone" @blur="customNameValid('customPhone')"></input>
+						<input placeholder="请输入手机号" maxlength="11" type="number" name="input" 
+						v-model.trim="customPhone" @blur="customNameValid('customPhone')"  
+						@input="phoneChange(customPhone)"></input>
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -51,7 +52,9 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" maxlength="25" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"  style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
+							<input placeholder="您从哪里搬出" maxlength="25" name="input" 
+							v-model.trim="startAddress" @blur="customNameValid('startAddress')"  
+							style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<!-- 搬入是否有电梯 -->
 						<view class="flexbox">
@@ -74,7 +77,7 @@
 					<view class="cu-form-group">
 						<text class="required">*</text>
 							<input placeholder="您搬到哪里去" maxlength="25"
-							 name="input" v-model="endAddress" @blur="customNameValid('endAddress')"
+							 name="input" v-model.trim="endAddress" @blur="customNameValid('endAddress')"
 							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 					</view>
 					<view class="mt-move-circle newcolor"></view>
@@ -112,7 +115,7 @@
 						<simple-datetime-picker
 							ref="myPicker"
 							@submit="handleSubmit"
-							:start-year="2000"
+							:start-year="2019"
 							:end-year="2030"
 							color="rgb(30, 131, 255)"
 							>
@@ -123,19 +126,24 @@
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
 						<input placeholder="请输入距离" type="number" @input="DeleteNumber" maxlength="6"
-						name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						name="input" v-model.trim="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
-						<view class="title" style="margin-left:10rpx;padding: 0rpx;"><text class="required">*</text>订单金额：</view>
-						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model="orderAmount" @blur="customNameValid('orderAmount')"></input>
+						<view class="title" style="margin-left:10rpx;padding: 0rpx;">
+							<text class="required">*</text>订单金额：
+						</view>
+						<input placeholder="请输入订单金额" 
+						maxlength="6" type="number" name="input" v-model.trim="orderAmount"
+						 @blur="customNameValid('orderAmount')">
+						</input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
 							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
-							v-model="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
+							v-model.trim="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
 						<view style="overflow: hidden;">
 							平台服务费：{{fuwufei == null ? '' :fuwufei}}
 						</view>
@@ -153,7 +161,8 @@
 					<!-- picker样式结束 -->
 					<view class="basic-services-car cu-form-group" style="border-top:0">
 						<view class="title">是否急单</view>
-						<switch @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false"></switch>
+						<switch @change="SwitchB" :class="switchB?'checked':''" :checked="switchB?true:false">
+						</switch>
 					</view>
 					<view class="basic-services-car cu-form-group" style="border-top:0">
 						<view class="title">需要拆装服务</view>
@@ -221,7 +230,7 @@
 				switchA: true,
 				needCar: 1,
 				// 是否急单
-				sos: 1,
+				sos: 0,
 				switchB: false,
 				// 是否需要拆装服务
 				switchC: false,
@@ -344,6 +353,7 @@
 						this.fuwufei = 0
 					}
 			},
+			
 			// 距离保留小数点后两位
 			DeleteNumber:function(e){
 				var reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
@@ -403,27 +413,27 @@
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
-				
 					if (this.switchA) {
 						this.needCar = 1 //true
-				
 					} else {
 						// this.index = 0
 						this.needCar = 0 //false
 						this.carId = ''//车辆类型为空
-						this.pickerCar[this.index] = ''
+						this.index = -1
 						//车辆类型信息为空
-					}
+					};
+				this.pickerCar[this.index];
 			},
 			
 
 			// 是否急单
 			SwitchB: function(e) {
+				console.log(e.detail.value);
 				this.switchB = e.detail.value
-				if (this.switchB) {
-					this.sos = 1 //true
+				if (this.switchB == false) {
+					this.sos = 0 //true
 				} else {
-					this.sos = 0 //false
+					this.sos = 1 //false
 				}
 			},
 
@@ -489,7 +499,6 @@
 			},
 
 			goThrow: function() { 
-				
 				if(this.switchA ==true || this.needCar ==1){
 					//判断是否选择车辆类型
 					if(this.pickerCar[this.index] === undefined){
@@ -499,14 +508,16 @@
 						})
 						return false;
 					};
-					//判断是否选择电梯楼层
-					if(this.startfloor ===null || this.endfloor ===null ){
-						uni.showToast({
-						  title: '请选择是否有电梯',
-						  icon: "none"
-						})
-						return false;
-					};
+					
+				};
+				//判断是否选择电梯楼层
+				if(this.startfloor ===null || this.endfloor ===null
+				 || this.floor1 ==null ||this.floor2 ==null){
+					uni.showToast({
+					  title: '请选择是否有电梯',
+					  icon: "none"
+					})
+					return false;
 				};
 				if(this.time ==null || this.time ==''){
 					uni.showToast({
@@ -607,7 +618,7 @@
 							this.switchA= true,
 							this.needCar= 1,
 							// 是否急单
-							this.sos= 1,
+							this.sos= 0,
 							this.switchB= false,
 							// 是否需要拆装服务
 							this.switchC= false,
@@ -638,6 +649,7 @@
 							this.multiArray[1] = this.lc1,
 							this.multiArray1[1] = this.lc1
 						}else {
+							console.log(res)
 						uni.showToast({
 							title: res.message,
 							icon: 'none'
@@ -686,8 +698,11 @@
 			}
 		}
 	};
+	// 首尾中间去空格
+	function phoneChange(value) {
+	    return value.replace(/\s+/g, "");
+	}
 	
-
 
 </script>
 
