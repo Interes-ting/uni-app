@@ -60,12 +60,18 @@ function updateLogin(user) {
 	mtRequest.post(mtConfig.getPlatformUrl("api/merchant_info/update_applogin"), {
 		id: user.merchantInfoId,
 		appNoticeId: plus.push.getClientInfo().clientid
+	}, function() {
+		//结束请求
+		mtRequest.stop();
 	})
 	// #endif
 	// #ifdef MP-WEIXIN
 	mtRequest.post(mtConfig.getPlatformUrl("api/merchant_info/update_appletlogin"), {
 		id: user.merchantInfoId,
 		openId: user.openId
+	}, function() {
+		//结束请求
+		mtRequest.stop();
 	})
 	// #endif
 }
