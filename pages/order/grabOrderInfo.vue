@@ -13,7 +13,7 @@
 			</view>
 			<view class="mt-content-box">
 				<view class="mt-flbox">
-					<text class="mtfa mt-weixiu" style="color:#599CEE"></text>
+					<text class="mtfa mt-leixing" style="color:#599CEE"></text>
 					<text>派车数量：</text>
 				</view>
 				<view class="mt-frbox">
@@ -22,7 +22,7 @@
 			</view>
 			<view class="mt-content-box">
 				<view class="mt-flbox">
-					<text class="mtfa mt-person" style="color: #DD524D;"></text>
+					<text class="mtfa mt-duoren" style="color: #DD524D;"></text>
 					<text>搬运人数：</text>
 				</view>
 				<view class="mt-frbox"><text>{{carList.handlingNumber}}</text></view>
@@ -87,16 +87,7 @@
 					<text>订单金额：</text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.price }}</text>
-				</view>
-			</view>
-			<view class="mt-content-box">
-				<view class="mt-flbox">
-					<text class="mtfa mt-fuwufei" style="color:#E9BC37;"></text>
-					<text>订单金额：</text>
-				</view>
-				<view class="mt-frbox">
-					<text>{{ carList.price }}</text>
+					<text>{{ carList.price }}元</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -109,7 +100,20 @@
 					<text>扔单提成：</text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.payAmount }}</text>
+					<text>{{ carList.payAmount }}元</text>
+				</view>
+			</view>
+			<view class="mt-content-box">
+				<view class="mt-flbox">
+					<text
+						class="mtfa mt-fuwufei"
+						style="color:#E9BC37;font-size: 45rpx;margin-right:0rpx;position: relative;
+								left:-8rpx;"
+					></text>
+					<text>平台服务费：</text>
+				</view>
+				<view class="mt-frbox">
+					<text>{{ carList.payAmount }}元</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -139,7 +143,7 @@
 
 		<view style="text-align: center;">
 			<button class="mt-seedeil-btn" @tap="payMoney()">
-				<text class="text-price" style="margin-right: 30rpx;">{{ weixinpay }}</text>
+				<text class="text-price" style="margin-right: 30rpx;">{{ weixinpay }}元</text>
 				抢单并支付
 			</button>
 		</view>
@@ -174,15 +178,18 @@ export default {
 				if (res.state == 1) {
 					this.carList = res.data;
 					this.weixinpay = Number(this.carList.payAmount) + Number(this.carList.rowPlatformFee);
-					console.log(this.carList )
 				}
 				this.$mtRequest.stop(); //结束loading等待
 			});
 		},
 
 		payMoney: function() {
+			console.log(this.$mtRequest.isRepeat());
+			//防重复
+			if (this.$mtRequest.isRepeat()) {
+				return;
+			};
 			// 抢单并支付
-			console.log()
 			this.$mtRequest.post(
 				this.$mtConfig.getPlatformUrl('api/order_info/grab2'),
 				{
@@ -192,45 +199,41 @@ export default {
 					paymentAmount: this.weixinpay
 				},
 				res => {
-					// 抢单成功后跳转支付
-					if ((res.state = 1)) {
-						this.pay = res.data;
-						this.$mtRequest.post(
-							this.$mtConfig.getPlatformUrl('api/order_info/grab_payed_notice_cs'),
-							{
-								orderInfoId: this.pay.orderInfoId,
-								robMerchantInfoId: this.pay.robMerchantInfoId,
-								orderGrabId: this.pay.orderGrabId,
-								payPayOrderId: this.pay.payPayOrderId,
-								prepayid: this.pay.prepayid
-							},
-							res => {
-								if (res.state == 1) {
-									uni.showToast({
-										title: '抢单成功',
-										success: function() {
-											setTimeout(function() {
-												uni.navigateTo({ url: 'grabRecord' });
-											}, 2000);
-										}
-									});
-								}
-								this.$mtRequest.stop();
-							}
-						);
+					if(res.state == -1){
+						uni.showToast({
+						  title: res.message,
+						  icon: "none"
+						})
 					}
-				}
-			);
-			//防重复
-			if (this.$mtRequest.isRepeat()) {
-				return;
-			}
+					// 抢单成功后跳转支付
+          if ((res.state = 1)) {
+            this.pay = res.data;
+            this.$mtRequest.post(
+            this.$mtConfig.getPlatformUrl('api/order_info/grab_payed_notice_cs'),
+            {
+              orderInfoId: this.pay.orderInfoId,
+              robMerchantInfoId: this.pay.robMerchantInfoId,
+              orderGrabId: this.pay.orderGrabId,
+              payPayOrderId: this.pay.payPayOrderId,
+              prepayid: this.pay.prepayid
+            },
+            res => {
+              if (res.state == 1) {
+                uni.showToast({
+                title: '抢单成功',
+                success: function() {
+                setTimeout(function() {
+                uni.navigateTo({ url: 'grabRecord' });
+                }, 2000);
+              }
+            });
+          };
+          this.$mtRequest.stop();
+        });
+			 }
+			});
+			
 			this.$mtRequest.stop(); //结束loading等待
-
-			/* // 跳转到抢单记录
-			uni.navigateTo({
-				url:'grabRecord'
-			}) */
 		}
 	}
 };

@@ -3,11 +3,11 @@
 		<view class="topka">
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>持卡人</view>
-				<input type="text" placeholder="请输入持卡人真实姓名" placeholder-class="place" v-model="personname" />
+				<input type="text" placeholder="请输入持卡人真实姓名" placeholder-class="place" v-model="personname" maxlength="15" />
 			</view>
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>银行卡号</view>
-				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" />
+				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" maxlength="19" />
 			</view>
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>开户行</view>
