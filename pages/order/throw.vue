@@ -16,7 +16,7 @@
 						<view class="flex-left">车辆类型</view>
 						<view class="flex-right">
 							<picker @change="PickerChange" :value="index" :range="pickerCar">
-								<view class="picker-text"> {{pickerCar[index]}}
+								<view class="picker-text"> {{index > -1 ?  pickerCar[index] : '请选择'}}
 								<text class="cuIc on-right righticon"></text></view>
 							</picker>
 						</view>
@@ -37,7 +37,7 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="用户名" maxlength="10" v-model="customName" 
+						<input placeholder="客户名" maxlength="10" v-model="customName" 
 						@blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
@@ -50,7 +50,7 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" maxlength="50" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"></input>
+							<input placeholder="您从哪里搬出" maxlength="25" name="input" v-model="startAddress" @blur="customNameValid('startAddress')"  style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<!-- 搬入是否有电梯 -->
 						<view class="flexbox">
@@ -70,9 +70,11 @@
 							</picker>
 						</view>
 					</view>
-					<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您搬到哪里去" maxlength="50"
-							 name="input" v-model="endAddress" @blur="customNameValid('endAddress')"></input>
+					<view class="cu-form-group">
+						<text class="required">*</text>
+							<input placeholder="您搬到哪里去" maxlength="25"
+							 name="input" v-model="endAddress" @blur="customNameValid('endAddress')"
+							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 					</view>
 					<view class="mt-move-circle newcolor"></view>
 					<!-- 搬入是否有电梯 -->
@@ -119,7 +121,8 @@
 
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" name="input" v-model="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" @input="DeleteNumber"
+						name="input" v-model="distance" @blur="customNameValid('distance')"></input>
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
@@ -131,9 +134,9 @@
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
 							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
-							v-model="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
+							v-model="pay" @input="getBymeney(),returnFloat()" @blur="customNameValid('pay')" ></input>
 						<view style="overflow: hidden;">
-							平台手续费：{{fuwufei == null ? '' :fuwufei}}
+							平台服务费：{{fuwufei == null ? '' :fuwufei}}
 						</view>
 					</view>
 					<!-- picker样式 -->
@@ -157,11 +160,11 @@
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;">
 						<view class="title">搬运物品</view>
-						<textarea maxlength="100" @input="textareaAInput"></textarea>
+						<textarea maxlength="100" @input="textareaAInput" v-model="textareaAValue"></textarea>
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;border-radius:13.04rpx;">
 						<view class="title">注意事项</view>
-						<textarea maxlength="100" @input="textareaBInput"></textarea>
+						<textarea maxlength="100" @input="textareaBInput" v-model="textareaBValue"></textarea>
 					</view>
 				</view>
 			</form>
@@ -211,14 +214,14 @@
 				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 人数选择参数
-				index3: 0,
+				index3: -1,
 				pickerHumen: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 是否需要车辆
 				switchA: true,
 				needCar: 1,
 				// 是否急单
 				sos: 1,
-				switchB: true,
+				switchB: false,
 				// 是否需要拆装服务
 				switchC: false,
 				installation: 0,
@@ -250,7 +253,7 @@
 					// 客户名
 					customName: [{
 						type: "require",
-						msg: "请输入客户姓名"
+						msg: "请输入客户名"
 					}],
 					// 客户手机号
 					customPhone: [{
@@ -315,10 +318,9 @@
 			}
 		},
 		onLoad() {
-			// 页面一加载给电梯楼层赋值
-			this.checkCarType();
 		},
 		onShow() {
+			
 			this.pieckId= [],
 			//客户名
 			this.customName= '',
@@ -340,7 +342,7 @@
 			this.startyear= new Date(),
 			this.time= '',
 			// 车辆选择参数
-			this.index= 0,
+			this.index= -1,
 			// this.pickerCar= [],
 			// 车辆id
 			this.carId= null,
@@ -348,14 +350,14 @@
 			this.index1=  0,
 			this.pickerNum= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			// 人数选择参数
-			this.index3=  0,
+			this.index3=  -1,
 			this.pickerHumen= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 			// 是否需要车辆
 			this.switchA= true,
 			this.needCar= 1,
 			// 是否急单
 			this.sos= 1,
-			this.switchB= true,
+			this.switchB= false,
 			// 是否需要拆装服务
 			this.switchC= false,
 			this.installation= 0,
@@ -406,6 +408,14 @@
 				});
 			},
 			
+			// 距离保留小数点后两位
+			DeleteNumber:function(e){
+				var reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
+				var juli = reg.exec(e.detail.value);
+				console.log(juli);
+				this.distance = juli[0];
+				console.log(juli[0]);
+			},
 			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
@@ -446,19 +456,26 @@
 
 			// 人数选择
 			PickerChangeHumen: function(e) {
+				if(e.detail.value === -1) {
+					e.detail.value = 0
+				}
 				this.index3 = e.detail.value
+				
 			},
 
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
+				
 					if (this.switchA) {
 						this.needCar = 1 //true
 				
 					} else {
+						// this.index = 0
 						this.needCar = 0 //false
-						this.carId = '', //车辆类型为空
-						this.pickerCar[this.index] = ''//车辆类型信息为空
+						this.carId = ''//车辆类型为空
+						this.pickerCar[this.index] = ''
+						//车辆类型信息为空
 					}
 			},
 			
@@ -491,7 +508,8 @@
 
 			// 注意事项
 			textareaBInput: function(e) {
-				this.textareaBValue = e.detail.value
+				// this.textareaBValue = e.detail.value
+				
 			},
 
 
@@ -534,30 +552,33 @@
 			},
 
 			goThrow: function() { 
-				//判断是否选择车辆类型
-				if(this.pickerCar[this.index] === undefined){
+				
+				if(this.switchA ==true || this.needCar ==1){
+					//判断是否选择车辆类型
+					if(this.pickerCar[this.index] === undefined){
+						uni.showToast({
+						  title: '请选择车辆类型',
+						  icon: "none"
+						})
+						return false;
+					};
+					//判断是否选择电梯楼层
+					if(this.startfloor ===null || this.endfloor ===null ){
+						uni.showToast({
+						  title: '请选择是否有电梯',
+						  icon: "none"
+						})
+						return false;
+					}
+				};
+				if(this.time ==null || this.time ==''){
 					uni.showToast({
-					  title: '请选择车辆类型',
+					  title: '请选择出发时间',
 					  icon: "none"
 					})
 					return false;
-				}
-				//判断是否选择派车数量
-				if(this.pickerNum[this.index1] === undefined){
-					uni.showToast({
-					  title: '请选择派车数量',
-					  icon: "none"
-					})
-					return false;
-				}
-				//判断是否选择电梯楼层
-				if(this.startfloor ===null || this.endfloor ===null ){
-					uni.showToast({
-					  title: '请选择是否有电梯',
-					  icon: "none"
-					})
-					return false;
-				}
+				};
+
 				//立即扔单
 				let grabInfo = {
 					customName: this.customName,
@@ -573,6 +594,10 @@
 				if (!validResult) {
 					return;
 				}
+				//防重复
+				 if (this.$mtRequest.isRepeat()) {
+				  return;
+				 };
 				// 发送网络请求
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
 						customerName: this.customName, 
@@ -629,6 +654,9 @@
 							this.pickerCar.push(item.name)
 						})
 						this.$mtRequest.stop();
+					}else{
+						// 如果车辆为请求到,pickerCar为默认值
+						this.pickerCar = ['暂无']
 					}
 					
 				});
@@ -641,7 +669,8 @@
 
 		},
 	};
-
+	
+	//车辆选择方法
 	function selectchange(data, lcarry, selectItem) {
 		data.multiIndex[selectItem.column] = selectItem.value;
 		if (selectItem.column == 0) {
@@ -654,13 +683,32 @@
 					break;
 			}
 		}
-	}
+	};
+	
+	//金额保留两位小数不足2位自动补零
+function returnFloat(e){
+	console.log(e);
+	// var value=Math.round(parseFloat(e.detail.value)*100)/100;
+	// var xsd=value.toString().split(".");
+	// if(xsd.length==1){
+	// 	value=value.toString()+".00";
+	// 	return value;
+	// }
+	// if(xsd.length>1){
+	// 	if(xsd[1].length<2){
+	// 		value=value.toString()+"0";
+	// 	};
+	// 	return value;
+	// }
+	// console.log(value);
+}
+
 </script>
 
 <style lang="less" scoped>
-	.uni-mask{
-		z-index: 9999999!important;
-	}
+	// .uni-mask{
+	// 	z-index: 9999999!important;
+	// }
 	.flexbox{
 	  display:flex;/*设为伸缩容器*/  
 	  flex-flow:row;/*伸缩项目单行排列*/ 

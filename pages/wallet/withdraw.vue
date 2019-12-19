@@ -29,7 +29,7 @@
 					￥
 				</view>
 				<view class="mt-monyttwo">
-					{{amount}}
+					{{withdrawable}}
 				</view>
 			</view>
 		</view>
@@ -48,7 +48,8 @@
 				cardNo:'',
 				amount:'0',
 				name:'',
-				merchantCode:''
+				merchantCode:'0',
+				withdrawable:'0',
 			}
 		},
 		onLoad() {
@@ -57,6 +58,7 @@
 			this.earningsmo();
 		},
 		methods: {
+			//查询
 			earnings() {
 				// 获取用户id
 			 let merchantInfoId = this.$mtAccount.info().merchantInfoId
@@ -81,6 +83,7 @@
 						this.$mtRequest.stop();
 					})
 			},
+			//查询
 			earningstwo() {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			console.log(merchantInfoId)
@@ -90,7 +93,7 @@
 				}, (data) => {
 				
 					if (data.state > 0) {
-						this.amount = data.data.amount;
+						this.withdrawable = data.data.withdrawable;
 					} else {
 						//登录失败
 						uni.showToast({
@@ -104,6 +107,7 @@
 				})
 				
 			},
+			//查询
 			earningsmo() {
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			
@@ -113,7 +117,7 @@
 				}, (data) => {
 					
 					if (data.state > 0) {
-						this.merchantCode = data.data.merchantCode;
+						
 					} else {
 						//登录失败
 						uni.showToast({
@@ -128,15 +132,28 @@
 				
 			},
 			earningstthree() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
 			
 				// let that=this;
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
-					merchantId: merchantInfoId,amount:this.amount,cardNo:this.cardNo,cardBank:this.bankName,name:this.name,phone:this.merchantCode
+					merchantId: merchantInfoId,amount:this.withdrawable,cardNo:this.cardNo,cardBank:this.bankName,name:this.name,phone:this.merchantCode
 				}, (data) => {
 					console.log(data.data)
 					if (data.state > 0) {
-						this.amount = data.data.amount;
+						uni.showToast({
+							title: "提现成功",
+							success: function() {
+								setTimeout(function() {
+									uni.navigateTo({
+										url: '../wallet/wallet'
+									});
+								}, 2000)
+							}
+						})
 						
 					} else {
 						//登录失败

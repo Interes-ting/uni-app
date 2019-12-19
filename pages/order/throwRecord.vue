@@ -57,7 +57,6 @@ export default {
 		};
 	},
 	onLoad() {
-		this.getThrowRecord();
 		this.throwMerchantInfoId =  this.$mtAccount.info().merchantInfoId;
 	},
 	onShow() {
@@ -73,7 +72,7 @@ export default {
 		},
 		
 		getThrowRecord: function() { //发送网络请求
-	
+		
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
 			{ type: '0', throwMerchantInfoId: this.throwMerchantInfoId}, res => {
 				this.Info = res.data;

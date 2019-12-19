@@ -114,8 +114,8 @@
 						{
 							//正则
 							type: "regexp",
-							regexp: /[0-9A-Za-z]{6,20}/,
-							msg: "请输入6~20个字符"
+							regexp: /^1[023456789]\d{9}$/,
+							msg: "请输入11位正确手机号码"
 						}
 					],
 					merchantName: [{
@@ -128,11 +128,21 @@
 						//必填
 						type: "require",
 						msg: "请输入密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 					confirmedcode: [{
 						//必填
 						type: "require",
 						msg: "请再次输入密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: /[0-9A-Za-z]{6,20}/,
+						msg: "请输入6~20个字符"
 					}],
 					validCode: [{
 						//必填
@@ -179,7 +189,7 @@
 				}
 			},
 			send() {
-				var ze = /[0-9A-Za-z]{6,20}/;
+				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
 				}
@@ -191,7 +201,7 @@
 					});
 				} else if (!ze.test(this.phone)) {
 					uni.showToast({
-						title: "请输入6~20个字符!",
+						title: "请输入11位正确手机号码!",
 						icon: "none"
 					});
 				} else {
@@ -243,6 +253,10 @@
 					});
 				} else {
 					//注册
+					//防重复
+					if (this.$mtRequest.isRepeat()) {
+						return;
+					}
 					let that = this;
 					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/register"), verificacode, function(data) {
 						if (data.state > 0) {

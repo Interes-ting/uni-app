@@ -39,7 +39,7 @@
 		}, {
 			"path": "pages/order/grabedOrderInfo",
 			"style": {
-				"navigationBarTitleText": "我抢的单"
+				"navigationBarTitleText": "抢单详情"
 			}
 		}, {
 			"path": "pages/order/grabOrderInfo",
@@ -100,7 +100,7 @@
 		}, {
 			"path": "pages/order/throwOrderInfo",
 			"style": {
-				"navigationBarTitleText": "我扔的单"
+				"navigationBarTitleText": "扔单详情"
 			}
 		}, {
 			"path": "pages/service/service",

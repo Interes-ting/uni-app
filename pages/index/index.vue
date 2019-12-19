@@ -64,9 +64,10 @@
 						<text class="mt-sos" v-if="item.isItUrgent == 1" >{{ item.isItUrgent == 1?'急':''}}</text>
 						<text class="mt-remark" v-if="item.carTypeName != ''">{{ item.carTypeName }}</text>
 					</view>
-					<view class="mt-startcity">
+					<view class="mt-startcity" style="height: 100%;">
 						<view class="mt-placebox"></view>
-						<text>此订单由{{ item.throwCompanyName}}提供</text>
+						<view style="display: inline-block;width:400rpx;word-break: break-all;">此订单由{{ item.throwCompanyName}}提供
+						</view>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
 					<button class="mt-elsebutton" v-else>已抢</button>
