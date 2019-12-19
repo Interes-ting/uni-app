@@ -22,7 +22,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input  password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
+						<input password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -162,15 +162,12 @@
 				}
 			},
 			send() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
-				}
+
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.account
 				}
-				
+
 				if (this.account == '') {
 					uni.showToast({
 						title: "请输入手机号!",
@@ -182,12 +179,15 @@
 						icon: "none"
 					});
 				} else {
-					
+
 					this.countDown(60);
 					//发送验证码
 					let that = this;
-					
-					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"),user,
+					//防重复
+					if (this.$mtRequest.isRepeat()) {
+						return;
+					}
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user,
 						function(data) {
 							if (data.state > 0) {
 								//密码重置
@@ -225,12 +225,13 @@
 						icon: "none"
 					});
 				} else {
+
+					//忘记密码
+					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
-					//忘记密码
-					let that = this;
 					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/retrieve"), verificacode, function(data) {
 						if (data.state > 0) {
 							//密码重置
@@ -263,12 +264,13 @@
 </script>
 
 <style>
-	.mt-inputcdy{
+	.mt-inputcdy {
 		width: 80%;
 		margin: 0 auto;
 		border: 0.66rpx solid #007AFF;
-		border-radius:40rpx;
+		border-radius: 40rpx;
 	}
+
 	.mt-zwf {
 		height: 60rpx;
 		width: 100%;
@@ -361,7 +363,7 @@
 	}
 
 	/* 验证码外部框宽度 */
-/* 	.mt-input-input.mt-yz {
+	/* 	.mt-input-input.mt-yz {
 
 		float: left;
 	} */

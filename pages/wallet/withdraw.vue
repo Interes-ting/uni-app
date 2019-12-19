@@ -144,13 +144,14 @@
 
 			},
 			earningstthree() {
+				
+
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				// let that=this;
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
 					return;
 				}
-
-				let merchantInfoId = this.$mtAccount.info().merchantInfoId
-				// let that=this;
 				if (this.withdrawable > 0) {
 					this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
 						merchantId: merchantInfoId,

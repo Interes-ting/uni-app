@@ -189,6 +189,10 @@
 				this.earningstwo();
 			},
 			tixian: function() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 				uni.navigateTo({
 					url: '../wallet/withdraw'
 				})
@@ -213,6 +217,7 @@
 			earnings() {				
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
+				
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
 					merchantId: merchantInfoId
 				}, (data) => {

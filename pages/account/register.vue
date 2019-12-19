@@ -223,10 +223,7 @@
 				}
 			},
 			send() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
-				}
+				
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
@@ -246,6 +243,10 @@
 					this.countDown(60);
 					//发送验证码
 					let that = this;
+					//防重复
+					if (this.$mtRequest.isRepeat()) {
+						return;
+					}
 					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone="), user,
 						function(data) {
 
