@@ -94,6 +94,11 @@
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					confirmpwd: [{
 						//必填
@@ -104,6 +109,11 @@
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
 						msg: "请再次输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					code: [{
 						//必填
