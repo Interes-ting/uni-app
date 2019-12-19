@@ -96,7 +96,7 @@ export default {
 					
 				}else {
 					uni.showToast({
-					title: data.message,
+					title: res.message,
 					icon: 'none'
 					});
 				}
