@@ -130,7 +130,11 @@ export default {
 				if(res.state==1){
 					this.OrderInfo =res.data;
 					this.needPay = Number(this.OrderInfo.payAmount) + Number(this.OrderInfo.rowPlatformFee)
-
+				}else {
+					uni.showToast({
+					title: res.message,
+					icon: 'none'
+					});
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});

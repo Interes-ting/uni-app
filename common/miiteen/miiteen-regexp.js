@@ -12,7 +12,7 @@ let regexpArry = {
 	 * @param {Object} m 小数位
 	 */
 	db: function(m) {
-		return eval("/^[0-9]+(.[0-9]{1," + m + "})?$/");
+		return new RegExp("^[0-9]+(.[0-9]{1," + m + "})?$");
 	}
 
 }
