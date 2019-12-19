@@ -150,6 +150,9 @@
 					});
 				}
 				// #endif
+				// #ifdef H5
+				this.login(user);
+				// #endif
 			},
 			login: function(user) {
 				//做校验
