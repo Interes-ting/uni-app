@@ -83,7 +83,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位密码"
 					}]
 				},
 				// #ifdef APP-PLUS
@@ -160,6 +160,7 @@
 				if (!validResult) {
 					return;
 				}
+				
 				//请求登录
 				this.$mtAccount.login(user, function() {
 					setTimeout(function() {

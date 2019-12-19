@@ -56,7 +56,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位旧密码"
 					}],
 					newpwd: [{
 						//必填
@@ -66,7 +66,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位新密码"
 					}],
 					confirmpwd: [{
 						//必填
@@ -76,7 +76,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请再次输入6~20位新密码"
 					}],
 				}
 			}
@@ -136,8 +136,8 @@
 							title: "密码修改成功",
 							success: function() {
 								setTimeout(function() {
-									uni.switchTab({
-										url: '../index/index'
+									uni.navigateBack({
+										delta: 1
 									});
 								}, 2000)
 							}

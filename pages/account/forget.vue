@@ -11,7 +11,7 @@
 						<view class="mt-loginimge mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model.trim="account" placeholder="输入您的手机号码" />
+						<input type="number" class="uni-input" v-model.trim="account" placeholder="输入您的手机号码" />
 					</view>
 				</view>
 			</view>
@@ -22,7 +22,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
+						<input  password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -44,7 +44,7 @@
 							<view class="mt-loginimge"></view>
 						</view>
 						<view class="mt-input-input mt-yz">
-							<input class="uni-input" v-model="code" maxlength="6" placeholder=" " />
+							<input type="number" class="uni-input" v-model="code" maxlength="6" placeholder=" " />
 						</view>
 					</view>
 					<view class="mt-input-img mt-yz">
@@ -93,7 +93,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位密码"
 					}],
 					confirmpwd: [{
 						//必填
@@ -103,7 +103,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请再次输入6~20位密码"
 					}],
 					code: [{
 						//必填
@@ -119,9 +119,11 @@
 		},
 		methods: {
 			logindex: function() {
-				uni.navigateTo({
-					url: '../login/login'
-				})
+				setTimeout(function() {
+					uni.navigateBack({
+						delta: 1
+					});
+				}, 2000)
 			},
 			// 倒计时显示处理
 			countDownText(s) {
