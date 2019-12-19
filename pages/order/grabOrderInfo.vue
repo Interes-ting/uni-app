@@ -151,7 +151,6 @@
 				carList: '',
 				orderId: null,
 				robMerchantInfoId: this.$mtAccount.info().merchantInfoId,
-				pay: null,
 				weixinpay: '' //抢单支付金额
 			};
 		},
@@ -182,8 +181,16 @@
 					return;
 				};
 
+				//开发环境，不调支付接口
+				//this.payOverTest();
 
 				//正式环境，调用支付接口
+				// #ifdef APP-PLUS
+				this.appPay();
+				// #endif
+				// #ifdef MP-WEIXIN
+				this.appletPay();
+				// #endif
 			},
 			//抢单支付接口
 			grab(data) {
