@@ -21,6 +21,7 @@ function login(user, successcallback) {
 				success: function() {
 					//设置当前登录用户信息
 					user.merchantInfoId = data.data.platformUserId;
+					user.city = 1;
 					uni.setStorageSync('curAccount', user);
 					//触发回调函数
 					successcallback();
