@@ -228,7 +228,6 @@
 										uni.navigateTo({
 											url: '../login/login'
 										});
-
 									}, 2000)
 								}
 							})
