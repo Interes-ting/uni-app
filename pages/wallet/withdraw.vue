@@ -136,9 +136,10 @@
 				if (this.$mtRequest.isRepeat()) {
 					return;
 				}
+				
 			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-			
 				// let that=this;
+			if(this.withdrawable > 0){
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
 					merchantId: merchantInfoId,amount:this.withdrawable,cardNo:this.cardNo,cardBank:this.bankName,name:this.name,phone:this.merchantCode
 				}, (data) => {
@@ -162,10 +163,16 @@
 							icon: "none"
 						})
 					}
-			
+							
 					//结束请求
 					this.$mtRequest.stop();
 				})
+			}else{
+				uni.showToast({
+					title: "暂无可提现金额",
+					icon: "none"
+				})
+			}
 			},
 		}
 	}
