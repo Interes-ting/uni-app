@@ -67,7 +67,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'否':'是'}}</text>
+					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'不需要':'需要'}}</text>
 				</view>
 			<!-- 搬运物品 -->
 				<view class="mt-startcity" style="display: flex;text-align: left;" v-if="OrderInfo.goods">

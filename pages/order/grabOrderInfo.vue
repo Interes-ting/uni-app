@@ -17,7 +17,7 @@
 					<text>派车数量：</text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.handlingNumber }}</text>
+					<text>{{ carList.vehiceNumber }}</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -186,13 +186,13 @@
 				// 开发环境，不调支付接口
 				this.payOverTest();
 
-				//正式环境，调用支付接口
-				// // #ifdef APP-PLUS
+				
+				// #ifdef APP-PLUS 
 				// this.appPay();
-				// // #endif
-				// // #ifdef MP-WEIXIN
+				// #endif
+				// #ifdef MP-WEIXIN
 				// this.appletPay();
-				// // #endif
+				// #endif
 
 
 			},
