@@ -135,7 +135,7 @@
 						</view>
 						<input placeholder="请输入订单金额" 
 						maxlength="6" type="number" name="input" v-model.trim="orderAmount"
-						 @blur="customNameValid('orderAmount')">
+						 @blur="customNameValid('orderAmount')" @input="oderMoney">
 						</input>
 					</view>
 					<view class="cu-form-group">
@@ -143,7 +143,7 @@
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
 							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
-							v-model.trim="pay" @input="getBymeney" @blur="customNameValid('pay')" ></input>
+							v-model.trim="pay" @input="getBymeney" @blur="customNameValid('pay')"></input>
 						<view style="overflow: hidden;">
 							平台服务费：{{fuwufei == null ? '' :fuwufei}}
 						</view>
@@ -342,6 +342,9 @@
 		methods: {
 			getBymeney(e) {
 				this.pay = e.detail.value;
+				let reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
+				let juli = reg.exec(e.detail.value);
+				setTimeout(() => { this.pay = juli[0]}, 0);
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`),
 				{payAmount: this.pay},(res)=>{
 					if(res.state == 1){
@@ -356,16 +359,22 @@
 			
 			// 距离保留小数点后两位
 			DeleteNumber:function(e){
+				let reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
+				let juli = reg.exec(e.detail.value);
+				setTimeout(() => { this.distance = juli[0]}, 0);
+	
+			},
+			// 订单金额
+			oderMoney:function(e){
+				console.log(e)
 				var reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
 				var juli = reg.exec(e.detail.value);
-				// console.log(juli);
-				// this.distance = juli[0];
-				setTimeout(() => { this.distance = juli[0]}, 0);
-				// console.log(juli[0]);
+				setTimeout(() => { this.orderAmount = juli[0]}, 0);
 			},
 			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
+				console.log(this.pay)
 				this.$refs.myPicker.show();
 			},
 
@@ -424,11 +433,14 @@
 					};
 				this.pickerCar[this.index];
 			},
-			
+			// 首尾中间去空格
+			phoneChange: function(value) {
+				value = value.replace(/\s+/g, "");
+			    return value
+			},
 
 			// 是否急单
 			SwitchB: function(e) {
-				console.log(e.detail.value);
 				this.switchB = e.detail.value
 				if (this.switchB == false) {
 					this.sos = 0 //true
@@ -548,6 +560,7 @@
 				 };
 				// 发送网络请求
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
+						city:this.$mtAccount.info().city,
 						customerName: this.customName, 
 						phone: this.customPhone,
 						fromAddress: this.startAddress,
@@ -649,7 +662,6 @@
 							this.multiArray[1] = this.lc1,
 							this.multiArray1[1] = this.lc1
 						}else {
-							console.log(res)
 						uni.showToast({
 							title: res.message,
 							icon: 'none'
@@ -698,10 +710,8 @@
 			}
 		}
 	};
-	// 首尾中间去空格
-	function phoneChange(value) {
-	    return value.replace(/\s+/g, "");
-	}
+	
+	
 	
 
 </script>

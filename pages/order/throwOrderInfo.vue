@@ -122,6 +122,11 @@ export default {
 				if(res.state==1){
 					this.oderList =res.data;
 					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee)
+				}else {
+					uni.showToast({
+					title: res.message,
+					icon: 'none'
+					});
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});

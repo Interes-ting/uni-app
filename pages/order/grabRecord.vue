@@ -91,6 +91,11 @@ export default {
 			{ type: '1', robMerchantInfoId:this.robMerchantInfoId }, (res)=> {
 				if(res.state==1){
 					this.recordList = res.data;
+				}else {
+					uni.showToast({
+					title: res.message,
+					icon: 'none'
+					});
 				}
 				//结束操作
 				this.$mtRequest.stop();

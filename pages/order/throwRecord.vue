@@ -77,7 +77,14 @@ export default {
 		
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/grabed_record/v2'), 
 			{ type: '0', throwMerchantInfoId: this.throwMerchantInfoId}, res => {
-				this.Info = res.data;
+				if(res.state == 1){
+					this.Info = res.data;
+				}else {
+					uni.showToast({
+					title: res.message,
+					icon: 'none'
+					});
+				}
 				//结束操作
 				this.$mtRequest.stop();
 			});

@@ -52,8 +52,8 @@
 					<view class="mt-startcity" 
 					style="display: flex;" v-if="item.goods !=null || item.goods !=''">
 						<view class="mtfa mt-box text-grey "></view>
-						<view class="text-remark text-grey" style="width: 140rpx;">搬运物品：</view>
-						<view class="text-remark-text text-grey">{{item.goods}}</view>
+						<view class="text-remark text-grey done-lode" style="width: 130rpx;">搬运物品：</view>
+						<view class="text-grey delite-text">{{item.goods}}</view>
 					</view>
 					<!-- tips start-->
 					<view style="margin-left: 40rpx;">
@@ -68,6 +68,7 @@
 						</view>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
+					<button class="mt-qiangdan" v-else-if="item.state == 2" >抢单中...</button>
 					<button class="mt-elsebutton" v-else>已抢</button>
 				</view>
 			</block>
@@ -83,21 +84,19 @@ export default {
 			itemid:''
 		};
 	},
-	onLoad() { // 页面加载时执行网络请求
-		this.getList();
-	},
 	onShow() {
 		this.getList();
 	},
 	methods: {
 		getList:function(){ //发送网络请求获取数据
-			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'),{}, (res) => {
+			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'),
+			{city:this.$mtAccount.info().city}, (res) => {
 				if(res.state==1){
 					this.carList =res.data;
 					
 				}else {
 					uni.showToast({
-					title: data.message,
+					title: res.message,
 					icon: 'none'
 					});
 				}
@@ -129,6 +128,18 @@ export default {
 </script>
 
 <style lang="less" scoped>
+	.done-lode {
+		float: left;
+		width: 100px;
+	}
+	.delite-text {
+		float:right;
+		width: 300rpx;
+		// background-color: pink;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
 	.mt-startcity,#tips{
 		width: auto;
 	}
@@ -283,6 +294,19 @@ image {
 		height: 68.66rpx;
 		line-height: 68.66rpx;
 		background: #cccccc;
+		/*设置按钮为渐变颜色*/
+		border-radius: 34.66rpx;
+		font-size: 36.66rpx;
+		color: #ffffff;
+	}
+	
+	.mt-qiangdan {
+		position: absolute;
+		right: 40rpx;
+		bottom: 20rpx;
+		height: 68.66rpx;
+		line-height: 68.66rpx;
+		background-color:#F76260;
 		/*设置按钮为渐变颜色*/
 		border-radius: 34.66rpx;
 		font-size: 36.66rpx;
