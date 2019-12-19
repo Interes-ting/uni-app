@@ -152,7 +152,7 @@
 			send() {
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
-					account: this.account,
+					phone: this.account
 				}
 				
 				if (this.account == '') {
@@ -174,7 +174,7 @@
 					//发送验证码
 					let that = this;
 					
-					this.$mtRequest.post(this.$mtConfig.getPersonUrl("/api/emh/account/ret_validcode?phone=15198201377"), user,
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"),user,
 						function(data) {
 							if (data.state > 0) {
 								//密码重置
