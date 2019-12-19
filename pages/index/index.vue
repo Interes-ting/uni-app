@@ -52,7 +52,7 @@
 					<view class="mt-startcity" 
 					style="display: flex;" v-if="item.goods !=null || item.goods !=''">
 						<view class="mtfa mt-box text-grey "></view>
-						<view class="text-remark text-grey done-lode">搬运物品：</view>
+						<view class="text-remark text-grey done-lode" style="width: 130rpx;">搬运物品：</view>
 						<view class="text-grey delite-text">{{item.goods}}</view>
 					</view>
 					<!-- tips start-->
@@ -130,7 +130,7 @@ export default {
 <style lang="less" scoped>
 	.done-lode {
 		float: left;
-		width: 66.66rpx;
+		width: 100px;
 	}
 	.delite-text {
 		float:right;
