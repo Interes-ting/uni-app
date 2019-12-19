@@ -331,6 +331,9 @@
 			this.multiArray[1] = this.lc1,
 			this.multiArray1[1] = this.lc1
 		},
+		onShow() {
+			this.checkCarType();
+		}
 		created() {
 			this.startyear = new Date().getFullYear()  //年
 			this.time = new Date().getFullYear() +
