@@ -3,15 +3,13 @@
 		<view class="mt-heis"></view>
 		<view class="mt-view">
 			<view class="mt-totalamount">
-				总额 (元)
+				可提现
 			</view>
 			<view class="mt-amount amount">
-				<view class="mt-amoutone" v-if="amount !=null ">
-					{{amount}}
+				<view class="mt-amoutone">
+					{{withdrawable}}
 				</view>
-				<view class="mt-amoutone" v-if="amount ===null">
-					0
-				</view>
+				
 				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
@@ -19,17 +17,17 @@
 			<view class="mt-amount text">
 				<view class="mt-cashout one">
 					<view class="mt-catext">
-						可提现 :{{withdrawable}}
-					</view>
-
-				</view>
-
-				<view class="mt-cashout two">
-					<view class="mt-catext">
 						核实中 : {{waitverify}}
 					</view>
 				</view>
-
+				<view class="mt-cashout two">
+					<view class="mt-catext" v-if="amount !=null ">
+						总额: {{amount}}
+					</view>
+					<view class="mt-catext" v-if="amount ===null">
+						总额: 0
+					</view>
+				</view>
 			</view>
 		</view>
 		<view class="mt-viewmx">
