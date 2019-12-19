@@ -107,7 +107,7 @@
 					<text>平台服务费：</text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.payAmount }}元</text>
+					<text>{{ carList.rowPlatformFee }}元</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
@@ -182,16 +182,8 @@
 					return;
 				};
 
-				//开发环境，不调支付接口
-				//this.payOverTest();
 
 				//正式环境，调用支付接口
-				// #ifdef APP-PLUS
-				this.appPay();
-				// #endif
-				// #ifdef MP-WEIXIN
-				this.appletPay();
-				// #endif
 			},
 			//抢单支付接口
 			grab(data) {

@@ -56,7 +56,7 @@
 					</view> -->
 					<view class="mt-startcity" style="display: flex;">
 						<view class="mtfa mt-box text-grey "></view>
-						<view class="text-remark text-grey">搬运物品：</view>
+						<view class="text-remark text-grey" style="width: 140rpx;">搬运物品：</view>
 						<view class="text-remark-text text-grey">{{item.goods}}</view>
 					</view>
 					<view class="mt-startcity">

@@ -7,7 +7,7 @@
 			</view>
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>银行卡号</view>
-				<input type="text" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" maxlength="19" />
+				<input type="number" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" maxlength="19" />
 			</view>
 			<view class="sheet">
 				<view class="titlee"><text class="red">*</text>开户行</view>
@@ -178,7 +178,7 @@
 
 	input {
 		width: 95%;
-		margin-top: 24rpx;
+		margin-top: 28rpx;
 		text-align: right;
 		margin-right: 40rpx;
 		z-index: 0;

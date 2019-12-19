@@ -40,7 +40,9 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text>此订单由{{item.throwCompanyName}}提供</text>
+					<view style="display: inline-block;width:500rpx;word-break: break-all;">
+						此订单由{{ item.throwCompanyName}}提供
+					</view>
 				</view>
 				<button class="mt-viewbutton" @tap="goThrowOrderInfo(item)">详情</button>
 			</view>

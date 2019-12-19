@@ -41,7 +41,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">搬入电梯楼层：{{oderList.intoElevator== null ? '有电梯':oderList.intoElevator}}，{{oderList.inFloor=== null ? 0 :oderList.inFloor }}楼</text>
+					<text class="text-grey">搬入电梯楼层：{{oderList.intoElevator== null ? '有电梯':oderList.intoElevator}}，{{oderList.inFloor=== null ? 0 :oderList.intoFloor }}楼</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -57,7 +57,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">被抢时间：{{oderList.robTime ==null?'未抢': oderList.robTime}}</text>
+					<text class="text-grey">被抢时间：{{oderList.robTime ==null?' ': oderList.robTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -121,8 +121,6 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.oderList =res.data;
-					console.log(this.oderList)
-					console.log()
 					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee)
 				}
 				this.$mtRequest.stop();//结束loading等待

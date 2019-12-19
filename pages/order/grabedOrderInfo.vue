@@ -16,11 +16,11 @@
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
-				<view class="mt-startcity">
+				<view class="mt-startcity" v-if="OrderInfo.carTypeName != null || OrderInfo.carTypeName != ''">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">车辆类型：{{OrderInfo.carTypeName}}</text>
 				</view>
-				<view class="mt-startcity">
+				<view class="mt-startcity"  v-if="OrderInfo.vehiceNumber != null || OrderInfo.vehiceNumber != ''">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">派车数量：{{OrderInfo.vehiceNumber}}</text>
 				</view>
@@ -70,8 +70,8 @@
 					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'否':'是'}}</text>
 				</view>
 			<!-- 搬运物品 -->
-				<view class="mt-startcity" style="display: flex;" v-if="OrderInfo.goods">
-					<view style="width: 550rpx;text-align:left;">
+				<view class="mt-startcity" style="display: flex;text-align: left;" v-if="OrderInfo.goods">
+					<view style="width: 160rpx;text-align:left;">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">搬运物品：</text>
 					</view>
@@ -79,7 +79,7 @@
 				</view>
 				<!-- 注意事项 -->
 				<view class="mt-startcity" style="display: flex;" v-if="OrderInfo.remark">
-					<view style="width: 550rpx;text-align:left ;">
+					<view style="width: 160rpx;text-align:left ;">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">注意事项：</text>
 					</view>
