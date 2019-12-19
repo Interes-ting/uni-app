@@ -55,7 +55,8 @@
                     "weixin" : {
                         "appid" : "wxab312c47bfa1b79f",
                         "UniversalLinks" : "https://wedding.hihizhu.com/"
-                    }
+                    },
+                    "appleiap" : {}
                 }
             },
             "splashscreen" : {
