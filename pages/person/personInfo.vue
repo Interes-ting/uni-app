@@ -50,7 +50,14 @@ export default {
 						type: 'require',
 						msg: '请输入公司名称'
 					}
+				],
+				businessLicense: [
+					{
+						type: 'regexp',
+						msg: '统一社会信用代码只能输入数字和字母'
+					}
 				]
+				
 			}
 		};
 	},
@@ -80,7 +87,8 @@ export default {
 		},
 		fnClick: function() {
 			let user = {
-				merchantName: this.merchantName
+				merchantName: this.merchantName,
+				businessLicense: this.businessLicense
 			};
 
 			//做校验
