@@ -6,8 +6,11 @@
 		<view class="mt-cardback">
 			<view class="mt-carsbk">
 				<view class="mt-cartext">
-					<view class="mt-cartext-size">
+					<view class="mt-cartext-size" v-if="message !='未获取到银行卡信息'">
 						{{bankName}}
+					</view>
+					<view class="mt-cartext-size"  v-if="message =='未获取到银行卡信息'">
+						 暂无银行卡信息
 					</view>
 					<view class="">
 
@@ -33,8 +36,11 @@
 				</view>
 			</view>
 		</view>
-		<view class="mt-loginbutn">
+		<view class="mt-loginbutn" v-if="message !='未获取到银行卡信息'" >
 			<button class="mt-loginbutndl" type="primary" @click="earningstthree">提现到银行卡</button>
+		</view>
+		<view class="mt-loginbutn" v-if="message =='未获取到银行卡信息'">
+			<button class="mt-loginbutndl" type="primary" @click="earningstthreetwo">添加银行卡</button>
 		</view>
 
 	</view>
@@ -44,12 +50,13 @@
 	export default {
 		data() {
 			return {
-				bankName:'',
+				bankName:'银行卡信息未填写',
 				cardNo:'',
 				amount:'0',
 				name:'',
 				merchantCode:'0',
 				withdrawable:'0',
+				message:'',
 			}
 		},
 		onLoad() {
@@ -65,6 +72,7 @@
 					// let that=this;
 					this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/bank_card/get"), {use_id: merchantInfoId
 					}, (data) => {	
+						this.message = data.message;
 						
 						if (data.state > 0) {
 						this.bankName =	data.data.bankName
@@ -174,6 +182,17 @@
 				})
 			}
 			},
+			earningstthreetwo(){
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
+				setTimeout(function() {
+					uni.navigateTo({
+						url: '../bank/bankEdit'
+					});
+				}, 2000)
+			}
 		}
 	}
 </script>
