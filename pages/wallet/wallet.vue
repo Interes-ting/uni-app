@@ -166,7 +166,12 @@
 			//初始账单列表查询
 			this.earningstwo();
 		},
-
+		onShow(){
+			//初始钱包查询
+			this.earnings();
+			//初始账单列表查询
+			this.earningstwo();
+		},
 		methods: {
 			bindPickerChange: function(e) {
 				let value = e.detail.value;
