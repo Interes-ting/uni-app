@@ -30,7 +30,7 @@
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
 				<view class="mt-flbox" style="width: 270rpx;">
 					<view class="mt-circle"></view>
-					<text >搬出地址：</text>
+					<text>搬出地址：</text>
 				</view>
 				<view class="mt-frbox" style="text-align: left;word-break: break-all;">
 					<text>{{ carList.fromAddress }}</text>
@@ -92,11 +92,8 @@
 			</view>
 			<view class="mt-content-box">
 				<view class="mt-flbox">
-					<text
-						class="mtfa mt-fuwufei"
-						style="color:#E9BC37;font-size: 45rpx;margin-right:0rpx;position: relative;
-								left:-8rpx;"
-					></text>
+					<text class="mtfa mt-fuwufei" style="color:#E9BC37;font-size: 45rpx;margin-right:0rpx;position: relative;
+								left:-8rpx;"></text>
 					<text>扔单提成：</text>
 				</view>
 				<view class="mt-frbox">
@@ -105,11 +102,8 @@
 			</view>
 			<view class="mt-content-box">
 				<view class="mt-flbox">
-					<text
-						class="mtfa mt-fuwufei"
-						style="color:#E9BC37;font-size: 45rpx;margin-right:0rpx;position: relative;
-								left:-8rpx;"
-					></text>
+					<text class="mtfa mt-fuwufei" style="color:#E9BC37;font-size: 45rpx;margin-right:0rpx;position: relative;
+								left:-8rpx;"></text>
 					<text>平台服务费：</text>
 				</view>
 				<view class="mt-frbox">
@@ -123,7 +117,7 @@
 				</view>
 				<view class="mt-frbox"><text>{{carList.isItchai ==1?'需要':'不需要'}}</text></view>
 			</view>
-		
+
 			<!-- 搬运物品 -->
 			<view class="mt-content-box">
 				<view style="width:270rpx;">
@@ -142,7 +136,7 @@
 		</view>
 
 		<view style="text-align: center;">
-			<button class="mt-seedeil-btn" @tap="payMoney()">
+			<button class="mt-seedeil-btn" @tap="payMoney">
 				<text class="text-price" style="margin-right: 30rpx;">{{ weixinpay }}元</text>
 				抢单并支付
 			</button>
@@ -151,169 +145,277 @@
 </template>
 
 <script>
-export default {
-	data() {
-		return {
-			carList: '',
-			orderId: null,
-			robMerchantInfoId: this.$mtAccount.info().merchantInfoId,
-			pay: null,
-			weixinpay: '' //抢单支付金额
-		};
-	},
-	onLoad: function(option) {
-		this.orderId = option.id;
-	},
-	onShow() {
-		this.getInfo();
-	},
-	methods: {
-		getInfo: function() {
-			//防重复
-			   if (this.$mtRequest.isRepeat()) {
-			    return;
-			   }
-			//获取订单信息
-			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id=' + this.orderId), {}, res => {
-				if (res.state == 1) {
-					this.carList = res.data;
-					this.weixinpay = Number(this.carList.payAmount) + Number(this.carList.rowPlatformFee);
-				}
-				this.$mtRequest.stop(); //结束loading等待
-			});
-		},
-
-		payMoney: function() {
-			console.log(this.$mtRequest.isRepeat());
-			//防重复
-			if (this.$mtRequest.isRepeat()) {
-				return;
+	export default {
+		data() {
+			return {
+				carList: '',
+				orderId: null,
+				robMerchantInfoId: this.$mtAccount.info().merchantInfoId,
+				pay: null,
+				weixinpay: '' //抢单支付金额
 			};
-			// 抢单并支付
-			this.$mtRequest.post(
-				this.$mtConfig.getPlatformUrl('api/order_info/grab2'),
-				{
+		},
+		onLoad: function(option) {
+			this.orderId = option.id;
+		},
+		onShow() {
+			this.getInfo();
+		},
+		methods: {
+			getInfo: function() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
+				//获取订单信息
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id=' + this.orderId), {}, res => {
+					if (res.state == 1) {
+						this.carList = res.data;
+						this.weixinpay = Number(this.carList.payAmount) + Number(this.carList.rowPlatformFee);
+					}
+					this.$mtRequest.stop(); //结束loading等待
+				});
+			},
+
+			payMoney: function() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				};
+
+				//开发环境，不调支付接口
+				//this.payOverTest();
+
+				//正式环境，调用支付接口
+				// #ifdef APP-PLUS
+				this.appPay();
+				// #endif
+				// #ifdef MP-WEIXIN
+				this.appletPay();
+				// #endif
+
+
+			},
+			//抢单支付接口
+			grab(data) {
+				this.$mtRequest.post(
+					this.$mtConfig.getPlatformUrl('api/order_info/grab2'), {
+						type: '1',
+						orderId: this.orderId,
+						robMerchantInfoId: this.robMerchantInfoId,
+						paymentAmount: this.weixinpay
+					},
+					res => {
+						// 抢单成功后跳转支付
+						if (res.state > 0) {
+							uni.requestPayment({
+								provider: 'wxpay',
+								orderInfo: JSON.stringify(res.data),
+								success: this.paySuccessCallback,
+								fail: this.payFailCallback
+							});
+						} else {
+							uni.showToast({
+								title: res.message,
+								icon: "none"
+							})
+						}
+
+						this.$mtRequest.stop(); //结束loading等待
+					});
+			},
+			//不支付时使用（仅测试使用，正式不使用）
+			payOverTest() {
+				this.$mtRequest.post(
+					this.$mtConfig.getPlatformUrl('api/order_info/grab2'), {
+						type: '1',
+						orderId: this.orderId,
+						robMerchantInfoId: this.robMerchantInfoId,
+						paymentAmount: this.weixinpay
+					},
+					res => {
+						// 抢单成功后跳转支付
+						if (res.state > 0) {
+							this.$mtRequest.post(
+								this.$mtConfig.getPlatformUrl('api/order_info/grab_payed_notice_cs'), {
+									orderInfoId: res.data.orderInfoId,
+									robMerchantInfoId: res.data.robMerchantInfoId,
+									orderGrabId: res.data.orderGrabId,
+									payPayOrderId: res.data.payPayOrderId,
+									prepayid: res.data.prepayid
+								},
+								res => {
+									if (res.state == 1) {
+										uni.showToast({
+											title: '抢单成功',
+											success: function() {
+												setTimeout(function() {
+													uni.navigateTo({
+														url: 'grabRecord'
+													});
+												}, 2000);
+											}
+										});
+									};
+									this.$mtRequest.stop();
+								});
+						} else {
+							uni.showToast({
+								title: res.message,
+								icon: "none"
+							})
+						}
+
+						this.$mtRequest.stop(); //结束loading等待
+					});
+			},
+			// #ifdef APP-PLUS
+			appPay() {
+				this.grab({
 					type: '1',
 					orderId: this.orderId,
 					robMerchantInfoId: this.robMerchantInfoId,
 					paymentAmount: this.weixinpay
-				},
-				res => {
-					if(res.state == -1){
-						uni.showToast({
-						  title: res.message,
-						  icon: "none"
+				});
+			},
+			// #endif
+			// #ifdef MP-WEIXIN
+			appletPay() {
+				uni.authorize({
+					scope: 'scope.userInfo',
+					success() {
+						uni.getUserInfo({
+							provider: "weixin",
+							success: function(userInfo) {
+								this.grab({
+									type: '3',
+									orderId: this.orderId,
+									robMerchantInfoId: this.robMerchantInfoId,
+									paymentAmount: this.weixinpay,
+									"openId": userInfo.openId
+								});
+							},
+							fail: function() {
+								payFailCallback();
+							}
 						})
 					}
-					// 抢单成功后跳转支付
-          if ((res.state = 1)) {
-            this.pay = res.data;
-            this.$mtRequest.post(
-            this.$mtConfig.getPlatformUrl('api/order_info/grab_payed_notice_cs'),
-            {
-              orderInfoId: this.pay.orderInfoId,
-              robMerchantInfoId: this.pay.robMerchantInfoId,
-              orderGrabId: this.pay.orderGrabId,
-              payPayOrderId: this.pay.payPayOrderId,
-              prepayid: this.pay.prepayid
-            },
-            res => {
-              if (res.state == 1) {
-                uni.showToast({
-                title: '抢单成功',
-                success: function() {
-                setTimeout(function() {
-                uni.navigateTo({ url: 'grabRecord' });
-                }, 2000);
-              }
-            });
-          };
-          this.$mtRequest.stop();
-        });
-			 }
-			});
-			
-			this.$mtRequest.stop(); //结束loading等待
+				})
+			},
+			// #endif
+			paySuccessCallback() {
+				uni.showModal({
+					title: '',
+					content: '支付成功',
+					showCancel: false,
+					success: function() {
+						uni.navigateTo({
+							url: 'grabRecord'
+						});
+					}
+				});
+			},
+			payFailCallback() {
+				uni.showModal({
+					title: '',
+					content: '支付失败',
+					showCancel: false,
+					success: function() {
+						uni.navigateBack({})
+					}
+				});
+			}
 		}
-	}
-};
+	};
 </script>
 
 <style lang="scss" scoped>
-page {
-	font-size: 26.66rpx;
-	color: #333333;
-	text-align: center;
-}
-.content {
-	border: 5px solid blue;
-	overflow: hidden;
-}
-.leftpanel {
-	background-color: red;
-	width: 300px;
-	height: auto;
-	float: left;
-	padding-bottom: 3000px;
-	margin-bottom: -3000px;
-}
-#right {
-	padding-left: 300px;
-}
-#rightpanel {
-	background-color: green;
-	height: 100px;
-	padding-bottom: 3000px;
-	margin-bottom: -3000px;
-}
-.gradRecord-content {
-	padding: 20rpx;
-}
-.mt-card {
-	padding: 0rpx 20rpx;
-	background-color: #ffffff;
-	box-shadow: 0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
-	border-radius: 13.33rpx;
-	margin: 13.33rpx 0rpx;
-	margin-bottom: 40rpx;
-	.mt-content-box {
-		display: flex;
-		justify-content: space-between;
-		border-bottom: 0.33rpx solid #eeeeee;
-		padding: 20rpx 13.33rpx 20rpx 0rpx;
-		.mt-placebox {
-			display: inline-block;
-			width: 33.33rpx;
-			background-color: red;
-			text-align: center;
-		}
-		.mt-circle {
-			display: inline-block;
-			position: relative;
-			margin-right: 20rpx;
-			width: 8rpx;
-			height: 8rpx;
-			border-radius: 50%;
-			background-color: #09bb07;
-		}
-		.bgc {
-			background-color: rgba(183, 26, 0, 1);
-		}
-		.mtfa {
-			margin-right: 13.33rpx;
-			font-size: 33.33rpx;
+	page {
+		font-size: 26.66rpx;
+		color: #333333;
+		text-align: center;
+	}
+
+	.content {
+		border: 5px solid blue;
+		overflow: hidden;
+	}
+
+	.leftpanel {
+		background-color: red;
+		width: 300px;
+		height: auto;
+		float: left;
+		padding-bottom: 3000px;
+		margin-bottom: -3000px;
+	}
+
+	#right {
+		padding-left: 300px;
+	}
+
+	#rightpanel {
+		background-color: green;
+		height: 100px;
+		padding-bottom: 3000px;
+		margin-bottom: -3000px;
+	}
+
+	.gradRecord-content {
+		padding: 20rpx;
+	}
+
+	.mt-card {
+		padding: 0rpx 20rpx;
+		background-color: #ffffff;
+		box-shadow: 0px 0px 25.33rpx 0px rgba(0, 0, 0, 0.08);
+		border-radius: 13.33rpx;
+		margin: 13.33rpx 0rpx;
+		margin-bottom: 40rpx;
+
+		.mt-content-box {
+			display: flex;
+			justify-content: space-between;
+			border-bottom: 0.33rpx solid #eeeeee;
+			padding: 20rpx 13.33rpx 20rpx 0rpx;
+
+			.mt-placebox {
+				display: inline-block;
+				width: 33.33rpx;
+				background-color: red;
+				text-align: center;
+			}
+
+			.mt-circle {
+				display: inline-block;
+				position: relative;
+				margin-right: 20rpx;
+				width: 8rpx;
+				height: 8rpx;
+				border-radius: 50%;
+				background-color: #09bb07;
+			}
+
+			.bgc {
+				background-color: rgba(183, 26, 0, 1);
+			}
+
+			.mtfa {
+				margin-right: 13.33rpx;
+				font-size: 33.33rpx;
+			}
 		}
 	}
-}
-.mt-seedeil-btn {
-	width: 416.74rpx;
-	height: 71.08rpx;
-	text-align: center;
-	line-height: 71.08rpx;
-	border-radius: 35.54rpx;
-	background: linear-gradient(#1880ff, #6fafff);
-	color: #fff;
-	font-size: 31.3rpx;
-	margin-bottom: 20rpx;
-}
+
+	.mt-seedeil-btn {
+		width: 416.74rpx;
+		height: 71.08rpx;
+		text-align: center;
+		line-height: 71.08rpx;
+		border-radius: 35.54rpx;
+		background: linear-gradient(#1880ff, #6fafff);
+		color: #fff;
+		font-size: 31.3rpx;
+		margin-bottom: 20rpx;
+	}
 </style>
