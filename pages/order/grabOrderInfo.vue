@@ -176,7 +176,6 @@
 					this.$mtRequest.stop(); //结束loading等待
 				});
 			},
-
 			payMoney: function() {
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
@@ -193,27 +192,34 @@
 				// #ifdef MP-WEIXIN
 				this.appletPay();
 				// #endif
-
-
 			},
 			//抢单支付接口
 			grab(data) {
 				this.$mtRequest.post(
-					this.$mtConfig.getPlatformUrl('api/order_info/grab2'), {
-						type: '1',
-						orderId: this.orderId,
-						robMerchantInfoId: this.robMerchantInfoId,
-						paymentAmount: this.weixinpay
-					},
+					this.$mtConfig.getPlatformUrl('api/order_info/grab2'), data,
 					res => {
 						// 抢单成功后跳转支付
 						if (res.state > 0) {
+							// #ifdef APP-PLUS
 							uni.requestPayment({
 								provider: 'wxpay',
 								orderInfo: JSON.stringify(res.data),
 								success: this.paySuccessCallback,
 								fail: this.payFailCallback
 							});
+							// #endif
+							// #ifdef MP-WEIXIN
+							uni.requestPayment({
+								provider: 'wxpay',
+								timeStamp: res.data.timestamp,
+								nonceStr: res.data.noncestr,
+								package: res.data.package,
+								signType: "MD5",
+								paySign: res.data.paysign,
+								success: this.paySuccessCallback,
+								fail: this.payFailCallback
+							});
+							// #endif
 						} else {
 							uni.showToast({
 								title: res.message,
@@ -281,26 +287,13 @@
 			// #endif
 			// #ifdef MP-WEIXIN
 			appletPay() {
-				uni.authorize({
-					scope: 'scope.userInfo',
-					success() {
-						uni.getUserInfo({
-							provider: "weixin",
-							success: function(userInfo) {
-								this.grab({
-									type: '3',
-									orderId: this.orderId,
-									robMerchantInfoId: this.robMerchantInfoId,
-									paymentAmount: this.weixinpay,
-									"openId": userInfo.openId
-								});
-							},
-							fail: function() {
-								payFailCallback();
-							}
-						})
-					}
-				})
+				this.grab({
+					type: '3',
+					orderId: this.orderId,
+					robMerchantInfoId: this.robMerchantInfoId,
+					paymentAmount: this.weixinpay,
+					"openId": this.$mtAccount.info().openId
+				});
 			},
 			// #endif
 			paySuccessCallback() {
@@ -315,7 +308,10 @@
 					}
 				});
 			},
-			payFailCallback() {
+			payFailCallback(a) {
+				if (process.env.NODE_ENV === 'development') {
+					console.log(JSON.stringify(a))
+				}
 				uni.showModal({
 					title: '',
 					content: '支付失败',
