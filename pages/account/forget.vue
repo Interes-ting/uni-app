@@ -11,7 +11,7 @@
 						<view class="mt-loginimge mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model="account" placeholder="输入您的手机号码" />
+						<input class="uni-input" v-model.trim="account" placeholder="输入您的手机号码" />
 					</view>
 				</view>
 			</view>
@@ -150,6 +150,10 @@
 				}
 			},
 			send() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.account
@@ -166,10 +170,7 @@
 						icon: "none"
 					});
 				} else {
-					//防重复
-					if (this.$mtRequest.isRepeat()) {
-						return;
-					}
+					
 					this.countDown(60);
 					//发送验证码
 					let that = this;

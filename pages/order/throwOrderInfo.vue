@@ -15,11 +15,11 @@
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
-				<view class="mt-startcity">
+				<view class="mt-startcity" v-if="oderList.carTypeName != null">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">车辆类型：{{oderList.carTypeName}}</text>
 				</view>
-				<view class="mt-startcity">
+				<view class="mt-startcity" v-if="oderList.carTypeName != null">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">派车数量：{{oderList.vehiceNumber}}</text>
 				</view>

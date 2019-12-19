@@ -49,21 +49,19 @@
 						<view class="mtfa mt-clocks text-grey "></view>
 						<text class="text-grey">出发时间：{{ item.deliveryTime }}</text>
 					</view>
-					<!-- <view class="mt-startcity">
-						<view class="mtfa mt-box text-grey "></view>
-						<text class="text-grey ">搬运物品：</text>
-						<text>{{ item.goods }}</text>
-					</view> -->
-					<view class="mt-startcity" style="display: flex;">
+					<view class="mt-startcity" 
+					style="display: flex;" v-if="item.goods !=null || item.goods !=''">
 						<view class="mtfa mt-box text-grey "></view>
 						<view class="text-remark text-grey" style="width: 140rpx;">搬运物品：</view>
 						<view class="text-remark-text text-grey">{{item.goods}}</view>
 					</view>
-					<view class="mt-startcity">
+					<!-- tips start-->
+					<view style="margin-left: 40rpx;">
 						<view class="mt-placebox"></view>
 						<text class="mt-sos" v-if="item.isItUrgent == 1" >{{ item.isItUrgent == 1?'急':''}}</text>
 						<text class="mt-remark" v-if="item.carTypeName != ''">{{ item.carTypeName }}</text>
 					</view>
+					<!-- tips end-->
 					<view class="mt-startcity" style="height: 100%;">
 						<view class="mt-placebox"></view>
 						<view style="display: inline-block;width:400rpx;word-break: break-all;">此订单由{{ item.throwCompanyName}}提供
@@ -131,6 +129,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+	.mt-startcity,#tips{
+		width: auto;
+	}
 	.text-hidden{
 		white-space: nowrap;
 		text-overflow: ellipsis;
@@ -201,6 +202,23 @@ image {
 	right: 13.33rpx;
 	top: 20%;
 }
+.mt-sos {
+			margin-right: 10rpx;
+			padding: 3.33rpx 10rpx;
+			font-size: 20rpx;
+			background-color: red;
+			color: #ffffff;
+			border: 1px solid red;
+			border-radius: 25%;
+		}
+		.mt-remark {
+			margin-right: 10rpx;
+			padding: 3.33rpx 10rpx;
+			font-size: 20rpx;
+			color: #ff571d;
+			border: 1px solid #ff571d;
+			border-radius: 10.66rpx;
+		}
 
 .imgsecond {
 	width: 62rpx;
@@ -242,23 +260,7 @@ image {
 			display: inline-block;
 			width: 36.66rpx;
 		}
-		.mt-sos {
-			margin-right: 10rpx;
-			padding: 3.33rpx 10rpx;
-			font-size: 20rpx;
-			background-color: red;
-			color: #ffffff;
-			border: 1px solid red;
-			border-radius: 25%;
-		}
-		.mt-remark {
-			margin-right: 10rpx;
-			padding: 3.33rpx 10rpx;
-			font-size: 20rpx;
-			color: #ff571d;
-			border: 1px solid #ff571d;
-			border-radius: 10.66rpx;
-		}
+		
 	}
 	.mt-viewbutton {
 		position: absolute;

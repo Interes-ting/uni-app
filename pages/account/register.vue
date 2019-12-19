@@ -11,7 +11,7 @@
 						<view class="mt-loginimge mtfa mt-dianhua"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model="phone" placeholder="输入用户手机号码" />
+						<input class="uni-input" v-model.trim="phone" placeholder="输入用户手机号码" />
 					</view>
 				</view>
 			</view>
@@ -189,6 +189,10 @@
 				}
 			},
 			send() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
