@@ -157,8 +157,8 @@
 							title: "提现成功",
 							success: function() {
 								setTimeout(function() {
-									uni.navigateTo({
-										url: '../wallet/wallet'
+									uni.navigateBack({
+										delta: 1
 									});
 								}, 2000)
 							}
