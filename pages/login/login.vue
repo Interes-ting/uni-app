@@ -89,11 +89,17 @@
 				// #ifdef APP-PLUS
 				privacyShow: false,
 				// #endif
+				// #ifdef MP-WEIXIN
+				openId: ""
+				// #endif
 			}
 		},
 		onLoad: function() {
 			// #ifdef APP-PLUS
 			this.privacyValid();
+			// #endif
+			// #ifdef MP-WEIXIN
+			this.getOpenId();
 			// #endif
 		},
 		onReady: function() {
@@ -102,7 +108,9 @@
 			if (accountInfo) {
 				this.account = accountInfo.account;
 				this.password = accountInfo.password;
-				this.loginbtn();
+				setTimeout(() => {
+					this.loginbtn();
+				}, 1000)
 			}
 		},
 		methods: {
@@ -117,24 +125,33 @@
 				})
 			},
 			loginbtn: function() {
+				let user = {
+					account: this.account,
+					password: this.password
+				}
 				// #ifdef APP-PLUS
 				this.versionCheck(() => {
 					if (!this.privacyValid()) {
 						return;
 					}
-					this.login();
+					this.login(user);
 				})
 				//#endif
-				// #ifndef APP-PLUS
-				this.login();
+				// #ifdef MP-WEIXIN
+				if (this.openId) {
+					user.openId = this.openId;
+					this.login(user);
+				} else {
+					this.getOpenId(function() {
+						uni.showToast({
+							title: "登录失败，请重试",
+							icon: "none"
+						})
+					});
+				}
 				// #endif
 			},
-			login: function() {
-				let user = {
-					account: this.account,
-					password: this.password
-				}
-
+			login: function(user) {
 				//做校验
 				let validResult = this.$mtValidation.valid(user, this.rules);
 				if (!validResult) {
@@ -148,7 +165,6 @@
 						});
 					}, 2000)
 				})
-
 			},
 			// #ifdef APP-PLUS
 			/**
@@ -198,6 +214,28 @@
 			privacyPass() {
 				uni.setStorageSync("privacy", "1");
 				this.privacyShow = false;
+			},
+			// #endif
+			// #ifdef MP-WEIXIN
+			getOpenId(callback) {
+				uni.login({
+					provider: 'weixin',
+					success: loginRes => {
+						if (loginRes.code) {
+							this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/wechat/code2Session"), {
+								code: loginRes.code
+							}, result => {
+								this.openId = result.data.openid;
+								//结束请求
+								this.$mtRequest.stop();
+								//回调
+								if (callback) {
+									callback();
+								}
+							})
+						}
+					}
+				});
 			}
 			// #endif
 		}
@@ -287,5 +325,4 @@
 		border-radius: 60rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 	}
-	
 </style>
