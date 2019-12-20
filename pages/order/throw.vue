@@ -1029,7 +1029,7 @@
 			height: 100rpx;
 			display: flex;
 			align-items: center;
-			background-color: white;
+			// background-color: white;
 
 			.mt-seedeil-btn {
 				width: 80%;
