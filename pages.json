@@ -9,7 +9,8 @@
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "轻松搬家平台"
+				"navigationBarTitleText": "轻松搬家平台",
+				"enablePullDownRefresh": true //开启下拉刷新
 			}
 		}, {
 			"path": "pages/account/register",
@@ -29,7 +30,8 @@
 		}, {
 			"path": "pages/order/throwRecord",
 			"style": {
-				"navigationBarTitleText": "我扔的单"
+				"navigationBarTitleText": "我扔的单",
+				"enablePullDownRefresh": true //开启下拉刷新
 			}
 		}, {
 			"path": "pages/order/throw",
@@ -39,7 +41,7 @@
 		}, {
 			"path": "pages/order/grabedOrderInfo",
 			"style": {
-				"navigationBarTitleText": "抢单详情"
+				"navigationBarTitleText": "我抢的单"
 			}
 		}, {
 			"path": "pages/order/grabOrderInfo",
@@ -50,7 +52,9 @@
 		{
 			"path": "pages/order/grabRecord",
 			"style": {
-				"navigationBarTitleText": "我的抢单"
+				"navigationBarTitleText": "我抢的单",
+				"enablePullDownRefresh": true //开启下拉刷新
+				
 			}
 		}, {
 			"path": "pages/wallet/wallet",
@@ -101,7 +105,7 @@
 		}, {
 			"path": "pages/order/throwOrderInfo",
 			"style": {
-				"navigationBarTitleText": "扔单详情"
+				"navigationBarTitleText": "我扔的单"
 			}
 		}, {
 			"path": "pages/service/service",

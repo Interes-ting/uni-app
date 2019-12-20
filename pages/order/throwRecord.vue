@@ -64,6 +64,13 @@ export default {
 	onShow() {
 		this.getThrowRecord();
 	},
+	//下拉刷新
+	onPullDownRefresh() {
+	     this.getThrowRecord();
+	     setTimeout(function () {
+	        uni.stopPullDownRefresh();
+	    }, 1000);
+	},
 	methods: {
 		goThrowOrderInfo: function(item) { //跳转到扔单详情
 			let param = item;
