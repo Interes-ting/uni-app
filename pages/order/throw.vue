@@ -37,15 +37,13 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="客户名" maxlength="10" v-model.trim="customName" 
-						@blur="customNameValid('customName')" @input="phoneChange(customName)"></input>
+						<input placeholder="客户名" maxlength="10" v-model.trim="customName" @blur="customNameValid('customName')" @input="phoneChange(customName)"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
 
-						<input placeholder="请输入手机号" type="number" name="input" 
-						v-model.trim="customPhone" @blur="customNameValid('customPhone')"  
-						@input="phoneChange(customPhone)"></input>
+						<input placeholder="请输入手机号" type="number" name="input" v-model.trim="customPhone" @blur="customNameValid('customPhone')"
+						 @input="phoneChange(customPhone)"></input>
 
 					</view>
 					<!-- 搬入搬出 start-->
@@ -61,8 +59,7 @@
 						<view class="flexbox">
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
-								<picker mode="multiSelector" @change="MultiChange" 
-								@columnchange="MultiColumnChange" :value="multiIndex" :range="multiArray">
+								<picker mode="multiSelector" @change="MultiChange" @columnchange="MultiColumnChange" :value="multiIndex" :range="multiArray">
 									<view class="picker-text" v-if="startfloor == null">
 										请选择
 										<text class="cuIcon-right righticon"></text>
@@ -76,8 +73,7 @@
 						</view>
 						<view class="cu-form-group">
 							<text class="required">*</text>
-							<input placeholder="您搬到哪里去" maxlength="25" name="input" v-model.trim="endAddress"
-							 @blur="customNameValid('endAddress')"
+							<input placeholder="您搬到哪里去" maxlength="25" name="input" v-model.trim="endAddress" @blur="customNameValid('endAddress')"
 							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<view class="mt-move-circle newcolor"></view>
@@ -85,8 +81,7 @@
 						<view class="flexbox">
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
-								<picker mode="multiSelector" @change="MultiChange1" 
-								@columnchange="MultiColumnChange" :value="multiIndex"
+								<picker mode="multiSelector" @change="MultiChange1" @columnchange="MultiColumnChange" :value="multiIndex"
 								 :range="multiArray">
 									<view class="picker-text" v-if="endfloor == null">
 										请选择
@@ -112,16 +107,14 @@
 
 						</view>
 						<!-- 时间日期选择器start-->
-						<simple-datetime-picker ref="myPicker" @submit="handleSubmit" 
-						:start-year="2019" :end-year="2030" color="rgb(30, 131, 255)">
+						<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2030" color="rgb(30, 131, 255)">
 						</simple-datetime-picker>
 						<!-- 时间日期选择器end -->
 					</view>
 
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" maxlength="6"
-						name="input" v-model.trim="distance" @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" maxlength="6" name="input" v-model.trim="distance" @blur="customNameValid('distance')"></input>
 
 					</view>
 					<view class="cu-form-group ">
@@ -129,17 +122,14 @@
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;">
 							<text class="required">*</text>订单金额：
 						</view>
-						<input placeholder="请输入订单金额" 
-						maxlength="6" type="number" name="input" v-model.trim="orderAmount"
-						 @blur="customNameValid('orderAmount')">
+						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model.trim="orderAmount" @blur="customNameValid('orderAmount')">
 						</input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-						<input placeholder="请输入提成金额" maxlength="6" type="number" name="input" v-model.trim="pay" 
-						@input="getBymeney"
+						<input placeholder="请输入提成金额" maxlength="6" type="number" name="input" v-model.trim="pay" @input="getBymeney"
 						 @blur="customNameValid('pay')"></input>
 						<view style="overflow: hidden;">
 							平台服务费：{{fuwufei == null ? '' :fuwufei}}
@@ -175,7 +165,7 @@
 					</view>
 				</view>
 			</form>
-			<view style="position: relative;width: 100%;height: 387.39rpx;">
+			<view class="throwBtn">
 				<button class="mt-seedeil-btn" @tap="goThrow">立即扔单</button>
 			</view>
 		</view>
@@ -342,9 +332,10 @@
 		methods: {
 			getBymeney(e) {
 				this.pay = e.detail.value;
-				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`),
-				{payAmount: this.pay},(res)=>{
-					if(res.state == 1){
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
+					payAmount: this.pay
+				}, (res) => {
+					if (res.state == 1) {
 						this.fuwufei = res.data;
 					}
 					this.$mtRequest.stop(); //结束loading等待
@@ -517,14 +508,14 @@
 					})
 					return false;
 				};
-				if(this.orderAmount == 0 ){
+				if (this.orderAmount == 0) {
 					uni.showToast({
-					  title: '请选择出发时间',
-					  icon: "none"
+						title: '请选择出发时间',
+						icon: "none"
 					})
 					return false;
 				};
-		
+
 				//立即扔单
 				let grabInfo = {
 					customName: this.customName,
@@ -651,17 +642,17 @@
 									[]
 								],
 								this.multiIndex1 = [0, 0]
-								this.multiArray[1] = this.lc1,
+							this.multiArray[1] = this.lc1,
 								this.multiArray1[1] = this.lc1
-						}else {
-						uni.showToast({
-							title: res.message,
-							icon: 'none'
-						});
-						console.log(this.pickerCar);
-						this.$mtRequest.stop();//结束loading等待
-					};
-				});
+						} else {
+							uni.showToast({
+								title: res.message,
+								icon: 'none'
+							});
+							console.log(this.pickerCar);
+							this.$mtRequest.stop(); //结束loading等待
+						};
+					});
 			},
 
 			checkCarType: function() { //发送网络请求获取车辆类型
@@ -705,10 +696,11 @@
 </script>
 
 <style lang="less" scoped>
-	.datetime-picker{
-		z-index:99999999;
+	.datetime-picker {
+		z-index: 99999999;
 	}
-	.cu-form-group .title{
+
+	.cu-form-group .title {
 		font-size: 26.66rpx;
 	}
 
@@ -799,24 +791,6 @@
 	.mt-iconbox {
 		font-size: 33.33rpx;
 		color: #F06523;
-	}
-
-	.mt-seedeil-btn {
-		width: 576.52rpx;
-		height: 97.82rpx;
-		background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
-		border-radius: 48.91rpx;
-		top: 160.43rpx;
-		display: inline-block;
-		text-align: center;
-		line-height: 97.82rpx;
-		color: #fff;
-		font-size: 32rpx;
-
-		position: absolute;
-		bottom: 26.08rpx;
-		left: 50%;
-		transform: translateX(-50%);
 	}
 
 	page {
@@ -1036,6 +1010,26 @@
 						}
 					}
 				}
+			}
+		}
+
+		.throwBtn {
+			position: fixed;
+			left: 0;
+			bottom: var(--window-bottom);
+			width: 100%;
+			height: 97.82rpx;
+
+			.mt-seedeil-btn {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
+				color: #fff;
+				font-size: 32rpx;
+				border-radius: 0rpx;
 			}
 		}
 	}
