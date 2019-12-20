@@ -11,7 +11,7 @@
 						<view class="mt-loginimge mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model.trim="account" placeholder="输入您的手机号码" />
+						<input type="number" class="uni-input" v-model.trim="account" placeholder="输入您的手机号码" />
 					</view>
 				</view>
 			</view>
@@ -44,7 +44,7 @@
 							<view class="mt-loginimge"></view>
 						</view>
 						<view class="mt-input-input mt-yz">
-							<input class="uni-input" v-model="code" maxlength="6" placeholder=" " />
+							<input type="number" class="uni-input" v-model="code" maxlength="6" placeholder=" " />
 						</view>
 					</view>
 					<view class="mt-input-img mt-yz">
@@ -93,7 +93,12 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					confirmpwd: [{
 						//必填
@@ -103,7 +108,12 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请再次输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					code: [{
 						//必填
@@ -119,9 +129,11 @@
 		},
 		methods: {
 			logindex: function() {
-				uni.navigateTo({
-					url: '../login/login'
-				})
+				setTimeout(function() {
+					uni.navigateBack({
+						delta: 1
+					});
+				}, 2000)
 			},
 			// 倒计时显示处理
 			countDownText(s) {
@@ -150,15 +162,12 @@
 				}
 			},
 			send() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
-				}
+
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.account
 				}
-				
+
 				if (this.account == '') {
 					uni.showToast({
 						title: "请输入手机号!",
@@ -170,12 +179,15 @@
 						icon: "none"
 					});
 				} else {
-					
+
 					this.countDown(60);
 					//发送验证码
 					let that = this;
-					
-					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"),user,
+					//防重复
+					if (this.$mtRequest.isRepeat()) {
+						return;
+					}
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user,
 						function(data) {
 							if (data.state > 0) {
 								//密码重置
@@ -213,12 +225,13 @@
 						icon: "none"
 					});
 				} else {
+
+					//忘记密码
+					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
-					//忘记密码
-					let that = this;
 					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/retrieve"), verificacode, function(data) {
 						if (data.state > 0) {
 							//密码重置
@@ -251,12 +264,13 @@
 </script>
 
 <style>
-	.mt-inputcdy{
+	.mt-inputcdy {
 		width: 80%;
 		margin: 0 auto;
 		border: 0.66rpx solid #007AFF;
-		border-radius:40rpx;
+		border-radius: 40rpx;
 	}
+
 	.mt-zwf {
 		height: 60rpx;
 		width: 100%;
@@ -349,7 +363,7 @@
 	}
 
 	/* 验证码外部框宽度 */
-/* 	.mt-input-input.mt-yz {
+	/* 	.mt-input-input.mt-yz {
 
 		float: left;
 	} */

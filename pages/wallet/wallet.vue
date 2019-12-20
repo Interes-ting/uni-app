@@ -9,7 +9,7 @@
 				<view class="mt-amoutone">
 					{{withdrawable}}
 				</view>
-				
+
 				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
@@ -40,10 +40,12 @@
 					<picker @change="bindPickerChange" :value="selectdate" :range="[yeas,months]" mode="multiSelector">
 						<text>{{yeas[selectdate[0]] + '-' + months[selectdate[1]]}}</text>
 						<view class="mt-spam">
-						<text><icon type="waiting" class="waiting" size="17" /></icon></text>
+							<text>
+								<icon type="waiting" class="waiting" size="17" />
+								</icon></text>
 						</view>
 					</picker>
-					
+
 				</view>
 				<!-- 时间日期选择器end -->
 			</view>
@@ -130,11 +132,11 @@
 						</view>
 					</view>
 				</view>
-				
+
 			</block>
 			<view class="mt-viewnr char" v-if="list.length < 1">
 				暂无数据
-				</view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -146,8 +148,8 @@
 			return {
 				// 第一步定义空数据接收空变量接收后台返回数据
 				// list: null,
-				list:[],
-				amount:'0',
+				list: [],
+				amount: '0',
 				withdrawable: null,
 				waitverify: null,
 				totalExpenditure: null,
@@ -164,11 +166,20 @@
 			//初始账单列表查询
 			this.earningstwo();
 		},
-		onShow(){
+		onShow() {
 			//初始钱包查询
 			this.earnings();
 			//初始账单列表查询
 			this.earningstwo();
+		},
+		onPullDownRefresh() {
+			//初始钱包查询
+			this.earnings();
+			//初始账单列表查询
+			this.earningstwo();
+			setTimeout(function() {
+				uni.stopPullDownRefresh();
+			}, 1000);
 		},
 		methods: {
 			bindPickerChange: function(e) {
@@ -178,6 +189,10 @@
 				this.earningstwo();
 			},
 			tixian: function() {
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
 				uni.navigateTo({
 					url: '../wallet/withdraw'
 				})
@@ -199,9 +214,10 @@
 				}
 
 			},
-			earnings() {
+			earnings() {				
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
+				
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
 					merchantId: merchantInfoId
 				}, (data) => {
@@ -212,7 +228,6 @@
 						this.totalExpenditure = data.data.totalExpenditure;
 						this.incomeExpenditure = data.data.incomeExpenditure;
 						this.id = data.data.id;
-						console.log(data.data)
 					} else {
 						//登录失败
 						uni.showToast({
@@ -230,14 +245,13 @@
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				this.starsa = this.yeas[this.selectdate[0]] + '-' + this.months[this.selectdate[1]]
 				// let that=this;
-				if(this.starsa === null){
+				if (this.starsa === null) {
 					this.starsa = '';
 				}
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balancein/selectIncomeDetails"), {
 					merchantId: merchantInfoId,
-					starsa: this.starsa,	
+					starsa: this.starsa,
 				}, (data) => {
-					console.log(data.data)
 					if (data.state > 0) {
 						this.list = data.data
 					} else {
@@ -271,19 +285,22 @@
 </script>
 
 <style>
-uni-text {
-    width: 80%;
-    float: left;
-}
-uni-icon {
-    display: block;
-}
+	uni-text {
+		width: 80%;
+		float: left;
+	}
+
+	uni-icon {
+		display: block;
+	}
+
 	.mt-spam {
-	    width: 20%;
-	    float: left;
+		width: 20%;
+		float: left;
 		height: 66rpx;
 		line-height: 66rpx;
 	}
+
 	.mt-catext {
 		width: 100%;
 		float: left;
@@ -311,12 +328,14 @@ uni-icon {
 	.mt-earnings.om.mo {
 		line-height: 195rpx;
 	}
-	.mt-viewnr.char{
+
+	.mt-viewnr.char {
 		width: 90%;
 		height: 180rpx;
 		line-height: 180rpx;
 		text-align: center;
 	}
+
 	.mt-earningstw.one.gsot {
 		margin: 60rpx 0 0 0;
 	}
@@ -365,8 +384,8 @@ uni-icon {
 		font-size: 33rpx;
 		margin: 15rpx 0 0 0;
 		white-space: nowrap;
-		  text-overflow: ellipsis;
-		  overflow:hidden;
+		text-overflow: ellipsis;
+		overflow: hidden;
 	}
 
 	.mt-earningson.two {
@@ -448,10 +467,12 @@ uni-icon {
 		height: 66rpx;
 		line-height: 66rpx;
 	}
-	.uni-list-cell-db{
+
+	.uni-list-cell-db {
 		height: 66rpx;
 		line-height: 66rpx;
 	}
+
 	.mt-time {
 		width: 40%;
 		text-align: center;

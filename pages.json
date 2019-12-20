@@ -59,7 +59,8 @@
 		}, {
 			"path": "pages/wallet/wallet",
 			"style": {
-				"navigationBarTitleText": "钱包"
+				"navigationBarTitleText": "钱包",
+				"enablePullDownRefresh": true
 			}
 		}, {
 			"path": "pages/wallet/walletRecordInfo",

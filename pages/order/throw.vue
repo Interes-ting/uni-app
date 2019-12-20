@@ -27,7 +27,7 @@
 						<view class="flex-right">
 							<picker @change="PickerChangeNum" :value="index1" :range="pickerNum">
 								<view class="picker-text"> {{pickerNum[index1]}}
-								<text class="cuIcon-right righticon"></text></view>
+									<text class="cuIcon-right righticon"></text></view>
 							</picker>
 						</view>
 					</view>
@@ -42,9 +42,11 @@
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" type="number" name="input" 
+
+						<input placeholder="请输入手机号" type="number" name="input"
 						v-model.trim="customPhone" @blur="customNameValid('customPhone')"  
 						@input="phoneChange(customPhone)"></input>
+
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -52,50 +54,48 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" maxlength="25" name="input" 
-							v-model.trim="startAddress" @blur="customNameValid('startAddress')"  
-							style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
+							<input placeholder="您从哪里搬出" maxlength="25" name="input" v-model.trim="startAddress" @blur="customNameValid('startAddress')"
+							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<!-- 搬入是否有电梯 -->
 						<view class="flexbox">
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
-							<picker mode="multiSelector" 
-							@change="MultiChange" @columnchange="MultiColumnChange" 
-							:value="multiIndex" :range="multiArray">
-								<view class="picker-text" v-if="startfloor == null">
-									请选择
-									<text class="cuIcon-right righticon"></text>
-								</view>
-							<view class="picker-text" v-else>
-								{{startfloor}},{{floor1}}楼
-								<text class="cuIcon-right righticon"></text>
+								<picker mode="multiSelector" @change="MultiChange" 
+								@columnchange="MultiColumnChange" :value="multiIndex" :range="multiArray">
+									<view class="picker-text" v-if="startfloor == null">
+										请选择
+										<text class="cuIcon-right righticon"></text>
+									</view>
+									<view class="picker-text" v-else>
+										{{startfloor}},{{floor1}}楼
+										<text class="cuIcon-right righticon"></text>
+									</view>
+								</picker>
 							</view>
-							</picker>
 						</view>
-					</view>
-					<view class="cu-form-group">
-						<text class="required">*</text>
-							<input placeholder="您搬到哪里去" maxlength="25"
-							 name="input" v-model.trim="endAddress" @blur="customNameValid('endAddress')"
+						<view class="cu-form-group">
+							<text class="required">*</text>
+							<input placeholder="您搬到哪里去" maxlength="25" name="input" v-model.trim="endAddress"
+							 @blur="customNameValid('endAddress')"
 							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
-					</view>
-					<view class="mt-move-circle newcolor"></view>
-					<!-- 搬入是否有电梯 -->
-					<view class="flexbox">
-						<view class="flex-left">是否有电梯</view>
-						<view class="flex-right">
-							<picker mode="multiSelector" 
-							@change="MultiChange1" @columnchange="MultiColumnChange" 
-							:value="multiIndex" :range="multiArray">
-								<view class="picker-text" v-if="endfloor == null">
-									请选择
-									<text class="cuIcon-right righticon"></text>
-								</view>
-								<view class="picker-text" v-else>
-									{{endfloor}},{{floor2}}楼
-									<text class="cuIcon-right righticon"></text>
-								</view>
+						</view>
+						<view class="mt-move-circle newcolor"></view>
+						<!-- 搬入是否有电梯 -->
+						<view class="flexbox">
+							<view class="flex-left">是否有电梯</view>
+							<view class="flex-right">
+								<picker mode="multiSelector" @change="MultiChange1" 
+								@columnchange="MultiColumnChange" :value="multiIndex"
+								 :range="multiArray">
+									<view class="picker-text" v-if="endfloor == null">
+										请选择
+										<text class="cuIcon-right righticon"></text>
+									</view>
+									<view class="picker-text" v-else>
+										{{endfloor}},{{floor2}}楼
+										<text class="cuIcon-right righticon"></text>
+									</view>
 								</picker>
 							</view>
 						</view>
@@ -107,18 +107,13 @@
 							<text class="required">*</text>搬家时间
 						</view>
 						<view class="flex-right" @click="openDatetimePicker">
-								<view class="picker-text">{{time}}
+							<view class="picker-text">{{time}}
 								<text class="cuIcon-right righticon"></text></view>
-							
+
 						</view>
 						<!-- 时间日期选择器start-->
-						<simple-datetime-picker
-							ref="myPicker"
-							@submit="handleSubmit"
-							:start-year="2019"
-							:end-year="2030"
-							color="rgb(30, 131, 255)"
-							>
+						<simple-datetime-picker ref="myPicker" @submit="handleSubmit" 
+						:start-year="2019" :end-year="2030" color="rgb(30, 131, 255)">
 						</simple-datetime-picker>
 						<!-- 时间日期选择器end -->
 					</view>
@@ -127,6 +122,7 @@
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
 						<input placeholder="请输入距离" type="number" maxlength="6"
 						name="input" v-model.trim="distance" @blur="customNameValid('distance')"></input>
+
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
@@ -142,10 +138,11 @@
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-							<input placeholder="请输入提成金额" maxlength="6" type="number" name="input"
-							v-model.trim="pay" @input="getBymeney" @blur="customNameValid('pay')"></input>
+						<input placeholder="请输入提成金额" maxlength="6" type="number" name="input" v-model.trim="pay" 
+						@input="getBymeney"
+						 @blur="customNameValid('pay')"></input>
 						<view style="overflow: hidden;">
-							平台服务费：{{fuwufei == null ? '' :fuwufei}}
+							平台服务费：{{fuwufei == null ? '0' :fuwufei}}
 						</view>
 					</view>
 					<!-- picker样式 -->
@@ -154,7 +151,7 @@
 						<view class="flex-right">
 							<picker @change="PickerChangeHumen" :value="index3" :range="pickerHumen">
 								<view class="picker-text">{{pickerHumen[index3]}}
-								<text class="cuIcon-right righticon"></text></view>
+									<text class="cuIcon-right righticon"></text></view>
 							</picker>
 						</view>
 					</view>
@@ -195,7 +192,7 @@
 		data() {
 			return {
 				// 保存车辆信息数组
-				pieckId:[],
+				pieckId: [],
 				//客户名
 				customName: '',
 				//用户手机号
@@ -212,14 +209,14 @@
 				pay: '',
 				// //平台服务费
 				// scale:null,
-				fuwufei:null,
+				fuwufei: null,
 				// 搬家时间
-				time:'',
+				time: '',
 				// 车辆选择参数
 				index: -1,
 				pickerCar: [],
 				// 车辆id
-				carId:null,
+				carId: null,
 				// 车辆数量选择参数
 				index1: 0,
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
@@ -241,7 +238,7 @@
 				textareaBValue: '',
 				// 电梯楼层参数
 				lc1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-				lc2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,30],
+				lc2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
 				// 出发地址电梯楼层
 				startfloor: null,
 				floor1: null,
@@ -292,8 +289,8 @@
 						},
 						{
 							type: "double",
-							name:'距离',
-							place:2,  //允许输入小数点个数
+							name: '距离',
+							place: 2, //允许输入小数点个数
 						},
 						{
 							type: "regexp",
@@ -328,32 +325,34 @@
 		},
 		onLoad() {
 			this.checkCarType();
-			this.multiArray[1] = this.lc1;
-			this.multiArray1[1] = this.lc1
+			this.multiArray[1] = this.lc1,
+				this.multiArray1[1] = this.lc1
+		},
+		onShow() {
+			this.checkCarType();
 		},
 		created() {
-			this.startyear = new Date().getFullYear()  //年
+			this.startyear = new Date().getFullYear() //年
 			this.time = new Date().getFullYear() +
-			"-" +(new Date().getMonth()+1<10 ? "0"+(new Date().getMonth()+1) : new Date().getMonth()+1) + //月
-			"-" +(new Date().getDate()<10 ? "0"+new Date().getDate() : new Date().getDate()) +  //日
-			" " +(new Date().getHours()<10 ? "0"+new Date().getHours() : new Date().getHours()) + //时
-			":" +(new Date().getMinutes()<10 ? '0'+new Date().getMinutes() : new Date().getMinutes()) //分
+				"-" + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : new Date().getMonth() + 1) + //月
+				"-" + (new Date().getDate() < 10 ? "0" + new Date().getDate() : new Date().getDate()) + //日
+				" " + (new Date().getHours() < 10 ? "0" + new Date().getHours() : new Date().getHours()) + //时
+				":" + (new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()) //分
 		},
 		methods: {
 			getBymeney(e) {
-				 this.pay = e.detail.value;
+				this.pay = e.detail.value;
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`),
 				{payAmount: this.pay},(res)=>{
 					if(res.state == 1){
 						this.fuwufei = res.data;
 					}
-					this.$mtRequest.stop();//结束loading等待
+					this.$mtRequest.stop(); //结束loading等待
 				});
-					if(this.pay === '') {
-						this.fuwufei = 0
-					}
+				if (this.pay === '') {
+					this.fuwufei = 0
+				}
 			},
-			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
 				this.$refs.myPicker.show();
@@ -370,13 +369,13 @@
 			},
 			// 车辆类型
 			PickerChange: function(e) {
-				if(e.detail.value<= 0) {
-					e.detail.value =  0
+				if (e.detail.value <= 0) {
+					e.detail.value = 0
 				}
 				this.index = e.detail.value
 				this.show = e.detail.value
-				this.pieckId.forEach((item,index)=>{
-					if(item.name  === this.pickerCar[this.index]){
+				this.pieckId.forEach((item, index) => {
+					if (item.name === this.pickerCar[this.index]) {
 						this.carId = item.id;
 					}
 				})
@@ -384,39 +383,39 @@
 
 			// 车辆数量选择
 			PickerChangeNum: function(e) {
-				if(e.detail.value<= 0) {
-					e.detail.value =  0
+				if (e.detail.value <= 0) {
+					e.detail.value = 0
 				}
 				this.index1 = e.detail.value
 			},
 
 			// 人数选择
 			PickerChangeHumen: function(e) {
-				if(e.detail.value === -1) {
+				if (e.detail.value === -1) {
 					e.detail.value = 0
 				}
 				this.index3 = e.detail.value
-				
+
 			},
 
 			// 车辆
 			SwitchA: function(e) {
 				this.switchA = e.detail.value
-					if (this.switchA) {
-						this.needCar = 1 //true
-					} else {
-						// this.index = 0
-						this.needCar = 0 //false
-						this.carId = ''//车辆类型为空
-						this.index = -1
-						//车辆类型信息为空
-					};
+				if (this.switchA) {
+					this.needCar = 1 //true
+				} else {
+					// this.index = 0
+					this.needCar = 0 //false
+					this.carId = '' //车辆类型为空
+					this.index = -1
+					//车辆类型信息为空
+				};
 				this.pickerCar[this.index];
 			},
 			// 首尾中间去空格
 			phoneChange: function(value) {
 				value = value.replace(/\s+/g, "");
-			    return value
+				return value
 			},
 
 			// 是否急单
@@ -448,7 +447,7 @@
 			// 注意事项
 			textareaBInput: function(e) {
 				// this.textareaBValue = e.detail.value
-				
+
 			},
 
 
@@ -456,10 +455,10 @@
 			MultiChange: function(e) {
 				if (e.detail.value[0] === 0) {
 					this.startfloor = '无电梯'
-					this.floor1 = e.detail.value[1] +1
+					this.floor1 = e.detail.value[1] + 1
 				} else {
 					this.startfloor = '有电梯'
-					this.floor1 = e.detail.value[1]+1
+					this.floor1 = e.detail.value[1] + 1
 				}
 				this.multiIndex = e.detail.value;
 			},
@@ -475,10 +474,10 @@
 			MultiChange1: function(e) {
 				if (e.detail.value[0] === 0) {
 					this.endfloor = '无电梯'
-					this.floor2 = e.detail.value[1] +1
+					this.floor2 = e.detail.value[1] + 1
 				} else {
 					this.endfloor = '有电梯'
-					this.floor2 = e.detail.value[1]+1
+					this.floor2 = e.detail.value[1] + 1
 				}
 				this.multiIndex1 = e.detail.value;
 			},
@@ -490,31 +489,31 @@
 				selectchange(data, this, e.detail)
 			},
 
-			goThrow: function() { 
-				if(this.switchA ==true || this.needCar ==1){
+			goThrow: function() {
+				if (this.switchA == true || this.needCar == 1) {
 					//判断是否选择车辆类型
-					if(this.pickerCar[this.index] === undefined){
+					if (this.pickerCar[this.index] === undefined) {
 						uni.showToast({
-						  title: '请选择车辆类型',
-						  icon: "none"
+							title: '请选择车辆类型',
+							icon: "none"
 						})
 						return false;
 					};
-					
+
 				};
 				//判断是否选择电梯楼层
-				if(this.startfloor ===null || this.endfloor ===null
-				 || this.floor1 ==null ||this.floor2 ==null){
+				if (this.startfloor === null || this.endfloor === null ||
+					this.floor1 == null || this.floor2 == null) {
 					uni.showToast({
-					  title: '请选择是否有电梯',
-					  icon: "none"
+						title: '请选择是否有电梯',
+						icon: "none"
 					})
 					return false;
 				};
-				if(this.time ==null || this.time ==''){
+				if (this.time == null || this.time == '') {
 					uni.showToast({
-					  title: '请选择出发时间',
-					  icon: "none"
+						title: '请选择出发时间',
+						icon: "none"
 					})
 					return false;
 				};
@@ -532,7 +531,7 @@
 					customPhone: this.customPhone,
 					startAddress: this.startAddress,
 					endAddress: this.endAddress,
-					distance: this.distance, 
+					distance: this.distance,
 					orderAmount: this.orderAmount,
 					pay: this.pay,
 				}
@@ -542,18 +541,18 @@
 					return;
 				}
 				//防重复
-				 if (this.$mtRequest.isRepeat()) {
-				  return;
-				 };
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				};
 				// 发送网络请求
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/throw_order'), {
-						city:this.$mtAccount.info().city,
-						customerName: this.customName, 
+						city: this.$mtAccount.info().city,
+						customerName: this.customName,
 						phone: this.customPhone,
 						fromAddress: this.startAddress,
-						toAddress:this.endAddress,
+						toAddress: this.endAddress,
 						deliveryTime: this.time,
-						distance:  this.distance,
+						distance: this.distance,
 						goods: this.textareaAValue,
 						carTypeId: this.carId,
 						carTypeName: this.pickerCar[this.index],
@@ -561,93 +560,99 @@
 						payAmount: this.pay,
 						remark: this.textareaBValue,
 						throwMerchantInfoId: this.$mtAccount.info().merchantInfoId,
-						intoElevator:this.endfloor,
-						intoFloor:this.floor2,
-						outEleveator:this.startfloor,
-						outFloor:this.floor1,
+						intoElevator: this.endfloor,
+						intoFloor: this.floor2,
+						outEleveator: this.startfloor,
+						outFloor: this.floor1,
 						vehicleRequired: this.needCar,
-						vehiceNumber:this.pickerNum[this.index1],
-						isItUrgent:this.sos,
-						isItchai:this.installation,
-						thowPlatformFee:this.fuwufei ,
-						handlingNumber:this.pickerHumen[this.index3],
-						handlingService :0
+						vehiceNumber: this.pickerNum[this.index1],
+						isItUrgent: this.sos,
+						isItchai: this.installation,
+						thowPlatformFee: this.fuwufei,
+						handlingNumber: this.pickerHumen[this.index3],
+						handlingService: 0
 					},
 					(res) => {
 						//扔单成功跳转到扔单记录页面
-						if(res.state == 1){
+						if (res.state == 1) {
 							uni.showToast({
-							  title: "扔单成功",
-							  success: function() {setTimeout(function(){
-									uni.navigateTo({ url: 'throwRecord'});
-							  },2000)},
+								title: "扔单成功",
+								success: function() {
+									setTimeout(function() {
+										uni.navigateTo({
+											url: 'throwRecord'
+										});
+									}, 2000)
+								},
 							});
 							this.$mtRequest.stop(); //结束loading等待
-							this.pieckId= [],
-							//客户名
-							this.customName= '',
-							//用户手机号
-							this.customPhone= '',
-							// 出发地址
-							this.startAddress=  '',
-							//到达地址
-							this.endAddress= '',
-							// 距离
-							this.distance= '',
-							// 订单金额
-							this.orderAmount= '',
-							// 扔单提成
-							this.pay= '',
-							// //平台服务费
-							this.fuwufei= null,
-							// 搬家时间
-							this.startyear= new Date(),
-							this.time= '',
-							// 车辆选择参数
-							this.index= -1,
-							this.pickerCar= [],
-							// 车辆id
-							this.carId= null,
-							// 车辆数量选择参数
-							this.index1=  0,
-							this.pickerNum= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-							// 人数选择参数
-							this.index3=  0,
-							this.pickerHumen= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-							// 是否需要车辆
-							this.switchA= true,
-							this.needCar= 1,
-							// 是否急单
-							this.sos= 0,
-							this.switchB= false,
-							// 是否需要拆装服务
-							this.switchC= false,
-							this.installation= 0,
-							// 搬运物品
-							this.textareaAValue= '',
-							// 注意事项
-							this.textareaBValue= '',
-							// 电梯楼层参数
-							this.lc1= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-							this.lc2= [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29,30],
-							// 出发地址电梯楼层
-							this.startfloor=  null,
-							this.floor1=  null,
-							this.multiArray= [
-								['无电梯', '有电梯'],
-								[]
-							],
-							this.multiIndex= [0, 0],
-							// 到达地址电梯楼层
-							this.endfloor= null,
-							this.floor2=  null,
-							this.multiArray1=  [
-								['无电梯', '有电梯'],
-								[]
-							],
-							this.multiIndex1= [0, 0]
-							this.multiArray[1] = this.lc1,
-							this.multiArray1[1] = this.lc1
+							this.pieckId = [],
+								//客户名
+								this.customName = '',
+								//用户手机号
+								this.customPhone = '',
+								// 出发地址
+								this.startAddress = '',
+								//到达地址
+								this.endAddress = '',
+								// 距离
+								this.distance = '',
+								// 订单金额
+								this.orderAmount = '',
+								// 扔单提成
+								this.pay = '',
+								// //平台服务费
+								this.fuwufei = null,
+								// 搬家时间
+								this.startyear = new Date(),
+								this.time = '',
+								// 车辆选择参数
+								this.index = -1,
+								this.pickerCar = [],
+								// 车辆id
+								this.carId = null,
+								// 车辆数量选择参数
+								this.index1 = 0,
+								this.pickerNum = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+								// 人数选择参数
+								this.index3 = 0,
+								this.pickerHumen = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+								// 是否需要车辆
+								this.switchA = true,
+								this.needCar = 1,
+								// 是否急单
+								this.sos = 0,
+								this.switchB = false,
+								// 是否需要拆装服务
+								this.switchC = false,
+								this.installation = 0,
+								// 搬运物品
+								this.textareaAValue = '',
+								// 注意事项
+								this.textareaBValue = '',
+								// 电梯楼层参数
+								this.lc1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+								this.lc2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
+									28, 29, 30
+								],
+								// 出发地址电梯楼层
+								this.startfloor = null,
+								this.floor1 = null,
+								this.multiArray = [
+									['无电梯', '有电梯'],
+									[]
+								],
+								this.multiIndex = [0, 0],
+								// 到达地址电梯楼层
+								this.endfloor = null,
+								this.floor2 = null,
+								this.multiArray1 = [
+									['无电梯', '有电梯'],
+									[]
+								],
+								this.multiIndex1 = [0, 0]
+								this.multiArray[1] = this.lc1,
+								this.multiArray1[1] = this.lc1
 						}else {
 						uni.showToast({
 							title: res.message,
@@ -659,31 +664,30 @@
 				});
 			},
 
-			checkCarType:function() { //发送网络请求获取车辆类型
-				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/getcartype'),
-				{}, (res) => {
-					if(res.state >0){
+			checkCarType: function() { //发送网络请求获取车辆类型
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/getcartype'), {}, (res) => {
+					if (res.state > 0) {
 						this.pieckId = res.data;
-						this.pieckId.forEach(item=>{
+						this.pieckId.forEach(item => {
 							this.pickerCar.push(item.name)
 						})
 						this.$mtRequest.stop();
-					}else{
+					} else {
 						// 如果车辆为请求到,pickerCar为默认值
 						this.pickerCar = ['暂无']
 					}
-					
+
 				});
 			},
-			
+
 			customNameValid: function(key) { //自定义校验
-			// this.fuwufei  = 
+				// this.fuwufei  = 
 				this.$mtValidation.validItem(this[key], this.rules[key])
 			}
 
 		},
 	};
-	
+
 	//车辆选择方法
 	function selectchange(data, lcarry, selectItem) {
 		data.multiIndex[selectItem.column] = selectItem.value;
@@ -698,10 +702,6 @@
 			}
 		}
 	};
-	
-	
-	
-
 </script>
 
 <style lang="less" scoped>
@@ -711,42 +711,52 @@
 	.cu-form-group .title{
 		font-size: 26.66rpx;
 	}
-	.flexbox{
-	  display:flex;/*设为伸缩容器*/  
-	  flex-flow:row;/*伸缩项目单行排列*/ 
+
+	.flexbox {
+		display: flex;
+		/*设为伸缩容器*/
+		flex-flow: row;
+		/*伸缩项目单行排列*/
 		font-size: 28rpx;
 		border-bottom: 0.66rpx solid #eee;
 		overflow: hidden;
-		.flex-left{
+
+		.flex-left {
 			display: inline-block;
 			width: 200rpx;
 			padding: 30rpx 13.33rpx;
 		}
-		.flex-right{
-			flex: 1; /*这里设置为占比1，填充满剩余空间*/ 
+
+		.flex-right {
+			flex: 1;
+			/*这里设置为占比1，填充满剩余空间*/
 			height: 95rpx;
 			line-height: 100%;
-			
-			.picker-text{
+
+			.picker-text {
 				height: 95rpx;
 				line-height: 95rpx;
 				text-align: right;
 				font-size: 30rpx;
-				.righticon{
+
+				.righticon {
 					margin-left: 13.33rpx;
 					color: #8799a3;
-					font-size:30rpx;
+					font-size: 30rpx;
 					padding-right: 20rpx;
 				}
 			}
 		}
 	}
-	.mt-title{
-		padding-right: 25rpx!important;
+
+	.mt-title {
+		padding-right: 25rpx !important;
 	}
-	.mt-fuwufei1{
+
+	.mt-fuwufei1 {
 		padding-right: 13.33rpx;
 	}
+
 	.mt-moveaddress {
 		margin-left: 30rpx !important;
 		position: relative !important;
@@ -834,6 +844,7 @@
 
 	.throw-content {
 		padding: 20rpx;
+
 		.mt-hascar {
 			background-color: #FFFFFF;
 			border-radius: 13.33rpx;

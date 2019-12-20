@@ -18,12 +18,12 @@
 				</view>
 				<!-- 订单详情 -->
 				<view class="mt-oderinfo">
-					<view class="mt-startcity">
+					<view class="mt-startcity" v-if="list.carTypeName != null">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">车辆类型：{{list.carTypeName}}</text>
 					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
+					<view class="mt-startcity" v-if="list.carTypeName != null">
+						<view class="mt-placebox" ></view>
 						<text class="text-grey">派车数量：{{list.vehiceNumber}}</text>
 					</view>
 					<view class="mt-startcity">
@@ -40,7 +40,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬出电梯楼层：{{list.outEleveator}}，{{list.outFloor}}楼</text>
+						<text class="text-grey">搬出电梯楼层：{{list.outEleveator === null ? '无电梯':list.outEleveator}}，{{list.outFloor === null ? '0' :list.outFloor}}楼</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -48,7 +48,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">搬入电梯楼层：{{list.outEleveator}}，{{list.outFloor}}楼</text>
+						<text class="text-grey">搬入电梯楼层：{{list.intoElevator== null ? '有电梯':list.intoElevator}}，{{list.inFloor=== null ? 0 :list.intoFloor }}楼</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -60,7 +60,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">被抢时间：{{list.robTime}}</text>
+						<text class="text-grey">被抢时间：{{list.createTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -68,7 +68,7 @@
 					</view>
 					<view class="mt-startcity" v-if="list.isItchai === 0">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">拆装服务：无</text>
+						<text class="text-grey">拆装服务：不需要</text>
 					</view>
 					<view class="mt-startcity" v-if="list.isItchai === 1">
 						<view class="mt-placebox"></view>
@@ -87,11 +87,15 @@
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
+						<text class="text-grey">订单金额：{{list.amount}}</text>
+					</view>
+					<view class="mt-startcity">
+						<view class="mt-placebox"></view>
 						<text class="text-grey">订单提成：{{list.payAmount}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">平台服务费：{{list.rowPlatformFee}}
+						<text class="text-grey">平台服务费：{{list.thowPlatformFee}}
 						</text>
 						<text class="text-grey" 
 						style="float:right;margin-right:20rpx;">

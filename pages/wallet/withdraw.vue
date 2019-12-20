@@ -3,14 +3,14 @@
 	<view class="mt-body">
 		<view class="mt-zwf">
 		</view>
-		<view class="mt-cardback">
+		<view class="mt-cardback" v-if="message !='未获取到银行卡信息'">
 			<view class="mt-carsbk">
 				<view class="mt-cartext">
 					<view class="mt-cartext-size" v-if="message !='未获取到银行卡信息'">
 						{{bankName}}
 					</view>
-					<view class="mt-cartext-size"  v-if="message =='未获取到银行卡信息'">
-						 暂无银行卡信息
+					<view class="mt-cartext-size" v-if="message =='未获取到银行卡信息'">
+						暂无银行卡信息
 					</view>
 					<view class="">
 
@@ -23,9 +23,12 @@
 			<view class="mt-carxbk">
 				{{cardNo}}
 			</view>
-
 		</view>
-
+		<view class="" v-if="message =='未获取到银行卡信息'">
+			<view class="mt-loginbutn two">
+				<button class="mt-loginbutndl" type="primary" @click="earningstthreetwo">添加银行卡</button>
+			</view>
+		</view>
 		<view class="mt-mony">
 			<view class="mt-monyto">
 				<view class="mt-monyton">
@@ -36,11 +39,11 @@
 				</view>
 			</view>
 		</view>
-		<view class="mt-loginbutn" v-if="message !='未获取到银行卡信息'" >
+		<view class="mt-loginbutn" v-if="message !='未获取到银行卡信息'">
 			<button class="mt-loginbutndl" type="primary" @click="earningstthree">提现到银行卡</button>
 		</view>
 		<view class="mt-loginbutn" v-if="message =='未获取到银行卡信息'">
-			<button class="mt-loginbutndl" type="primary" @click="earningstthreetwo">添加银行卡</button>
+			<button class="mt-loginbutndl" style="background: #C8C7CC;" type="primary" >提现到银行卡</button>
 		</view>
 
 	</view>
@@ -50,17 +53,17 @@
 	export default {
 		data() {
 			return {
-				bankName:'银行卡信息未填写',
-				cardNo:'',
-				amount:'0',
-				name:'',
-				merchantCode:'0',
-				withdrawable:'0',
-				message:'',
+				bankName: '0',
+				cardNo: '',
+				amount: '0',
+				name: '',
+				merchantCode: '0',
+				withdrawable: '0',
+				message: '',
 			}
 		},
 		onLoad() {
-			this.earnings() ;
+			this.earnings();
 			this.earningstwo();
 			this.earningsmo();
 		},
@@ -68,18 +71,110 @@
 			//查询
 			earnings() {
 				// 获取用户id
-			 let merchantInfoId = this.$mtAccount.info().merchantInfoId
-					// let that=this;
-					this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/bank_card/get"), {use_id: merchantInfoId
-					}, (data) => {	
-						this.message = data.message;
-						
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				// let that=this;
+				this.$mtRequest.get(this.$mtConfig.getPlatformUrl("api/bank_card/get"), {
+					use_id: merchantInfoId
+				}, (data) => {
+					this.message = data.message;
+
+					if (data.state > 0) {
+						this.bankName = data.data.bankName
+						this.cardNo = data.data.cardNo
+						this.name = data.data.name
+					} else {
+
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+
+					//结束请求
+					this.$mtRequest.stop();
+				})
+			},
+			//查询
+			earningstwo() {
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				console.log(merchantInfoId)
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
+					merchantId: merchantInfoId
+				}, (data) => {
+
+					if (data.state > 0) {
+						this.withdrawable = data.data.withdrawable;
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+
+					//结束请求
+					this.$mtRequest.stop();
+				})
+
+			},
+			//查询
+			earningsmo() {
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
+					merchantId: merchantInfoId
+				}, (data) => {
+
+					if (data.state > 0) {
+
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+
+					//结束请求
+					this.$mtRequest.stop();
+				})
+
+			},
+			earningstthree() {
+				
+
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				// let that=this;
+				//防重复
+				if (this.$mtRequest.isRepeat()) {
+					return;
+				}
+				if (this.withdrawable > 0) {
+					this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
+						merchantId: merchantInfoId,
+						amount: this.withdrawable,
+						cardNo: this.cardNo,
+						cardBank: this.bankName,
+						name: this.name,
+						phone: this.merchantCode
+					}, (data) => {
+						console.log(data.data)
 						if (data.state > 0) {
-						this.bankName =	data.data.bankName
-						this.cardNo =	data.data.cardNo
-						this.name =	data.data.name
+							uni.showToast({
+								title: "提现成功",
+								success: function() {
+									setTimeout(function() {
+										uni.navigateBack({
+											delta: 1
+										});
+									}, 2000)
+								}
+							})
+
 						} else {
-							
 							//登录失败
 							uni.showToast({
 								title: data.message,
@@ -90,99 +185,14 @@
 						//结束请求
 						this.$mtRequest.stop();
 					})
-			},
-			//查询
-			earningstwo() {
-			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-			console.log(merchantInfoId)
-				// let that=this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
-					merchantId: merchantInfoId
-				}, (data) => {
-				
-					if (data.state > 0) {
-						this.withdrawable = data.data.withdrawable;
-					} else {
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
-					}
-			
-					//结束请求
-					this.$mtRequest.stop();
-				})
-				
-			},
-			//查询
-			earningsmo() {
-			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-			
-				// let that=this;
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
-					merchantId: merchantInfoId
-				}, (data) => {
-					
-					if (data.state > 0) {
-						
-					} else {
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
-					}
-			
-					//结束请求
-					this.$mtRequest.stop();
-				})
-				
-			},
-			earningstthree() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
+				} else {
+					uni.showToast({
+						title: "暂无可提现金额",
+						icon: "none"
+					})
 				}
-				
-			let merchantInfoId = this.$mtAccount.info().merchantInfoId
-				// let that=this;
-			if(this.withdrawable > 0){
-				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/BalanceWithdrawApi/CashWithdrawal"), {
-					merchantId: merchantInfoId,amount:this.withdrawable,cardNo:this.cardNo,cardBank:this.bankName,name:this.name,phone:this.merchantCode
-				}, (data) => {
-					console.log(data.data)
-					if (data.state > 0) {
-						uni.showToast({
-							title: "提现成功",
-							success: function() {
-								setTimeout(function() {
-									uni.navigateBack({
-										delta: 1
-									});
-								}, 2000)
-							}
-						})
-						
-					} else {
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
-					}
-							
-					//结束请求
-					this.$mtRequest.stop();
-				})
-			}else{
-				uni.showToast({
-					title: "暂无可提现金额",
-					icon: "none"
-				})
-			}
 			},
-			earningstthreetwo(){
+			earningstthreetwo() {
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
 					return;
@@ -206,7 +216,9 @@
 	.mt-carsbk {
 		height: 85rpx;
 	}
-
+	.mt-loginbutn.two{
+		margin: 10% auto;
+	}
 	.mt-loginbutn {
 		width: 510rpx;
 		height: 88rpx;

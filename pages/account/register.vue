@@ -15,6 +15,21 @@
 					</view>
 				</view>
 			</view>
+			<view class="mt-in">
+				<view class="mt-input">
+					<view class="mt-input-img">
+						<view class="mt-loginimge mtfa mt-gongsi"></view>
+						
+					</view>
+
+					<view class="mt-input-input">
+						<picker @change="bindPickerChange" :value="index" :range="array">
+							<view class="uni-input">{{array[index]}}</view>
+						</picker>
+						
+					</view>
+				</view>
+			</view>
 
 			<view class="mt-in">
 				<view class="mt-input">
@@ -88,7 +103,8 @@
 	export default {
 		data() {
 			return {
-
+				array: ['武汉','长沙'],
+				index: 0,
 				//手机号
 				phone: "",
 				//公司名称
@@ -132,7 +148,12 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					confirmedcode: [{
 						//必填
@@ -142,7 +163,12 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20个字符"
+						msg: "请输入6~20位密码"
+					}, {
+						//正则
+						type: "regexp",
+						regexp: this.$mtRegexp.numAndStr,
+						msg: "请输入6~20位密码，不含特殊符号"
 					}],
 					validCode: [{
 						//必填
@@ -154,10 +180,18 @@
 			}
 		},
 		methods: {
+			bindPickerChange: function(e) {
+				console.log('picker发送选择改变，携带值为', e.target.value)
+				this.index = e.target.value 
+			},
 			goIndex: function() {
-				uni.navigateTo({
-					url: '../login/login'
-				})
+
+				setTimeout(function() {
+					uni.navigateBack({
+						delta: 1
+					});
+				}, 2000)
+
 			},
 			// 倒计时显示处理
 			countDownText(s) {
@@ -189,10 +223,7 @@
 				}
 			},
 			send() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
-				}
+				
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
@@ -212,6 +243,10 @@
 					this.countDown(60);
 					//发送验证码
 					let that = this;
+					//防重复
+					if (this.$mtRequest.isRepeat()) {
+						return;
+					}
 					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone="), user,
 						function(data) {
 
@@ -228,7 +263,6 @@
 								})
 
 							}
-
 							//结束请求
 							that.$mtRequest.stop();
 						})
@@ -244,6 +278,7 @@
 					pwd: this.pwd,
 					confirmedcode: this.confirmedcode,
 					yqcode: this.yqcode,
+					city:this.index + 1
 
 				}
 				//做校验
@@ -381,6 +416,7 @@
 		height: 78rpx;
 		line-height: 78rpx;
 	}
+
 	.uni-input-placeholder {
 		color: #CCCCCC;
 	}

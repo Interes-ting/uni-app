@@ -67,7 +67,10 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey">{{oderList.isItchai === 1 ? '拆装服务：需要' : '拆装服务：不需要'}}</text>
 				</view>
-			
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">抢单公司：武汉米腾网络科技有限公司</text>
+				</view>
 				<!-- 搬运物品 -->
 					<view class="mt-startcity" style="display: flex;"  v-if="oderList.goods">
 						<view style="width: 500rpx;text-align:left;">
@@ -98,15 +101,22 @@
 						实际所得：{{shouru}}元
 					</text>
 				</view>
+				
 			</view>
 		</view>
 		<view class="mt-card">
 			<view class="mt-kehuphone">联系电话</view>
 			<view class="mt-kehuname">
-				<view>黄先生：17786426947</view>
-				<view ><text class="mtfa mt-phone"></text></view>
+				<view>客户电话：{{oderList.phone}}</view>
+				<view style="flex: 1;text-align: right;"><text class="mtfa mt-phone"></text></view>
 			</view>
-			
+			<view class="mt-kehuname">
+				<view class="mt-name">
+					<view class="mt-textphone">一二三四五六七八九十一二三四五六七八九十：</view>
+					<view>17786426947</view>
+				</view>
+				<view class="mt-callphone"><text class="mtfa mt-phone"></text></view>
+			</view>
 		</view>
 	</view>
 </template>
@@ -146,6 +156,27 @@ export default {
 <style lang="scss" scoped>
 	.mt-kehuname{
 		display: flex;
+		margin: 0rpx 40rpx;
+		padding: 30rpx 0rpx;
+		border-top: 0.66rpx solid #eee;
+		.mt-name{
+			display: flex;
+			flex-flow: column;
+			.mt-textphone{
+				width: 400rpx;
+				padding-bottom: 20rpx;
+			}
+		}
+		.mtfa{
+			font-size: 40rpx;
+			color: #FF571D;
+			margin-right: 30rpx;
+		}
+		.mt-callphone{
+			position: relative;
+			top: 20rpx;
+			flex: 1;text-align: right;
+		}
 	}
 	.mt-kehuphone{
 		text-indent: 40rpx;
@@ -153,6 +184,7 @@ export default {
 		color: #FF571D;
 		font-weight: 900;
 		letter-spacing: 5rpx;
+		padding-bottom: 20rpx;
 	}
 	.text-remark-text{
 		flex: 1;
