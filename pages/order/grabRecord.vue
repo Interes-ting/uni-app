@@ -73,6 +73,13 @@ export default {
 	onShow() {
 		this.getList();
 	},
+	//下拉刷新
+	onPullDownRefresh() {
+	     this.getList();
+	     setTimeout(function () {
+	        uni.stopPullDownRefresh();
+	    }, 1000);
+	},
 	methods: {
 		goGrabedOrderInfo: function(item) {
 			// //跳转到抢单详情页并传递参数

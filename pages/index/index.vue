@@ -87,7 +87,15 @@ export default {
 	onShow() {
 		this.getList();
 	},
+	//下拉刷新
+	onPullDownRefresh() {
+	     this.getList();
+	     setTimeout(function () {
+	        uni.stopPullDownRefresh();
+	    }, 1000);
+	},
 	methods: {
+		
 		getList:function(){ //发送网络请求获取数据
 			this.$mtRequest.post(this.$mtConfig.getPlatformUrl('api/order_info/wait_grab_record'),
 			{city:this.$mtAccount.info().city}, (res) => {
