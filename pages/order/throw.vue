@@ -175,7 +175,7 @@
 					</view>
 				</view>
 			</form>
-			<view style="position: relative;width: 100%;height: 387.39rpx;">
+			<view class="throwBtn">
 				<button class="mt-seedeil-btn" @tap="goThrow">立即扔单</button>
 			</view>
 		</view>
@@ -801,24 +801,6 @@
 		color: #F06523;
 	}
 
-	.mt-seedeil-btn {
-		width: 576.52rpx;
-		height: 97.82rpx;
-		background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
-		border-radius: 48.91rpx;
-		top: 160.43rpx;
-		display: inline-block;
-		text-align: center;
-		line-height: 97.82rpx;
-		color: #fff;
-		font-size: 32rpx;
-
-		position: absolute;
-		bottom: 26.08rpx;
-		left: 50%;
-		transform: translateX(-50%);
-	}
-
 	page {
 		background-color: #f4f4f4;
 		color: #333333;
@@ -1036,6 +1018,26 @@
 						}
 					}
 				}
+			}
+		}
+
+		.throwBtn {
+			position: fixed;
+			left: 0;
+			bottom: var(--window-bottom);
+			width: 100%;
+			height: 97.82rpx;
+
+			.mt-seedeil-btn {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
+				color: #fff;
+				font-size: 32rpx;
+				border-radius: 0rpx;
 			}
 		}
 	}
