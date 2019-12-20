@@ -76,8 +76,32 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey">扔单公司：{{OrderInfo.throwCompanyName}}</text>
 				</view>
-			<!-- 搬运物品 -->
-
+				<!-- 搬运物品 -->
+				<view class="mt-startcity" v-if="OrderInfo.goods" style="display: inline-block;">
+					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬运物品：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ OrderInfo.goods }}</view>
+				</view>
+				<!-- 注意事项 -->
+				<view class="mt-startcity" v-if="OrderInfo.remark" style="display: inline-block;">
+					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">注意事项：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ OrderInfo
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					.remark }}</view>
+					
+				</view>
+			<!-- 
 				<view class="mt-startcity" style="display: flex;text-align: left;" v-if="OrderInfo.goods">
 					<view style="width: 160rpx;text-align:left;">
 						<view class="mt-placebox"></view>
@@ -85,14 +109,14 @@
 					</view>
 					<view  class="text-grey" style="word-break: break-all;">{{OrderInfo.goods}}</view>
 				</view>
-				<!-- 注意事项 -->
+			
 				<view class="mt-startcity" style="display: flex;" v-if="OrderInfo.remark">
 					<view style="width: 160rpx;text-align:left ;">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">注意事项：</text>
 					</view>
 					<view  class="text-grey" style="text-align:left; word-break: break-all;">{{OrderInfo.remark}}</view>
-				</view>
+				</view> -->
 			</view>
 			<!-- 收益 -->
 			<view class="mt-city">
@@ -178,7 +202,7 @@ export default {
 		callPhone:function(){
 			// console.log(11);
 			uni.makePhoneCall({
-			    phoneNumber:this.OrderInfo.phone, //仅为示例
+			    phoneNumber:this.OrderInfo.throwCompanyPhone, //仅为示例
 				// 成功回调
 				success: (res) => console.log('调用成功!'),
 				

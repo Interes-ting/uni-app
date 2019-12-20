@@ -107,8 +107,17 @@
 
 						</view>
 						<!-- 时间日期选择器start-->
-						<simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2030" color="rgb(30, 131, 255)">
-						</simple-datetime-picker>
+						<simple-datetime-picker
+						   ref="myPicker"
+						   @submit="handleSubmit"
+						   :start-year="2019"
+						   :end-year="2030"
+						   color="rgb(30, 131, 255)"
+						></simple-datetime-picker>
+						
+						
+						<!-- <simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2030" >
+						</simple-datetime-picker> -->
 						<!-- 时间日期选择器end -->
 					</view>
 
@@ -122,14 +131,16 @@
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;">
 							<text class="required">*</text>订单金额：
 						</view>
-						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model.trim="orderAmount" @blur="customNameValid('orderAmount')">
+						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" 
+						v-model.trim="orderAmount" @blur="customNameValid('orderAmount')">
 						</input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title mt-title">
 							<text class="mt-iconbox mtfa mt-fuwufei1"></text>
 							<text class="required">*</text>扔单提成:</view>
-						<input placeholder="请输入提成金额" maxlength="6" type="number" name="input" v-model.trim="pay" @input="getBymeney"
+						<input placeholder="请输入提成金额" maxlength="6" type="number" name="input" 
+						v-model.trim="pay" @input="getBymeney"
 						 @blur="customNameValid('pay')"></input>
 						<view style="overflow: hidden;">
 							平台服务费：{{fuwufei == null ? '' :fuwufei}}
@@ -165,9 +176,7 @@
 					</view>
 				</view>
 			</form>
-			<view class="throwBtn">
-				<button class="mt-seedeil-btn" @click="goThrow">立即扔单</button>
-			</view>
+			<button class="btn-logout" @click="goThrow">立即扔单</button>
 		</view>
 	</view>
 </template>
@@ -266,12 +275,12 @@
 					// 出发地址
 					startAddress: [{
 						type: "require",
-						msg: "请输入出发地址"
+						msg: "请输入搬出地址"
 					}],
 					//到达地址
 					endAddress: [{
 						type: "require",
-						msg: "请输入到达地址"
+						msg: "请输入搬入地址"
 					}],
 					// 距离
 					distance: [{
@@ -330,8 +339,10 @@
 				":" + (new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()) //分
 		},
 		methods: {
+			
 			getBymeney(e) {
 				this.pay = e.detail.value;
+				console.log(this.pay )
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
 					payAmount: this.pay
 				}, (res) => {
@@ -702,12 +713,19 @@
 </script>
 
 <style lang="less" scoped>
-	.datetime-picker {
-		z-index: 99999999;
+	.btn-logout {
+		margin-top: 100rpx;
+		width: 76%;
+		border-radius: 50rpx;
+		font-size: 32rpx;
+		color: #fff;
+		background: linear-gradient(to bottom, #1880ff, #6fafff);
+		height: 100rpx;
+		line-height: 100rpx;
 	}
-
+	.datetime-picker .wrap.show
 	.cu-form-group .title {
-		font-size: 26.66rpx;
+		z-index: 99999999;
 	}
 
 	.flexbox {
@@ -1022,14 +1040,14 @@
 
 		.throwBtn {
 			position: fixed;
-			z-index: 10;
+			z-index: 1;
 			left: 0;
 			bottom: var(--window-bottom);
 			width: 100%;
 			height: 100rpx;
 			display: flex;
 			align-items: center;
-			// background-color: white;
+			background-color: white;
 
 			.mt-seedeil-btn {
 				width: 80%;
