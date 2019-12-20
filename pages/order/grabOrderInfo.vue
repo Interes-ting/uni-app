@@ -135,9 +135,9 @@
 			</view>
 		</view>
 
-		<view style="text-align: center;">
+		<view class="grabBtn">
+			<text class="text-price"><text class="price">{{ weixinpay }}</text>元</text>
 			<button class="mt-seedeil-btn" @tap="payMoney">
-				<text class="text-price" style="margin-right: 30rpx;">{{ weixinpay }}元</text>
 				抢单并支付
 			</button>
 		</view>
@@ -151,7 +151,7 @@
 				carList: '',
 				orderId: null,
 				robMerchantInfoId: this.$mtAccount.info().merchantInfoId,
-				weixinpay: '' //抢单支付金额
+				weixinpay: 0 //抢单支付金额
 			};
 		},
 		onLoad: function(option) {
@@ -182,14 +182,14 @@
 				};
 
 				//开发环境，不调支付接口
-				//this.payOverTest();
+				this.payOverTest();
 
 				//正式环境，调用支付接口
 				// #ifdef APP-PLUS
-				this.appPay();
+				// this.appPay();
 				// #endif
 				// #ifdef MP-WEIXIN
-				this.appletPay();
+				// this.appletPay();
 				// #endif
 
 			},
@@ -403,15 +403,41 @@
 		}
 	}
 
-	.mt-seedeil-btn {
-		width: 416.74rpx;
-		height: 71.08rpx;
-		text-align: center;
-		line-height: 71.08rpx;
-		border-radius: 35.54rpx;
-		background: linear-gradient(#1880ff, #6fafff);
-		color: #fff;
-		font-size: 31.3rpx;
-		margin-bottom: 20rpx;
+	.grabBtn {
+		position: fixed;
+		left: 0;
+		bottom: 0;
+		width: 100%;
+		height: 97.82rpx;
+		display: flex;
+
+		.text-price {
+			width: 46%;
+			height: 100%;
+			background: white;
+			color: rgba(28, 130, 255, 1);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			font-size: 24rpx;
+
+			.price {
+				font-weight: bold;
+				font-size: 38rpx;
+				margin: 0 10rpx;
+			}
+		}
+
+		.mt-seedeil-btn {
+			width: 63.9%;
+			height: 100%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
+			color: #fff;
+			font-size: 32rpx;
+			border-radius: 0rpx;
+		}
 	}
 </style>

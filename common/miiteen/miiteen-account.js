@@ -57,9 +57,10 @@ function getMerchantInfo(id) {
 //更新登录信息
 function updateLogin(user) {
 	// #ifdef APP-PLUS
+	//console.log("idd:" + plus.push.getClientInfo().clientid)
 	mtRequest.post(mtConfig.getPlatformUrl("api/merchant_info/update_applogin"), {
 		id: user.merchantInfoId,
-		appNoticeId: plus.push.getClientInfo().clientid
+		appNoticeId: "" //plus.push.getClientInfo().clientid
 	}, function() {
 		//结束请求
 		mtRequest.stop();

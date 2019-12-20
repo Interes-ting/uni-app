@@ -41,8 +41,10 @@
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
-						<input placeholder="请输入手机号" maxlength="11" type="number" name="input" v-model.trim="customPhone" @blur="customNameValid('customPhone')"
+
+						<input placeholder="请输入手机号" type="number" name="input" v-model.trim="customPhone" @blur="customNameValid('customPhone')"
 						 @input="phoneChange(customPhone)"></input>
+
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">
@@ -112,16 +114,15 @@
 
 					<view class="cu-form-group ">
 						<view class="title" style="padding: 5rpx;"><text class="required">*</text>距离（公里）</view>
-						<input placeholder="请输入距离" type="number" @input="DeleteNumber" maxlength="6" name="input" v-model.trim="distance"
-						 @blur="customNameValid('distance')"></input>
+						<input placeholder="请输入距离" type="number" maxlength="6" name="input" v-model.trim="distance" @blur="customNameValid('distance')"></input>
+
 					</view>
 					<view class="cu-form-group ">
 						<text class="mt-iconbox mtfa mt-jine" style="color:#F06523"></text>
 						<view class="title" style="margin-left:10rpx;padding: 0rpx;">
 							<text class="required">*</text>订单金额：
 						</view>
-						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model.trim="orderAmount" @blur="customNameValid('orderAmount')"
-						 @input="oderMoney">
+						<input placeholder="请输入订单金额" maxlength="6" type="number" name="input" v-model.trim="orderAmount" @blur="customNameValid('orderAmount')">
 						</input>
 					</view>
 					<view class="cu-form-group">
@@ -156,15 +157,15 @@
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;">
 						<view class="title">搬运物品</view>
-						<textarea maxlength="100" @input="textareaAInput" v-model="textareaAValue"></textarea>
+						<textarea maxlength="100" @input="textareaAInput" v-model="textareaAValue" style="height: 74%;"></textarea>
 					</view>
 					<view class="cu-form-group align-start" style="height: 260.87rpx;border-radius:13.04rpx;">
 						<view class="title">注意事项</view>
-						<textarea maxlength="100" @input="textareaBInput" v-model="textareaBValue"></textarea>
+						<textarea maxlength="100" @input="textareaBInput" v-model="textareaBValue" style="height: 74%;"></textarea>
 					</view>
 				</view>
 			</form>
-			<view style="position: relative;width: 100%;height: 387.39rpx;">
+			<view class="throwBtn">
 				<button class="mt-seedeil-btn" @tap="goThrow">立即扔单</button>
 			</view>
 		</view>
@@ -331,11 +332,6 @@
 		methods: {
 			getBymeney(e) {
 				this.pay = e.detail.value;
-				let reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
-				let juli = reg.exec(e.detail.value);
-				setTimeout(() => {
-					this.pay = juli[0]
-				}, 0);
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
 					payAmount: this.pay
 				}, (res) => {
@@ -348,29 +344,8 @@
 					this.fuwufei = 0
 				}
 			},
-
-			// 距离保留小数点后两位
-			DeleteNumber: function(e) {
-				let reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
-				let juli = reg.exec(e.detail.value);
-				setTimeout(() => {
-					this.distance = juli[0]
-				}, 0);
-
-			},
-			// 订单金额
-			oderMoney: function(e) {
-				console.log(e)
-				var reg = /\d+(\.\d{1,2})?/g; //正则保留小数点后两位
-				var juli = reg.exec(e.detail.value);
-				setTimeout(() => {
-					this.orderAmount = juli[0]
-				}, 0);
-			},
-
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
-				console.log(this.pay)
 				this.$refs.myPicker.show();
 			},
 
@@ -383,7 +358,6 @@
 			handleSubmit: function(e) {
 				this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 			},
-
 			// 车辆类型
 			PickerChange: function(e) {
 				if (e.detail.value <= 0) {
@@ -534,6 +508,13 @@
 					})
 					return false;
 				};
+				if (this.orderAmount == 0) {
+					uni.showToast({
+						title: '请选择出发时间',
+						icon: "none"
+					})
+					return false;
+				};
 
 				//立即扔单
 				let grabInfo = {
@@ -668,6 +649,7 @@
 								title: res.message,
 								icon: 'none'
 							});
+							console.log(this.pickerCar);
 							this.$mtRequest.stop(); //结束loading等待
 						};
 					});
@@ -714,6 +696,10 @@
 </script>
 
 <style lang="less" scoped>
+	.datetime-picker {
+		z-index: 99999999;
+	}
+
 	.cu-form-group .title {
 		font-size: 26.66rpx;
 	}
@@ -805,24 +791,6 @@
 	.mt-iconbox {
 		font-size: 33.33rpx;
 		color: #F06523;
-	}
-
-	.mt-seedeil-btn {
-		width: 576.52rpx;
-		height: 97.82rpx;
-		background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
-		border-radius: 48.91rpx;
-		top: 160.43rpx;
-		display: inline-block;
-		text-align: center;
-		line-height: 97.82rpx;
-		color: #fff;
-		font-size: 32rpx;
-
-		position: absolute;
-		bottom: 26.08rpx;
-		left: 50%;
-		transform: translateX(-50%);
 	}
 
 	page {
@@ -1042,6 +1010,26 @@
 						}
 					}
 				}
+			}
+		}
+
+		.throwBtn {
+			position: fixed;
+			left: 0;
+			bottom: var(--window-bottom);
+			width: 100%;
+			height: 97.82rpx;
+
+			.mt-seedeil-btn {
+				width: 100%;
+				height: 100%;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
+				color: #fff;
+				font-size: 32rpx;
+				border-radius: 0rpx;
 			}
 		}
 	}

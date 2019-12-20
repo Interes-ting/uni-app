@@ -1,8 +1,7 @@
 <!-- 我的扔单详情 -->
 <template>
-	<view class="gradOrderInfo-content">
-		<!-- {{JSON.stringify(OrderInfo)}} -->
-		<view class="mt-card" v-if="OrderInfo != null" >
+	<view class="gradOrderInfo-content"  v-if="OrderInfo != null">
+		<view class="mt-card" style="margin-bottom: 30rpx;" >
 			<!-- 城市 -->
 			<view class="mt-city">
 				<view class="mt-startcity" style="display: flex;">
@@ -69,6 +68,10 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'不需要':'需要'}}</text>
 				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">抢单公司：武汉米腾网络科技有限公司</text>
+				</view>
 			<!-- 搬运物品 -->
 				<view class="mt-startcity" style="display: flex;text-align: left;" v-if="OrderInfo.goods">
 					<view style="width: 160rpx;text-align:left;">
@@ -103,6 +106,20 @@
 				</view>
 			</view>
 		</view>
+		<view class="mt-card">
+			<view class="mt-kehuphone">联系电话</view>
+			<view class="mt-kehuname">
+				<view>客户电话：{{OrderInfo.phone}}</view>
+				<view style="flex: 1;text-align: right;" @tap="callCustomerPhone"><text class="mtfa mt-phone"></text></view>
+			</view>
+			<view class="mt-kehuname">
+				<view class="mt-name">
+					<view class="mt-textphone">一二三四五六七八七八九十：</view>
+					<view>17786426947</view>
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
+			</view>
+		</view>
 	</view>
 </template>
 
@@ -121,6 +138,32 @@ export default {
 		this.getOrderInfo();
 	},
 	methods: {
+		//拨打电话
+		callCustomerPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.OrderInfo.phone, //仅为示例
+				// 成功回调
+				success: (res) => {
+					console.log('调用成功!')	
+				},
+				// 失败回调
+				fail: (res) => {console.log('调用失败!')
+					}
+			});
+			
+		},
+		callPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.OrderInfo.phone, //仅为示例
+				// 成功回调
+				success: (res) => console.log('调用成功!'),
+				
+				// 失败回调
+				fail: (res) => console.log(res)
+			});
+		},
 		textareaBInput(e) {
 			this.textareaBValue = e.detail.value
 		},
@@ -145,6 +188,38 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.mt-kehuname{
+		display: flex;
+		margin: 0rpx 40rpx;
+		padding: 30rpx 0rpx;
+		border-top: 0.66rpx solid #eee;
+		.mt-name{
+			display: flex;
+			flex-flow: column;
+			.mt-textphone{
+				width: 400rpx;
+				padding-bottom: 20rpx;
+			}
+		}
+		.mtfa{
+			font-size: 40rpx;
+			color: #FF571D;
+			margin-right: 30rpx;
+		}
+		.mt-callphone{
+			position: relative;
+			top: 30rpx;
+			flex: 1;text-align: right;
+		}
+	}
+	.mt-kehuphone{
+		text-indent: 40rpx;
+		font-size: 30rpx;
+		color: #FF571D;
+		font-weight: 900;
+		letter-spacing: 5rpx;
+		padding: 20rpx 0rpx;
+	}
 .gradOrderInfo-content {
 	padding: 20rpx;
 

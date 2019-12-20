@@ -1,7 +1,7 @@
 <!-- 我的扔单详情 -->
 <template>
-	<view class="oderList-content">
-		<view class="mt-card" v-if="oderList != null">
+	<view class="oderList-content" v-if="oderList != null">
+		<view class="mt-card" style="margin-bottom: 30rpx;">
 			<!-- 城市 -->
 			<view class="mt-city">
 		<view class="mt-startcity" style="display: flex;">
@@ -15,11 +15,11 @@
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
-				<view class="mt-startcity" v-if="oderList.carTypeName != null">
+				<view class="mt-startcity" v-if="oderList.carTypeId != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">车辆类型：{{oderList.carTypeName}}</text>
 				</view>
-				<view class="mt-startcity" v-if="oderList.carTypeName != null">
+				<view class="mt-startcity" v-if="oderList.carTypeId != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">派车数量：{{oderList.vehiceNumber}}</text>
 				</view>
@@ -67,22 +67,25 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey">{{oderList.isItchai === 1 ? '拆装服务：需要' : '拆装服务：不需要'}}</text>
 				</view>
-			
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">抢单公司：武汉米腾网络科技有限公司</text>
+				</view>
 				<!-- 搬运物品 -->
-					<view class="mt-startcity" style="display: flex;">
-						<view style="width: 550rpx;text-align:left;">
+					<view class="mt-startcity" style="display: flex;"  v-if="oderList.goods">
+						<view style="width: 500rpx;text-align:left;">
 							<view class="mt-placebox"></view>
 							<text class="text-grey">搬运物品：</text>
 						</view>
-						<view  class="text-grey" style="word-break: break-all;">{{oderList.goods === '' ? '' : oderList.goods}}</view>
+						<view  class="text-grey" style="word-break: break-all;">{{oderList.goods}}</view>
 					</view>
 					<!-- 注意事项 -->
-					<view class="mt-startcity" style="display: flex;">
+					<view class="mt-startcity" style="display: flex;"  v-if="oderList.remark">
 						<view style="width: 550rpx;text-align:left ;">
 							<view class="mt-placebox"></view>
 							<text class="text-grey">注意事项：</text>
 						</view>
-						<view  class="text-grey" style="word-break: break-all;">{{oderList.remark === '' ? '' : oderList.remark}}</view>
+						<view  class="text-grey" style="word-break: break-all;">{{oderList.remark}}</view>
 					</view>
 				</view>
 			<!-- 收益 -->
@@ -98,6 +101,21 @@
 						实际所得：{{shouru}}元
 					</text>
 				</view>
+				
+			</view>
+		</view>
+		<view class="mt-card">
+			<view class="mt-kehuphone">联系电话</view>
+			<view class="mt-kehuname">
+				<view>客户电话：{{oderList.phone}}</view>
+				<view style="flex: 1;text-align: right;" @tap="callCustomerPhone"><text class="mtfa mt-phone"></text></view>
+			</view>
+			<view class="mt-kehuname">
+				<view class="mt-name">
+					<view class="mt-textphone">一二三四五六七八七八九十：</view>
+					<view>17786426947</view>
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
 			</view>
 		</view>
 	</view>
@@ -109,7 +127,8 @@ export default {
 		return {
 			oderList:null,
 			shouru:null,
-			id:''  //列表id
+			id:''  ,//列表id，
+			// phone:
 		};
 	},
 	onLoad(option) {
@@ -121,7 +140,8 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.oderList =res.data;
-					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee)
+					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee);
+					// this.phone= this.oderList.
 				}else {
 					uni.showToast({
 					title: res.message,
@@ -130,12 +150,71 @@ export default {
 				}
 				this.$mtRequest.stop();//结束loading等待
 			});
+		},
+		
+		//拨打电话
+		callCustomerPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.oderList.phone, //仅为示例
+				// 成功回调
+				success: (res) => {
+					console.log('调用成功!')	
+				},
+				// 失败回调
+				fail: (res) => {console.log('调用失败!')
+					}
+			});
+			
+		},
+		callPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.oderList.phone, //仅为示例
+				// 成功回调
+				success: (res) => console.log('调用成功!'),
+				
+				// 失败回调
+				fail: (res) => console.log(res)
+			});
 		}
 	}
 };
 </script>
 
 <style lang="scss" scoped>
+	.mt-kehuname{
+		display: flex;
+		margin: 0rpx 40rpx;
+		padding: 30rpx 0rpx;
+		border-top: 0.66rpx solid #eee;
+		.mt-name{
+			display: flex;
+			flex-flow: column;
+			.mt-textphone{
+				width: 400rpx;
+				padding-bottom: 20rpx;
+			}
+		}
+		.mtfa{
+			font-size: 40rpx;
+			color: #FF571D;
+			margin-right: 30rpx;
+		}
+		.mt-callphone{
+			position: relative;
+			top: 30rpx;
+			flex: 1;text-align: right;
+		}
+	}
+	.mt-kehuphone{
+		text-indent: 40rpx;
+		font-size: 30rpx;
+		color: #FF571D;
+		font-weight: 900;
+		letter-spacing: 5rpx;
+		padding: 20rpx 0rpx;
+	}
 	.text-remark-text{
 		flex: 1;
 		overflow: hidden;
