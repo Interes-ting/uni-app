@@ -52,7 +52,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">出发时间：{{list.deliveryTime}}</text>
+						<text class="text-grey">搬家时间：{{list.deliveryTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -72,7 +72,7 @@
 					</view>
 					<view class="mt-startcity" v-if="list.isItchai === 1">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">拆装服务：有</text>
+						<text class="text-grey">拆装服务：需要</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
