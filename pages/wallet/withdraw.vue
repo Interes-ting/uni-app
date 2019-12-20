@@ -209,15 +209,9 @@
 				}
 			},
 			earningstthreetwo() {
-				//防重复
-				if (this.$mtRequest.isRepeat()) {
-					return;
-				}
-				setTimeout(function() {
 					uni.navigateTo({
 						url: '../bank/bankEdit'
 					});
-				}, 2000)
 			}
 		}
 	}

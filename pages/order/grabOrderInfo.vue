@@ -1,7 +1,7 @@
 <!-- 抢单详情 -->
 <template>
 	<view class="gradRecord-content">
-		<view class="mt-card" v-if="carList != null">
+		<view class="mt-card" v-if="carList != null" style="padding-bottom: 40rpx;">
 			<view class="mt-content-box">
 				<view class="mt-flbox">
 					<text class="mtfa mt-truck" style="color:#CB8861;"></text>
