@@ -7,8 +7,6 @@
 					<swiper-item>
 						<view class="swiper-item"><image src="../../static/swiper.png"></image></view>
 					</swiper-item>
-					<swiper-item><view class="swiper-item">B</view></swiper-item>
-					<swiper-item><view class="swiper-item">C</view></swiper-item>
 				</swiper>
 			</view>
 		</view>
@@ -16,12 +14,12 @@
 		<view class="mt-buttons-content">
 			<view class="mt-buttons-item" @tap="goGradOrderInfo">
 				<image class="mt-order-img" src="../../static/throw.png"></image>
-				<text>我的抢单</text>
+				<text>我抢的单</text>
 			</view>
 			<view class="mt-place-content"></view>
 			<view class="mt-buttons-item" @tap="goThrowRecord">
 				<image class="mt-order-img imgsecond" src="../../static/grab.png"></image>
-				<text>我的扔单</text>
+				<text>我扔的单</text>
 			</view>
 		</view>
 		<!-- 抢单信息 -->
