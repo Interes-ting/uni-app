@@ -108,14 +108,14 @@
 			<view class="mt-kehuphone">联系电话</view>
 			<view class="mt-kehuname">
 				<view>客户电话：{{oderList.phone}}</view>
-				<view style="flex: 1;text-align: right;"><text class="mtfa mt-phone"></text></view>
+				<view style="flex: 1;text-align: right;" @tap="callCustomerPhone"><text class="mtfa mt-phone"></text></view>
 			</view>
 			<view class="mt-kehuname">
 				<view class="mt-name">
-					<view class="mt-textphone">一二三四五六七八九十一二三四五六七八九十：</view>
+					<view class="mt-textphone">一二三四五六七八七八九十：</view>
 					<view>17786426947</view>
 				</view>
-				<view class="mt-callphone"><text class="mtfa mt-phone"></text></view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
 			</view>
 		</view>
 	</view>
@@ -127,7 +127,8 @@ export default {
 		return {
 			oderList:null,
 			shouru:null,
-			id:''  //列表id
+			id:''  ,//列表id，
+			// phone:
 		};
 	},
 	onLoad(option) {
@@ -139,7 +140,8 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.oderList =res.data;
-					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee)
+					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee);
+					// this.phone= this.oderList.
 				}else {
 					uni.showToast({
 					title: res.message,
@@ -147,6 +149,33 @@ export default {
 					});
 				}
 				this.$mtRequest.stop();//结束loading等待
+			});
+		},
+		
+		//拨打电话
+		callCustomerPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.oderList.phone, //仅为示例
+				// 成功回调
+				success: (res) => {
+					console.log('调用成功!')	
+				},
+				// 失败回调
+				fail: (res) => {console.log('调用失败!')
+					}
+			});
+			
+		},
+		callPhone:function(){
+			// console.log(11);
+			uni.makePhoneCall({
+			    phoneNumber:this.oderList.phone, //仅为示例
+				// 成功回调
+				success: (res) => console.log('调用成功!'),
+				
+				// 失败回调
+				fail: (res) => console.log(res)
 			});
 		}
 	}
@@ -174,7 +203,7 @@ export default {
 		}
 		.mt-callphone{
 			position: relative;
-			top: 20rpx;
+			top: 30rpx;
 			flex: 1;text-align: right;
 		}
 	}
@@ -184,7 +213,7 @@ export default {
 		color: #FF571D;
 		font-weight: 900;
 		letter-spacing: 5rpx;
-		padding-bottom: 20rpx;
+		padding: 20rpx 0rpx;
 	}
 	.text-remark-text{
 		flex: 1;

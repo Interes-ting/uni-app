@@ -182,14 +182,14 @@
 				};
 
 				//开发环境，不调支付接口
-				//this.payOverTest();
+				this.payOverTest();
 
 				//正式环境，调用支付接口
 				// #ifdef APP-PLUS
-				this.appPay();
+				// this.appPay();
 				// #endif
 				// #ifdef MP-WEIXIN
-				this.appletPay();
+				// this.appletPay();
 				// #endif
 
 			},
