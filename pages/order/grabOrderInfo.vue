@@ -113,7 +113,7 @@
 			<view class="mt-content-box">
 				<view class="mt-flbox">
 					<text class="mtfa mt-weixiu" style="color:blue;"></text>
-					<text>拆卸服务：</text>
+					<text>拆装服务：</text>
 				</view>
 				<view class="mt-frbox"><text>{{carList.isItchai ==1?'需要':'不需要'}}</text></view>
 			</view>

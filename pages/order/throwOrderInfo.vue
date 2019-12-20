@@ -15,11 +15,11 @@
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
-				<view class="mt-startcity" v-if="oderList.carTypeId != 0">
+				<view class="mt-startcity"v-if="oderList.vehicleRequired != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">车辆类型：{{ oderList.carTypeName }}</text>
 				</view>
-				<view class="mt-startcity" v-if="oderList.carTypeId != 0">
+				<view class="mt-startcity" v-if="oderList.vehicleRequired != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">派车数量：{{ oderList.vehiceNumber }}</text>
 				</view>
@@ -71,7 +71,7 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey">{{ oderList.isItchai === 1 ? '拆装服务：需要' : '拆装服务：不需要' }}</text>
 				</view>
-				<view class="mt-startcity">
+				<view class="mt-startcity" v-if="oderList.state == 3">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">抢单公司：{{ oderList.throwCompanyName }}</text>
 				</view>
@@ -101,7 +101,7 @@
 				</view>
 			</view>
 		</view>
-		<view class="mt-card" v-if="state == 2">
+		<view class="mt-card" v-if="oderList.state == 3">
 			<view class="mt-kehuphone">联系电话</view>
 			<view class="mt-kehuname">
 				<view>客户电话：{{ oderList.phone }}</view>

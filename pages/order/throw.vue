@@ -501,21 +501,27 @@
 					})
 					return false;
 				};
-				if (this.time == null || this.time == '') {
+				if(this.distance == 0 ){
 					uni.showToast({
-						title: '请选择出发时间',
+						title: '距离不能为0',
 						icon: "none"
 					})
 					return false;
 				};
-				if (this.orderAmount == 0) {
+				if (this.orderAmount < 1) {
 					uni.showToast({
-						title: '请选择出发时间',
+						title: '订单金额不能为0',
 						icon: "none"
 					})
 					return false;
 				};
-
+				if (this.pay < 1) {
+					uni.showToast({
+						title: '扔单提成不能为0',
+						icon: "none"
+					})
+					return false;
+				};
 				//立即扔单
 				let grabInfo = {
 					customName: this.customName,
@@ -649,7 +655,6 @@
 								title: res.message,
 								icon: 'none'
 							});
-							console.log(this.pickerCar);
 							this.$mtRequest.stop(); //结束loading等待
 						};
 					});
@@ -1019,7 +1024,7 @@
 			bottom: var(--window-bottom);
 			width: 100%;
 			height: 97.82rpx;
-
+			z-index:999;
 			.mt-seedeil-btn {
 				width: 100%;
 				height: 100%;
@@ -1030,6 +1035,7 @@
 				color: #fff;
 				font-size: 32rpx;
 				border-radius: 0rpx;
+				z-index:999
 			}
 		}
 	}
