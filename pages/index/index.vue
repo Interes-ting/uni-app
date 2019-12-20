@@ -64,7 +64,7 @@
 					<!-- tips end-->
 					<view class="mt-startcity" style="height: 100%;">
 						<view class="mt-placebox"></view>
-						<view style="display: inline-block;width:400rpx;word-break: break-all;">此订单由{{ item.throwCompanyName}}提供
+						<view style="display: inline-block;width:400rpx;word-break: break-all;">此订单由 {{ item.throwCompanyName}} 提供
 						</view>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
