@@ -60,7 +60,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">被抢时间：{{list.createTime}}</text>
+						<text class="text-grey">被抢时间：{{list.robTime ==null?' ': list.robTime}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -87,7 +87,7 @@
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单金额：{{list.amount}}</text>
+						<text class="text-grey">订单金额：{{list.price}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -137,7 +137,7 @@ export default {
 			
 				if (data.state > 0) {
 					this.list = data.data
-					this.needPay = Number(this.list.payAmount) - Number(this.list.rowPlatformFee)
+					this.needPay = Number(this.list.payAmount) - Number(this.list.thowPlatformFee)
 				console.log(data.data)
 				} else {
 					//登录失败

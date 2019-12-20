@@ -24,7 +24,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">提现人姓名：{{list.name}}</text>
+						<text class="text-grey">提现人姓名：{{list.names}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
@@ -43,6 +43,7 @@
 export default {
 	data() {
 		return {
+			names:'',
 			oderList:null,
 			list:'',
 		};

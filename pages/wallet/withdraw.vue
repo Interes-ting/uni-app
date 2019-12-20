@@ -43,7 +43,7 @@
 			<button class="mt-loginbutndl" type="primary" @click="earningstthree">提现到银行卡</button>
 		</view>
 		<view class="mt-loginbutn" v-if="message =='未获取到银行卡信息'">
-			<button class="mt-loginbutndl" style="background: #C8C7CC;" type="primary" >提现到银行卡</button>
+			<button class="mt-loginbutndl" style="background: #C8C7CC;" type="primary">提现到银行卡</button>
 		</view>
 
 	</view>
@@ -83,12 +83,15 @@
 						this.cardNo = data.data.cardNo
 						this.name = data.data.name
 					} else {
-
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
+						if (data.message == '未获取到银行卡信息') {
+							return;
+						} else {
+							//登录失败
+							uni.showToast({
+								title: data.message,
+								icon: "none"
+							})
+						}
 					}
 
 					//结束请求
@@ -107,11 +110,15 @@
 					if (data.state > 0) {
 						this.withdrawable = data.data.withdrawable;
 					} else {
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
+						if (data.message == '未获取到银行卡信息') {
+							return;
+						} else {
+							//登录失败
+							uni.showToast({
+								title: data.message,
+								icon: "none"
+							})
+						}
 					}
 
 					//结束请求
@@ -131,11 +138,15 @@
 					if (data.state > 0) {
 
 					} else {
-						//登录失败
-						uni.showToast({
-							title: data.message,
-							icon: "none"
-						})
+						if (data.message == '未获取到银行卡信息') {
+							return;
+						} else {
+							//登录失败
+							uni.showToast({
+								title: data.message,
+								icon: "none"
+							})
+						}
 					}
 
 					//结束请求
@@ -144,7 +155,7 @@
 
 			},
 			earningstthree() {
-				
+
 
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
@@ -175,11 +186,16 @@
 							})
 
 						} else {
-							//登录失败
-							uni.showToast({
-								title: data.message,
-								icon: "none"
-							})
+							if (data.message == '未获取到银行卡信息') {
+								return;
+							} else {
+								//登录失败
+								uni.showToast({
+									title: data.message,
+									icon: "none"
+								})
+							}
+
 						}
 
 						//结束请求
@@ -212,16 +228,20 @@
 		font-size: 30rpx;
 		font-weight: bold;
 	}
-	page{
+
+	page {
 		height: 100%;
 		background: #FFFFFF;
 	}
+
 	.mt-carsbk {
 		height: 85rpx;
 	}
-	.mt-loginbutn.two{
+
+	.mt-loginbutn.two {
 		margin: 10% auto;
 	}
+
 	.mt-loginbutn {
 		width: 510rpx;
 		height: 88rpx;
