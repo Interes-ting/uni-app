@@ -204,7 +204,9 @@
 							}
 
 							//结束请求
+							setTimeout(function() {
 							that.$mtRequest.stop();
+							}, 2000)
 						})
 				}
 			},

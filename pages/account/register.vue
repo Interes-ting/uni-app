@@ -252,6 +252,7 @@
 
 							if (data.state > 0) {
 								//登录成功
+								
 								uni.showToast({
 									title: "验证码已发送"
 								})
@@ -264,7 +265,9 @@
 
 							}
 							//结束请求
+							setTimeout(function() {
 							that.$mtRequest.stop();
+							}, 2000)
 						})
 				}
 
