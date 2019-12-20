@@ -179,11 +179,16 @@
 		width: 100%;
 		
 	}
-	
+	page{
+		height: 100%;
+		background: #000000;;
+	}
 	.uni-input {
-		display: inline-flex;
+		display: flex;
 		width: 70%;
 		font-size: 30rpx;
+		height: 78rpx;
+		line-height: 78rpx;
 	}
 	.mt-input-input {
 		height: 78rpx;
@@ -208,7 +213,7 @@
 		height: 78rpx;
 		line-height: 78rpx;
 		width: 100%;
-		margin: 10rpx 0 0 0;
+		margin: 0 0 10rpx 0;
 		
 	
 	}

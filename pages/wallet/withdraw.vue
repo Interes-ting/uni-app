@@ -212,7 +212,10 @@
 		font-size: 30rpx;
 		font-weight: bold;
 	}
-
+	page{
+		height: 100%;
+		background: #FFFFFF;
+	}
 	.mt-carsbk {
 		height: 85rpx;
 	}

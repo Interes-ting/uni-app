@@ -8,7 +8,7 @@
 						<view class="mt-loginimge  mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码" v-model.trim="account" />
+						<input type="number" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码" v-model.trim="account" />
 					</view>
 				</view>
 			</view>
