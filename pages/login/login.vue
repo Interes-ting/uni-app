@@ -8,7 +8,8 @@
 						<view class="mt-loginimge  mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input type="number" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码" v-model.trim="account" />
+						<input type="number" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码"
+						 v-model.trim="account" />
 					</view>
 				</view>
 			</view>
@@ -38,6 +39,7 @@
 				<button class="mt-loginbutn" type="primary" @click="loginbtn">登录</button>
 			</view>
 		</view>
+
 		<!-- #ifdef APP-PLUS -->
 		<block v-if="privacyShow">
 			<view class="cu-modal show">
@@ -45,8 +47,8 @@
 					<view class="cu-bar bg-white justify-end">
 						<view class="content">用户隐私说明</view>
 					</view>
-					<view class="padding-xl bg-white">
-						感谢您下载并使用轻松搬家平台APP
+					<view class="padding-xl bg-white" style="text-align: left;text-indent:2em;">
+						感谢您下载并使用轻松搬家，为向您提供更好的服务，轻松搬家可能需要您开启部分权限，请您在使用前阅读<text style="color: blue;" @tap="openPrivacy">《轻松搬家用户使用协议》</text>，如果同意，请点击下方“同意”按钮使用轻松搬家。
 					</view>
 					<view class="cu-bar bg-white">
 						<view class="action margin-0 flex-sub  text-green  solid-left " @tap="privacyPass">我同意并继续使用</view>
@@ -55,6 +57,7 @@
 			</view>
 		</block>
 		<!-- #endif -->
+
 	</view>
 </template>
 
@@ -165,7 +168,7 @@
 				if (!validResult) {
 					return;
 				}
-				
+
 				//请求登录
 				this.$mtAccount.login(user, function() {
 					setTimeout(function() {
@@ -223,6 +226,9 @@
 			privacyPass() {
 				uni.setStorageSync("privacy", "1");
 				this.privacyShow = false;
+			},
+			openPrivacy() {
+				plus.runtime.openWeb('http://www.easilymove.cn/121618135893.html');
 			},
 			// #endif
 			// #ifdef MP-WEIXIN
