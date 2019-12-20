@@ -166,7 +166,7 @@
 				</view>
 			</form>
 			<view class="throwBtn">
-				<button class="mt-seedeil-btn" @tap="goThrow">立即扔单</button>
+				<button class="mt-seedeil-btn" @click="goThrow">立即扔单</button>
 			</view>
 		</view>
 	</view>
@@ -490,8 +490,24 @@
 						})
 						return false;
 					};
-
+				
 				};
+				//立即扔单
+				let grabInfo = {
+					customName: this.customName,
+					customPhone: this.customPhone,
+					startAddress: this.startAddress,
+					endAddress: this.endAddress,
+					distance: this.distance,
+					orderAmount: this.orderAmount,
+					pay: this.pay,
+				}
+				//做校验
+				let validResult = this.$mtValidation.valid(grabInfo, this.rules);
+				if (!validResult) {
+					return;
+				}
+				
 				//判断是否选择电梯楼层
 				if (this.startfloor === null || this.endfloor === null ||
 					this.floor1 == null || this.floor2 == null) {
@@ -522,21 +538,6 @@
 					})
 					return false;
 				};
-				//立即扔单
-				let grabInfo = {
-					customName: this.customName,
-					customPhone: this.customPhone,
-					startAddress: this.startAddress,
-					endAddress: this.endAddress,
-					distance: this.distance,
-					orderAmount: this.orderAmount,
-					pay: this.pay,
-				}
-				//做校验
-				let validResult = this.$mtValidation.valid(grabInfo, this.rules);
-				if (!validResult) {
-					return;
-				}
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
 					return;
@@ -823,6 +824,7 @@
 
 	.throw-content {
 		padding: 20rpx;
+		padding-bottom: 110rpx;
 
 		.mt-hascar {
 			background-color: #FFFFFF;
@@ -1020,22 +1022,25 @@
 
 		.throwBtn {
 			position: fixed;
+			z-index: 10;
 			left: 0;
 			bottom: var(--window-bottom);
 			width: 100%;
-			height: 97.82rpx;
-			z-index:999;
+			height: 100rpx;
+			display: flex;
+			align-items: center;
+			background-color: white;
+
 			.mt-seedeil-btn {
-				width: 100%;
-				height: 100%;
+				width: 80%;
+				height: 80rpx;
 				display: flex;
 				align-items: center;
 				justify-content: center;
 				background: linear-gradient(0deg, rgba(67, 152, 255, 1) 0%, rgba(28, 130, 255, 1) 100%);
+				border-radius: 6.66rpx;
 				color: #fff;
 				font-size: 32rpx;
-				border-radius: 0rpx;
-				z-index:999
 			}
 		}
 	}
