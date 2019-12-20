@@ -87,19 +87,19 @@
 				<view class="mt-city">
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单金额：{{list.price}}</text>
+						<text class="text-grey">订单金额：{{list.price}}元</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">订单提成：{{list.payAmount}}</text>
+						<text class="text-grey">订单提成：{{list.payAmount}}元</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">平台服务费：{{list.thowPlatformFee}}
+						<text class="text-grey">平台服务费：{{list.thowPlatformFee}}元
 						</text>
 						<text class="text-grey" 
 						style="float:right;margin-right:20rpx;">
-							实际所得：{{needPay}}
+							实际所得：{{needPay}}元
 						</text>
 					</view>
 				</view>
