@@ -490,8 +490,24 @@
 						})
 						return false;
 					};
-
+				
 				};
+				//立即扔单
+				let grabInfo = {
+					customName: this.customName,
+					customPhone: this.customPhone,
+					startAddress: this.startAddress,
+					endAddress: this.endAddress,
+					distance: this.distance,
+					orderAmount: this.orderAmount,
+					pay: this.pay,
+				}
+				//做校验
+				let validResult = this.$mtValidation.valid(grabInfo, this.rules);
+				if (!validResult) {
+					return;
+				}
+				
 				//判断是否选择电梯楼层
 				if (this.startfloor === null || this.endfloor === null ||
 					this.floor1 == null || this.floor2 == null) {
@@ -522,21 +538,6 @@
 					})
 					return false;
 				};
-				//立即扔单
-				let grabInfo = {
-					customName: this.customName,
-					customPhone: this.customPhone,
-					startAddress: this.startAddress,
-					endAddress: this.endAddress,
-					distance: this.distance,
-					orderAmount: this.orderAmount,
-					pay: this.pay,
-				}
-				//做校验
-				let validResult = this.$mtValidation.valid(grabInfo, this.rules);
-				if (!validResult) {
-					return;
-				}
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
 					return;

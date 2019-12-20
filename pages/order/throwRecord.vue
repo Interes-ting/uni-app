@@ -22,7 +22,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mtfa mt-clocks text-grey "></view>
-					<text class="text-grey">出发时间：{{item.deliveryTime}} </text>
+					<text class="text-grey">搬家时间：{{item.deliveryTime}} </text>
 				</view>
 				<view class="mt-startcity" style="display: flex;" v-if="item.goods">
 					<view class="mtfa mt-box text-grey "></view>
@@ -47,6 +47,7 @@
 				<button class="mt-viewbutton" @tap="goThrowOrderInfo(item)">详情</button>
 			</view>
 		</block>
+		<view class="mt-nonumber" v-if="Info == null">暂无数据</view>
 	</view>
 </template>
 
@@ -102,6 +103,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+	.mt-nonumber{
+		text-align: center;
+		color: #595959;
+		padding-top: 50rpx;
+	}
 	.text-remark-text{
 		flex: 1;
 		overflow: hidden;

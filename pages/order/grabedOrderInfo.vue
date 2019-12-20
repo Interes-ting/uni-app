@@ -46,7 +46,11 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">出发时间：{{OrderInfo.deliveryTime}}</text>
+					<text class="text-grey">搬家时间：{{OrderInfo.deliveryTime}}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">距离：{{ OrderInfo.distance }}公里</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -109,17 +113,34 @@
 		</view>
 		<view class="mt-card">
 			<view class="mt-kehuphone">联系电话</view>
-			<view class="mt-kehuname">
-				<view>客户电话：{{OrderInfo.phone}}</view>
-				<view style="flex: 1;text-align: right;" @tap="callCustomerPhone"><text class="mtfa mt-phone"></text></view>
+			<view class="mt-kehuname" >
+				<view class="mt-name">
+					<view class="mt-textphone">客户电话：{{ OrderInfo.phone }}</view>
+					<!-- <view></view> -->
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
 			</view>
+			<view class="mt-kehuname" style="border-top: 0.66rpx solid #eee;" >
+				<view class="mt-name">
+					<view class="mt-textphone">扔单搬家公司电话：{{ OrderInfo.throwCompanyPhone }}</view>
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
+			</view>
+		<!-- 	<view class="mt-kehuphone">联系电话</view>
 			<view class="mt-kehuname">
 				<view class="mt-name">
-					<view class="mt-textphone">{{OrderInfo.throwCompanyName}}：</view>
-					<view>{{OrderInfo.throwCompanyPhone}}</view>
+					<view class="mt-textphone">客户电话：</view>
+					<view>{{OrderInfo.phone}}</view>
 				</view>
 				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
 			</view>
+			<view class="mt-kehuname">
+				<view class="mt-name">
+					<view class="mt-textphone">扔单搬家公司：</view>
+					<view>{{OrderInfo.throwCompanyPhone}}</view>
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -169,7 +190,6 @@ export default {
 			this.textareaBValue = e.detail.value
 		},
 		getOrderInfo:function(){
-
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.OrderInfo =res.data;
@@ -189,38 +209,37 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-	.mt-kehuname{
+.mt-kehuname {
+	display: flex;
+	margin: 0rpx 40rpx;
+	padding: 20rpx 0rpx;
+	
+	.mt-name {
 		display: flex;
-		margin: 0rpx 40rpx;
-		padding: 30rpx 0rpx;
-		border-top: 0.66rpx solid #eee;
-		.mt-name{
-			display: flex;
-			flex-flow: column;
-			.mt-textphone{
-				width: 400rpx;
-				padding-bottom: 20rpx;
-			}
-		}
-		.mtfa{
-			font-size: 40rpx;
-			color: #FF571D;
-			margin-right: 30rpx;
-		}
-		.mt-callphone{
-			position: relative;
-			top: 30rpx;
-			flex: 1;text-align: right;
+		flex-flow: column;
+		line-height: 80rpx;
+		.mt-textphone {
+			width: 500rpx;
 		}
 	}
-	.mt-kehuphone{
-		text-indent: 40rpx;
-		font-size: 30rpx;
-		color: #FF571D;
-		font-weight: 900;
-		letter-spacing: 5rpx;
-		padding: 20rpx 0rpx;
+	.mtfa {
+		font-size: 60rpx;
+		color: #37932A;
+		margin-right: 30rpx;
 	}
+	.mt-callphone {
+		flex: 1;
+		text-align: right;
+	}
+}
+.mt-kehuphone {
+	text-indent: 40rpx;
+	font-size: 30rpx;
+	color: #ff571d;
+	font-weight: 900;
+	letter-spacing: 5rpx;
+	padding: 20rpx 0rpx;
+}
 .gradOrderInfo-content {
 	padding: 20rpx;
 

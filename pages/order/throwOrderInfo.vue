@@ -49,7 +49,11 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">出发时间：{{ oderList.deliveryTime }}</text>
+					<text class="text-grey">搬家时间：{{ oderList.deliveryTime }}</text>
+				</view>
+				<view class="mt-startcity">
+					<view class="mt-placebox"></view>
+					<text class="text-grey">距离：{{ oderList.distance }}公里</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
@@ -103,17 +107,30 @@
 		</view>
 		<view class="mt-card" v-if="oderList.state == 3">
 			<view class="mt-kehuphone">联系电话</view>
-			<view class="mt-kehuname">
+			<!-- <view class="mt-kehuname">
 				<view>客户电话：{{ oderList.phone }}</view>
 				<view style="flex: 1;text-align: right;" @tap="callCustomerPhone"><text class="mtfa mt-phone"></text></view>
-			</view>
+			</view> -->
 			<view class="mt-kehuname">
 				<view class="mt-name">
-					<view class="mt-textphone">{{ oderList.robCompanyName }}：</view>
+					<view class="mt-textphone">客户电话：{{ oderList.phone }}</view>
+					<!-- <view></view> -->
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
+			</view>
+			<view class="mt-kehuname" style="border-top: 0.66rpx solid #eee;">
+				<view class="mt-name">
+					<view class="mt-textphone">抢单搬家公司：{{ oderList.robCompanyPhone }}</view>
+				</view>
+				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
+			</view>
+			<!-- <view class="mt-kehuname">
+				<view class="mt-name">
+					<view class="mt-textphone">扔单搬家公司：</view>
 					<view>{{ oderList.robCompanyPhone }}</view>
 				</view>
 				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
-			</view>
+			</view> -->
 		</view>
 	</view>
 </template>
@@ -183,24 +200,22 @@ export default {
 .mt-kehuname {
 	display: flex;
 	margin: 0rpx 40rpx;
-	padding: 30rpx 0rpx;
-	border-top: 0.66rpx solid #eee;
+	padding: 20rpx 0rpx;
+	
 	.mt-name {
 		display: flex;
 		flex-flow: column;
+		line-height: 80rpx;
 		.mt-textphone {
 			width: 400rpx;
-			padding-bottom: 20rpx;
 		}
 	}
 	.mtfa {
-		font-size: 40rpx;
-		color: #ff571d;
+		font-size: 60rpx;
+		color: #37932A;
 		margin-right: 30rpx;
 	}
 	.mt-callphone {
-		position: relative;
-		top: 30rpx;
 		flex: 1;
 		text-align: right;
 	}

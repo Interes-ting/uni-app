@@ -45,7 +45,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mtfa mt-clocks text-grey "></view>
-						<text class="text-grey">出发时间：{{ item.deliveryTime }}</text>
+						<text class="text-grey">搬家时间：{{ item.deliveryTime }}</text>
 					</view>
 					<view class="mt-startcity" 
 					style="display: flex;" v-if="item.goods !=null || item.goods !=''">
@@ -66,7 +66,7 @@
 						</view>
 					</view>
 					<button class="mt-viewbutton" v-if="item.state == 1" @tap="goGrabOrderInfo(item)">查看</button>
-					<button class="mt-qiangdan" v-else-if="item.state == 2" >抢单中...</button>
+					<button class="mt-qiangdan" v-else-if="item.state == 2" >抢单中</button>
 					<button class="mt-elsebutton" v-else>已抢</button>
 				</view>
 			</block>
