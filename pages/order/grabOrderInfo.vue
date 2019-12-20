@@ -1,7 +1,7 @@
 <!-- 抢单详情 -->
 <template>
 	<view class="gradRecord-content">
-		<view class="mt-card" v-if="carList != null">
+		<view class="mt-card" v-if="carList != null" style="padding-bottom: 40rpx;">
 			<view class="mt-content-box">
 				<view class="mt-flbox">
 					<text class="mtfa mt-truck" style="color:#CB8861;"></text>
@@ -113,7 +113,7 @@
 			<view class="mt-content-box">
 				<view class="mt-flbox">
 					<text class="mtfa mt-weixiu" style="color:blue;"></text>
-					<text>拆卸服务：</text>
+					<text>拆装服务：</text>
 				</view>
 				<view class="mt-frbox"><text>{{carList.isItchai ==1?'需要':'不需要'}}</text></view>
 			</view>

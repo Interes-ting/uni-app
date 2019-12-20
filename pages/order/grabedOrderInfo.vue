@@ -15,11 +15,11 @@
 			</view>
 			<!-- 订单详情 -->
 			<view class="mt-oderinfo">
-				<view class="mt-startcity" v-if="OrderInfo.carTypeName != null || OrderInfo.carTypeName != ''">
+				<view class="mt-startcity" v-if="OrderInfo.vehicleRequired != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">车辆类型：{{OrderInfo.carTypeName}}</text>
 				</view>
-				<view class="mt-startcity"  v-if="OrderInfo.vehiceNumber != null || OrderInfo.vehiceNumber != ''">
+				<view class="mt-startcity"  v-if="OrderInfo.vehicleRequired != 0">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">派车数量：{{OrderInfo.vehiceNumber}}</text>
 				</view>
@@ -70,9 +70,10 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">抢单公司：武汉米腾网络科技有限公司</text>
+					<text class="text-grey">扔单公司：{{OrderInfo.throwCompanyName}}</text>
 				</view>
 			<!-- 搬运物品 -->
+
 				<view class="mt-startcity" style="display: flex;text-align: left;" v-if="OrderInfo.goods">
 					<view style="width: 160rpx;text-align:left;">
 						<view class="mt-placebox"></view>
@@ -114,8 +115,8 @@
 			</view>
 			<view class="mt-kehuname">
 				<view class="mt-name">
-					<view class="mt-textphone">一二三四五六七八七八九十：</view>
-					<view>17786426947</view>
+					<view class="mt-textphone">{{OrderInfo.throwCompanyName}}：</view>
+					<view>{{OrderInfo.throwCompanyPhone}}</view>
 				</view>
 				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-phone"></text></view>
 			</view>
