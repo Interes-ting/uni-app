@@ -87,14 +87,14 @@ export default {
 			let validResult = this.$mtValidation.valid(user, this.rules);
 			if (!validResult) {
 				return;
-			}else if(this.businessLicense != ''){
+			} else if (this.businessLicense != '') {
 				var ze = /^\w+$/;
 				if (!ze.test(this.businessLicense)) {
 					uni.showToast({
-						title: "统一社会信用代码只能输入数字和字母",
-						icon: "none"
+						title: '统一社会信用代码只能输入数字和字母',
+						icon: 'none'
 					});
-				}else{
+				} else {
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
@@ -125,48 +125,49 @@ export default {
 									icon: 'none'
 								});
 							}
-					
+
 							//结束请求
 							this.$mtRequest.stop();
 						}
 					);
 				}
-			}else{
-			if (this.$mtRequest.isRepeat()) {
-				return;
-			}
-			this.$mtRequest.post(
-				this.$mtConfig.getPlatformUrl('api/merchant_info/updatUser'),
-				{
-					merchantId: this.$mtAccount.info().merchantInfoId,
-					merchantName: this.merchantName,
-					businessLicense: this.businessLicense,
-					companyAddress: this.companyAddress,
-					companyLegalPerson: this.companyLegalPerson
-				},
-				data => {
-					if (data.state > 0) {
-						uni.showToast({
-							title: '保存成功',
-							success: function() {
-								setTimeout(function() {
-									uni.switchTab({
-										url: '/pages/person/person'
-									});
-								}, 2000);
-							}
-						});
-					} else {
-						uni.showToast({
-							title: data.message,
-							icon: 'none'
-						});
-					}
-
-					//结束请求
-					this.$mtRequest.stop();
+			} else {
+				if (this.$mtRequest.isRepeat()) {
+					return;
 				}
-			);}
+				this.$mtRequest.post(
+					this.$mtConfig.getPlatformUrl('api/merchant_info/updatUser'),
+					{
+						merchantId: this.$mtAccount.info().merchantInfoId,
+						merchantName: this.merchantName,
+						businessLicense: this.businessLicense,
+						companyAddress: this.companyAddress,
+						companyLegalPerson: this.companyLegalPerson
+					},
+					data => {
+						if (data.state > 0) {
+							uni.showToast({
+								title: '保存成功',
+								success: function() {
+									setTimeout(function() {
+										uni.switchTab({
+											url: '/pages/person/person'
+										});
+									}, 2000);
+								}
+							});
+						} else {
+							uni.showToast({
+								title: data.message,
+								icon: 'none'
+							});
+						}
+
+						//结束请求
+						this.$mtRequest.stop();
+					}
+				);
+			}
 		}
 	}
 };
