@@ -151,7 +151,7 @@
 							title: "密码修改成功",
 							success: function() {
 								setTimeout(function() {
-									uni.switchTab({
+									uni.navigateTo({
 										url: '../login/login'
 									});
 								}, 2000)
