@@ -16,11 +16,11 @@
 				</view>
 				<!-- 订单详情 -->
 				<view class="mt-oderinfo">
-					<view class="mt-startcity" v-if="list.vehicleRequired != null">
+					<view class="mt-startcity" v-if="list.vehicleRequired != 0">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">车辆类型：{{list.carTypeName}}</text>
 					</view>
-					<view class="mt-startcity" v-if="list.vehicleRequired != null">
+					<view class="mt-startcity" v-if="list.vehicleRequired != 0">
 						<view class="mt-placebox" ></view>
 						<text class="text-grey">派车数量：{{list.vehiceNumber}}</text>
 					</view>
@@ -35,7 +35,7 @@
 					
 					<!-- 搬出地址-->
 					<view class="mt-startcity" v-if="list.fromAddress" style="display: inline-block;">
-						<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬出地址：</view>
+						<view class="text-grey" style="float: left;padding-left: 36rpx;">搬出地址：</view>
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{list.fromAddress}}</view>
 					</view>
 					<view class="mt-startcity">
@@ -44,7 +44,7 @@
 					</view>
 					<!-- 搬入地址-->
 					<view class="mt-startcity" v-if="list.toAddress" style="display: inline-block;">
-						<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬入地址：</view>
+						<view class="text-grey" style="float: left;padding-left: 36rpx;">搬入地址：</view>
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{list.toAddress}}</view>
 					</view>
 					<view class="mt-startcity">
