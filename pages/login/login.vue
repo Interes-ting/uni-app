@@ -20,7 +20,7 @@
 					</view>
 					<view class="mt-input-input">
 						<input password="false" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
-						 v-model="password" />
+						 v-model.trim="password" />
 					</view>
 				</view>
 			</view>

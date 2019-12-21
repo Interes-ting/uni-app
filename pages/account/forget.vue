@@ -22,7 +22,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model="newpwd" placeholder="输入您的密码" />
+						<input password="false" class="uni-input" v-model.trim="newpwd" placeholder="输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -32,7 +32,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model="confirmpwd" placeholder="再次确认密码" />
+						<input password="false" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认密码" />
 					</view>
 				</view>
 			</view>
@@ -44,7 +44,7 @@
 							<view class="mt-loginimge"></view>
 						</view>
 						<view class="mt-input-input mt-yz">
-							<input type="number" class="uni-input" v-model="code" maxlength="6" placeholder=" " />
+							<input type="number" class="uni-input" v-model.trim="code" maxlength="6" placeholder=" " />
 						</view>
 					</view>
 					<view class="mt-input-img mt-yz">
@@ -93,7 +93,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20位密码"
+						msg: "请输入6~20位密码,不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -108,7 +108,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请再次输入6~20位密码"
+						msg: "请再次输入6~20位密码,不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -179,9 +179,8 @@
 						icon: "none"
 					});
 				} else {
-
-					this.countDown(60);
-					//发送验证码
+					
+					
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
@@ -190,6 +189,8 @@
 					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user,
 						function(data) {
 							if (data.state > 0) {
+								//发送验证码
+								this.countDown(60);
 								//密码重置
 								uni.showToast({
 									title: "验证码已经发送"

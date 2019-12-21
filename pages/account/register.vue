@@ -37,7 +37,7 @@
 						<view class="mt-loginimge mtfa mt-gongsi"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model="merchantName" placeholder="输入您的公司名称" />
+						<input class="uni-input" v-model.trim="merchantName" placeholder="输入您的公司名称" />
 					</view>
 				</view>
 			</view>
@@ -47,7 +47,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model="pwd" placeholder="输入您的密码" />
+						<input password="false" class="uni-input" v-model.trim="pwd" placeholder="输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -57,7 +57,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model="confirmedcode" placeholder="请再次输入您的密码" />
+						<input password="false" class="uni-input" v-model.trim="confirmedcode" placeholder="请再次输入您的密码" />
 					</view>
 				</view>
 			</view>
@@ -68,7 +68,7 @@
 						<view class="mt-loginimge mtfa mt-yaoqingma"></view>
 					</view>
 					<view class="mt-input-input">
-						<input class="uni-input" v-model="yqcode" placeholder="输入邀请码" />
+						<input class="uni-input" v-model.trim="yqcode" placeholder="输入邀请码" />
 					</view>
 				</view>
 			</view>
@@ -148,7 +148,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20位密码"
+						msg: "请输入6~20位密码,不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -163,7 +163,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20位密码"
+						msg: "请输入6~20位密码,不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -240,8 +240,8 @@
 						icon: "none"
 					});
 				} else {
-					this.countDown(60);
-					//发送验证码
+					
+				
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
@@ -252,7 +252,8 @@
 
 							if (data.state > 0) {
 								//登录成功
-								
+								//发送验证码
+								this.countDown(60);
 								uni.showToast({
 									title: "验证码已发送"
 								})

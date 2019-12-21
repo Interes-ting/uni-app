@@ -8,7 +8,7 @@
 					<view class="mt-loginimge">密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model="pwd" placeholder="输入您的旧密码" />
+					<input password="false" class="uni-input" v-model.trim="pwd" placeholder="输入您的旧密码" />
 				</view>
 			</view>
 		</view>
@@ -18,7 +18,7 @@
 					<view class="mt-loginimge">修改密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model="newpwd" placeholder="输入您的新密码" />
+					<input password="false" class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
 				</view>
 			</view>
 		</view>
@@ -28,7 +28,7 @@
 					<view class="mt-loginimge">确认密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model="confirmpwd" placeholder="再次确认您的新密码" />
+					<input password="false" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认您的新密码" />
 				</view>
 			</view>
 		</view>
@@ -56,7 +56,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20位旧密码"
+						msg: "请输入6~20位旧密码，不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -71,7 +71,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请输入6~20位新密码"
+						msg: "请输入6~20位新密码，不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
@@ -86,7 +86,7 @@
 						//正则
 						type: "regexp",
 						regexp: /[0-9A-Za-z]{6,20}/,
-						msg: "请再次输入6~20位新密码"
+						msg: "请再次输入6~20位新密码，不含特殊符号"
 					}, {
 						//正则
 						type: "regexp",
