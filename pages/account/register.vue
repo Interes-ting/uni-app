@@ -103,7 +103,7 @@
 	export default {
 		data() {
 			return {
-				array: ['长沙','武汉'],
+				array: ['长沙', '武汉'],
 				index: 0,
 				//手机号
 				phone: "",
@@ -240,8 +240,7 @@
 						icon: "none"
 					});
 				} else {
-
-
+					this.countDown(60);
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
@@ -249,11 +248,10 @@
 					}
 					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone="), user,
 						function(data) {
-
 							if (data.state > 0) {
 								//登录成功
 								//发送验证码
-								this.countDown(60);
+								
 								uni.showToast({
 									title: "验证码已发送"
 								})
@@ -265,10 +263,8 @@
 								})
 
 							}
-							//结束请求
-							setTimeout(function() {
-								that.$mtRequest.stop();
-							}, 1000)
+							//结束请求	
+							that.$mtRequest.stop();
 						})
 
 				}
