@@ -78,13 +78,13 @@
 				</view>
 				<!-- 搬运物品 -->
 				<view class="mt-startcity" v-if="OrderInfo.goods" style="display: inline-block;">
-					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬运物品：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ OrderInfo.goods }}</view>
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">搬运物品：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ OrderInfo.goods }}</view>
 				</view>
 				<!-- 注意事项 -->
 				<view class="mt-startcity" v-if="OrderInfo.remark" style="display: inline-block;">
-					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">注意事项：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ OrderInfo
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">注意事项：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ OrderInfo
 					
 					
 					
@@ -142,7 +142,7 @@
 					<view class="mt-textphone">客户电话：{{ OrderInfo.phone }}</view>
 					<!-- <view></view> -->
 				</view>
-				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
+				<view class="mt-callphone" @tap="callCustomerPhone"><text class="mtfa mt-tel"></text></view>
 			</view>
 			<view class="mt-kehuname" style="border-top: 0.66rpx solid #eee;" >
 				<view class="mt-name">
@@ -188,26 +188,14 @@ export default {
 		callCustomerPhone:function(){
 			// console.log(11);
 			uni.makePhoneCall({
-			    phoneNumber:this.OrderInfo.phone, //仅为示例
-				// 成功回调
-				success: (res) => {
-					console.log('调用成功!')	
-				},
-				// 失败回调
-				fail: (res) => {console.log('调用失败!')
-					}
+			    phoneNumber:this.OrderInfo.phone, //客户电话
 			});
 			
 		},
 		callPhone:function(){
 			// console.log(11);
 			uni.makePhoneCall({
-			    phoneNumber:this.OrderInfo.throwCompanyPhone, //仅为示例
-				// 成功回调
-				success: (res) => console.log('调用成功!'),
-				
-				// 失败回调
-				fail: (res) => console.log(res)
+			    phoneNumber:this.OrderInfo.throwCompanyPhone, //搬家公司电话
 			});
 		},
 		textareaBInput(e) {
@@ -217,7 +205,8 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id='+this.id),{}, (res) => {
 				if(res.state==1){
 					this.OrderInfo =res.data;
-					this.needPay = Number(this.OrderInfo.payAmount) + Number(this.OrderInfo.rowPlatformFee)
+					this.needPay = Number(this.OrderInfo.payAmount) + Number(this.OrderInfo.rowPlatformFee);
+					this.needPay = this.needPay.toFixed(2);
 				}else {
 					uni.showToast({
 					title: res.message,
