@@ -68,6 +68,8 @@
 	export default {
 		data() {
 			return {
+				btnshow:false ,//v-show="false" 隐藏
+				inputType:'', //输入框类型
 				account: "",
 				newpwd: "",
 				confirmpwd: "",
@@ -206,7 +208,6 @@
 						setTimeout(function() {
 						that.$mtRequest.stop();
 						}, 1000)
-
 						})
 				}
 			},
