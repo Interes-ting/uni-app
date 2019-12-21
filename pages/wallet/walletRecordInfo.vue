@@ -77,12 +77,12 @@
 					</view>
 					<!-- 搬运物品 -->
 					<view class="mt-startcity" v-if="list.goods" style="display: inline-block;">
-						<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬运物品：</view>
+						<view class="text-grey" style="float: left;padding-left: 36rpx;">搬运物品：</view>
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.goods }}</view>
 					</view>
 					<!-- 注意事项 -->
 					<view class="mt-startcity" v-if="list.remark" style="display: inline-block;">
-						<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">注意事项：</view>
+						<view class="text-grey" style="float: left;padding-left: 36rpx;">注意事项：</view>
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.remark }}</view>
 					</view>
 				</view>

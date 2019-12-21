@@ -246,7 +246,7 @@
 										uni.navigateTo({
 											url: '../login/login'
 										});
-									}, 2000)
+									}, 1000)
 								}
 							})
 						} else {
@@ -258,7 +258,9 @@
 						}
 
 						//结束请求
+						setTimeout(function() {
 						that.$mtRequest.stop();
+							}, 1000)
 					})
 				}
 			}

@@ -150,10 +150,10 @@ export default {
 		width: auto;
 	}
 	.text-hidden{
-    white-space:nowrap;
-    text-overflow:ellipsis;
-    -o-text-overflow:ellipsis;
-    overflow:hidden;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		-o-text-overflow:ellipsis;
+		overflow:hidden;
 	}
 	.text-remark-text{
 		flex: 1;

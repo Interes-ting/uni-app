@@ -207,6 +207,5 @@ export default {
 	}
 	.mt-oderinfo {
 		padding: 13.33rpx 0rpx;
-		border-bottom: 1px solid #cccccc;
 	}
 </style>
