@@ -72,9 +72,15 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey" >拆装服务：{{OrderInfo.isItchai ==0?'不需要':'需要'}}</text>
 				</view>
-				<view class="mt-startcity">
+				<!-- <view class="mt-startcity">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">扔单公司：{{OrderInfo.throwCompanyName}}</text>
+				</view> -->
+				<view class="mt-startcity" v-if="OrderInfo.goods" style="display: inline-block;">
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">抢单公司：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">
+					{{ OrderInfo.throwCompanyName }}
+					</view>
 				</view>
 				<!-- 搬运物品 -->
 				<view class="mt-startcity" v-if="OrderInfo.goods" style="display: inline-block;">

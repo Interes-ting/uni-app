@@ -75,19 +75,30 @@
 					<view class="mt-placebox"></view>
 					<text class="text-grey">{{ oderList.isItchai === 1 ? '拆装服务：需要' : '拆装服务：不需要' }}</text>
 				</view>
-				<view class="mt-startcity" v-if="oderList.state == 3">
+<!-- 				<view class="mt-startcity" v-if="oderList.state == 3">
 					<view class="mt-placebox"></view>
 					<text class="text-grey">抢单公司：{{ oderList.throwCompanyName }}</text>
+				</view> -->
+				<!-- 抢单公司 -->
+				<view class="mt-startcity" v-if="oderList.goods" style="display: inline-block;">
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">抢单公司：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">
+					{{ oderList.throwCompanyName }}
+					</view>
 				</view>
 				<!-- 搬运物品 -->
 				<view class="mt-startcity" v-if="oderList.goods" style="display: inline-block;">
 					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">搬运物品：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ oderList.goods }}</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">
+					{{ oderList.goods }}
+					</view>
 				</view>
 				<!-- 注意事项 -->
 				<view class="mt-startcity" v-if="oderList.remark" style="display: inline-block;">
 					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">注意事项：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ oderList.remark }}</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">
+					{{ oderList.remark }}
+					</view>
 				</view>
 
 
@@ -116,7 +127,7 @@
 					<view class="mt-textphone">客户电话：{{ oderList.phone }}</view>
 					<!-- <view></view> -->
 				</view>
-				<view class="mt-callphone" @tap="callPhone"><text class="mtfa mt-tel"></text></view>
+				<view class="mt-callphone" @tap="callCustomerPhone"><text class="mtfa mt-tel"></text></view>
 			</view>
 			<view class="mt-kehuname" style="border-top: 0.66rpx solid #eee;">
 				<view class="mt-name">
