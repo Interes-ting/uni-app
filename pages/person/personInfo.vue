@@ -10,7 +10,7 @@
 					<text class="red">*</text>
 					公司名称
 				</view>
-				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" maxlength="50"/>
+				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" maxlength="50" />
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司法人</view>
@@ -48,7 +48,7 @@ export default {
 				merchantName: [
 					{
 						type: 'require',
-						msg: '请输入公司名称',
+						msg: '请输入公司名称'
 					}
 				]
 			}
@@ -87,6 +87,11 @@ export default {
 			let validResult = this.$mtValidation.valid(user, this.rules);
 			if (!validResult) {
 				return;
+			} else if (this.merchantName.length < 2) {
+				uni.showToast({
+					title: '公司名称需大于2个字',
+					icon: 'none'
+				});
 			} else if (this.businessLicense != '') {
 				var ze = /^\w+$/;
 				if (!ze.test(this.businessLicense)) {
@@ -94,7 +99,7 @@ export default {
 						title: '统一社会信用代码只能输入数字和字母',
 						icon: 'none'
 					});
-				} else {
+				}else {
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
@@ -131,12 +136,7 @@ export default {
 						}
 					);
 				}
-			} else if(this.merchantName.length <2){
-				uni.showToast({
-					title: '公司名称需大于2个字',
-					icon: 'none'
-				});
-			}else {
+			} else {
 				if (this.$mtRequest.isRepeat()) {
 					return;
 				}
