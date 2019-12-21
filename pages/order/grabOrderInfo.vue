@@ -2,7 +2,7 @@
 <template>
 	<view class="gradRecord-content">
 		<view class="mt-card" v-if="carList != null" style="margin-bottom: 100rpx;">
-			<view class="mt-content-box">
+			<view class="mt-content-box" v-if="carList.vehicleRequired != 0">
 				<view class="mt-flbox">
 					<text class="mtfa mt-truck" style="color:#CB8861;"></text>
 					<text>车辆类型：</text>
@@ -11,7 +11,7 @@
 					<text>{{ carList.carTypeName }}</text>
 				</view>
 			</view>
-			<view class="mt-content-box">
+			<view class="mt-content-box" v-if="carList.vehicleRequired != 0">
 				<view class="mt-flbox">
 					<text class="mtfa mt-leixing" style="color:#599CEE"></text>
 					<text>派车数量：</text>

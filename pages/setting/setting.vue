@@ -58,12 +58,15 @@ export default {
 				success: res => {
 					if (res.confirm) {
 						this.$mtAccount.logout();
-						uni.navigateTo({
+						uni.clearStorage();
+						uni.reLaunch({
 							url: '/pages/login/login'
 						});
-					}
+					};
+					
 				}
 			});
+			
 		}
 	}
 };

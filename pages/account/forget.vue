@@ -186,30 +186,27 @@
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
-					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user,
-						function(data) {
-							if (data.state > 0) {
-								//发送验证码
-								
-								//密码重置
-								uni.showToast({
-									title: "验证码已经发送"
-								})
-							} else {
-								//登录失败
-								uni.showToast({
-									title: data.message,
-									icon: "none"
-								})
-
-							}
-
-							//结束请求
-							setTimeout(function() {
-							that.$mtRequest.stop();
-							}, 1000)
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), 					user,(data) =>{
+						if (data.state > 0) {
+							//发送验证码
+							//密码重置
+							this.countDown(60);
+							uni.showToast({
+								title: "验证码已经发送"
+							})
+							
+						} else {
+							//登录失败
+							uni.showToast({
+							title: data.message,
+							icon: "none"
+							})
+						}
+						//结束请求
+						setTimeout(function() {
+						that.$mtRequest.stop();
+						}, 1000)
 						})
-						this.countDown(60);
 				}
 			},
 			registration() {
