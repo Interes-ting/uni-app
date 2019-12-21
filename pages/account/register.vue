@@ -19,14 +19,14 @@
 				<view class="mt-input">
 					<view class="mt-input-img">
 						<view class="mt-loginimge mtfa mt-gongsi"></view>
-						
+
 					</view>
 
 					<view class="mt-input-input">
 						<picker @change="bindPickerChange" :value="index" :range="array">
 							<view class="uni-input">{{array[index]}}</view>
 						</picker>
-						
+
 					</view>
 				</view>
 			</view>
@@ -103,7 +103,7 @@
 	export default {
 		data() {
 			return {
-				array: ['武汉','长沙'],
+				array: ['武汉', '长沙'],
 				index: 0,
 				//手机号
 				phone: "",
@@ -182,7 +182,7 @@
 		methods: {
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
-				this.index = e.target.value 
+				this.index = e.target.value
 			},
 			goIndex: function() {
 
@@ -223,7 +223,7 @@
 				}
 			},
 			send() {
-				
+
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
@@ -240,8 +240,8 @@
 						icon: "none"
 					});
 				} else {
-					
-				
+
+
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
@@ -253,7 +253,7 @@
 							if (data.state > 0) {
 								//登录成功
 								//发送验证码
-								this.countDown(60);
+
 								uni.showToast({
 									title: "验证码已发送"
 								})
@@ -267,9 +267,10 @@
 							}
 							//结束请求
 							setTimeout(function() {
-							that.$mtRequest.stop();
-							}, 2000)
+								that.$mtRequest.stop();
+							}, 1000)
 						})
+					this.countDown(60);
 				}
 
 
@@ -282,7 +283,7 @@
 					pwd: this.pwd,
 					confirmedcode: this.confirmedcode,
 					yqcode: this.yqcode,
-					city:this.index + 1
+					city: this.index + 1
 
 				}
 				//做校验
@@ -337,6 +338,10 @@
 <style>
 	.mt-zwf {
 		height: 60rpx;
+		width: 100%;
+	}
+
+	uni-view.captcha-button {
 		width: 100%;
 	}
 

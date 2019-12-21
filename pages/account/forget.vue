@@ -190,7 +190,7 @@
 						function(data) {
 							if (data.state > 0) {
 								//发送验证码
-								this.countDown(60);
+								
 								//密码重置
 								uni.showToast({
 									title: "验证码已经发送"
@@ -207,8 +207,9 @@
 							//结束请求
 							setTimeout(function() {
 							that.$mtRequest.stop();
-							}, 2000)
+							}, 1000)
 						})
+						this.countDown(60);
 				}
 			},
 			registration() {
@@ -267,6 +268,9 @@
 </script>
 
 <style>
+	uni-view.captcha-button {
+	    width: 100%;
+	}
 	.mt-inputcdy {
 		width: 80%;
 		margin: 0 auto;
