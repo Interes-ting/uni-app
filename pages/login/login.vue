@@ -8,7 +8,7 @@
 						<view class="mt-loginimge  mtfa mt-avatar"></view>
 					</view>
 					<view class="mt-input-input">
-						<input type="number" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码"
+						<input type="number"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入手机号码"
 						 v-model.trim="account" />
 					</view>
 				</view>
@@ -19,7 +19,7 @@
 						<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
+						<input password="false"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
 						 v-model.trim="password" />
 					</view>
 				</view>
