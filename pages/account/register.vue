@@ -103,7 +103,7 @@
 	export default {
 		data() {
 			return {
-				array: ['武汉', '长沙'],
+				array: ['长沙','武汉'],
 				index: 0,
 				//手机号
 				phone: "",
@@ -253,7 +253,7 @@
 							if (data.state > 0) {
 								//登录成功
 								//发送验证码
-
+								this.countDown(60);
 								uni.showToast({
 									title: "验证码已发送"
 								})
@@ -270,7 +270,7 @@
 								that.$mtRequest.stop();
 							}, 1000)
 						})
-					this.countDown(60);
+
 				}
 
 
