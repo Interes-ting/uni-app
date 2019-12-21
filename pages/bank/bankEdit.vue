@@ -125,9 +125,16 @@ export default {
 				},
 				data => {
 					if (this.bsid=1) {
-						uni.navigateBack({
-							url: '/pages/wallet/withdraw'
-						})
+						uni.showToast({
+							title: '保存成功',
+							success: function() {
+								setTimeout(function() {
+									uni.navigateBack({
+										url: '/pages/wallet/withdraw'
+									});
+								}, 1000);
+							}
+						});
 					} else{
 					if (data.state > 0) {
 						uni.showToast({
