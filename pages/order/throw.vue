@@ -37,13 +37,15 @@
 					<view class="basic-services-title">搬家信息</view>
 					<view class="cu-form-group">
 						<view class="title"><text class="required">*</text>客户名</view>
-						<input placeholder="客户名" maxlength="10" v-model.trim="customName" @blur="customNameValid('customName')" @input="phoneChange(customName)"></input>
+						<input placeholder="客户名" maxlength="10" 
+						v-model.trim="customName" @blur="customNameValid('customName')"></input>
 					</view>
 					<view class="cu-form-group">
 						<view class="title1"><text class="required">*</text>手机</view>
 
-						<input placeholder="请输入手机号" type="number" name="input" v-model.trim="customPhone" @blur="customNameValid('customPhone')"
-						 @input="phoneChange(customPhone)"></input>
+						<input placeholder="请输入手机号" name="input"
+						v-model.trim="customPhone" @blur="customNameValid('customPhone')"
+						@input="phoneChange"></input>
 
 					</view>
 					<!-- 搬入搬出 start-->
@@ -52,7 +54,8 @@
 						</view>
 						<view class="solid"></view>
 						<view class="cu-form-group"><text class="required">*</text>
-							<input placeholder="您从哪里搬出" maxlength="25" name="input" v-model.trim="startAddress" @blur="customNameValid('startAddress')"
+							<input placeholder="您从哪里搬出" maxlength="50" name="input" 
+							v-model.trim="startAddress" @blur="customNameValid('startAddress')"
 							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<!-- 搬入是否有电梯 -->
@@ -73,7 +76,7 @@
 						</view>
 						<view class="cu-form-group">
 							<text class="required">*</text>
-							<input placeholder="您搬到哪里去" maxlength="25" name="input" v-model.trim="endAddress" @blur="customNameValid('endAddress')"
+							<input placeholder="您搬到哪里去" maxlength="50" name="input" v-model.trim="endAddress" @blur="customNameValid('endAddress')"
 							 style="overflow:hideen;white-space:nowrap;text-overflow:ellipsis;"></input>
 						</view>
 						<view class="mt-move-circle newcolor"></view>
@@ -102,7 +105,7 @@
 							<text class="required">*</text>搬家时间
 						</view>
 						<view class="flex-right" @click="openDatetimePicker">
-							<view class="picker-text">{{time}}
+							<view class="picker-text">{{time==null?'请选择':time}}
 								<text class="cuIcon-right righticon"></text></view>
 
 						</view>
@@ -325,11 +328,10 @@
 		onLoad() {
 			this.checkCarType();
 			this.multiArray[1] = this.lc1,
-				this.multiArray1[1] = this.lc1
+			this.multiArray1[1] = this.lc1
+				
 		},
-		onShow() {
-			this.checkCarType();
-		},
+
 		created() {
 			this.startyear = new Date().getFullYear() //年
 			this.time = new Date().getFullYear() +
@@ -415,9 +417,14 @@
 				this.pickerCar[this.index];
 			},
 			// 首尾中间去空格
-			phoneChange: function(value) {
-				value = value.replace(/\s+/g, "");
-				return value
+			phoneChange: function(e) {
+				e.detail.value = e.detail.value.toString()
+				// console.log(e.detail.value);
+				this.customPhone = e.detail.value.replace(/[, ]/g,'');
+				return this.customPhone;
+				// e.detail.value = value.replace(/\s+/g, "");
+				// return value
+				// console.log(value);
 			},
 
 			// 是否急单

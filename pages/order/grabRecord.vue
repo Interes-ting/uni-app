@@ -30,12 +30,12 @@
 				</view>
 				<view class="mt-startcity" style="display: flex;" v-if="item.goods">
 					<view class="mtfa mt-box text-grey "></view>
-					<view class="text-remark text-grey">搬运物品：</view>
+					<view class="text-remark text-grey" style="width:130rpx;">搬运物品：</view>
 					<view class="text-remark-text text-grey">{{item.goods}}</view>
 				</view>
-				<view class="mt-startcity" style="display: flex;"  v-if="item.remark">
+				<view class="mt-startcity" style="display: flex;" v-if="item.remark">
 					<view class="mtfa mt-box text-grey "></view>
-					<view class="text-remark text-grey">注意事项：</view>
+					<view class="text-remark text-grey" style="width:130rpx;">注意事项：</view>
 					<view class="text-remark-text text-grey">{{item.remark}}</view>
 				</view>
 				<view class="mt-startcity">
