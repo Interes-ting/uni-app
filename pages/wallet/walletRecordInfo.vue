@@ -18,11 +18,11 @@
 				</view>
 				<!-- 订单详情 -->
 				<view class="mt-oderinfo">
-					<view class="mt-startcity" v-if="list.carTypeName != null">
+					<view class="mt-startcity" v-if="list.vehicleRequired != null">
 						<view class="mt-placebox"></view>
 						<text class="text-grey">车辆类型：{{list.carTypeName}}</text>
 					</view>
-					<view class="mt-startcity" v-if="list.carTypeName != null">
+					<view class="mt-startcity" v-if="list.vehicleRequired != null">
 						<view class="mt-placebox" ></view>
 						<text class="text-grey">派车数量：{{list.vehiceNumber}}</text>
 					</view>
