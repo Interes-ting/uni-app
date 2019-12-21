@@ -67,6 +67,11 @@
 			this.earningstwo();
 			this.earningsmo();
 		},
+		onShow(){
+			this.earnings();
+			this.earningstwo();
+			this.earningsmo();
+		},
 		methods: {
 			//查询
 			earnings() {
