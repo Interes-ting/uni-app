@@ -209,8 +209,9 @@
 				}
 			},
 			earningstthreetwo() {
+				
 					uni.navigateTo({
-						url: '../bank/bankEdit'
+						url: '../bank/bankEdit?bsid=1' 
 					});
 			}
 		}

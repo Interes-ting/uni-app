@@ -56,7 +56,7 @@
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>
-						<text class="text-grey">扔单时间：{{list.createTime}}</text>
+						<text class="text-grey">扔单时间：{{list.createTimes}}</text>
 					</view>
 					<view class="mt-startcity">
 						<view class="mt-placebox"></view>

@@ -201,8 +201,6 @@
 			details: function(item) {
 				this.incomeExpenditure = item.incomeExpenditure
 				this.ddd = item.id
-				console.log(this.ddd)
-				console.log(this.incomeExpenditure)
 				if (this.incomeExpenditure === 1) {
 					uni.navigateTo({
 						url: '../wallet/walletRecordInfo?ddd=' + this.ddd
