@@ -11,7 +11,7 @@
 			<cmd-cell-item title="用户资料" slot-left arrow @click="fnInfoWin(information)"><image src="/static/person/order.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="我的银行卡" slot-left arrow @click="Bankedit(information)"><image src="/static/person/bankcard.png" class="imgs"></image></cmd-cell-item>
 			<!-- <cmd-cell-item title="车辆信息" slot-left arrow ><image src="/static/person/trucks.png" class="imgs"></image></cmd-cell-item>	 -->
-			<cmd-cell-item title="建议反馈" slot-left arrow @click="Feedback(information)"><image src="/static/person/feedback.png" class="imgs"></image></cmd-cell-item>
+			<cmd-cell-item title="意见反馈" slot-left arrow @click="Feedback(information)"><image src="/static/person/feedback.png" class="imgs"></image></cmd-cell-item>
 			<!-- <cmd-cell-item title="关于我们" slot-left arrow><image src="/static/person/about.png" class="imgs"></image></cmd-cell-item> -->
 			<cmd-cell-item title="联系客服" slot-left arrow @click="Service(information)"><image src="/static/person/service.png" class="imgs"></image></cmd-cell-item>
 			<cmd-cell-item title="系统设置" slot-left arrow @click="Setting(information)"><image src="/static/person/set.png" class="imgs"></image></cmd-cell-item>

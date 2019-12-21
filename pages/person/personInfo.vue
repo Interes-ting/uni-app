@@ -10,7 +10,7 @@
 					<text class="red">*</text>
 					公司名称
 				</view>
-				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" maxlength="50" />
+				<input type="text" placeholder="请输入公司名称" placeholder-class="place" v-model="merchantName" maxlength="50"/>
 			</view>
 			<view class="sheet">
 				<view class="titlee">公司法人</view>
@@ -48,7 +48,7 @@ export default {
 				merchantName: [
 					{
 						type: 'require',
-						msg: '请输入公司名称'
+						msg: '请输入公司名称',
 					}
 				]
 			}
@@ -131,7 +131,12 @@ export default {
 						}
 					);
 				}
-			} else {
+			} else if(this.merchantName.length <2){
+				uni.showToast({
+					title: '公司名称需大于2个字',
+					icon: 'none'
+				});
+			}else {
 				if (this.$mtRequest.isRepeat()) {
 					return;
 				}
