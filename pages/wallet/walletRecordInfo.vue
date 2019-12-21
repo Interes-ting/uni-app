@@ -141,7 +141,7 @@ export default {
 				if (data.state > 0) {
 					this.list = data.data
 					this.needPay = Number(this.list.payAmount) - Number(this.list.thowPlatformFee)
-				console.log(data.data)
+					
 				} else {
 					//登录失败
 					uni.showToast({
@@ -157,6 +157,7 @@ export default {
 	
 	}
 };
+
 </script>
 
 <style lang="scss" scoped>

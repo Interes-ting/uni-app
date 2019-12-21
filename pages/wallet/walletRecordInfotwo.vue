@@ -27,11 +27,11 @@
 						<view class="mt-placebox"></view>
 						<text class="text-grey">提现开户行：{{list.cardBank}}</text>
 					</view>
-					<!-- 注意事项 -->
-					<view class="mt-startcity" v-if="list.names" style="display: inline-block;">
-						<view class="text-grey" style="float: left;">提现人姓名：</view>
-						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.names }}</view>
+					<view class="mt-startcity">
+						<view class="mt-placebox"></view>
+						<text class="text-grey">提现人姓名：{{list.names}}</text>
 					</view>
+				
 					
 				</view>
 				

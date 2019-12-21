@@ -255,6 +255,10 @@
 				}, (data) => {
 					if (data.state > 0) {
 						this.list = data.data
+						// console.log(this.list);
+						this.list.forEach((item,index)=>{
+							item.amount = returnFloat(item.amount);
+						});
 					} else {
 						
 						//登录失败
@@ -363,7 +367,7 @@
 	}
 
 	.mt-earningstw.one.goss {
-		margin: 50rpx 0 0 0;
+		margin: 62rpx 0 0 0;
 	}
 
 	.mt-earningson {
