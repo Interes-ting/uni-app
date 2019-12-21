@@ -47,7 +47,7 @@
 				<button class="mt-viewbutton" @tap="goThrowOrderInfo(item)">详情</button>
 			</view>
 		</block>
-		<view class="mt-nonumber" v-if="Info == null">暂无数据</view>
+		<view class="mt-nonumber" v-if="Info.length == 0">暂无数据</view>
 	</view>
 </template>
 
@@ -55,7 +55,7 @@
 export default {
 	data() {
 		return {
-			Info: null,
+			Info: [],
 			throwMerchantInfoId:''
 		};
 	},

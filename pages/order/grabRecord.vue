@@ -53,7 +53,7 @@
 				<button class="mt-viewbutton" @tap="goGrabedOrderInfo(item)">详情</button>
 			</view>
 		</block>
-		<view class="mt-nonumber" v-if="recordList == null">暂无数据</view>
+		<view class="mt-nonumber" v-if="recordList.length == 0">暂无数据</view>
 	</view>
 </template>
 
@@ -62,7 +62,7 @@ export default {
 	data() {
 		return {
 			recordList: '',
-			robMerchantInfoId:null
+			robMerchantInfoId:[]
 		};
 	},
 	onLoad(option) {
