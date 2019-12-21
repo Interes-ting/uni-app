@@ -17,23 +17,34 @@
 			</view>
 
 			<view class="mt-in">
-				<view class="mt-input">
+				<view class="mt-input" style="position: relative;">
 					<view class="mt-input-img">
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
-					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model.trim="newpwd" placeholder="输入您的密码" />
+					<view class="mt-input-input" >
+						<input :type="inputType" class="uni-input" v-model.trim="newpwd" placeholder="输入您的密码" />
+						
 					</view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye"
+					  @click="showPassword" ></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;"
+					 @click="showPassword" v-else
+					></view>
 				</view>
 			</view>
 			<view class="mt-in">
-				<view class="mt-input">
+				<view class="mt-input" style="position: relative;">
 					<view class="mt-input-img">
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
 						<input password="false" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认密码" />
 					</view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye1"
+					  @click="showPassword1" ></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;"
+					 @click="showPassword1" v-else
+					></view>
 				</view>
 			</view>
 
@@ -68,8 +79,10 @@
 	export default {
 		data() {
 			return {
-				btnshow:false ,//v-show="false" 隐藏
-				inputType:'', //输入框类型
+				eye:true,
+				inputType:'password', //输入框类型
+				eye1:true,
+				inputType1:'password', //输入框类型
 				account: "",
 				newpwd: "",
 				confirmpwd: "",
@@ -130,6 +143,26 @@
 			}
 		},
 		methods: {
+			showPassword:function(){ /*密码显示 */
+				
+				if (this.eye) {
+					this.eye = false
+					this.inputType = 'text'
+				} else {
+					this.eye = true
+					this.inputType = 'password'
+				}
+			},
+			showPassword1:function(){ /*密码显示 */
+				if (this.eye1) {
+					this.eye1 = false
+					this.inputType1 = 'text'
+				} else {
+					this.eye1 = true
+					this.inputType1 = 'password'
+				}
+			},
+
 			logindex: function() {
 				setTimeout(function() {
 					uni.navigateBack({
