@@ -416,17 +416,13 @@
 				};
 				this.pickerCar[this.index];
 			},
-			// 首尾中间去空格
+			
+			// 去空格
 			phoneChange: function(e) {
-				e.detail.value = e.detail.value.toString()
-				// console.log(e.detail.value);
 				this.customPhone = e.detail.value.replace(/[, ]/g,'');
 				return this.customPhone;
-				// e.detail.value = value.replace(/\s+/g, "");
-				// return value
-				// console.log(value);
 			},
-
+			
 			// 是否急单
 			SwitchB: function(e) {
 				this.switchB = e.detail.value
