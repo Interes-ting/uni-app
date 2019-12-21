@@ -367,7 +367,7 @@
 	}
 
 	.mt-earningstw.one.goss {
-		margin: 50rpx 0 0 0;
+		margin: 62rpx 0 0 0;
 	}
 
 	.mt-earningson {

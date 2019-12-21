@@ -207,7 +207,7 @@
 							//结束请求
 							setTimeout(function() {
 							that.$mtRequest.stop();
-							}, 1000)
+							}, 2000)
 						})
 						this.countDown(60);
 				}
@@ -260,7 +260,7 @@
 						//结束请求
 						setTimeout(function() {
 						that.$mtRequest.stop();
-							}, 1000)
+							}, 2000)
 					})
 				}
 			}
