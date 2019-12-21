@@ -9,7 +9,6 @@
 				<view class="mt-amoutone">
 					{{withdrawable}}
 				</view>
-
 				<view class="mt-cashoutone" @click="tixian">
 					提现 >
 				</view>
@@ -212,10 +211,11 @@
 				}
 
 			},
-			earnings() {				
+
+			earnings() {
 				let merchantInfoId = this.$mtAccount.info().merchantInfoId
 				// let that=this;
-				
+
 				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/balanceinfo/selectBalanceinfo"), {
 					merchantId: merchantInfoId
 				}, (data) => {
@@ -225,7 +225,10 @@
 						this.waitverify = data.data.waitverify;
 						this.totalExpenditure = data.data.totalExpenditure;
 						this.incomeExpenditure = data.data.incomeExpenditure;
-						this.id = data.data.id;
+						this.withdrawable =returnFloat(this.withdrawable);
+						this.waitverify =returnFloat(this.waitverify);
+						this.amount =returnFloat(this.amount);
+						
 					} else {
 						//登录失败
 						uni.showToast({
@@ -253,7 +256,7 @@
 					if (data.state > 0) {
 						this.list = data.data
 					} else {
-						console.log('d2')
+						
 						//登录失败
 						uni.showToast({
 							title: data.message,
@@ -279,6 +282,23 @@
 			years.push(i)
 		}
 		return years;
+	}
+
+	function returnFloat(value) {
+		let number = Math.round(parseFloat(value) * 100) / 100;	
+		let s = value.toString().split(".");
+		if (s.length == 1) {
+			number = value.toString() + ".00";
+			return number;
+			console.log(number);
+		}
+		if (s.length > 1) {
+			if (s[1].length < 2) {
+				number = number.toString() + "0";
+			}
+			return number;
+			console.log(number);
+		}
 	}
 </script>
 

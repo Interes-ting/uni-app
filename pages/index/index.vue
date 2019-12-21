@@ -28,7 +28,7 @@
 				<view class="mt-card">
 					<view class="mt-startcity text-hidden">
 						<view class="mtfa mt-begin" style="color:#0B398F;"></view>
-						<text class="space bold text-hidden">{{ item.fromAddress }}</text>
+						<text class="space bold">{{ item.fromAddress }}</text>
 					</view>
 					<view class="mt-startcity text-hidden">
 						<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
