@@ -81,13 +81,13 @@
 				</view>
 				<!-- 搬运物品 -->
 				<view class="mt-startcity" v-if="oderList.goods" style="display: inline-block;">
-					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">搬运物品：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ oderList.goods }}</view>
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">搬运物品：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ oderList.goods }}</view>
 				</view>
 				<!-- 注意事项 -->
 				<view class="mt-startcity" v-if="oderList.remark" style="display: inline-block;">
-					<view class="text-grey" style="float: left;width: 23%;padding-left: 36rpx;">注意事项：</view>
-					<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ oderList.remark }}</view>
+					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">注意事项：</view>
+					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">{{ oderList.remark }}</view>
 				</view>
 
 
@@ -154,8 +154,8 @@ export default {
 			this.$mtRequest.get(this.$mtConfig.getPlatformUrl('api/order_info/orderInfoFindById?id=' + this.id), {}, res => {
 				if (res.state == 1) {
 					this.oderList = res.data;
-					this.shouru = Number(this.oderList.payAmount) - Number(this.oderList.thowPlatformFee);
-					// this.phone= this.oderList.
+					this.shouru =  Number(this.oderList.payAmount)- Number(this.oderList.thowPlatformFee);
+					this.shouru = this.shouru.toFixed(2); //只保留两位小数
 				} else {
 					uni.showToast({
 						title: res.message,
@@ -170,28 +170,16 @@ export default {
 		callCustomerPhone: function() {
 			// console.log(11);
 			uni.makePhoneCall({
-				phoneNumber: this.oderList.phone, //仅为示例
-				// 成功回调
-				success: res => {
-					console.log('调用成功!');
-				},
-				// 失败回调
-				fail: res => {
-					console.log('调用失败!');
-				}
+				phoneNumber: this.oderList.phone, //客户电话
+
 			});
 		},
 		callPhone: function() {
 			// console.log(11);
 			uni.makePhoneCall({
-				phoneNumber: this.oderList.robCompanyPhone, //仅为示例
-				// 成功回调
-				success: res => console.log('调用成功!'),
-
-				// 失败回调
-				fail: res => console.log(res)
+				phoneNumber: this.oderList.robCompanyPhone, //搬家公司电话
 			});
-		}
+		},
 	}
 };
 </script>
