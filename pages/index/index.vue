@@ -26,11 +26,11 @@
 		<view class="mt-throw-content">
 			<block v-for="(item, index) in carList" :key="index">
 				<view class="mt-card">
-					<view class="mt-startcity">
+					<view class="mt-startcity text-hidden">
 						<view class="mtfa mt-begin" style="color:#0B398F;"></view>
 						<text class="space bold text-hidden">{{ item.fromAddress }}</text>
 					</view>
-					<view class="mt-startcity">
+					<view class="mt-startcity text-hidden">
 						<view class="mtfa mt-xiedian " style="color:#009A00;"></view>
 						<text class="space bold">{{ item.toAddress }}</text>
 					</view>
@@ -150,8 +150,10 @@ export default {
 		width: auto;
 	}
 	.text-hidden{
-		white-space: nowrap;
-		text-overflow: ellipsis;
+		white-space:nowrap;
+		text-overflow:ellipsis;
+		-o-text-overflow:ellipsis;
+		overflow:hidden;
 	}
 	.text-remark-text{
 		flex: 1;

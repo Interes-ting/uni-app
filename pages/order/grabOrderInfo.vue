@@ -42,7 +42,7 @@
 					<text></text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.outEleveator }}，{{ carList.outFloor }}</text>
+					<text>{{ carList.outEleveator }}，{{ carList.outFloor }}楼</text>
 				</view>
 			</view>
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
@@ -60,7 +60,7 @@
 					<text></text>
 				</view>
 				<view class="mt-frbox">
-					<text>{{ carList.intoElevator}}, {{carList.intoFloor }}</text>
+					<text>{{ carList.intoElevator}}, {{carList.intoFloor }}楼</text>
 				</view>
 			</view>
 			<view class="mt-content-box">
