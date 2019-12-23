@@ -232,7 +232,7 @@
 	.uni-input {
 		display: flex;
 		width: 90%;
-		font-size: 15rpx;
+		font-size: 25rpx;
 		height: 78rpx;
 		line-height: 78rpx;
 	}
@@ -283,7 +283,7 @@
 	.mt-size {
 		width: 100%;
 		text-align: center;
-		font-size: 35rpx;
+		font-size: 25rpx;
 		font-weight: bold;
 		padding: 15rpx;
 		background-color: #FFFFFF;
@@ -303,6 +303,7 @@
 		font-size: 30rpx;
 		font-weight: 400;
 		padding: 60rpx 0 80rpx 0;
+		
 	}
 
 	.mt-loginbutndl {

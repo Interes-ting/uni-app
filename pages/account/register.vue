@@ -247,12 +247,12 @@
 				}
 			},
 			send() {
-				this.account = this.account.replace(/[, ]/g, '');
-				var ze = /^1[023456789]\d{9}$/;
+				this.phone = this.phone.replace(/[, ]/g,'');
+				let ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
 				}
-
+				
 				if (this.phone == '') {
 					uni.showToast({
 						title: "请输入手机号!",
