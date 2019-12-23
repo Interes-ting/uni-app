@@ -206,7 +206,6 @@
 				// 扔单提成
 				pay: '',
 				// //平台服务费
-				// scale:null,
 				fuwufei: null,
 				// 搬家时间
 				time: '',
@@ -271,11 +270,7 @@
 							msg: "请输入正确的11位手机号"
 						},
 					],
-					//出发时间
-					time:[{
-						type: "require",
-						msg: "请输入搬家时间"
-					}],
+					
 					// 出发地址
 					startAddress: [{
 						type: "require",
@@ -331,8 +326,7 @@
 			this.multiArray[1] = this.lc1,
 			this.multiArray1[1] = this.lc1
 		},
-		methods: {
-			
+		methods: {	
 			getBymeney(e) {
 				this.pay = e.detail.value;
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
@@ -463,7 +457,7 @@
 					multiIndex: this.multiIndex,
 					multiArray: this.multiArray
 				}
-				selectchange(data, this, e.detail)
+				selectchange(data, this, e.detail);
 			},
 
 			// 到达地址楼层选择
@@ -482,7 +476,9 @@
 					multiIndex: this.multiIndex1,
 					multiArray: this.multiArray1
 				}
-				selectchange(data, this, e.detail)
+				console.log(this.multiIndex1)
+				console.log(this.multiArray1)
+				this.selectchange(data, this, e.detail);
 			},
 
 			goThrow: function() {
@@ -522,6 +518,15 @@
 					})
 					return false;
 				};
+				
+				if(!this.time){
+					uni.showToast({
+						title: '请选择搬家时间',
+						icon: "none"
+					})
+					return false;
+				};
+				
 				if(this.distance == 0 ){
 					uni.showToast({
 						title: '距离不能为0',
@@ -683,20 +688,23 @@
 			},
 
 			customNameValid: function(key) { //自定义校验
-				// this.fuwufei  = 
 				this.$mtValidation.validItem(this[key], this.rules[key])
 			}
 
 		},
 	};
 
-	//车辆选择方法
+	//楼层选择方法
 	function selectchange(data, lcarry, selectItem) {
 		data.multiIndex[selectItem.column] = selectItem.value;
-		if (selectItem.column == 0) {
+		console.log(selectItem.column)
+		if (selectItem.column == 0) {	
+			
 			switch (data.multiIndex[0]) {
 				case 0:
+				
 					data.multiArray[1] = lcarry.lc1;
+					
 					break;
 				case 1:
 					data.multiArray[1] = lcarry.lc2;
