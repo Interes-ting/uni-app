@@ -39,6 +39,7 @@
 					<view class="mt-input-input">
 						<input class="uni-input" v-model.trim="merchantName" placeholder="输入您的公司名称" />
 					</view>
+
 				</view>
 			</view>
 			<view class="mt-in">
@@ -47,8 +48,10 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model.trim="pwd" placeholder="输入您的密码" />
+						<input :type="inputType" class="uni-input" v-model.trim="pwd" placeholder="输入您的密码" />
 					</view>
+					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;" v-if="eye" @click="showPassword"></text>
+					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx;" @click="showPassword" v-else></view>
 				</view>
 			</view>
 			<view class="mt-in">
@@ -57,8 +60,10 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model.trim="confirmedcode" placeholder="请再次输入您的密码" />
+						<input :type="inputType1" class="uni-input" v-model.trim="confirmedcode" placeholder="请再次输入您的密码" />
 					</view>
+					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;" v-if="eye1" @click="showPassword1"></text>
+					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx;" @click="showPassword1" v-else></view>
 				</view>
 			</view>
 
@@ -103,6 +108,10 @@
 	export default {
 		data() {
 			return {
+				eye: true,
+				inputType: 'password', //输入框类型
+				eye1: true,
+				inputType1: 'password', //输入框类型
 				array: ['长沙', '武汉'],
 				index: 0,
 				//手机号
@@ -180,18 +189,33 @@
 			}
 		},
 		methods: {
+			showPassword: function() { /*密码显示 */
+
+				if (this.eye) {
+					this.eye = false
+					this.inputType = 'text'
+				} else {
+					this.eye = true
+					this.inputType = 'password'
+				}
+			},
+			showPassword1: function() { /*密码显示 */
+				if (this.eye1) {
+					this.eye1 = false
+					this.inputType1 = 'text'
+				} else {
+					this.eye1 = true
+					this.inputType1 = 'password'
+				}
+			},
 			bindPickerChange: function(e) {
 				console.log('picker发送选择改变，携带值为', e.target.value)
 				this.index = e.target.value
 			},
 			goIndex: function() {
-
-				setTimeout(function() {
-					uni.navigateBack({
-						delta: 1
-					});
-				}, 2000)
-
+				uni.navigateBack({
+					delta: 1
+				});
 			},
 			// 倒计时显示处理
 			countDownText(s) {
@@ -240,18 +264,18 @@
 						icon: "none"
 					});
 				} else {
-					this.countDown(60);
+					
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
 					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/reg_validcode?phone="), user,
-						function(data) {
+						(data) => {
 							if (data.state > 0) {
 								//登录成功
 								//发送验证码
-								
+								this.countDown(60);
 								uni.showToast({
 									title: "验证码已发送"
 								})
@@ -298,7 +322,7 @@
 						return;
 					}
 					let that = this;
-					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/register"), verificacode, function(data) {
+					this.$mtRequest.post(this.$mtConfig.getPersonUrl("api/emh/account/register"), verificacode, (data) => {
 						if (data.state > 0) {
 							//注册成功
 							uni.showToast({

@@ -21,15 +21,12 @@
 					<view class="mt-input-img">
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
-					<view class="mt-input-input" >
+					<view class="mt-input-input">
 						<input :type="inputType" class="uni-input" v-model.trim="newpwd" placeholder="输入您的密码" />
-						
+
 					</view>
-					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye"
-					  @click="showPassword" ></text>
-					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;"
-					 @click="showPassword" v-else
-					></view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye" @click="showPassword"></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;" @click="showPassword" v-else></view>
 				</view>
 			</view>
 			<view class="mt-in">
@@ -38,13 +35,10 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认密码" />
+						<input :type="inputType1"  class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认密码" />
 					</view>
-					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye1"
-					  @click="showPassword1" ></text>
-					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;"
-					 @click="showPassword1" v-else
-					></view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye1" @click="showPassword1"></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;" @click="showPassword1" v-else></view>
 				</view>
 			</view>
 
@@ -79,10 +73,10 @@
 	export default {
 		data() {
 			return {
-				eye:true,
-				inputType:'password', //输入框类型
-				eye1:true,
-				inputType1:'password', //输入框类型
+				eye: true,
+				inputType: 'password', //输入框类型
+				eye1: true,
+				inputType1: 'password', //输入框类型
 				account: "",
 				newpwd: "",
 				confirmpwd: "",
@@ -143,8 +137,8 @@
 			}
 		},
 		methods: {
-			showPassword:function(){ /*密码显示 */
-				
+			showPassword: function() { /*密码显示 */
+
 				if (this.eye) {
 					this.eye = false
 					this.inputType = 'text'
@@ -153,7 +147,7 @@
 					this.inputType = 'password'
 				}
 			},
-			showPassword1:function(){ /*密码显示 */
+			showPassword1: function() { /*密码显示 */
 				if (this.eye1) {
 					this.eye1 = false
 					this.inputType1 = 'text'
@@ -164,11 +158,9 @@
 			},
 
 			logindex: function() {
-				setTimeout(function() {
 					uni.navigateBack({
 						delta: 1
 					});
-				}, 2000)
 			},
 			// 倒计时显示处理
 			countDownText(s) {
@@ -214,14 +206,14 @@
 						icon: "none"
 					});
 				} else {
-					
-					
+
+
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
 						return;
 					}
-					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), 					user,(data) =>{
+					this.$mtRequest.get(this.$mtConfig.getPersonUrl("api/emh/account/ret_validcode"), user, (data) => {
 						if (data.state > 0) {
 							//发送验证码
 							//密码重置
@@ -229,19 +221,19 @@
 							uni.showToast({
 								title: "验证码已经发送"
 							})
-							
+
 						} else {
 							//登录失败
 							uni.showToast({
-							title: data.message,
-							icon: "none"
+								title: data.message,
+								icon: "none"
 							})
 						}
 						//结束请求
 						setTimeout(function() {
-						that.$mtRequest.stop();
+							that.$mtRequest.stop();
 						}, 1000)
-						})
+					})
 				}
 			},
 			registration() {
@@ -291,8 +283,8 @@
 
 						//结束请求
 						setTimeout(function() {
-						that.$mtRequest.stop();
-							}, 2000)
+							that.$mtRequest.stop();
+						}, 2000)
 					})
 				}
 			}
@@ -303,8 +295,9 @@
 
 <style>
 	uni-view.captcha-button {
-	    width: 100%;
+		width: 100%;
 	}
+
 	.mt-inputcdy {
 		width: 80%;
 		margin: 0 auto;
