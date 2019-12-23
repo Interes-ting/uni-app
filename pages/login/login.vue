@@ -19,7 +19,7 @@
 						<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input :type="inputType"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
+						<input :type="inputType" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
 						 v-model.trim="password" />
 					</view>
 					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;color: #FFFFFF;" v-if="eye" @click="showPassword"></text>
@@ -79,13 +79,13 @@
 					}, {
 						//正则
 						type: "regexp",
-						regexp: /^1[023456789]\d{9}$/,
+						regexp: /^1[023456789]\d{9}$/, //,
 						msg: "请输入11位正确手机号码"
 					}],
 					password: [{
 						//必填
 						type: "require",
-						msg: "请输入密码"
+						msg: "请输入6~20位密码"
 					}, {
 						//正则
 						type: "regexp",
@@ -98,6 +98,7 @@
 						msg: "请输入6~20位密码，不含特殊符号"
 					}]
 				},
+				
 				// #ifdef APP-PLUS
 				privacyShow: false,
 				// #endif
@@ -146,7 +147,14 @@
 					url: '../account/forget?id=1'
 				})
 			},
+	
+				
+		
 			loginbtn: function() {
+				// 去空格
+				this.account = this.account.replace(/[, ]/g,'');
+				this.password = this.password.replace(/[, ]/g,'');
+				
 				let user = {
 					account: this.account,
 					password: this.password

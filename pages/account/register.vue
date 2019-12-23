@@ -247,12 +247,12 @@
 				}
 			},
 			send() {
-
-				var ze = /^1[023456789]\d{9}$/;
+				this.phone = this.phone.replace(/[, ]/g,'');
+				let ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.phone,
 				}
-
+				
 				if (this.phone == '') {
 					uni.showToast({
 						title: "请输入手机号!",
@@ -264,7 +264,7 @@
 						icon: "none"
 					});
 				} else {
-					
+
 					let that = this;
 					//防重复
 					if (this.$mtRequest.isRepeat()) {
@@ -296,6 +296,8 @@
 
 			},
 			registration() {
+				this.pwd = this.pwd.replace(/[, ]/g, '');
+				this.confirmedcode = this.confirmedcode.replace(/[, ]/g, '');
 				let verificacode = {
 					phone: this.phone,
 					validCode: this.validCode,

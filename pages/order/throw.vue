@@ -47,7 +47,6 @@
 						<input placeholder="请输入手机号" name="input"
 						v-model.trim="customPhone" @blur="customNameValid('customPhone')"
 						@input="phoneChange"></input>
-
 					</view>
 					<!-- 搬入搬出 start-->
 					<view class="mt-moveaddress">

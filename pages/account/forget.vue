@@ -161,6 +161,7 @@
 					uni.navigateBack({
 						delta: 1
 					});
+
 			},
 			// 倒计时显示处理
 			countDownText(s) {
@@ -189,7 +190,7 @@
 				}
 			},
 			send() {
-
+				this.account = this.account.replace(/[, ]/g,'');
 				var ze = /^1[023456789]\d{9}$/;
 				let user = {
 					phone: this.account
@@ -237,6 +238,11 @@
 				}
 			},
 			registration() {
+				
+				this.newpwd = this.newpwd.replace(/[, ]/g,'');
+				this.confirmpwd = this.confirmpwd.replace(/[, ]/g,'');
+				
+				
 				let verificacode = {
 					account: this.account,
 					newpwd: this.newpwd,
