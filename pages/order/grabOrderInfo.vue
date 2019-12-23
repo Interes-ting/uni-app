@@ -28,7 +28,7 @@
 				<view class="mt-frbox"><text>{{carList.handlingNumber}}</text></view>
 			</view>
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
-				<view class="mt-flbox" style="width: 270rpx;">
+				<view class="mt-flbox" style="width: 500rpx;">
 					<view class="mt-circle"></view>
 					<text>搬出地址：</text>
 				</view>
@@ -46,7 +46,7 @@
 				</view>
 			</view>
 			<view class="mt-content-box" style="border-bottom: 0rpx;">
-				<view class="mt-flbox" style="width: 270rpx;">
+				<view class="mt-flbox" style="width: 600rpx;">
 					<view class="mt-circle bgc"></view>
 					<text>搬入地址：</text>
 				</view>
