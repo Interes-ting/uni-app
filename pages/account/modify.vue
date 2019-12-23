@@ -22,7 +22,7 @@
 					<view class="mt-loginimge">修改密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input :type="inputType1" class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
+					<input :type="inputType1"  class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
 				</view>
 				<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:60rpx;" v-if="eye1" @click="showPassword1"></text>
 				<view class='cuIcon-attention text-grey' style="position:absolute;right:60rpx;" @click="showPassword1" v-else></view>
@@ -167,6 +167,9 @@
 			},
 
 			registration() {
+				this.pwd = this.pwd.replace(/[, ]/g,'');
+				this.newpwd = this.newpwd.replace(/[, ]/g,'');
+				this.confirmpwd = this.confirmpwd.replace(/[, ]/g,'');
 				let user = {
 					pwd: this.pwd,
 					newpwd: this.newpwd,
@@ -265,6 +268,7 @@
 		width: 100%;
 		margin: 0 0 10rpx 0;
 		background-color: #fff;
+		display: flex;
 
 	}
 

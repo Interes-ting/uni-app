@@ -48,7 +48,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input :type="inputType" class="uni-input" v-model.trim="pwd" placeholder="输入您的密码" />
+						<input :type="inputType"  class="uni-input" v-model.trim="pwd" placeholder="输入您的密码" />
 					</view>
 					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;" v-if="eye" @click="showPassword"></text>
 					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx;" @click="showPassword" v-else></view>
@@ -60,7 +60,7 @@
 						<view class="mt-loginimge mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input :type="inputType1" class="uni-input" v-model.trim="confirmedcode" placeholder="请再次输入您的密码" />
+						<input :type="inputType1"  class="uni-input" v-model.trim="confirmedcode" placeholder="请再次输入您的密码" />
 					</view>
 					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;" v-if="eye1" @click="showPassword1"></text>
 					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx;" @click="showPassword1" v-else></view>
@@ -296,6 +296,8 @@
 
 			},
 			registration() {
+				this.pwd = this.pwd.replace(/[, ]/g,'');
+				this.confirmedcode = this.confirmedcode.replace(/[, ]/g,'');
 				let verificacode = {
 					phone: this.phone,
 					validCode: this.validCode,
