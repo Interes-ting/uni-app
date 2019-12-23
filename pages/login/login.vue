@@ -19,9 +19,11 @@
 						<view class="mt-loginimge mt-xiedian mtfa mt-suo"></view>
 					</view>
 					<view class="mt-input-input">
-						<input password="false"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
+						<input :type="inputType"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
 						 v-model.trim="password" />
 					</view>
+					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;color: #FFFFFF;" v-if="eye" @click="showPassword"></text>
+					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx; color: #FFFFFF;" @click="showPassword" v-else></view>
 				</view>
 			</view>
 
@@ -65,6 +67,8 @@
 	export default {
 		data() {
 			return {
+				eye: true,
+				inputType: 'password', //输入框类型
 				account: "",
 				password: "",
 				rules: {
@@ -122,6 +126,16 @@
 			}
 		},
 		methods: {
+			showPassword: function() { /*密码显示 */
+			
+				if (this.eye) {
+					this.eye = false
+					this.inputType = 'text'
+				} else {
+					this.eye = true
+					this.inputType = 'password'
+				}
+			},
 			regdex: function() {
 				uni.navigateTo({
 					url: '../account/register?id=1'

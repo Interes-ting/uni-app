@@ -1,16 +1,20 @@
 <template>
 	<view class="mt-body">
-		
-		
+
+
 		<view class="mt-in">
 			<view class="mt-input">
 				<view class="mt-input-img">
 					<view class="mt-loginimge">密码:</view>
+
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model.trim="pwd" placeholder="输入您的旧密码" />
+					<input :type="inputType" class="uni-input" v-model.trim="pwd" placeholder="输入您的旧密码" />
 				</view>
+				<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:60rpx;" v-if="eye" @click="showPassword"></text>
+				<view class='cuIcon-attention text-grey' style="position:absolute;right:60rpx;" @click="showPassword" v-else></view>
 			</view>
+
 		</view>
 		<view class="mt-in">
 			<view class="mt-input">
@@ -18,8 +22,10 @@
 					<view class="mt-loginimge">修改密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
+					<input :type="inputType1" class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
 				</view>
+				<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:60rpx;" v-if="eye1" @click="showPassword1"></text>
+				<view class='cuIcon-attention text-grey' style="position:absolute;right:60rpx;" @click="showPassword1" v-else></view>
 			</view>
 		</view>
 		<view class="mt-in">
@@ -28,8 +34,10 @@
 					<view class="mt-loginimge">确认密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input password="false" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认您的新密码" />
+					<input :type="inputType2" class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认您的新密码" />
 				</view>
+				<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:60rpx;" v-if="eye2" @click="showPassword2"></text>
+				<view class='cuIcon-attention text-grey' style="position:absolute;right:60rpx;" @click="showPassword2" v-else></view>
 			</view>
 		</view>
 		<view class="mt-loginbutn">
@@ -42,11 +50,16 @@
 	export default {
 		data() {
 			return {
-				
+				eye: true,
+				inputType: 'password', //输入框类型
+				eye1: true,
+				inputType1: 'password', //输入框类型
+				eye2: true,
+				inputType2: 'password', //输入框类型
 				pwd: "",
 				newpwd: "",
 				confirmpwd: "",
-				merchantCode:'',
+				merchantCode: '',
 				rules: {
 					pwd: [{
 						//必填
@@ -96,36 +109,64 @@
 				}
 			}
 		},
-		onLoad(){
+		onLoad() {
 			this.registrationtwo();
 		},
 		methods: {
-			registrationtwo(){
-					let merchantInfoId = this.$mtAccount.info().merchantInfoId
-					// let that=this;
-					this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
-						merchantId: merchantInfoId
-					}, (data) => {
-						if (data.state > 0) {
-							console.log(data.data)
-							this.merchantCode = data.data.merchantCode;
-							console.log(this.merchantCode)
-						} else {
-							//登录失败
-							uni.showToast({
-								title: data.message,
-								icon: "none"
-							})
-						}
-				
-						//结束请求
-						this.$mtRequest.stop();
-					})
+			showPassword: function() { /*密码显示 */
 			
-				
+				if (this.eye) {
+					this.eye = false
+					this.inputType = 'text'
+				} else {
+					this.eye = true
+					this.inputType = 'password'
+				}
 			},
-			
-			registration(){
+			showPassword1: function() { /*密码显示 */
+				if (this.eye1) {
+					this.eye1 = false
+					this.inputType1 = 'text'
+				} else {
+					this.eye1 = true
+					this.inputType1 = 'password'
+				}
+			},
+			showPassword2: function() { /*密码显示 */
+				if (this.eye2) {
+					this.eye2 = false
+					this.inputType2 = 'text'
+				} else {
+					this.eye2 = true
+					this.inputType2 = 'password'
+				}
+			},
+			registrationtwo() {
+				let merchantInfoId = this.$mtAccount.info().merchantInfoId
+				// let that=this;
+				this.$mtRequest.post(this.$mtConfig.getPlatformUrl("api/merchant_info/selectUser"), {
+					merchantId: merchantInfoId
+				}, (data) => {
+					if (data.state > 0) {
+						console.log(data.data)
+						this.merchantCode = data.data.merchantCode;
+						console.log(this.merchantCode)
+					} else {
+						//登录失败
+						uni.showToast({
+							title: data.message,
+							icon: "none"
+						})
+					}
+
+					//结束请求
+					this.$mtRequest.stop();
+				})
+
+
+			},
+
+			registration() {
 				let user = {
 					pwd: this.pwd,
 					newpwd: this.newpwd,
@@ -137,9 +178,9 @@
 				if (!validResult) {
 					return;
 				}
-				
+
 				//修改密码
-				let that=this;
+				let that = this;
 				//防重复
 				if (this.$mtRequest.isRepeat()) {
 					return;
@@ -164,7 +205,6 @@
 							icon: "none"
 						})
 					}
-				
 					//结束请求
 					that.$mtRequest.stop();
 				})
@@ -177,27 +217,32 @@
 	.mt-in {
 		text-align: center;
 		width: 100%;
-		
+
 	}
-	page{
+
+	page {
 		height: 100%;
-		background: #000000;;
+		background: #000000;
+		;
 	}
+
 	.uni-input {
 		display: flex;
-		width: 70%;
+		width: 90%;
 		font-size: 30rpx;
 		height: 78rpx;
 		line-height: 78rpx;
 	}
+
 	.mt-input-input {
 		height: 78rpx;
 		line-height: 78rpx;
 		text-align: left;
 		width: 100%;
-	background-color: #FFFFFF;
-	
+		background-color: #FFFFFF;
+
 	}
+
 	.mt-input-img {
 		height: 50rpx;
 		width: 150rpx;
@@ -207,34 +252,43 @@
 		float: left;
 		text-align: left;
 		color: #000000;
-		
+
 	}
+
+	uni-view {
+		display: flex;
+	}
+
 	.mt-input {
 		height: 78rpx;
 		line-height: 78rpx;
 		width: 100%;
 		margin: 0 0 10rpx 0;
-		
-	
+		background-color: #fff;
+
 	}
-	.mt-body{
+
+	.mt-body {
 		display: block;
 		height: 100%;
 		background-color: #F8F8F8;
 		background-size: 100% 100%;
 	}
-.mt-size{
-	width: 100%;
-	text-align: center;
-	font-size: 35rpx;
-	font-weight: bold;
-	padding: 15rpx;
-	background-color: #FFFFFF;
-}
-uni-page-body {
+
+	.mt-size {
+		width: 100%;
+		text-align: center;
+		font-size: 35rpx;
+		font-weight: bold;
+		padding: 15rpx;
+		background-color: #FFFFFF;
+	}
+
+	uni-page-body {
 		height: 100%;
 		background-color: red;
 	}
+
 	/* 确认按钮宽度 */
 	.mt-loginbutn {
 		width: 70%;
@@ -245,7 +299,7 @@ uni-page-body {
 		font-weight: 400;
 		padding: 60rpx 0 80rpx 0;
 	}
-	
+
 	.mt-loginbutndl {
 		border-radius: 40rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
