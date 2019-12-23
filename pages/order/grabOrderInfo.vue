@@ -119,14 +119,14 @@
 			</view>
 
 			<!-- 搬运物品 -->
-			<view class="mt-content-box">
+			<view class="mt-content-box" v-if="carList.goods">
 				<view style="width:270rpx;">
 					<text class="mtfa mt-box" style="color:orange;"></text>
 					<text style="">搬运物品：</text>
 				</view>
 				<view style="width:100%;word-break:break-all;text-align: left;">{{ carList.goods }}</view>
 			</view>
-			<view style="display: flex;padding: 20rpx 0rpx;">
+			<view style="display: flex;padding: 20rpx 0rpx;" v-if="carList.remark">
 				<view style="width:250rpx;">
 					<text class="mtfa mt-warn" style="color:red;padding-right: 10rpx;"></text>
 					<text style="">注意事项：</text>
@@ -183,14 +183,14 @@
 				};
 
 				//开发环境，不调支付接口
-				// this.payOverTest();
+				this.payOverTest();
 
 				//正式环境，调用支付接口
 				// #ifdef APP-PLUS
-				this.appPay();
+				// this.appPay();
 				// #endif
 				// #ifdef MP-WEIXIN
-				this.appletPay();
+				// this.appletPay();
 				// #endif
 
 			},
