@@ -48,7 +48,7 @@
 						<text class="text-grey">搬家时间：{{ item.deliveryTime }}</text>
 					</view>
 					<view class="mt-startcity" 
-					style="display: flex;" v-if="item.goods !=null || item.goods !=''">
+					style="display: flex;" v-if="item.goods">
 						<view class="mtfa mt-box text-grey "></view>
 						<view class="text-remark text-grey done-lode" style="width: 130rpx;">搬运物品：</view>
 						<view class="text-grey delite-text">{{item.goods}}</view>

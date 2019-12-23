@@ -16,9 +16,10 @@
 						<view class="flex-right">
 							<picker @change="PickerChange" :value="index" :range="pickerCar">
 								<view class="picker-text">{{index > -1 ?  pickerCar[index] : '请选择'}}
-									<text class="cuIc on-right righticon"></text>
+									<text class="cuIcon-right righticon"></text>
 								</view>
 							</picker>
+							
 						</view>
 					</view>
 					<!-- 派车数量 -->
@@ -104,9 +105,9 @@
 							<text class="required">*</text>搬家时间
 						</view>
 						<view class="flex-right" @click="openDatetimePicker">
-							<view class="picker-text">{{time==null?'请选择':time}}
-								<text class="cuIcon-right righticon"></text></view>
-
+							<view class="picker-text">{{time==''?'请选择':time}}
+								<text class="cuIcon-right righticon"></text>
+							</view>
 						</view>
 						<!-- 时间日期选择器start-->
 						<simple-datetime-picker
@@ -116,11 +117,6 @@
 						   :end-year="2030"
 						   color="rgb(30, 131, 255)"
 						></simple-datetime-picker>
-						
-						
-						<!-- <simple-datetime-picker ref="myPicker" @submit="handleSubmit" :start-year="2019" :end-year="2030" >
-						</simple-datetime-picker> -->
-						<!-- 时间日期选择器end -->
 					</view>
 
 					<view class="cu-form-group ">
@@ -274,6 +270,11 @@
 							msg: "请输入正确的11位手机号"
 						},
 					],
+					//出发时间
+					time:[{
+						type: "require",
+						msg: "请输入搬家时间"
+					}],
 					// 出发地址
 					startAddress: [{
 						type: "require",
@@ -328,22 +329,11 @@
 			this.checkCarType();
 			this.multiArray[1] = this.lc1,
 			this.multiArray1[1] = this.lc1
-				
-		},
-
-		created() {
-			this.startyear = new Date().getFullYear() //年
-			this.time = new Date().getFullYear() +
-				"-" + (new Date().getMonth() + 1 < 10 ? "0" + (new Date().getMonth() + 1) : new Date().getMonth() + 1) + //月
-				"-" + (new Date().getDate() < 10 ? "0" + new Date().getDate() : new Date().getDate()) + //日
-				" " + (new Date().getHours() < 10 ? "0" + new Date().getHours() : new Date().getHours()) + //时
-				":" + (new Date().getMinutes() < 10 ? '0' + new Date().getMinutes() : new Date().getMinutes()) //分
 		},
 		methods: {
 			
 			getBymeney(e) {
 				this.pay = e.detail.value;
-				console.log(this.pay )
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
 					payAmount: this.pay
 				}, (res) => {
@@ -370,6 +360,7 @@
 			handleSubmit: function(e) {
 				this.time = `${e.year}-${e.month}-${e.day} ${e.hour}:${e.minute}`;
 			},
+			
 			// 车辆类型
 			PickerChange: function(e) {
 				if (e.detail.value <= 0) {
@@ -662,7 +653,7 @@
 									[]
 								],
 								this.multiIndex1 = [0, 0]
-							this.multiArray[1] = this.lc1,
+								this.multiArray[1] = this.lc1,
 								this.multiArray1[1] = this.lc1
 						} else {
 							uni.showToast({
