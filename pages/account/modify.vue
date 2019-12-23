@@ -232,7 +232,7 @@
 	.uni-input {
 		display: flex;
 		width: 90%;
-		font-size: 30rpx;
+		font-size: 15rpx;
 		height: 78rpx;
 		line-height: 78rpx;
 	}
@@ -247,7 +247,8 @@
 	}
 
 	.mt-input-img {
-		height: 50rpx;
+		height: 78rpx;
+		line-height: 78rpx;
 		width: 150rpx;
 		margin-top: 2rpx;
 		margin-left: 15rpx;

@@ -152,6 +152,7 @@
 		
 			loginbtn: function() {
 				// 去空格
+				this.account = this.account.replace(/[, ]/g,'');
 				this.password = this.password.replace(/[, ]/g,'');
 				
 				let user = {
