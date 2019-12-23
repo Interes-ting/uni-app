@@ -40,7 +40,7 @@
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
-					<text class="text-grey">扔单时间：{{item.robTime === null ? '暂无':item.robTime}}</text>
+					<text class="text-grey">扔单时间：{{item.createTime=== null ? '暂无':item.createTime}}</text>
 				</view>
 				<view class="mt-startcity">
 					<view class="mt-placebox"></view>
