@@ -62,24 +62,22 @@
 						<view class="flexbox">
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
-								<!-- <picker mode="multiSelector" @change="MultiChange" @columnchange="MultiColumnChange" :value="multiIndex" :range="multiArray">
-									<view class="picker-text" v-if="startfloor == null">
-										请选择
-										<text class="cuIcon-right righticon"></text>
-									</view>
-									<view class="picker-text" v-else>
-										{{startfloor}},{{floor1}}楼
-										<text class="cuIcon-right righticon"></text>
-									</view>
-								</picker> -->
-								<picker  class="width-100" mode="multiSelector" :range="timeList" 
-								:value="timesIndex" @change="bindTimeChange">			
-									<view class="picker-text">
-										{{timeList[0][timesIndex[0]]}}:{{timeList[1][timesIndex[1]]}}
-										<text class="cuIcon-right righticon"></text>
-									</view>
-									
+								<picker mode="multiSelector"
+								 @columnchange="changeStartFloor"
+								 :value="multiIndex" :range="multiArray">
+								
+								<view class="picker-text" v-if="check < 0">		
+								请选择
+								<text class="cuIcon-right righticon"></text>
+								</view>
+								
+								<view class="picker-text" v-else>
+								{{checkNum[0]}},{{checkNum[1]}}楼
+								<text class="cuIcon-right righticon"></text>
+								</view>
+								
 								</picker>
+								
 							</view>
 						</view>
 						<view class="cu-form-group">
@@ -93,17 +91,21 @@
 						<view class="flexbox">
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
-								<!-- <picker mode="multiSelector" @change="MultiChange1" @columnchange="MultiColumnChange" :value="multiIndex"
-								 :range="multiArray">
-									<view class="picker-text" v-if="endfloor == null">
-										请选择
-										<text class="cuIcon-right righticon"></text>
-									</view>
+								<picker mode="multiSelector"
+								 @columnchange="changeEndFloor"
+								 :value="multiIndex1" :range="multiArray1">
+									<!-- 楼层选择start -->
+									<view class="picker-text" v-if="check1 < 0">
+									请选择
+									<text class="cuIcon-right righticon"></text>
+								    </view>
+									
 									<view class="picker-text" v-else>
-										{{endfloor}},{{floor2}}楼
-										<text class="cuIcon-right righticon"></text>
+									{{checkNum1[0]}},{{checkNum1[1]}}楼
+									<text class="cuIcon-right righticon"></text>
 									</view>
-								</picker> -->
+									<!-- 楼层选择end -->
+								</picker>
 							</view>
 						</view>
 					</view>
@@ -197,9 +199,23 @@
 		},
 		data() {
 			return {
-				timeList: [['无电梯','有电梯'],[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]],
-				timesIndex: [0,0],
+				//搬出电梯
+				check:-1,
+				multiArray: [
+					['无电梯', '有电梯'],
+					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+				],
+				multiIndex: [0, 0],
+                checkNum:['无电梯',1],
 
+				//搬入电梯
+				check1:-1,
+				multiArray1: [
+					['无电梯', '有电梯'],
+					[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+				],
+				multiIndex1: [0, 0],
+				checkNum1:['无电梯',1],
 				// 保存车辆信息数组
 				pieckId: [],
 				//客户名
@@ -244,25 +260,6 @@
 				textareaAValue: '',
 				// 注意事项
 				textareaBValue: '',
-				// 电梯楼层参数
-				// lc1: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-				// lc2: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30],
-				// // 出发地址电梯楼层
-				// startfloor: null,
-				// floor1: null,
-				// multiArray: [
-				// 	['无电梯', '有电梯'],
-				// 	[]
-				// ],
-				// multiIndex: [0, 0],
-				// // 到达地址电梯楼层
-				// endfloor: null,
-				// floor2: null,
-				// multiArray1: [
-				// 	['无电梯', '有电梯'],
-				// 	[]
-				// ],
-				// multiIndex1: [0, 0],
 				//校验规则
 				rules: {
 					// 客户名
@@ -334,16 +331,56 @@
 		},
 		onLoad() {
 			this.checkCarType();
-			// this.multiArray[1] = this.lc1,
-			// this.multiArray1[1] = this.lc1
 		},
 		methods: {	
-			bindTimeChange(e){
-				console.log('picker发送选择改变，携带值为', e.target.value)
-				console.log(this.timesIndex);
-				// this.timesIndex = e.target.value
+			// 搬出电梯楼层
+			changeStartFloor: function(e) {
+				this.check ++
+			    this.multiIndex[e.detail.column] = e.detail.value;
+			    if(this.multiIndex[0] === 1){
+			        this.multiArray[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+			            11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+			            24, 25, 26, 27, 28, 29, 30];
+			    }else {
+			        this.multiArray[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+			    }
+			    if(this.multiIndex[0] === 0) {
+					this.check = 0;
+			       this.checkNum[0] = '无电梯';
+			       this.checkNum[1] =  this.multiIndex[1] +1;
+			    }else{
+					this.check++
+			        this.checkNum[0] = '有电梯'
+			        this.checkNum[1] =  this.multiIndex[1] +1
+			    }
+			    this.$forceUpdate();  //强制重新渲染
 			},
-			getBymeney(e) {
+			
+			// 搬入电梯楼层
+			changeEndFloor: function(e) {
+				this.check1 ++;
+			    this.multiIndex1[e.detail.column] = e.detail.value;
+			    if(this.multiIndex1[0] === 1){
+			        this.multiArray1[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
+			            11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
+			            24, 25, 26, 27, 28, 29, 30];
+			    }else {
+			        this.multiArray1[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+			    }
+			    if(this.multiIndex1[0] === 0) {
+		     	  
+			       this.checkNum1[0] = '无电梯'
+			       this.checkNum1[1] =  this.multiIndex1[1] +1
+			    }else{
+			        this.checkNum1[0] = '有电梯'
+			        this.checkNum1[1] =  this.multiIndex1[1] +1
+			    }
+			    this.$forceUpdate();  //强制重新渲染
+			},
+			
+			
+			
+			getBymeney(e) { //获取平台服务费
 				this.pay = e.detail.value;
 				this.$mtRequest.get(this.$mtConfig.getPlatformUrl(`/api/order_info/throwCommionRatioPay`), {
 					payAmount: this.pay
@@ -357,6 +394,7 @@
 					this.fuwufei = 0
 				}
 			},
+			
 			// 打开时间日期选择器
 			openDatetimePicker: function() {
 				this.$refs.myPicker.show();
@@ -454,48 +492,6 @@
 			textareaBInput: function(e) {
 
 			},
-
-
-			// // 出发地址楼层选择
-			// MultiChange: function(e) {
-			// 	if (e.detail.value[0] === 0) {
-			// 		this.startfloor = '无电梯'
-			// 		this.floor1 = e.detail.value[1] + 1
-			// 	} else {
-			// 		this.startfloor = '有电梯'
-			// 		this.floor1 = e.detail.value[1] + 1
-			// 	}
-			// 	this.multiIndex = e.detail.value;
-			// },
-			// MultiColumnChange: function(e) {
-			// 	let data = {
-			// 		multiIndex: this.multiIndex,
-			// 		multiArray: this.multiArray
-			// 	}
-			// 	selectchange(data, this, e.detail);
-			// },
-
-			// // 到达地址楼层选择
-			// MultiChange1: function(e) {
-			// 	if (e.detail.value[0] === 0) {
-			// 		this.endfloor = '无电梯'
-			// 		this.floor2 = e.detail.value[1] + 1
-			// 	} else {
-			// 		this.endfloor = '有电梯'
-			// 		this.floor2 = e.detail.value[1] + 1
-			// 	}
-			// 	this.multiIndex1 = e.detail.value;
-			// },
-			// MultiColumnChange1: function(e) {
-			// 	let data = {
-			// 		multiIndex: this.multiIndex1,
-			// 		multiArray: this.multiArray1
-			// 	}
-			// 	console.log(this.multiIndex1)
-			// 	console.log(this.multiArray1)
-			// 	this.selectchange(data, this, e.detail);
-			// },
-
 			goThrow: function() {
 				if (this.switchA == true || this.needCar == 1) {
 					//判断是否选择车辆类型
@@ -524,11 +520,9 @@
 					return;
 				}
 				
-				//判断是否选择电梯楼层
-				if (this.startfloor === null || this.endfloor === null ||
-					this.floor1 == null || this.floor2 == null) {
+				if(!this.check || !this.check1){
 					uni.showToast({
-						title: '请选择是否有电梯',
+						title: '请选择电梯楼层',
 						icon: "none"
 					})
 					return false;
@@ -583,10 +577,15 @@
 						payAmount: this.pay,
 						remark: this.textareaBValue,
 						throwMerchantInfoId: this.$mtAccount.info().merchantInfoId,
-						intoElevator: this.endfloor,
-						intoFloor: this.floor2,
-						outEleveator: this.startfloor,
-						outFloor: this.floor1,
+						// 搬入电梯
+						// }},{{},
+						intoElevator: this.checkNum1[0],
+						// 搬入电梯楼层
+						intoFloor: this.checkNum1[1],
+						// 搬出电梯
+						outEleveator: this.checkNum[0],
+						// 搬出电梯口曾
+						outFloor: this.checkNum[1],
 						vehicleRequired: this.needCar,
 						vehiceNumber: this.pickerNum[this.index1],
 						isItUrgent: this.sos,
@@ -652,30 +651,25 @@
 								// 搬运物品
 								this.textareaAValue = '',
 								// 注意事项
-								this.textareaBValue = ''
-								// 电梯楼层参数
-								// this.lc1 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-								// this.lc2 = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27,
-								// 	28, 29, 30
-								// ],
-								// // 出发地址电梯楼层
-								// this.startfloor = null,
-								// this.floor1 = null,
-								// this.multiArray = [
-								// 	['无电梯', '有电梯'],
-								// 	[]
-								// ],
-								// this.multiIndex = [0, 0],
-								// // 到达地址电梯楼层
-								// this.endfloor = null,
-								// this.floor2 = null,
-								// this.multiArray1 = [
-								// 	['无电梯', '有电梯'],
-								// 	[]
-								// ],
-								// this.multiIndex1 = [0, 0]
-								// this.multiArray[1] = this.lc1,
-								// this.multiArray1[1] = this.lc1
+								this.textareaBValue = '',
+								//搬出电梯
+								this.check=false,
+								this.multiArray=[
+									['无电梯', '有电梯'],
+									[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+								],
+								this.multiIndex=[0, 0],
+								this.checkNum=['无电梯',1],
+								
+								//搬入电梯
+								this.check=false,
+								this.multiArray1=[
+									['无电梯', '有电梯'],
+									[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+								],
+								this.multiIndex1=[0, 0],
+								this.checkNum1=['无电梯',1]
+								
 						} else {
 							uni.showToast({
 								title: res.message,
