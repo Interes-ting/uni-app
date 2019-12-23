@@ -141,7 +141,10 @@ export default {
 				if (data.state > 0) {
 					this.list = data.data
 					this.needPay = Number(this.list.payAmount) - Number(this.list.thowPlatformFee)
-					
+					this.list.payAmount =returnFloat(this.list.payAmount);
+					this.list.price =returnFloat(this.list.price);
+					this.list.thowPlatformFee =returnFloat(this.list.thowPlatformFee);
+					this.needPay =returnFloat(this.needPay);
 				} else {
 					//登录失败
 					uni.showToast({
@@ -156,8 +159,23 @@ export default {
 		},
 	
 	}
-};
-
+}
+function returnFloat(value) {
+		let number = Math.round(parseFloat(value) * 100) / 100;	
+		let s = value.toString().split(".");
+		if (s.length == 1) {
+			number = value.toString() + ".00";
+			return number;
+			console.log(number);
+		}
+		if (s.length > 1) {
+			if (s[1].length < 2) {
+				number = number.toString() + "0";
+			}
+			return number;
+			console.log(number);
+		}
+	}
 </script>
 
 <style lang="scss" scoped>

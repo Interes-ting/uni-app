@@ -23,15 +23,16 @@
 						<text class="text-grey">提现卡号：{{list.cardNo}}</text>
 					</view>
 					
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现开户行：{{list.cardBank}}</text>
+					<!-- 提现开户行 -->
+					<view class="mt-startcity" >
+						<view class="text-grey" style="float: left;">提现开户行：</view>
+						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.cardBank }}</view>
 					</view>
-					<view class="mt-startcity">
-						<view class="mt-placebox"></view>
-						<text class="text-grey">提现人姓名：{{list.names}}</text>
+					<!-- 提现人姓名 -->
+					<view class="mt-startcity" style="display: inline-block;">
+						<view class="text-grey" style="float: left;">提现人姓名：</view>
+						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.names }}</view>
 					</view>
-				
 					
 				</view>
 				
