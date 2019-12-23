@@ -22,7 +22,7 @@
 					<view class="mt-loginimge">修改密码:</view>
 				</view>
 				<view class="mt-input-input">
-					<input :type="inputType1"  class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
+					<input :type="inputType1" class="uni-input" v-model.trim="newpwd" placeholder="输入您的新密码" />
 				</view>
 				<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:60rpx;" v-if="eye1" @click="showPassword1"></text>
 				<view class='cuIcon-attention text-grey' style="position:absolute;right:60rpx;" @click="showPassword1" v-else></view>
@@ -114,7 +114,7 @@
 		},
 		methods: {
 			showPassword: function() { /*密码显示 */
-			
+
 				if (this.eye) {
 					this.eye = false
 					this.inputType = 'text'
@@ -167,9 +167,9 @@
 			},
 
 			registration() {
-				this.pwd = this.pwd.replace(/[, ]/g,'');
-				this.newpwd = this.newpwd.replace(/[, ]/g,'');
-				this.confirmpwd = this.confirmpwd.replace(/[, ]/g,'');
+				this.pwd = this.pwd.replace(/[, ]/g, '');
+				this.newpwd = this.newpwd.replace(/[, ]/g, '');
+				this.confirmpwd = this.confirmpwd.replace(/[, ]/g, '');
 				let user = {
 					pwd: this.pwd,
 					newpwd: this.newpwd,
@@ -296,17 +296,14 @@
 
 	/* 确认按钮宽度 */
 	.mt-loginbutn {
-		width: 70%;
 		height: 78rpx;
-		margin: 15% 15%;
-		border: 20;
+
 		font-size: 30rpx;
-		font-weight: 400;
-		padding: 60rpx 0 80rpx 0;
-		
+		margin: 20% 0;
 	}
 
 	.mt-loginbutndl {
+		width: 70%;
 		border-radius: 40rpx;
 		background: linear-gradient(to bottom, #6FAFFF, #1880FF);
 		/*设置按钮为渐变颜色*/
