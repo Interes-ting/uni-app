@@ -238,7 +238,7 @@
 				}
 			},
 			registration() {
-				
+				this.account = this.account.replace(/[, ]/g,'');
 				this.newpwd = this.newpwd.replace(/[, ]/g,'');
 				this.confirmpwd = this.confirmpwd.replace(/[, ]/g,'');
 				

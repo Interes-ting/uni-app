@@ -296,6 +296,7 @@
 
 			},
 			registration() {
+				this.phone = this.phone.replace(/[, ]/g,'');
 				this.pwd = this.pwd.replace(/[, ]/g, '');
 				this.confirmedcode = this.confirmedcode.replace(/[, ]/g, '');
 				let verificacode = {
