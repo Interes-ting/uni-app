@@ -303,7 +303,7 @@
 					content: '支付成功',
 					showCancel: false,
 					success: function() {
-						uni.navigateTo({
+						uni.reLaunch({
 							url: 'grabRecord'
 						});
 					}
