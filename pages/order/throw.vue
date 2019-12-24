@@ -105,8 +105,8 @@
 							<view class="flex-left">是否有电梯</view>
 							<view class="flex-right">
 								<picker mode="multiSelector" @change="MultiChange1" 
-								@columnchange="MultiColumnChange" :value="multiIndex"
-								 :range="multiArray">
+								@columnchange="MultiColumnChange1" :value="multiIndex1"
+								 :range="multiArray1">
 									<view class="picker-text" v-if="endfloor == null">
 										请选择
 										<text class="cuIcon-right righticon"></text>
@@ -244,23 +244,6 @@
 					[]
 				],
 				multiIndex1: [0, 0],
-				// //搬出电梯
-				// check:-1,
-				// multiArray: [
-				// 	['无电梯', '有电梯'],
-				// 	[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-				// ],
-				// multiIndex: [0, 0],
-    //             checkNum:['无电梯',1],
-
-				// //搬入电梯
-				// check1:-1,
-				// multiArray1: [
-				// 	['无电梯', '有电梯'],
-				// 	[1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-				// ],
-				// multiIndex1: [0, 0],
-				// checkNum1:['无电梯',1],
 				// 保存车辆信息数组
 				pieckId: [],
 				//客户名
@@ -283,11 +266,13 @@
 				time: '',
 				// 车辆选择参数
 				index: -1,
+				carIndex:-1,
 				pickerCar: [],
 				// 车辆id
 				carId: null,
 				// 车辆数量选择参数
 				index1: 0,
+				// carNumber:-1
 				pickerNum: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
 				// 人数选择参数
 				index3: 0,
@@ -389,50 +374,6 @@
 			this.checkCarType();
 		},
 		methods: {	
-			// // 搬出电梯楼层
-			// changeStartFloor: function(e) {
-			// 	this.check ++
-			//     this.multiIndex[e.detail.column] = e.detail.value;
-			//     if(this.multiIndex[0] === 1){
-			//         this.multiArray[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-			//             11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-			//             24, 25, 26, 27, 28, 29, 30];
-			//     }else {
-			//         this.multiArray[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-			//     }
-			//     if(this.multiIndex[0] === 0) {
-			// 		this.check = 0;
-			//        this.checkNum[0] = '无电梯';
-			//        this.checkNum[1] =  this.multiIndex[1] +1;
-			//     }else{
-			// 		this.check++
-			//         this.checkNum[0] = '有电梯'
-			//         this.checkNum[1] =  this.multiIndex[1] +1
-			//     }
-			//     this.$forceUpdate();  //强制重新渲染
-			// },
-			
-			// // 搬入电梯楼层
-			// changeEndFloor: function(e) {
-			// 	this.check1 ++;
-			//     this.multiIndex1[e.detail.column] = e.detail.value;
-			//     if(this.multiIndex1[0] === 1){
-			//         this.multiArray1[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
-			//             11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23,
-			//             24, 25, 26, 27, 28, 29, 30];
-			//     }else {
-			//         this.multiArray1[1] = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-			//     }
-			//     if(this.multiIndex1[0] === 0) {
-		     	  
-			//        this.checkNum1[0] = '无电梯'
-			//        this.checkNum1[1] =  this.multiIndex1[1] +1
-			//     }else{
-			//         this.checkNum1[0] = '有电梯'
-			//         this.checkNum1[1] =  this.multiIndex1[1] +1
-			//     }
-			//     this.$forceUpdate();  //强制重新渲染
-			// },
 			// 出发地址楼层选择
 			MultiChange: function(e) {
 				if (e.detail.value[0] === 0) {
@@ -450,6 +391,7 @@
 					multiArray: this.multiArray
 				}
 				selectchange(data, this, e.detail)
+				this.$forceUpdate();
 			},
 
 			// 到达地址楼层选择
@@ -462,6 +404,7 @@
 					this.floor2 = e.detail.value[1] + 1
 				}
 				this.multiIndex1 = e.detail.value;
+				this.$forceUpdate();
 			},
 			MultiColumnChange1: function(e) {
 				let data = {
@@ -469,6 +412,7 @@
 					multiArray: this.multiArray1
 				}
 				selectchange(data, this, e.detail)
+				this.$forceUpdate(); //强制刷新，解决页面不会重新渲染的问题
 			},
 
 			
@@ -504,11 +448,11 @@
 			
 			// 车辆类型
 			PickerChange: function(e) {
-				if (e.detail.value <= 0) {
-					e.detail.value = 0
-				}
+				// if (e.detail.value <= 0) {
+				// 	e.detail.value = 0
+				// }
+				this.index = 0
 				this.index = e.detail.value
-				this.show = e.detail.value
 				this.pieckId.forEach((item, index) => {
 					if (item.name === this.pickerCar[this.index]) {
 						this.carId = item.id;
@@ -540,10 +484,10 @@
 					this.needCar = 1 //true
 				} else {
 					// this.index = 0
+					this.carIndex = -1
 					this.needCar = 0 //false
-					this.carId = '' //车辆类型为空
-					this.index = -1
-					//车辆类型信息为空
+					this.carId = ''  //车辆类型为空
+					this.index = -1 //车辆类型信息为空
 				};
 				this.pickerCar[this.index];
 			},
@@ -762,7 +706,8 @@
 									['无电梯', '有电梯'],
 									[]
 								],
-								this.multiIndex1=[0, 0]
+								this.multiIndex1=[0, 0],
+								this.checkCarType();
 								
 						} else {
 							uni.showToast({
@@ -807,9 +752,12 @@
 					break;
 				case 1:
 					data.multiArray[1] = lcarry.lc2;
+					
 					break;
 			}
 		}
+		console.log(data.multiArray[1]);
+		
 	};
 </script>
 

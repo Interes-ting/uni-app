@@ -13,7 +13,9 @@
 					<text class="red">*</text>
 					银行卡号
 				</view>
-				<input type="number" placeholder="请输入银行卡账号" placeholder-class="place" v-model="cardname" maxlength="19" />
+				<input type="number" 
+				placeholder="请输入银行卡账号" placeholder-class="place" 
+				v-model="cardname" maxlength="19"  @input="bankeChange"/>
 			</view>
 			<view class="sheet">
 				<view class="titlee">
@@ -78,6 +80,11 @@ export default {
 	},
 
 	methods: {
+		
+		bankeChange:function(){  //去除空格
+			this.customPhone = e.detail.value.replace(/[, ]/g,'');
+			return this.customPhone;
+		},
 		inpost: function() {
 			this.$mtRequest.get(
 				this.$mtConfig.getPlatformUrl('/api/bank_card/get'), {
