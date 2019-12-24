@@ -15,7 +15,7 @@
 						<view class="flex-left">车辆类型</view>
 						<view class="flex-right">
 							<picker @change="PickerChange" :value="index" :range="pickerCar">
-								<view class="picker-text">{{index > -1 ?  pickerCar[index] : '请选择'}}
+								<view class="picker-text">{{ pickerCar[index]}}
 									<text class="cuIcon-right righticon"></text>
 								</view>
 							</picker>
@@ -262,12 +262,11 @@
 				pay: '',
 				// //平台服务费
 				fuwufei: null,
-				// 搬家时间
+				// 搬家时间 
 				time: '',
 				// 车辆选择参数
-				index: -1,
-				carIndex:-1,
-				pickerCar: [],
+				index: 0,
+				pickerCar: ['请选择'],
 				// 车辆id
 				carId: null,
 				// 车辆数量选择参数
@@ -458,6 +457,7 @@
 						this.carId = item.id;
 					}
 				})
+				console.log(this.pickerCar[this.index]);
 			},
 
 			// 车辆数量选择
@@ -484,10 +484,9 @@
 					this.needCar = 1 //true
 				} else {
 					// this.index = 0
-					this.carIndex = -1
 					this.needCar = 0 //false
 					this.carId = ''  //车辆类型为空
-					this.index = -1 //车辆类型信息为空
+					this.index = 0 //车辆类型信息为空
 				};
 				this.pickerCar[this.index];
 			},
@@ -531,7 +530,7 @@
 			goThrow: function() {
 				if (this.switchA == true || this.needCar == 1) {
 					//判断是否选择车辆类型
-					if (this.pickerCar[this.index] === undefined) {
+					if (this.pickerCar[this.index] === '请选择') {
 						uni.showToast({
 							title: '请选择车辆类型',
 							icon: "none"
@@ -756,8 +755,6 @@
 					break;
 			}
 		}
-		console.log(data.multiArray[1]);
-		
 	};
 </script>
 
