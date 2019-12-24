@@ -25,8 +25,8 @@
 						<input :type="inputType" class="uni-input" v-model.trim="newpwd" placeholder="输入您的密码" />
 
 					</view>
-					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye" @click="showPassword"></text>
-					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;" @click="showPassword" v-else></view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:20rpx;width: 78rpx;" v-if="eye" @click="showPassword"></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:20rpx;width: 78rpx;" @click="showPassword" v-else></view>
 				</view>
 			</view>
 			<view class="mt-in">
@@ -37,8 +37,8 @@
 					<view class="mt-input-input">
 						<input :type="inputType1"  class="uni-input" v-model.trim="confirmpwd" placeholder="再次确认密码" />
 					</view>
-					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:40rpx;" v-if="eye1" @click="showPassword1"></text>
-					<view class='cuIcon-attention text-grey' style="position:absolute;right:40rpx;" @click="showPassword1" v-else></view>
+					<text class='cuIcon-attentionforbid text-grey' style="position:absolute;right:20rpx;width: 78rpx;" v-if="eye1" @click="showPassword1"></text>
+					<view class='cuIcon-attention text-grey' style="position:absolute;right:20rpx;width: 78rpx;" @click="showPassword1" v-else></view>
 				</view>
 			</view>
 

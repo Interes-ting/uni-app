@@ -29,7 +29,7 @@
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.cardBank }}</view>
 					</view>
 					<!-- 提现人姓名 -->
-					<view class="mt-startcity" style="display: inline-block;">
+					<view class="mt-startcity">
 						<view class="text-grey" style="float: left;">提现人姓名：</view>
 						<view class="text-grey" style="float: left;word-break: break-all;width: 74%;">{{ list.names }}</view>
 					</view>

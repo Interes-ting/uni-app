@@ -22,8 +22,8 @@
 						<input :type="inputType" onKeypress="javascript:if(event.keyCode == 32)event.returnValue = false;"  class="uni-input" placeholder-class="white-input-placeholder" placeholder="请输入账户密码"
 						 v-model.trim="password" />
 					</view>
-					<text class='cuIcon-attentionforbid text-grey' style="padding-right: 35rpx;color: #FFFFFF;" v-if="eye" @click="showPassword"></text>
-					<view class='cuIcon-attention text-grey' style="padding-right: 35rpx; color: #FFFFFF;" @click="showPassword" v-else></view>
+					<text class='cuIcon-attentionforbid text-grey' style="height: 78rpx;line-height: 78rpx;width: 100rpx; text-align: center; color: #FFFFFF;" v-if="eye" @click="showPassword"></text>
+					<view class='cuIcon-attention text-grey' style="height: 78rpx;line-height: 78rpx;width: 100rpx;text-align: center; color: #FFFFFF;" @click="showPassword" v-else></view>
 				</view>
 			</view>
 

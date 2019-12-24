@@ -222,7 +222,9 @@
 		width: 100%;
 
 	}
-
+	.cuIcon-attention:before{
+		widows: 53.33rpx !important;
+	}
 	page {
 		height: 100%;
 		background: #000000;
@@ -231,7 +233,7 @@
 
 	.uni-input {
 		display: flex;
-		width: 90%;
+		width: 70%;
 		font-size: 25rpx;
 		height: 78rpx;
 		line-height: 78rpx;
@@ -241,7 +243,7 @@
 		height: 78rpx;
 		line-height: 78rpx;
 		text-align: left;
-		width: 100%;
+		width: 50%;
 		background-color: #FFFFFF;
 
 	}
