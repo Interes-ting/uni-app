@@ -83,7 +83,7 @@
 				<view class="mt-startcity" v-if="oderList.goods" style="display: inline-block;">
 					<view class="text-grey" style="float: left;width: 24%;padding-left: 36rpx;">抢单公司：</view>
 					<view class="text-grey" style="float: left;word-break: break-all;width: 76%;">
-					{{ oderList.throwCompanyName }}
+					{{ oderList.robCompanyName }}
 					</view>
 				</view>
 				<!-- 搬运物品 -->
